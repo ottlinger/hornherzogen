@@ -69,8 +69,8 @@
                 <label class="control-label" for="week">Welche Woche?</label>
                 <div class="controls">
                   <select id="week">
-                    <option value="horn2012w1">1.Woche - ab Sa, 2012-06-17</option>
-                    <option value="horn2012w2">2.Woche - ab Sa, 2012-06-24</option>
+                    <option value="horn2012w1">1.Woche - ab Sa, 2017-06-18</option>
+                    <option value="horn2012w2">2.Woche - ab Sa, 2017-06-25</option>
                   </select>
                   <p class="help-block">Bitte die gewünschte Lehrgangswoche festlegen.</p>
                 </div>
