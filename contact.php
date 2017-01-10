@@ -75,7 +75,7 @@
       </div>
 
       <div class="starter-template">
-        <h1>Noch Fragen?</h1>
+        <h1>Noch Fragen? Lob oder Kritik?</h1>
         <p class="lead">Um uns zu kontaktieren<br>am einfachsten eine <a href="mailto:">Mail</a> schreiben.</p>
 	      <p>Today is <?php echo date('Y-m-d H:i:s');?></p>
       </div>

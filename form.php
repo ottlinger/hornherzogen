@@ -58,7 +58,7 @@
     <div class="container theme-showcase">
       <div class="starter-template">
         <h1>Herzogenhorn 2017</h1>
-        <p class="lead">Mit diesem Formular könnt Ihr Euch verbindlich <br />für eine der beiden Lehrgangswochen auf dem Herzogenhorn mit Meister Shimizu anmelden.<br> Die Ausschreibung findet sich <a href="" target="_blank">hier</a>.</p>
+        <p class="lead">Bitte das Formular ausfüllen und absenden<br />und die Bestätigungsmail abwarten.</p>
 	      <p>Today is <?php echo date('Y-m-d H:i:s');?></p>
 
 
@@ -80,7 +80,7 @@
 
             <fieldset>
               <legend>Persönliche Daten</legend>
-    <!-- class="error" hinzufügen bei Fehlern -->
+
              <div class="form-group">
               <label for="vorname" class="col-sm-2 control-label">Vorname</label>
               <div class="col-sm-10">

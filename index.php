@@ -61,9 +61,11 @@
     <div class="container">
       <div class="starter-template">
         <h1><span class="glyphicon glyphicon-dashboard"></span> Herzlich Willkommen</h1>
-        <p class="lead">Auf diesen Seiten kann man sich für den Herzogenhornlehrgang 2017 anmelden. <br />Die Anmeldung läuft über die Berliner Aikidoka.</p>
+        <p>Auf diesen Seiten kann man sich für den Herzogenhornlehrgang 2017 anmelden. <br />Die Anmeldung läuft über die Berliner Aikidoka.<br />
+        <br> Die Ausschreibung findet sich <a href="" target="_blank">hier</a>.
+        </p>
+        <p class="lead"><a href="form.php"><span class="glyphicon glyphicon-hand-right"></span> Weiter zur Anmeldung</a></p>
         <p>Die aktuelle Zeit lautet: <?php echo date('Y-m-d H:i:s');?></p>
-        <p><a href="form.php"><span class="glyphicon glyphicon-hand-right"></span> Weiter zur Anmeldung</a></p>
       </div>
     </div>
 
