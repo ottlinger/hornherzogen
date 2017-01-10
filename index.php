@@ -55,75 +55,86 @@
       </div>
     </nav>
 
-    <div class="container">
-
+    <div class="container theme-showcase">
       <div class="starter-template">
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
 	      <p>Today is <?php echo date('Y-m-d H:i:s');?>
 
     <form class="form-horizontal">
-            <fieldset>
+      <div class="form-group">
               <legend>Lehrgangsauswahl</legend>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="week">Welche Woche?</label>
                 <div class="controls">
-                  <select id="week">
+                  <select class="form-control" id="week">
                     <option value="horn2012w1">1.Woche - ab Sa, 2017-06-18</option>
-                    <option value="horn2012w2">2.Woche - ab Sa, 2017-06-25</option>
+                    <option value="horn2012w2">2.Woche - ab Sa, 2017-06-25
+                    </option>
                   </select>
                   <p class="help-block">Bitte die gewünschte Lehrgangswoche festlegen.</p>
                 </div>
     			 </div>
-    			</fieldset>
+         </div>
 
             <fieldset>
               <legend>Persönliche Daten</legend>
     <!-- class="error" hinzufügen bei Fehlern -->
-              <div class="control-group">
-                <?php /* via JS username will be printed in the login block */ ?>
+              <div class="form-group">
                 <label class="control-label" for="vorname">Vorname</label>
                 <div class="controls ">
                   <input type="text" class="input-xlarge" id="vorname">
                   <p class="help-block">Bitte Vornamen eingeben.</p>
                 </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Bitte Vorname eingeben." aria-describedby="basic-addon2">
+                </div>
     			 </div>
-              <div class="control-group">
+
+           <div class="form-group">
+              <label for="vorname" class="col-sm-2 control-label">Vorname</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="vorname" placeholder="Bitte Vorname eingeben.">
+              </div>
+            </div>
+
+
+              <div class="form-group">
                 <label class="control-label" for="nachname">Name</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="nachname">
                   <p class="help-block">Bitte Name eingeben.</p>
                 </div>
     			 </div>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="street">Straße</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="street">
                   <p class="help-block">Bitte Straße eingeben.</p>
                 </div>
     			 </div>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="houseno">Nr.</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="houseno">
                   <p class="help-block">Bitte Hausnummer komplett eingeben.</p>
                 </div>
     			 </div>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="plz">PLZ</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="plz">
                   <p class="help-block">Bitte Postleitzahl eingeben.</p>
                 </div>
     			 </div>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="loc">Ort</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="loc">
                   <p class="help-block">Bitte Ort eingeben.</p>
                 </div>
     			 </div>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="email">E-Mail</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="email">
@@ -131,14 +142,14 @@
                 </div>
     			 </div>
     <!-- TODO vergangenheit auswählen -->
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="datepicker">Geburtsdatum Test mit falschem Picker</label>
                 <div class="controls">
                   <input type="text" id="datepicker" size="30"/>
                   <p class="help-block">Bitte Geburtsdatum auswählen.</p>
                 </div>
 
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="g_day">Geburtsdatum</label>
                 <div class="controls">
                   <select id="g_day">
@@ -167,7 +178,7 @@
                 </div>
     			 </div>
 
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="grad">Graduierung</label>
                 <div class="controls">
                   <select id="grad">
@@ -196,7 +207,7 @@
                 </div>
     			 </div>
 
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="twano">Mitgliedsnummer (twa)</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="twano">
@@ -207,7 +218,7 @@
 
              <fieldset>
               <legend>Daten zur Unterkunft</legend>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="room">Zimmertyp</label>
                 <div class="controls">
                   <select id="room">
@@ -217,9 +228,7 @@
                   <p class="help-block">Bitte die Zimmerkategorie festlegen.</p>
                 </div>
     			 </div>
-
-
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="together1">Zusammenlegungswunsch</label>
                 <div class="controls">
                   <input type="text" class="input-xlarge" id="together1">
@@ -231,7 +240,7 @@
                 </div>
     			 </div>
 
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label">Essenswunsch</label>
                 <div class="controls">
                   <label class="radio">
@@ -245,7 +254,7 @@
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label">Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
                 <div class="controls">
                   <label class="radio">
@@ -259,24 +268,23 @@
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label" for="additionals">Bemerkungen / Wünsche</label>
                 <div class="controls">
                   <textarea class="input-xlarge" id="additionals" rows="13"></textarea>
                 </div>
               </div>
-              <div class="form-actions">
-               <button type="submit" class="btn btn-primary" title="Anmeldung verbindlich machen" data-content="And here's some amazing content. It's very engaging. right?">Anmeldevorgang einleiten</button>
-               <button type="reset" class="btn btn-danger" >Alle Eingaben löschen</button>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary" title="Anmeldung verbindlich machen" data-content="And here's some amazing content. It's very engaging. right?">Anmeldevorgang einleiten</button>
+                  <button type="reset" class="btn btn-danger" >Alle Eingaben löschen</button>
+                </div>
               </div>
+
+
             </fieldset>
           </form>
-
-
-
-
-
-
       </div>
 
     </div><!-- /.container -->
