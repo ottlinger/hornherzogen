@@ -9,7 +9,7 @@
     <meta name="author" content="OTG">
     <link rel="icon" href="./favicon.ico">
 
-    <title>Kontakt</title>
+    <title>Herzogenhorn 2017 - Fragen / Kontakt</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -44,12 +44,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Herzogenhorn 2017</a>
+          <a class="navbar-brand" href="./index.php"><span class="glyphicon glyphicon-tree-conifer"></span> Herzogenhorn 2017</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="./index.php">Home</a></li>
-            <li class="active"><a href="./contact.php">Contact</a></li>
+            <li><a href="./index.php"><span class="glyphicon glyphicon-home"></span> Anmeldung</a></li>
+            <li class="active"><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> Fragen</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><span class="glyphicon glyphicon-education"></span><?php echo date('Y-m-d H:i:s');?></li>
@@ -60,9 +60,24 @@
 
     <div class="container">
       <div class="starter-template">
-        <h1>Kontakt</h1>
-        <p class="lead">Um uns zu kontaktieren<br>am einfachsten eine Mail schreiben.</p>
-	      <p>Today is <?php echo date('Y-m-d H:i:s');?>
+        <h1><span class="glyphicon glyphicon-send"></span> Anmeldung</h1>
+        <p class="lead">Die Ausschreibung gibt es seit 2017-02-xx,<br>bitte für die jeweilige Lehrgangswoche <a href="form.php">elektronisch</a> anmelden und per E-Mail bestätigen.</p>
+      </div>
+
+      <div class="starter-template">
+        <h1><span class="glyphicon glyphicon-paperclip"></span> Buchungsbestätigung</h1>
+        <p class="lead">Sobald die Ausschreibungsfrist zum 2017-03-xx endet,<br>senden wir die Anmeldebestätigungen mit Zahlungsaufforderung zu.</p>
+      </div>
+
+      <div class="starter-template">
+        <h1><span class="glyphicon glyphicon-usd"></span> Zahlungseingang</h1>
+        <p class="lead">Sobald die Zahlung der Lehrgangsgebühr eingegangen ist,<br>übersenden wir eine Rechnung und die finale Teilnahmebestätigung.</p>
+      </div>
+
+      <div class="starter-template">
+        <h1>Noch Fragen?</h1>
+        <p class="lead">Um uns zu kontaktieren<br>am einfachsten eine <a href="mailto:">Mail</a> schreiben.</p>
+	      <p>Today is <?php echo date('Y-m-d H:i:s');?></p>
       </div>
 
     </div><!-- /.container -->
