@@ -57,123 +57,140 @@
 
     <div class="container theme-showcase">
       <div class="starter-template">
-        <h1>Herzogenhorn 2017</h1>
+        <h1><span class="glyphicon glyphicon-sunglasses"></span> Herzogenhorn 2017</h1>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br />und die Bestätigungsmail abwarten.</p>
 	      <p>Today is <?php echo date('Y-m-d H:i:s');?></p>
 
 
     <form class="form-horizontal">
       <div class="form-group">
-              <legend>Lehrgangsauswahl</legend>
+              <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
               <div class="form-group">
-                <label class="control-label" for="week">Welche Woche?</label>
-                <div class="controls">
+                <label class="col-sm-2 control-label" for="week">Welche Woche</label>
+                <div class="col-sm-10">
                   <select class="form-control" id="week">
-                    <option value="horn2012w1">1.Woche - ab Sa, 2017-06-18</option>
-                    <option value="horn2012w2">2.Woche - ab Sa, 2017-06-25
-                    </option>
+                    <option value="horn-w1">1.Woche - ab Samstag, den 2017-06-18</option>
+                    <option value="horn-w2">2.Woche - ab Samstag, den 2017-06-25</option>
                   </select>
-                  <p class="help-block">Bitte die gewünschte Lehrgangswoche festlegen.</p>
                 </div>
     			 </div>
          </div>
 
-            <fieldset>
-              <legend>Persönliche Daten</legend>
+         <div class="form-group">
+           <label for="flexible" class="col-sm-2 control-label">Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
+           <div class="col-sm-10">
+             <div class="radio">
+               <label>
+                 <input type="radio" name="flexible" id="no" value="no" checked>
+                 Ich kann nur in dieser Woche am Lehrgang teilnehmen.
+               </label>
+             </div>
+             <div class="radio">
+               <label>
+                 <input type="radio" name="flexible" id="yes" value="yes">
+                 Ich bin flexibel, <strong>falls</strong> diese Woche überbucht ist.
+               </label>
+             </div>
+           </div>
+         </div>
 
              <div class="form-group">
+               <legend>Persönliche Daten</legend>
               <label for="vorname" class="col-sm-2 control-label">Vorname</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="vorname" placeholder="Bitte Vorname eingeben.">
+                <input type="text" class="form-control" id="vorname" placeholder="Bitte Vorname eingeben.">
               </div>
             </div>
 
+            <div class="form-group">
+             <label for="nachname" class="col-sm-2 control-label">Nachname</label>
+             <div class="col-sm-10">
+               <input type="text" class="form-control" id="nachname" placeholder="Bitte Nachname eingeben.">
+             </div>
+           </div>
 
-              <div class="form-group">
-                <label class="control-label" for="nachname">Name</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="nachname">
-                  <p class="help-block">Bitte Name eingeben.</p>
-                </div>
-    			 </div>
-              <div class="form-group">
-                <label class="control-label" for="street">Straße</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="street">
-                  <p class="help-block">Bitte Straße eingeben.</p>
-                </div>
-    			 </div>
-              <div class="form-group">
-                <label class="control-label" for="houseno">Nr.</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="houseno">
-                  <p class="help-block">Bitte Hausnummer komplett eingeben.</p>
-                </div>
-    			 </div>
-              <div class="form-group">
-                <label class="control-label" for="plz">PLZ</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="plz">
-                  <p class="help-block">Bitte Postleitzahl eingeben.</p>
-                </div>
-    			 </div>
-              <div class="form-group">
-                <label class="control-label" for="loc">Ort</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="loc">
-                  <p class="help-block">Bitte Ort eingeben.</p>
-                </div>
-    			 </div>
-              <div class="form-group">
-                <label class="control-label" for="email">E-Mail</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="email">
-                  <p class="help-block">Bitte E-Mail-Adresse für Bestätigungen eingeben.</p>
-                </div>
-    			 </div>
-    <!-- TODO vergangenheit auswählen -->
-              <div class="form-group">
-                <label class="control-label" for="datepicker">Geburtsdatum Test mit falschem Picker</label>
-                <div class="controls">
-                  <input type="text" id="datepicker" size="30"/>
-                  <p class="help-block">Bitte Geburtsdatum auswählen.</p>
-                </div>
+          <p>Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:</p>
 
-              <div class="form-group">
-                <label class="control-label" for="g_day">Geburtsdatum</label>
-                <div class="controls">
-                  <select id="g_day">
-                    <option value="">Tag</option>
-                    <?php
-    for ($i = 1; $i <= 31; $i++) {
-        echo "<option>".$i."</option>";
-    }
-    ?>
-                  </select>
-                  <select id="g_month">
-                    <option value="">Monat</option>
-                    <?php
-                    /** TODO add i18n here
-                    // prints something like: 2000-07-01T00:00:00+00:00
-                    echo date(DATE_ATOM, mktime(0, 0, 0, 7, 1, 2000));
-                    */
-                    date_default_timezone_set('UTC');
-    for ($i = 1; $i <= 12; $i++) {
-        echo "<option>".date("F", mktime(0, 0, 0, $i, 1, 2012))."</option>";
-    }
-    ?>
-                  </select>
-                  <input type="text" class="input-xlarge" id="g_year">
-                  <p class="help-block">Bitte das Geburtsjahr 4stellig eingeben.</p>
-                </div>
-    			 </div>
+           <div class="form-group">
+            <label for="street" class="col-sm-2 control-label">Straße</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="street" placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben.">
+            </div>
+          </div>
 
+          <div class="form-group">
+           <label for="houseno" class="col-sm-2 control-label">Hausnummer</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="houseno" placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben.">
+           </div>
+         </div>
+
+         <div class="form-group">
+          <label for="plz" class="col-sm-2 control-label">PLZ</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="plz" placeholder="Bitte die PLZ eingeben.">
+          </div>
+        </div>
+
+        <div class="form-group">
+         <label for="city" class="col-sm-2 control-label">Ort</label>
+         <div class="col-sm-10">
+           <input type="text" class="form-control" id="city" placeholder="Bitte den Wohnort eingeben.">
+         </div>
+       </div>
+
+         <div class="form-group">
+          <label for="country" class="col-sm-2 control-label">Land</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="country" placeholder="Bitte das Land eingeben.">
+          </div>
+        </div>
+
+        <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese doppelt ein:</p>
+        <div class="form-group">
+         <label for="email" class="col-sm-2 control-label">E-Mail</label>
+         <div class="col-sm-10">
+           <input type="email" class="form-control" id="email" placeholder="Bitte Mailadresse eingeben.">
+         </div>
+       </div>
+       <div class="form-group">
+        <label for="emailcheck" class="col-sm-2 control-label">E-Mail-Bestätigung</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="emailcheck" placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein.">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <legend>Aikidodaten</legend>
+       <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt:</label>
+       <div class="col-sm-10">
+         <input type="text" class="form-control" id="dojo" placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?">
+       </div>
+     </div>
+
+     <div class="form-group">
+      <label for="twano" class="col-sm-2 control-label">Mitgliedsnummer (twa)</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="twano" placeholder="Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!">
+      </div>
+    </div>
+
+<!-- TODO -->
               <div class="form-group">
                 <label class="control-label" for="grad">Graduierung</label>
                 <div class="controls">
                   <select id="grad">
-                    <option>1.Kyu</option>
+                    <option>6.Dan</option>
+                    <option>5.Dan</option>
+                    <option>4.Dan</option>
+                    <option>3.Dan</option>
+                    <option>2.Dan</option>
                     <option>1.Dan</option>
+                    <option>1.Kyu</option>
+                    <option>2.Kyu</option>
+                    <option>3.Kyu</option>
+                    <option>4.Kyu</option>
+                    <option>5.Kyu</option>
                   </select>
                   <p class="help-block">Bitte die aktuelle Graduierung auswählen.</p>
                 </div>
@@ -196,74 +213,58 @@
                   <p class="help-block">Bitte angeben, seit wann die aktuelle Graduierung besteht.</p>
                 </div>
     			 </div>
+<!-- END OF TODO -->
 
               <div class="form-group">
-                <label class="control-label" for="twano">Mitgliedsnummer (twa)</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="twano">
-                  <p class="help-block">Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden.</p>
-                </div>
-    		 </div>
-    		</fieldset>
-
-             <fieldset>
-              <legend>Daten zur Unterkunft</legend>
-              <div class="form-group">
-                <label class="control-label" for="room">Zimmertyp</label>
-                <div class="controls">
-                  <select id="room">
+                <legend>Daten zur Unterkunft</legend>
+                <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen.</label>
+                <div class="col-sm-10">
+                  <select class="form-control" id="room">
                     <option >2-Bett Zimmer Dusche und WC</option>
-                    <option value="together22" selected>3-Bett Zimmer Dusche und WC</option>
+                    <option value="together2" selected>3-Bett Zimmer Dusche und WC</option>
                   </select>
-                  <p class="help-block">Bitte die Zimmerkategorie festlegen.</p>
-                </div>
-    			 </div>
-              <div class="form-group">
-                <label class="control-label" for="together1">Zusammenlegungswunsch</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="together1">
-                  <p class="help-block">Mit wem soll das Zimmer geteilt werden - Person 1</p>
-                </div>
-                <div id="together22" class="controls">
-                  <input type="text" class="input-xlarge" id="together2">
-                  <p class="help-block">Mit wem soll das Zimmer geteilt werden - Person 2</p>
-                </div>
-    			 </div>
-
-              <div class="form-group">
-                <label class="control-label">Essenswunsch</label>
-                <div class="controls">
-                  <label class="radio">
-                    <input type="radio" name="essen" id="meat" value="meat" checked>
-                    normale Kost (mit Fleisch)
-                  </label>
-                  <label class="radio">
-                    <input type="radio" name="essen" id="veg" value="veg">
-                    vegetarische Kost (ohne Fleisch)
-                  </label>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label">Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
-                <div class="controls">
-                  <label class="radio">
-                    <input type="radio" name="flexible" id="no" value="no" checked>
-                    Ich kann nur in dieser Woche am Lehrgang teilnehmen.
-                  </label>
-                  <label class="radio">
-                    <input type="radio" name="flexible" id="yes" value="yes">
-                    Ich bin flexibel, <strong>falls</strong> diese Woche überbucht ist.
-                  </label>
+               <label for="together1" class="col-sm-2 control-label">Mit wem soll das Zimmer geteilt werden - Person 1</label>
+               <div class="col-sm-10">
+                 <input type="text" class="form-control" id="together1" placeholder="Bitte den kompletten Namen angeben.">
+               </div>
+             </div>
+
+             <div class="form-group">
+              <label for="together2" class="col-sm-2 control-label">Mit wem soll das Zimmer geteilt werden - Person 2</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="together2" placeholder="Bitte den kompletten Namen angeben.">
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label for="essen" class="col-sm-2 control-label">Essenswunsch</label>
+                <div class="col-sm-10">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="essen" id="meat" value="meat" checked>
+                      normale Kost (mit Fleisch)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="essen" id="veg" value="veg">
+                      vegetarische Kost (ohne Fleisch)
+                    </label>
+                  </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label" for="additionals">Bemerkungen / Wünsche</label>
-                <div class="controls">
-                  <textarea class="input-xlarge" id="additionals" rows="13"></textarea>
-                </div>
-              </div>
+                <legend>Sonstiges</legend>
+               <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten:</label>
+               <div class="col-sm-10">
+                 <textarea class="form-control" id="additionals" rows="13"></textarea>
+               </div>
+             </div>
 
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -271,9 +272,6 @@
                   <button type="reset" class="btn btn-danger" >Alle Eingaben löschen</button>
                 </div>
               </div>
-
-
-            </fieldset>
           </form>
       </div>
 
