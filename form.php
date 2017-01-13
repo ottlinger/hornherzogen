@@ -234,7 +234,7 @@
                </div>
              </div>
 
-             <div class="form-group">
+             <div class="form-group" id="together2-group">
               <label for="together2" class="col-sm-2 control-label">Mit wem soll das Zimmer geteilt werden - Person 2</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="together2" placeholder="Bitte den kompletten Namen angeben.">
@@ -287,5 +287,6 @@
     <script src="./js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>
