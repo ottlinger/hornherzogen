@@ -281,12 +281,13 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<p>submitted</p>";
 
-            $name = test_input($_POST["name"]);
+            $nachname = test_input($_POST["nachname"]);
             $email = test_input($_POST["email"]);
-            $website = test_input($_POST["website"]);
-            $comment = test_input($_POST["comment"]);
             $grad = test_input($_POST["grad"]);
-            echo $grad;
+            echo '<p>Hello ' . htmlspecialchars($_POST["vorame"]) . ' '. htmlspecialchars($_POST["nachname"]) . '!';
+            echo 'Hellau ' . $nachname . '!</p>';
+            var_dump($_POST['nachname']);
+            var_dump($_POST);
         }
 
         function test_input($data)
@@ -296,6 +297,7 @@
             $data = htmlspecialchars($data);
             return $data;
         }
+
         ?>
 
 
