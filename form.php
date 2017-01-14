@@ -231,8 +231,8 @@
         <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen und Zusammenlegungswünsche angeben</label>
         <div class="col-sm-10">
           <select class="form-control" id="room">
-            <option value="2bed">2-Bett Zimmer Dusche und WC</option>
-            <option value="3bed" selected>3-Bett Zimmer Dusche und WC</option>
+            <option value="2bed">2-Bett Zimmer</option>
+            <option value="3bed" selected>3-Bett Zimmer</option>
           </select>
         </div>
       </div>
