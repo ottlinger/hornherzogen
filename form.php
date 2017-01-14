@@ -176,117 +176,127 @@
       </div>
     </div>
 
-<!-- TODO -->
-              <div class="form-group">
-                <label class="control-label" for="grad">Graduierung</label>
-                <div class="controls">
-                  <select id="grad">
-                    <option>6.Dan</option>
-                    <option>5.Dan</option>
-                    <option>4.Dan</option>
-                    <option>3.Dan</option>
-                    <option>2.Dan</option>
-                    <option>1.Dan</option>
-                    <option>1.Kyu</option>
-                    <option>2.Kyu</option>
-                    <option>3.Kyu</option>
-                    <option>4.Kyu</option>
-                    <option>5.Kyu</option>
-                  </select>
-                  <p class="help-block">Bitte die aktuelle Graduierung auswählen.</p>
-                </div>
-                <label class="control-label" for="gsince_month">Graduiert seit</label>
-                <div class="controls">
-                  <select id="gsince_month">
-                    <option value="">Monat</option>
-                    <?php
-                    /** TODO add i18n here
-                    // prints something like: 2000-07-01T00:00:00+00:00
-                    echo date(DATE_ATOM, mktime(0, 0, 0, 7, 1, 2000));
-                    */
-                    date_default_timezone_set('UTC');
-    for ($i = 1; $i <= 12; $i++) {
-        echo "<option>".date("F", mktime(0, 0, 0, $i, 1, 2012))."</option>";
-    }
-    ?>
-                  </select>
-                  <input type="text" class="input-xlarge" id="gsince_year">
-                  <p class="help-block">Bitte angeben, seit wann die aktuelle Graduierung besteht.</p>
-                </div>
-    			 </div>
-<!-- END OF TODO -->
+    <div class="form-group">
+     <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung</label>
+     <div class="col-sm-10">
+       <select class="form-control" id="grad">
+         <option>6.Dan</option>
+         <option>5.Dan</option>
+         <option>4.Dan</option>
+         <option>3.Dan</option>
+         <option>2.Dan</option>
+         <option selected>1.Dan</option>
+         <option>1.Kyu</option>
+         <option>2.Kyu</option>
+       </select>
+     </div>
+   </div>
 
-              <div class="form-group">
-                <legend>Daten zur Unterkunft</legend>
-                <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen.</label>
-                <div class="col-sm-10">
-                  <select class="form-control" id="room">
-                    <option >2-Bett Zimmer Dusche und WC</option>
-                    <option value="together2" selected>3-Bett Zimmer Dusche und WC</option>
-                  </select>
-                </div>
-              </div>
+  <div class="form-group">
+   <label for="twano" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung besteht.</label>
+   <div class="col-sm-10">
+     <div class="bfh-datepicker" data-format="y-m-d" data-date="<?php echo date('Y-m-d');?>">
+       <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
+         <span class="add-on"><i class="icon-calendar"></i></span>
+         <input type="text" class="input-medium" id="gsince" readonly>
+       </div>
+       <div class="bfh-datepicker-calendar">
+         <table class="calendar table table-bordered">
+           <thead>
+             <tr class="months-header">
+               <th class="month" colspan="4">
+                 <a class="previous" href="#"><i class="icon-chevron-left"></i></a>
+                 <span></span>
+                 <a class="next" href="#"><i class="icon-chevron-right"></i></a>
+               </th>
+               <th class="year" colspan="3">
+                 <a class="previous" href="#"><i class="icon-chevron-left"></i></a>
+                 <span></span>
+                 <a class="next" href="#"><i class="icon-chevron-right"></i></a>
+               </th>
+             </tr>
+             <tr class="days-header">
+             </tr>
+           </thead>
+           <tbody>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+  </div>
 
-              <div class="form-group">
-               <label for="together1" class="col-sm-2 control-label">Mit wem soll das Zimmer geteilt werden - Person 1</label>
-               <div class="col-sm-10">
-                 <input type="text" class="form-control" id="together1" placeholder="Bitte den kompletten Namen angeben.">
-               </div>
-             </div>
-
-             <div class="form-group" id="together2-group">
-              <label for="together2" class="col-sm-2 control-label">Mit wem soll das Zimmer geteilt werden - Person 2</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="together2" placeholder="Bitte den kompletten Namen angeben.">
-              </div>
-            </div>
-
-            <div class="form-group">
-                <label for="essen" class="col-sm-2 control-label">Essenswunsch</label>
-                <div class="col-sm-10">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="essen" id="meat" value="meat" checked>
-                      normale Kost (mit Fleisch)
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="essen" id="veg" value="veg">
-                      vegetarische Kost (ohne Fleisch)
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <legend>Sonstiges</legend>
-               <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten:</label>
-               <div class="col-sm-10">
-                 <textarea class="form-control" id="additionals" rows="13"></textarea>
-               </div>
-             </div>
-
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-primary" title="Anmeldung verbindlich machen" data-content="And here's some amazing content. It's very engaging. right?">Anmeldevorgang einleiten</button>
-                  <button type="reset" class="btn btn-danger" >Alle Eingaben löschen</button>
-                </div>
-              </div>
-          </form>
+    <div class="form-group">
+        <legend>Daten zur Unterkunft</legend>
+        <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen und Zusammenlegungswünsche angeben</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="room">
+            <option value="2bed">2-Bett Zimmer Dusche und WC</option>
+            <option value="3bed" selected>3-Bett Zimmer Dusche und WC</option>
+          </select>
+        </div>
       </div>
 
-    </div><!-- /.container -->
+      <p>Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?</p>
+      <div class="form-group">
+       <label for="together1" class="col-sm-2 control-label">Name Person 1</label>
+       <div class="col-sm-10">
+         <input type="text" class="form-control" id="together1" placeholder="Bitte den kompletten Namen angeben.">
+       </div>
+     </div>
+
+     <div class="form-group" id="together2-group">
+      <label for="together2" class="col-sm-2 control-label">Name Person 2</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="together2" placeholder="Bitte den kompletten Namen angeben.">
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label for="essen" class="col-sm-2 control-label">Essenswunsch</label>
+        <div class="col-sm-10">
+          <div class="radio">
+            <label>
+              <input type="radio" name="essen" id="meat" value="meat" checked>
+              normale Kost (mit Fleisch)
+            </label>
+            <label>
+              <input type="radio" name="essen" id="veg" value="veg">
+              vegetarische Kost (ohne Fleisch)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <legend>Sonstiges</legend>
+       <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten:</label>
+       <div class="col-sm-10">
+         <textarea class="form-control" id="additionals" rows="13"></textarea>
+       </div>
+     </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary" title="Anmeldung verbindlich machen" data-content="And here's some amazing content. It's very engaging. right?">Anmeldevorgang einleiten</button>
+          <button type="reset" class="btn btn-danger" >Alle Eingaben löschen</button>
+        </div>
+      </div>
+    </form>
+</div>
+
+  </div><!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="./js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/bootstrap-formhelpers.min.js"></script>
     <script src="./js/app.js"></script>
   </body>
 </html>
