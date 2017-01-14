@@ -63,7 +63,7 @@
 	      <p>Today is <?php echo date('Y-m-d H:i:s');?></p>
 
 
-    <form class="form-horizontal" method="post" action="submit.php">
+    <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       <div class="form-group">
               <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
               <div class="form-group">
@@ -275,6 +275,29 @@
          <textarea class="form-control" id="additionals" rows="13"></textarea>
        </div>
      </div>
+
+
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            echo "<p>submitted</p>";
+
+            $name = test_input($_POST["name"]);
+            $email = test_input($_POST["email"]);
+            $website = test_input($_POST["website"]);
+            $comment = test_input($_POST["comment"]);
+            $grad = test_input($_POST["grad"]);
+            echo $grad;
+        }
+
+        function test_input($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        ?>
+
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
