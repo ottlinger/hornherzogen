@@ -193,7 +193,7 @@
    </div>
 
   <div class="form-group">
-   <label for="twano" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung besteht.</label>
+   <label for="gsince" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung besteht.</label>
    <div class="col-sm-10">
      <div class="bfh-datepicker" data-format="y-m-d" data-date="<?php echo date('Y-m-d');?>">
        <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
