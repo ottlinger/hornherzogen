@@ -63,7 +63,7 @@
 	      <p>Today is <?php echo date('Y-m-d H:i:s');?></p>
 
 
-    <form class="form-horizontal">
+    <form class="form-horizontal" method="post" action="submit.php">
       <div class="form-group">
               <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
               <div class="form-group">
