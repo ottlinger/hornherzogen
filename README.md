@@ -1,5 +1,5 @@
 # hornherzogen
-Pet project to manage seminar registration
+Pet project to manage seminar registration for Herzogenhorn 2017
 
 Work in progress :-)
 
