@@ -1,4 +1,4 @@
-<?php namespace JomWeb;
+<?php namespace hornherzogen;
 
 class Foo {
 	public function add($x, $y)
@@ -6,5 +6,3 @@ class Foo {
 		return 4711;
 	}
 }
-?>
-

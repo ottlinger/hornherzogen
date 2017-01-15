@@ -7,7 +7,7 @@ class FooTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$this->calc = new JomWeb\Calculator;
+		$this->calc = new hornherzogen\Foo;
 	}
 
         /**
@@ -28,4 +28,13 @@ class FooTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf('hornherzogen\Foo', $this->calc);
 	}
 
+	/**
+	 * Test calculation return a true sum.
+	 *
+	 * @test
+	 */
+	public function testValidResult()
+	{
+		$this->assertEquals(4711, $this->calc->add(2, 3));
+	}
 }

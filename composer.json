@@ -6,6 +6,6 @@
 		"phpunit/phpunit": "5.7.*"
 	},
 	"autoload" : {
-		"psr-0" : { "hornherzogen" : "inc/" }
+		"psr-0" : { "hornherzogen" : "src/" }
 	}
 }
