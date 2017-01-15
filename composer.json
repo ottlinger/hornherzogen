@@ -1,0 +1,11 @@
+{
+	"required": {
+		"php": ">=5.3.2"
+	},
+	"required-dev": {
+		"phpunit/phpunit": "5.7.*"
+	},
+	"autoload" : {
+		"psr-0" : { "hornherzogen" : "inc/" }
+	}
+}
