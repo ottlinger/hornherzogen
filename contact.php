@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php include_once('inc/config.php') ?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -84,7 +85,7 @@
 
     <div class="starter-template">
         <h1>Noch Fragen? Lob oder Kritik?</h1>
-        <p class="lead">Um uns zu kontaktieren<br>am einfachsten eine <a href="mailto:">Mail</a> schreiben.</p>
+        <p class="lead">Um uns zu kontaktieren<br>am einfachsten eine <a href="mailto:<?php echo $cfg_mail;?>">Mail</a> schreiben.</p>
         <p>Today is <?php echo date('Y-m-d H:i:s'); ?></p>
     </div>
 
