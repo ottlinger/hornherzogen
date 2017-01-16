@@ -63,6 +63,7 @@
 
 <div class="container theme-showcase">
     <div class="starter-template">
+      <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img style="position: absolute; top: 100px; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
         <h1><span class="glyphicon glyphicon-sunglasses"></span> Herzogenhorn 2017</h1>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p>Today is <?php echo date('Y-m-d H:i:s'); ?></p>
