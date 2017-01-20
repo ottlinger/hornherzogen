@@ -11,6 +11,10 @@ In order to just play around with it I've integrated a CI run:
 
 [![Build Status](https://travis-ci.org/ottlinger/hornherzogen.svg?branch=master)](https://travis-ci.org/ottlinger/hornherzogen)
 
+[![codecov.io](http://codecov.io/github/ottlinger/hornherzogen/coverage.svg?branch=master)](http://codecov.io/github/ottlinger/hornherzogen?branch=master)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/ab19f8aeeb264e0bbad1740e07a765aa)](https://www.codacy.com/app/github_25/hornherzogen)
+
 ## Local installation
 
 ### PHP stuff
