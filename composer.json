@@ -1,4 +1,9 @@
 {
+	"name" : "hornherzogen",
+	"type" : "application",
+	"license" : "GPLv3",
+	"homepage:" : "https://github.com/ottlinger/hornherzogen",
+	"description" : "Pet project to collect seminar registrations",
 	"required": {
 		"php": ">=5.3.2"
 	},

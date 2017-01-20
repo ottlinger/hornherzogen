@@ -10,10 +10,11 @@ php:
   - nightly
 
 before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install
+  - travis_retry curl -s http://getcomposer.org/installer | php
+  - travis_retry php composer.phar install
 
-script: phpunit -c phpunit.xml
+script: 
+  - phpunit -c phpunit.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
