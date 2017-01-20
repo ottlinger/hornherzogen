@@ -14,3 +14,6 @@ before_script:
   - php composer.phar install
 
 script: phpunit -c phpunit.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
