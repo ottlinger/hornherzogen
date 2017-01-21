@@ -17,6 +17,11 @@ In order to just play around with it I've integrated a CI run:
 
 ## Local installation
 
+### Prerequisites
+
+* PHP7.x
+* Configured Mail server so that PHP may send mails
+
 ### PHP stuff
 
 You need to install php and some libraries:
