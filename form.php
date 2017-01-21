@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<?php require 'vendor/autoload.php'; ?>
 <?php include_once 'inc/config.php' ?>
-<?php include_once 'src/hornherzogen/SubmitMailer.php' ?>
 
 <html lang="en">
 <head>
@@ -73,19 +73,20 @@
 
         // TODO extract
         function dumpfordummies() {
-            echo "<p>submitted</p>";
+            echo '<p>Mail sent at '.date('Y-m-d H:i:s').'</p>';
 
             $nachname = test_input($_POST["nachname"]);
-            $email = test_input($_POST["email"]);
-            $grad = test_input($_POST["grad"]);
             echo '<p>Hello ' . htmlspecialchars($_POST["vorname"]) . ' ' . htmlspecialchars($_POST["nachname"]) . '!';
+            echo '<br/>';
             echo 'Hellau ' . $nachname . '!</p>';
-            var_dump($_POST['nachname']);
-            var_dump($_POST);
+
+            echo '<pre>';
+            echo var_dump($_POST);
+            echo '</pre>';
 
             // send mail
             $sender = new \hornherzogen\SubmitMailer();
-            $sender->send();
+//            $sender->send();
         }
 
 
@@ -98,7 +99,8 @@
         }
 
             dumpfordummies();
-        } else {
+        ?>
+        <?php } else {
         ?>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p>Today is <?php echo date('Y-m-d H:i:s'); ?></p>
@@ -110,9 +112,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="week">Welche Woche</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="week">
-                            <option value="horn-w1">1.Woche - ab Samstag, den 2017-06-18</option>
-                            <option value="horn-w2">2.Woche - ab Samstag, den 2017-06-25</option>
+                        <select class="form-control" id="week" name="week">
+                            <option value="week1">1.Woche - ab Samstag, den 2017-06-18</option>
+                            <option value="week2">2.Woche - ab Samstag, den 2017-06-25</option>
                         </select>
                     </div>
                 </div>
@@ -141,14 +143,14 @@
                 <legend>Persönliche Daten</legend>
                 <label for="vorname" class="col-sm-2 control-label">Vorname</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="vorname" placeholder="Bitte Vorname eingeben.">
+                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben.">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="nachname" class="col-sm-2 control-label">Nachname</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nachname" placeholder="Bitte Nachname eingeben.">
+                    <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Bitte Nachname eingeben.">
                 </div>
             </div>
 
@@ -157,7 +159,7 @@
             <div class="form-group">
                 <label for="street" class="col-sm-2 control-label">Straße</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="street"
+                    <input type="text" class="form-control" name="street" id="street"
                            placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben.">
                 </div>
             </div>
@@ -173,21 +175,21 @@
             <div class="form-group">
                 <label for="plz" class="col-sm-2 control-label">PLZ</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="plz" placeholder="Bitte die PLZ eingeben.">
+                    <input type="text" class="form-control" name="plz" id="plz" placeholder="Bitte die PLZ eingeben.">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">Ort</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="city" placeholder="Bitte den Wohnort eingeben.">
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Bitte den Wohnort eingeben.">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="country" class="col-sm-2 control-label">Land</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="country" placeholder="Bitte das Land eingeben.">
+                    <input type="text" class="form-control" name="country" id="country" placeholder="Bitte das Land eingeben.">
                 </div>
             </div>
 
@@ -196,13 +198,13 @@
             <div class="form-group">
                 <label for="email" class="col-sm-2 control-label">E-Mail</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" placeholder="Bitte Mailadresse eingeben.">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Bitte Mailadresse eingeben.">
                 </div>
             </div>
             <div class="form-group">
                 <label for="emailcheck" class="col-sm-2 control-label">E-Mail-Bestätigung</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="emailcheck"
+                    <input type="email" class="form-control" name="emailcheck" id="emailcheck"
                            placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein.">
                 </div>
             </div>
@@ -211,7 +213,7 @@
                 <legend>Aikidodaten</legend>
                 <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="dojo"
+                    <input type="text" class="form-control" name="dojo" id="dojo"
                            placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?">
                 </div>
             </div>
@@ -219,7 +221,7 @@
             <div class="form-group">
                 <label for="twano" class="col-sm-2 control-label">Mitgliedsnummer (twa)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="twano"
+                    <input type="text" class="form-control" name="twano" id="twano"
                            placeholder="Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!">
                 </div>
             </div>
@@ -227,7 +229,7 @@
             <div class="form-group">
                 <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung</label>
                 <div class="col-sm-10">
-                    <select class="form-control" id="grad">
+                    <select class="form-control" id="grad" name="grad">
                         <option>6.Dan</option>
                         <option>5.Dan</option>
                         <option>4.Dan</option>
@@ -247,7 +249,7 @@
                     <div class="bfh-datepicker" data-format="y-m-d" data-date="<?php echo date('Y-m-d'); ?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
-                            <input type="text" class="input-medium" id="gsince" readonly>
+                            <input type="text" class="input-medium" name="gsince" id="gsince" readonly>
                         </div>
                         <div class="bfh-datepicker-calendar">
                             <table class="calendar table table-bordered">
@@ -280,7 +282,7 @@
                 <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen und
                     Zusammenlegungswünsche angeben</label>
                 <div class="col-sm-10">
-                    <select class="form-control" id="room">
+                    <select class="form-control" name="room" id="room">
                         <option value="2bed">2-Bett Zimmer</option>
                         <option value="3bed" selected>3-Bett Zimmer</option>
                     </select>
@@ -291,7 +293,7 @@
             <div class="form-group">
                 <label for="together1" class="col-sm-2 control-label">Name Person 1</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="together1"
+                    <input type="text" class="form-control" name="together1" id="together1"
                            placeholder="Bitte den kompletten Namen angeben.">
                 </div>
             </div>
@@ -299,7 +301,7 @@
             <div class="form-group" id="together2-group">
                 <label for="together2" class="col-sm-2 control-label">Name Person 2</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="together2"
+                    <input type="text" class="form-control" name="together2" id="together2"
                            placeholder="Bitte den kompletten Namen angeben.">
                 </div>
             </div>
@@ -324,7 +326,7 @@
                 <legend>Sonstiges</legend>
                 <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten:</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="additionals" rows="13"></textarea>
+                    <textarea class="form-control" name="additionals" id="additionals" rows="13"></textarea>
                 </div>
             </div>
 
