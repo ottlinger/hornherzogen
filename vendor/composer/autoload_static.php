@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit38a274a8570c62ba322a0a0230daf05d
 {
+    public static $files = array (
+        'b584899a9e2ebfe4f05039f196029c06' => __DIR__ . '/../..' . '/inc/config.php',
+    );
+
     public static $prefixesPsr0 = array (
         'h' => 
         array (
@@ -16,10 +20,16 @@ class ComposerStaticInit38a274a8570c62ba322a0a0230daf05d
         ),
     );
 
+    public static $classMap = array (
+        'hornherzogen\\Foo' => __DIR__ . '/../..' . '/src/hornherzogen/Foo.php',
+        'hornherzogen\\SubmitMailer' => __DIR__ . '/../..' . '/src/hornherzogen/SubmitMailer.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixesPsr0 = ComposerStaticInit38a274a8570c62ba322a0a0230daf05d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit38a274a8570c62ba322a0a0230daf05d::$classMap;
 
         }, null, ClassLoader::class);
     }

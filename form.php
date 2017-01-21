@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php'; ?>
-<?php include_once 'inc/config.php' ?>
-
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -81,12 +79,12 @@
             echo 'Hellau ' . $nachname . '!</p>';
 
             echo '<pre>';
-            echo var_dump($_POST);
+            var_dump($_POST);
             echo '</pre>';
 
             // send mail
             $sender = new \hornherzogen\SubmitMailer();
-//            $sender->send();
+            $sender->send();
         }
 
 

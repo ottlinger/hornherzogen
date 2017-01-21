@@ -1,0 +1,24 @@
+;<?php
+
+// allow debugging
+;ini_set('display_errors', 'on');
+;ini_set('display_startup_errors', 'on');
+;error_reporting(E_ALL);
+
+;die(); // For further security
+;/*
+[hornherzogen]
+;;//Please rename this file to config.ini.php in your live setup and adapt all values properly
+;// contact mail
+mail = 'foo@bar.de';
+;// location of the seminar announcement
+pdf = 'https://example.com/data/any.pdf';
+// where to send registration data to
+registrationmail = 'foo@buzz.de';
+// Configuration to send out mails
+smtp = 'smtp.example.com:443';
+mail_user = 'username';
+mail_pw = 'mypassword';
+
+;*/
+;?>

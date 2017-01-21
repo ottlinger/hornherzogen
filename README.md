@@ -43,21 +43,19 @@ $ phpunit -c phpunit.xml
 
 ### Configuration
 
-The configuration file needs to be created in order to set certain application parameters. The file needs to reside in `inc/config.php` and is not checked in!
+The configuration file needs to be created in order to set certain application parameters. The file needs to reside in `inc/config.ini.php` and is not checked in!
 
 | Configuration parameter        | Comment           |
 | --- |:---:|
-| $cfg_mail | complete email address, may contain a subject line as well |
-| $cfg_pdf | complete link to the seminar announcement (PDF) |
-| $cfg_registrationmail | email address that all registrations are send to |
-| $cfg_mail_smtp | SMTP server with port |
-| $cfg_mail_user | SMTP server username |
-| $cfg_mail_pw | SMTP password for above username |
+| mail | complete email address, may contain a subject line as well |
+| pdf | complete link to the seminar announcement (PDF) |
+| registrationmail | email address that all registrations are send to |
+| mail_smtp | SMTP server with port |
+| mail_user | SMTP server username |
+| mail_pw | SMTP password for above username |
 
 See example configurations in 
-[configuration example of this project](inc/config.template.php)
-
-In order to run this project you need to copy this file to `inc/config.php` and adapt all properties to your needs.  
+[configuration example of this project](inc/config.ini.php.template)
 
 ## Links
 

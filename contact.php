@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include_once('inc/config.php') ?>
+<?php require 'vendor/autoload.php'; ?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -86,7 +86,7 @@
 
     <div class="starter-template">
         <h1>Noch Fragen? Lob oder Kritik?</h1>
-        <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a href="mailto:<?php echo $cfg_mail;?>">Mail</a> schreiben.</p>
+        <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a href="mailto:<?php echo $GLOBALS["horncfg"]["mail"];?>">Mail</a> schreiben.</p>
         <p>Today is <?php echo date('Y-m-d H:i:s'); ?></p>
     </div>
 

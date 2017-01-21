@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'hornherzogen\\Foo' => $baseDir . '/src/hornherzogen/Foo.php',
+    'hornherzogen\\SubmitMailer' => $baseDir . '/src/hornherzogen/SubmitMailer.php',
 );

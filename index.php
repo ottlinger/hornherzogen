@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include_once('inc/config.php') ?>
+<?php require 'vendor/autoload.php'; ?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
