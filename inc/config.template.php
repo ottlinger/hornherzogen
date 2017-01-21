@@ -1,4 +1,9 @@
 <?php
+// allow debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Please rename this file to config.php in your live setup and adapt all values properly
 // contact mail
 
