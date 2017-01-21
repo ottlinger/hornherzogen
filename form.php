@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<?php include_once('inc/config.php') ?>
-<?php include_once('src/hornherzogen/SubmitMailer.php') ?>
+<?php include_once 'inc/config.php' ?>
+<?php include_once 'src/hornherzogen/SubmitMailer.php' ?>
 
 <html lang="en">
 <head>
