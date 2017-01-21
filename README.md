@@ -50,6 +50,14 @@ The configuration file needs to be created in order to set certain application p
 | $cfg_mail | complete email address, may contain a subject line as well |
 | $cfg_pdf | complete link to the seminar announcement (PDF) |
 | $cfg_registrationmail | email address that all registrations are send to |
+| $cfg_mail_smtp | SMTP server with port |
+| $cfg_mail_user | SMTP server username |
+| $cfg_mail_pw | SMTP password for above username |
+
+See example configurations in 
+[configuration example of this project](inc/config.template.php)
+
+In order to run this project you need to copy this file to `inc/config.php` and adapt all properties to your needs.  
 
 ## Links
 
