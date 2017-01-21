@@ -6,3 +6,5 @@ class Foo {
 		return 4711;
 	}
 }
+?>
+
