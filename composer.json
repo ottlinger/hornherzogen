@@ -16,9 +16,6 @@
     },
     "files": [
       "inc/config.php"
-    ],
-    "classmap": [
-      "inc/config.php"
     ]
   }
 }
