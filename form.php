@@ -84,7 +84,7 @@
 
             // send mail
             $sender = new \hornherzogen\SubmitMailer();
-            $sender->send();
+            echo $sender->send();
         }
 
 

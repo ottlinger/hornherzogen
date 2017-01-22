@@ -2,10 +2,8 @@
 
 class SubmitMailer
 {
-    private $replyto = 'otg@aiki-it.de'; // cfg
+    private $email;// tbd!
 
-
-    private $email = 'phil@edojo.org';
     private $firstname = 'Philio';
     private $lastname = 'Egonitschow';
     private $subject = 'Herzogenhorn Bestätigungsmail (от филиппа/フィリップ)';
@@ -15,6 +13,15 @@ class SubmitMailer
 
     public function send()
     {
+
+        // TODO externalize in separate class that maps form input into a bean with a boolean isValid()
+        $this->email = $_POST['email'];
+        if (empty($this->email) || $this->email != $_POST["emailcheck"]) {
+            return '<p>Invalid emailadress - no mail to send</p>';
+        }
+
+        $replyto = $GLOBALS["horncfg"]["registrationmail"] ?? 'invalidconfigurationfile@example.com';
+
         date_default_timezone_set('Europe/Berlin');
         $importance = 1; //1 UrgentMessage, 3 Normal
 
@@ -38,12 +45,12 @@ class SubmitMailer
             'Importance: ' . $importance . "\r\n" .
             'X-MSMail-Priority: High' . "\r\n" .
 
-            'Reply-To: ' . $this->replyto . "\r\n" .
+            'Reply-To: ' . $replyto . "\r\n" .
             // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-            'From: ' . $this->replyto . "\r\n" .
-            'Sender: ' . $this->replyto . "\r\n" .
-            'ReturnPath: ' . $this->replyto . "\r\n" .
-            'Errors-To: ' . $this->replyto . "\r\n" .
+            'From: ' . $replyto . "\r\n" .
+            'Sender: ' . $replyto . "\r\n" .
+            'ReturnPath: ' . $replyto . "\r\n" .
+            'Errors-To: ' . $replyto . "\r\n" .
 
             'Content-type: text/html; charset=utf-8' . "\r\n" .
             'Date: ' . date("r") . "\r\n" .
@@ -51,7 +58,7 @@ class SubmitMailer
             'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-        mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $this->replyto);
+        mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $replyto);
     }
 
     public function getMailtext()

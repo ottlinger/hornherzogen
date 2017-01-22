@@ -69,7 +69,7 @@
         <h1><span class="glyphicon glyphicon-dashboard"></span> Herzlich Willkommen</h1>
         <p>Auf diesen Seiten kann man sich für den Herzogenhornlehrgang 2017 anmelden. <br/>Die Anmeldung läuft über die
             Berliner Aikidoka.<br/>
-            <br> Die Ausschreibung findet sich <a href="<?php echo $cfg_pdf;?>" target="_blank">hier</a>.
+            <br> Die Ausschreibung findet sich <a href="<?php echo $GLOBALS["horncfg"]["pdf"];?>" target="_blank">hier</a>.
         </p>
         <p class="lead"><a href="form.php"><span class="glyphicon glyphicon-hand-right"></span> Weiter zur Anmeldung</a>
         </p>

@@ -8,6 +8,8 @@
 ;die(); // For further security
 ;/*
 [hornherzogen]
+;; Allows for debugging
+debug = false;
 ;;//Please rename this file to config.ini.php in your live setup and adapt all values properly
 ;// contact mail
 mail = 'foo@bar.de';
