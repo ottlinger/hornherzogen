@@ -13,6 +13,7 @@ class SubmitMailer
 
     public function send()
     {
+        date_default_timezone_set('Europe/Berlin');
 
         // TODO externalize in separate class that maps form input into a bean with a boolean isValid()
         $this->email = $_POST['email'];
@@ -20,9 +21,12 @@ class SubmitMailer
             return '<p>Invalid emailadress - no mail to send</p>';
         }
 
-        $replyto = $GLOBALS["horncfg"]["registrationmail"] ?? 'invalidconfigurationfile@example.com';
+        $replyto = $GLOBALS["horncfg"]["registrationmail"];
+        // PHP7.0: ?? 'invalidconfigurationfile@example.com';
+        if (empty($replyto)) {
+            $replyto = 'invalidconfigurationfile@example.com';
+        }
 
-        date_default_timezone_set('Europe/Berlin');
         $importance = 1; //1 UrgentMessage, 3 Normal
 
         // HowToSend at all: https://wiki.goneo.de/mailversand_php_cgi
