@@ -3,10 +3,10 @@
 class SubmitMailer
 {
     private $email;// tbd!
+    private $firstname = 'Philio'; // tbd!
+    private $lastname = 'Egonitschow'; // tbd!
 
-    private $firstname = 'Philio';
-    private $lastname = 'Egonitschow';
-    private $subject = 'Herzogenhorn Bestätigungsmail (от филиппа/フィリップ)';
+    private $subject = 'Herzogenhorn 2017 - Deine Anmeldung ist engegangen bei филипп/フィリップ';
 
 // In case you need authentication you should switch the the PEAR module
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
@@ -40,9 +40,7 @@ class SubmitMailer
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers =
-            // TODO ENABLE if going live:
-            //'Bcc: whatever@youwant.de' . "\r\n" .
-
+            'Bcc: ' . $replyto . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
 
             'X-Priority: ' . $importance . "\r\n" .
@@ -73,13 +71,17 @@ class SubmitMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Bestätigung</title >
+            <title>Anmeldebestätigung Herzogenhorn Woche TBD eingegangen</title >
         </head>
         <body>
-            <h1>Horn 2017</h1>
+            <h1>Herzogenhorn 2017 - Anmeldung für Woche 1</h1>
             <p>
-                Hi ' . $name . ', you\'ve got mail from 開心館-Hornherzogen prototype - ' . date('Y-m-d H:i:s') . '
-                привет от филиппа/フィリップ
+                Hallo ' . $name . ', wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . date('Y-m-d H:i:s') . '
+                erhalten und melden uns sobald die Anmeldefrist abgelaufen ist und wir die beiden Wochen geplant haben.
+                <br />
+                Danke für Deine Geduld -<br /> 
+                sonnige Grüße aus Berlin
+                von Benjamin und Philipp<br />
             </p>
         </body>
     </html>';
