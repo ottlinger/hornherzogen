@@ -57,9 +57,8 @@ The configuration file needs to be created in order to set certain application p
 | mail | complete email address, may contain a subject line as well |
 | pdf | complete link to the seminar announcement (PDF) |
 | registrationmail | email address that all registrations are send to |
-| mail_smtp | SMTP server with port |
-| mail_user | SMTP server username |
-| mail_pw | SMTP password for above username |
+| sendregistrationmails | boolean, whether to send registration mails to customers |
+| sendinternalregistrationmails | boolean, whether to send mails internally upon registration via web form |
 
 See example configurations in 
 [configuration example of this project](inc/config.ini.php.template)
