@@ -35,10 +35,24 @@ class SubmitMailerTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function testValidInternalMailSending()
+    public function testValidInternalMailSendingWhenConfigIsSetProperly()
     {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
         $this->assertEquals('Not yet implemented', $this->mailer->sendInternally());
     }
+
+
+    /**
+     * Test internal mail submission is disabled if configured in that way.
+     *
+     * @test
+     */
+    public function testInternalMailsAreNotSendIfNotConfigured()
+    {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
+        $this->assertEquals('Not yet implemented', $this->mailer->sendInternally());
+    }
+
 
     /**
      * Test mail submission fails if no email is set.
@@ -49,6 +63,5 @@ class SubmitMailerTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('<p>Invalid emailadress - no mail to send</p>', $this->mailer->send());
     }
-
 
 }

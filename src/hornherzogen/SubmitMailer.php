@@ -10,7 +10,6 @@ class SubmitMailer
 
 // In case you need authentication you should switch the the PEAR module
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
-
     public function send()
     {
         date_default_timezone_set('Europe/Berlin');
@@ -60,7 +59,9 @@ class SubmitMailer
             'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-        mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $replyto);
+        if($GLOBALS["horncfg"]["sendregistrationmails"]) {
+            mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $replyto);
+        }
         return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
     }
 
@@ -69,7 +70,9 @@ class SubmitMailer
      */
     public function sendInternally()
     {
-        return 'Not yet implemented';
+        if(!empty($GLOBALS["horncfg"]["sendinternalregistrationmails"])) {
+            return 'Not yet implemented';
+        }
     }
 
     public function getMailtext()
@@ -99,6 +102,8 @@ class SubmitMailer
         </body>
     </html>';
     }
+
+
 
     /**
      * private function mail_utf8($to, $from_user, $from_email,

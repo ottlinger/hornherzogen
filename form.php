@@ -85,6 +85,7 @@
             // send mail
             $sender = new \hornherzogen\SubmitMailer();
             echo $sender->send();
+            echo $sender->sendInternally();
         }
 
 

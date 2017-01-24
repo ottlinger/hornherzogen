@@ -17,10 +17,9 @@ mail = 'foo@bar.de';
 pdf = 'https://example.com/data/any.pdf';
 // where to send registration data to
 registrationmail = 'foo@buzz.de';
-// Configuration to send out mails
-smtp = 'smtp.example.com:443';
-mail_user = 'username';
-mail_pw = 'mypassword';
-
+// whether to send mails to the people that did the registraion (=the customer)
+sendregistrationmails = false;
+// whether to send mails to us to handle registrations
+sendinternalregistrationmails = true;
 ;*/
 ;?>
