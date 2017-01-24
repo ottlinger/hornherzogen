@@ -16,10 +16,10 @@ class SubmitMailer
         date_default_timezone_set('Europe/Berlin');
 
         // TODO externalize in separate class that maps form input into a bean with a boolean isValid()
-        $this->email = $_POST['email'];
-        if (empty($this->email) || $this->email != $_POST["emailcheck"]) {
+        if (empty($_POST) || empty($_POST['email']) || $this->email != $_POST["emailcheck"]) {
             return '<p>Invalid emailadress - no mail to send</p>';
         }
+        $this->email = $_POST['email']; // ?? ''; if PHP7 were to work
 
         $replyto = $GLOBALS["horncfg"]["registrationmail"];
         // PHP7.0: ?? 'invalidconfigurationfile@example.com';
@@ -61,6 +61,15 @@ class SubmitMailer
             'X-Mailer: PHP/' . phpversion();
 
         mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $replyto);
+        return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
+    }
+
+    /**
+     * Send mails to us after sending a mail to the person that registered.
+     */
+    public function sendInternally()
+    {
+        return 'Not yet implemented';
     }
 
     public function getMailtext()
@@ -75,14 +84,18 @@ class SubmitMailer
         </head>
         <body>
             <h1>Herzogenhorn 2017 - Anmeldung für Woche 1</h1>
-            <p>
-                Hallo ' . $name . ', wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . date('Y-m-d H:i:s') . '
+            <h2>
+                Hallo ' . $name . ',</h2>
+                <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . date('Y-m-d H:i:s') . '
                 erhalten und melden uns sobald die Anmeldefrist abgelaufen ist und wir die beiden Wochen geplant haben.
-                <br />
-                Danke für Deine Geduld -<br /> 
-                sonnige Grüße aus Berlin
-                von Benjamin und Philipp<br />
-            </p>
+                </p>
+                <p>
+                Danke für Deine Geduld und wir freuen uns auf das gemeinsame Traing mit Dir und Meister Shimizu-<br />
+                </p>
+                <h2>
+                Bis dahin sonnige Grüße aus Berlin<br />
+                von Benjamin und Philipp</h2>
+            </h2>
         </body>
     </html>';
     }
