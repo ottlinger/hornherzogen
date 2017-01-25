@@ -19,7 +19,7 @@ In order to just play around with it I've integrated a CI run:
 
 ### Prerequisites
 
-* PHP7.x
+* PHP >=5.6, since my hoster does not properly support 7.x
 * Configured Mail server so that PHP may send mails
 * Webserver
 * MySQL database with tables initialized
