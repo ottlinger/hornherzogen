@@ -2,22 +2,46 @@
 namespace hornherzogen;
 
 
+/**
+ * Class ConfigurationWrapper wraps the configuration of the application loaded from the INI file.
+ * @package hornherzogen
+ */
 class ConfigurationWrapper
 {
 
-    public static function mail() {
-        if($GLOBALS['horncfg']) {
+    public static function mail()
+    {
+        if ($GLOBALS['horncfg']) {
             return $GLOBALS['horncfg']['mail'];
         }
     }
 
-/*
-| mail | complete email address, may contain a subject line as well |
-| pdf | complete link to the seminar announcement (PDF) |
-| registrationmail | email address that all registrations are send to |
-| sendregistrationmails | boolean, whether to send registration mails to customers |
-| sendinternalregistrationmails | boolean, whether to send mails internally upon registration via web form |
-*/
+    public static function pdf()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['pdf'];
+        }
+    }
 
+    public static function registrationmail()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['registrationmail'];
+        }
+    }
+
+    public static function sendregistrationmails()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['sendregistrationmails'];
+        }
+    }
+
+    public static function sendinternalregistrationmails()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['sendinternalregistrationmails'];
+        }
+    }
 
 }

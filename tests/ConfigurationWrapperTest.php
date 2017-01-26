@@ -56,4 +56,29 @@ class ConfigurationWrapperTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($this->configuration->mail());
     }
 
+
+    /**
+     * Return pdf value from config.
+     *
+     * @test
+     */
+    public function testPDFIsReturnedFromConfigFile()
+    {
+        $GLOBALS['horncfg']['pdf'] = "my.pdf";
+        $this->assertEquals('my.pdf', $this->configuration->pdf());
+    }
+
+    /**
+     * Return empty pdf value if configuration is not set
+     *
+     * @test
+     */
+    public function testPDFIsEmptyIfNotConfigured()
+    {
+        $GLOBALS['horncfg'] = null;
+        $this->assertEmpty($this->configuration->pdf());
+
+        $GLOBALS['horncfg'] = [];
+        $this->assertEmpty($this->configuration->pdf());
+    }
 }
