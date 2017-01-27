@@ -50,7 +50,7 @@ class SubmitMailer
             // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
             'From: ' . $replyto . "\r\n" .
             'Sender: ' . $replyto . "\r\n" .
-            'ReturnPath: ' . $replyto . "\r\n" .
+            'Return-Path: ' . $replyto . "\r\n" .
             'Errors-To: ' . $replyto . "\r\n" .
 
             'Content-type: text/html; charset=utf-8' . "\r\n" .
