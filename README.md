@@ -67,6 +67,13 @@ alias phpunit='./vendor/bin/phpunit'
 
 This is necessary if you've installed composer project-locally and have no phpunit installed on the system that is in your $PATH!
 
+##### Testdocs
+
+In order to see a nicer test output, launch:
+```
+$ phpunit --testdox tests
+```
+
 ### Configuration
 
 The configuration file needs to be created in order to set certain application parameters. The file needs to reside in `inc/config.ini.php` and is not checked in!

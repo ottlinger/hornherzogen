@@ -75,7 +75,7 @@ class ConfigurationWrapperTest extends TestCase
      *
      * @test
      */
-    public function testPDFIsReturnedFromConfigFile()
+    public function testPdfIsReturnedFromConfigFile()
     {
         $GLOBALS['horncfg']['pdf'] = "my.pdf";
         $this->assertEquals('my.pdf', $this->configuration->pdf());
@@ -86,7 +86,7 @@ class ConfigurationWrapperTest extends TestCase
      *
      * @test
      */
-    public function testPDFIsEmptyIfNotConfigured()
+    public function testPdfIsEmptyIfNotConfigured()
     {
         $GLOBALS['horncfg'] = null;
         $this->assertEmpty($this->configuration->pdf());
