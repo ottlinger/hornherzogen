@@ -59,4 +59,25 @@ class ConfigurationWrapper
         }
     }
 
+    public static function dbhost()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['dbhost'];
+        }
+    }
+
+    public static function dbuser()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['dbuser'];
+        }
+    }
+
+    public static function dbpassword()
+    {
+        if ($GLOBALS['horncfg']) {
+            return $GLOBALS['horncfg']['dbpassword'];
+        }
+    }
+
 }

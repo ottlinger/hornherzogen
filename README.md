@@ -59,6 +59,9 @@ The configuration file needs to be created in order to set certain application p
 | registrationmail | email address that all registrations are send to |
 | sendregistrationmails | boolean, whether to send registration mails to customers |
 | sendinternalregistrationmails | boolean, whether to send mails internally upon registration via web form |
+| dbhost | database hostname with port if necessary |
+| dbuser | database username |
+| dbpassword | database password |
 
 See example configurations in 
 [configuration example of this project](inc/config.ini.php.template)

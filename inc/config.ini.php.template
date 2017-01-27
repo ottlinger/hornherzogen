@@ -21,5 +21,11 @@ registrationmail = 'foo@buzz.de';
 sendregistrationmails = false;
 // whether to send mails to us to handle registrations
 sendinternalregistrationmails = true;
+// database host
+dbhost = 'mysql.example.com:3365';
+// database user
+dbuser = 'pi2ieVid1234567';
+// database password
+dbpassword = 'AiCh3ieSbou5Gee2deadbeaf';
 ;*/
 ;?>
