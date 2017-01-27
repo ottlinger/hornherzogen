@@ -20,6 +20,8 @@ In order to just play around with it I've integrated a CI run:
 ### Prerequisites
 
 * PHP >=5.6, since my hoster does not properly support 7.x
+  * with XML module installed
+  * with MBString extension installed
 * Configured Mail server so that PHP may send mails
 * Webserver
 * MySQL database with tables initialized
@@ -28,7 +30,7 @@ In order to just play around with it I've integrated a CI run:
 
 You need to install php and some libraries:
 ```
-$ sudo apt install phpunit php7.0-xml
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring
 ```
 
 #### Composer
@@ -39,9 +41,16 @@ $ curl -s http://getcomposer.org/installer | php
 $ php composer.phar install
 ```
 
+You should regularly perform an:
+```
+$ ./composer.phar self-update
+$ ./composer.phar update
+```
+to get updates.
+
 #### Unittests / PHPUnit
 
-In order to run tests locally you need to run PHPUnit:
+In order to run tests locally you need to run [PHPUnit](https://phpunit.de/getting-started.html):
 ```
 $ phpunit
 or

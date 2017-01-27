@@ -1,6 +1,8 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class ConfigurationWrapperTest extends PHPUnit_Framework_TestCase
+
+class ConfigurationWrapperTest extends TestCase
 {
     private $configuration = null;
 
