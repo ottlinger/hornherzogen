@@ -8,6 +8,21 @@ namespace hornherzogen;
  */
 class ConfigurationWrapper
 {
+    private static $gitRevision = null;
+
+    /**
+     * Tries to retrieve the current git revision or sets to unavailable in case of underlying errors.
+     */
+    public static function gitrevision() {
+        if(empty($gitRevision)) {
+            $gitRevision = `git rev-parse --verify HEAD`;
+
+            if(empty($gitRevision)) {
+                $gitRevision = 'unavailable';
+            }
+        }
+        return $gitRevision;
+    }
 
     public static function mail()
     {

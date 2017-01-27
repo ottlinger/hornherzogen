@@ -30,6 +30,17 @@ class ConfigurationWrapperTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('hornherzogen\ConfigurationWrapper', $this->configuration);
     }
 
+    /**
+     * Return gitrevision is not empty, either due to correct revision or dummy string.
+     *
+     * @test
+     */
+    public function testGitRevisionIsNeverEmpty()
+    {
+        $revision = $this->configuration->gitrevision();
+        echo 'Running on git revision: '.$revision;
+        $this->assertFalse(empty($revision));
+    }
 
     /**
      * Return mail value from config.
@@ -81,4 +92,6 @@ class ConfigurationWrapperTest extends PHPUnit_Framework_TestCase
         $GLOBALS['horncfg'] = [];
         $this->assertEmpty($this->configuration->pdf());
     }
+
+
 }

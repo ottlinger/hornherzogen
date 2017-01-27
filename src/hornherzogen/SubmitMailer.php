@@ -56,6 +56,7 @@ class SubmitMailer
             'Content-type: text/html; charset=utf-8' . "\r\n" .
             'Date: ' . date("r") . "\r\n" .
             'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">\r\n" .
+            'X-Git-Revision: <' . ConfigurationWrapper::gitrevision() . ">\r\n" .
             'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
