@@ -57,6 +57,16 @@ or
 $ phpunit -c phpunit.xml
 ```
 
+##### Local run
+
+In order to run tests locally (apart from Travis) you may want to configure a handy alias in your `.bashrc`:
+```
+# PHP aliases
+alias phpunit='./vendor/bin/phpunit'
+```
+
+This is necessary if you've installed composer project-locally and have no phpunit installed on the system that is in your $PATH!
+
 ### Configuration
 
 The configuration file needs to be created in order to set certain application parameters. The file needs to reside in `inc/config.ini.php` and is not checked in!
