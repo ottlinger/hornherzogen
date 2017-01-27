@@ -37,6 +37,6 @@ class FooTest extends PHPUnit_Framework_TestCase
      */
     public function testValidResult()
     {
-        $this->assertEquals(4711, $this->calc->add(2, 3));
+        $this->assertEquals(4711, $this->calc->add());
     }
 }
