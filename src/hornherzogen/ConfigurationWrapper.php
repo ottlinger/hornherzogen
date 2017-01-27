@@ -15,7 +15,8 @@ class ConfigurationWrapper
      */
     public static function gitrevision() {
         if(empty($gitRevision)) {
-            $gitRevision = `git rev-parse --verify HEAD`;
+            // remove any line breaks
+            $gitRevision = preg_replace("#\r|\n#", "", trim(`git rev-parse --verify HEAD`));
 
             if(empty($gitRevision)) {
                 $gitRevision = 'unavailable';
