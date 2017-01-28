@@ -1,4 +1,5 @@
 AuthType Basic
 AuthName "Password Protected Area"
+## AuthUserFile /web/1/000/034/021/107044/htdocs/e_horn/admin/.htpasswd
 AuthUserFile /home/hirsch/Documents/workspace/hornherzogen/admin/.htpasswd
 Require valid-user
