@@ -1,8 +1,7 @@
 <?php
-
 // Check whether the file exists or fallback to the template
 // DEVHINT: it's quite odd that file_exists seems to start at root, while parse takes the relative path from this file
-if (file_exists('inc/config.ini.php')) {
+if (file_exists(dirname(__FILE__).'/config.ini.php')) {
     $filename = 'config.ini.php';
 } else {
     $filename = 'config.ini.php.template';
