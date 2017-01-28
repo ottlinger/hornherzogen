@@ -24,14 +24,15 @@ In order to just play around with it I've integrated a CI run:
   * with MBString extension installed
   * with MySQL extension installed
 * Configured Mail server so that PHP may send mails
-* Webserver
+* Webserver (Apache2)
 * MySQL database with tables initialized
 
 ### PHP stuff
 
-You need to install php and some libraries:
+You need to install php and add some libraries to your local Webserver:
 ```
 $ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql
+$ sudo /etc/init.d/apache2 restart
 ```
 
 #### Composer
