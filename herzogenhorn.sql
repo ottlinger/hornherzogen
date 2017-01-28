@@ -48,5 +48,9 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `flexible` tinyint(1) DEFAULT NULL,
   `additionals` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mailed` timestamp NULL,
+  `paymentmailed` timestamp NULL,
+  `paymentreceived` timestamp NULL,
+  `confirmed` timestamp NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;

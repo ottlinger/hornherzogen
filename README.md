@@ -25,7 +25,7 @@ In order to just play around with it I've integrated a CI run:
   * with MySQL extension installed
 * Configured Mail server so that PHP may send mails
 * Webserver (Apache2)
-* MySQL database with tables initialized
+* MySQL database with tables initialized, see [herzogenhorn.sql](herzogenhorn.sql) for details
 
 ### PHP stuff
 
