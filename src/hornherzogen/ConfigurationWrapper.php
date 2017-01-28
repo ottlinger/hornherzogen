@@ -14,15 +14,15 @@ class ConfigurationWrapper
      * Tries to retrieve the current git revision or sets to unavailable in case of underlying errors.
      */
     public static function gitrevision() {
-        if(empty($gitRevision)) {
+        if(empty(ConfigurationWrapper::$gitRevision)) {
             // remove any line breaks
-            $gitRevision = preg_replace("#\r|\n#", "", trim(`git rev-parse --verify HEAD`));
+            ConfigurationWrapper::$gitRevision = preg_replace("#\r|\n#", "", trim(`git rev-parse --verify HEAD`));
 
-            if(empty($gitRevision)) {
-                $gitRevision = 'unavailable';
+            if(empty(ConfigurationWrapper::$gitRevision)) {
+                ConfigurationWrapper::$gitRevision = 'unavailable';
             }
         }
-        return $gitRevision;
+        return ConfigurationWrapper::$gitRevision;
     }
 
     public static function mail()
