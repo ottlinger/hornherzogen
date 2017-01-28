@@ -138,11 +138,13 @@
                 </div>
             </div>
 
+            <!-- TODO: has error has-feedback und span für Symbol selbst -->
             <div class="form-group">
                 <legend>Persönliche Daten</legend>
                 <label for="vorname" class="col-sm-2 control-label">Vorname</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10 has-error has-feedback">
                     <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben.">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true">
                 </div>
             </div>
 
@@ -324,14 +326,18 @@
             <div class="form-group">
                 <legend>Sonstiges</legend>
                 <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):</label>
-                <div class="col-sm-10">
+
+                <!-- TODO: http://getbootstrap.com/css/#forms-control-validation -->
+                <!-- has-error in case of errors -->
+                <!-- has-success in case of successful submit -->
+                <div class="col-sm-10 has-success">
                     <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" title="Anmeldung verbindlich machen"
+                    <button type="submit" class="btn btn-default btn-primary" title="Anmeldung verbindlich machen"
                             data-content="And here's some amazing content. It's very engaging. right?">Anmeldevorgang
                         einleiten
                     </button>
