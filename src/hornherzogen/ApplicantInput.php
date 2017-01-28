@@ -1,14 +1,12 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hirsch
- * Date: 28.01.17
- * Time: 23:23
- */
-
 namespace hornherzogen;
 
 
+/**
+ * Class ApplicantInput
+ * holds any validation errors when processing user data.
+ * @package hornherzogen
+ */
 class ApplicantInput
 {
 

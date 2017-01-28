@@ -1,15 +1,17 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hirsch
- * Date: 28.01.17
- * Time: 23:15
- */
 
 namespace hornherzogen;
 
 
+/**
+ * Class Applicant
+ * contains information about an applicant that is used to persist a certain state in the database.
+ *
+ * @package hornherzogen
+ */
 class Applicant
 {
+    // set mailed = when the mail was send
+
 
 }
