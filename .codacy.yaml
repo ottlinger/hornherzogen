@@ -2,6 +2,7 @@
 exclude_paths:
   - assets/**/*
   - css/**/*
+  - css/boots*
   - vendor/**/*
   - js/bootstrap*
   - js/bootst**/*
