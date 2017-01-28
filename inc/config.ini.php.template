@@ -9,23 +9,26 @@
 ;/*
 [hornherzogen]
 ;; Allows for debugging
-debug = false;
+debug = true;
 ;;//Please rename this file to config.ini.php in your live setup and adapt all values properly
-;// contact mail
+;;// contact mail
 mail = 'foo@bar.de';
-;// location of the seminar announcement
+;;// location of the seminar announcement
 pdf = 'https://example.com/data/any.pdf';
-// where to send registration data to
+;;// where to send registration data to
 registrationmail = 'foo@buzz.de';
-// whether to send mails to the people that did the registraion (=the customer)
+;;// whether to send mails to the people that did the registraion (=the customer)
 sendregistrationmails = false;
-// whether to send mails to us to handle registrations
+;;// whether to send mails to us to handle registrations
 sendinternalregistrationmails = true;
-// database host
+;;// database host
 dbhost = 'mysql.example.com:3365';
-// database user
+;;// database name
+dbname = 'ooNg2sal';
+;;// database user
 dbuser = 'pi2ieVid1234567';
-// database password
+;;// database password
 dbpassword = 'AiCh3ieSbou5Gee2deadbeaf';
+
 ;*/
 ;?>

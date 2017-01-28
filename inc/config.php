@@ -27,4 +27,3 @@ if ($GLOBALS["horncfg"]["debug"] || $isTemplate) {
     echo "</pre>";
 }
 
-
