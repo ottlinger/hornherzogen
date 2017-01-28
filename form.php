@@ -74,7 +74,7 @@
             echo '<p>Mail sent at '.date('Y-m-d H:i:s').'</p>';
 
             $nachname = test_input($_POST["nachname"]);
-            echo '<p>Hello ' . htmlspecialchars($_POST["vorname"]) . ' ' . htmlspecialchars($_POST["nachname"]) . '!';
+            echo '<p>Hello ' . test_input($_POST["vorname"]) . ' ' . test_input($_POST["nachname"]) . '!';
             echo '<br/>';
             echo 'Hellau ' . $nachname . '!</p>';
 
@@ -323,9 +323,9 @@
 
             <div class="form-group">
                 <legend>Sonstiges</legend>
-                <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten:</label>
+                <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" name="additionals" id="additionals" rows="13"></textarea>
+                    <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"></textarea>
                 </div>
             </div>
 
