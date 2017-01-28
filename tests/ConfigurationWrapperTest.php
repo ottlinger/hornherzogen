@@ -40,7 +40,7 @@ class ConfigurationWrapperTest extends TestCase
     public function testGitRevisionIsNeverEmpty()
     {
         $revision = $this->configuration->gitrevision();
-        echo 'Running on git revision: '.$revision;
+        echo 'Running on git revision: ' . $revision;
         $this->assertFalse(empty($revision));
     }
 
@@ -49,9 +49,9 @@ class ConfigurationWrapperTest extends TestCase
      *
      * @test
      */
-    public function testMailIsReturnedFromConfigFile()
+    public function testMailIsReturnedTrimmedFromConfigFile()
     {
-        $GLOBALS['horncfg']['mail'] = "mymail";
+        $GLOBALS['horncfg']['mail'] = "mymail ";
         $this->assertEquals('mymail', $this->configuration->mail());
     }
 
@@ -93,6 +93,45 @@ class ConfigurationWrapperTest extends TestCase
 
         $GLOBALS['horncfg'] = [];
         $this->assertEmpty($this->configuration->pdf());
+    }
+
+
+    public function testDatabaseConfigInvalidIfHostnameIsMissing()
+    {
+        $GLOBALS['horncfg']['dbhost'] = null;
+        $this->assertFalse($this->configuration->isValidDatabaseConfig());
+    }
+
+    public function testDatabaseConfigInvalidIfDatabaseNameIsMissing()
+    {
+        $GLOBALS['horncfg']['dbname'] = null;
+        $this->assertFalse($this->configuration->isValidDatabaseConfig());
+    }
+
+    public function testDatabaseConfigInvalidIfUsernameIsMissing()
+    {
+        $GLOBALS['horncfg']['dbuser'] = null;
+        $this->assertFalse($this->configuration->isValidDatabaseConfig());
+    }
+
+    public function testDatabaseConfigInvalidIfPasswordIsMissing()
+    {
+        $GLOBALS['horncfg']['dbpassword'] = null;
+        $this->assertFalse($this->configuration->isValidDatabaseConfig());
+    }
+
+    public function testDatabaseConfigValidIfAllParametersAreFoundInTheConfigurationFileAndSetCorrectly()
+    {
+        $GLOBALS['horncfg']['dbpassword'] = 'dbpasswordNE';
+        $GLOBALS['horncfg']['dbuser'] = 'dbuserNE';
+        $GLOBALS['horncfg']['dbname'] = 'dbnameNE';
+        $GLOBALS['horncfg']['dbhost'] = 'dbhostNE';
+
+        $this->assertTrue($this->configuration->isValidDatabaseConfig());
+        $this->assertEquals('dbhostNE', $this->configuration->dbhost());
+        $this->assertEquals('dbnameNE', $this->configuration->dbname());
+        $this->assertEquals('dbuserNE', $this->configuration->dbuser());
+        $this->assertEquals('dbpasswordNE', $this->configuration->dbpassword());
     }
 
 
