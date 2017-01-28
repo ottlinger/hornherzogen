@@ -22,6 +22,7 @@ In order to just play around with it I've integrated a CI run:
 * PHP >=5.6, since my hoster does not properly support 7.x
   * with XML module installed
   * with MBString extension installed
+  * with MySQL extension installed
 * Configured Mail server so that PHP may send mails
 * Webserver
 * MySQL database with tables initialized
@@ -30,7 +31,7 @@ In order to just play around with it I've integrated a CI run:
 
 You need to install php and some libraries:
 ```
-$ sudo apt install phpunit php7.0-xml php7.0-mbstring
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql
 ```
 
 #### Composer
@@ -86,6 +87,7 @@ The configuration file needs to be created in order to set certain application p
 | sendregistrationmails | boolean, whether to send registration mails to customers |
 | sendinternalregistrationmails | boolean, whether to send mails internally upon registration via web form |
 | dbhost | database hostname with port if necessary |
+| dbname | database name |
 | dbuser | database username |
 | dbpassword | database password |
 
