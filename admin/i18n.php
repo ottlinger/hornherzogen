@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
-echo "<p>Trying to check that localization is possible</p>";
+echo "<p>Trying to check that localization with intl-extension is possible</p>";
 
 $messages = array();
 $messages['de_DE'] = array('KEY_WITH_PARAM' => 'Meine besonderen Interessen liegen im Bereich {0} uvm.',
@@ -10,5 +10,6 @@ $messages['de_DE'] = array('KEY_WITH_PARAM' => 'Meine besonderen Interessen lieg
 $withParam = new MessageFormatter('de_DE', $messages['de_DE']['KEY_WITH_PARAM']);
 $withoutParam = new MessageFormatter('de_DE', $messages['de_DE']['KEY_PLAIN']);
 
-echo "<h1>Mit Parameter: ".$withParam->format(array("PHP und OpenSource, Tendoryu Aikido"))."</h1>";
+echo "<h1>Mit Parameter: " . $withParam->format(array("PHP und OpenSource, Tendoryu Aikido")) . "</h1>";
+echo "<h1>Ohne Parameter: " . $withoutParam->format(array()) . "</h1>";
 
