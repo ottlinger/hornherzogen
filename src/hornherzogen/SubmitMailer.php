@@ -5,10 +5,9 @@ class SubmitMailer
     private $email;// tbd!
     private $firstname = 'Philio'; // tbd!
     private $lastname = 'Egonitschow'; // tbd!
-
     private $subject = 'Herzogenhorn 2017 - Deine Anmeldedaten sind eingegangen bei филипп/フィリップ';
 
-// In case you need authentication you should switch the the PEAR module
+    // In case you need authentication you should switch the the PEAR module
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
     public function send()
     {
@@ -27,6 +26,8 @@ class SubmitMailer
         }
 
         $importance = 1; //1 UrgentMessage, 3 Normal
+
+        $revision = new GitRevision();
 
         // HowToSend at all: https://wiki.goneo.de/mailversand_php_cgi
 
@@ -56,7 +57,7 @@ class SubmitMailer
             'Content-type: text/html; charset=utf-8' . "\r\n" .
             'Date: ' . date("r") . "\r\n" .
             'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">\r\n" .
-            'X-Git-Revision: <' . ConfigurationWrapper::gitrevision() .">\r\n" .
+            'X-Git-Revision: <' . $revision->gitrevision() .">\r\n" .
             'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 

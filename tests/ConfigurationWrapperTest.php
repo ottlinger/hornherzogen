@@ -1,7 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-
 class ConfigurationWrapperTest extends TestCase
 {
     private $configuration = null;
@@ -33,19 +32,7 @@ class ConfigurationWrapperTest extends TestCase
     }
 
     /**
-     * Return gitrevision is not empty, either due to correct revision or dummy string.
-     *
-     * @test
-     */
-    public function testGitRevisionIsNeverEmpty()
-    {
-        $revision = $this->configuration->gitrevision();
-        echo 'Running on git revision: ' . $revision;
-        $this->assertFalse(empty($revision));
-    }
-
-    /**
-     * Return mail value from config.
+     * Return trimmed mail value from config.
      *
      * @test
      */
@@ -133,6 +120,5 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertEquals('dbuserNE', $this->configuration->dbuser());
         $this->assertEquals('dbpasswordNE', $this->configuration->dbpassword());
     }
-
 
 }
