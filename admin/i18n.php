@@ -1,7 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hirsch
- * Date: 29.01.17
- * Time: 21:13
- */
+
+echo "<p>Trying to check that localization is possible</p>";
+
+
