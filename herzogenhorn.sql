@@ -55,3 +55,15 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `confirmed` timestamp NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+
+-- TABLE: ROOMS
+-- Holds information about the rooms available
+-- Capacity should be 1, 2,3 depending on how many beds there are
+-- e.g. Room 4711, 2 people
+CREATE TABLE IF NOT EXISTS `rooms` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `capacity` integer COLLATE utf8_bin DEFAULT 2,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
