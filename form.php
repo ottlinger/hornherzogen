@@ -106,7 +106,6 @@
 
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group">
                     <label class="col-sm-2 control-label" for="week">Welche Woche</label>
@@ -153,7 +152,7 @@
                 <label for="vorname" class="col-sm-2 control-label">Vorname</label>
                 <div class="col-sm-10 has-error has-feedback">
                     <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben.">
-                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
 
