@@ -121,7 +121,7 @@
                 <label for="flexible" class="col-sm-2 control-label">
                     Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
                 <div class="col-sm-10">
-                    <div class="radio">
+                    <div class="radio" id="flexible">
                         <label>
                             <input type="radio" name="flexible" id="no" value="no" checked>
                             Ich kann nur in dieser Woche am Lehrgang teilnehmen.
@@ -318,7 +318,7 @@
             <div class="form-group">
                 <label for="essen" class="col-sm-2 control-label">Essenswunsch</label>
                 <div class="col-sm-10">
-                    <div class="radio">
+                    <div class="radio" id="essen">
                         <label>
                             <input type="radio" name="essen" id="meat" value="meat" checked>
                             normale Kost (mit Fleisch)
