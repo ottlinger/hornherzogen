@@ -106,9 +106,9 @@
 
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+            <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group">
-                <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
-                <div class="form-group">
                     <label class="col-sm-2 control-label" for="week">Welche Woche</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="week" name="week">
@@ -116,12 +116,11 @@
                             <option value="week2">2.Woche - ab Samstag, den 2017-06-25</option>
                         </select>
                     </div>
-                </div>
             </div>
 
             <div class="form-group">
-                <label for="flexible" class="col-sm-2 control-label">Kann ich im Fall einer Überbuchung in die andere
-                    Woche ausweichen?</label>
+                <label for="flexible" class="col-sm-2 control-label">
+                    Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
                 <div class="col-sm-10">
                     <div class="radio">
                         <label>
@@ -139,8 +138,18 @@
             </div>
 
             <!-- TODO: has error has-feedback und span für Symbol selbst -->
+            <legend>Persönliche Daten</legend>
             <div class="form-group">
-                <legend>Persönliche Daten</legend>
+                <label for="gender" class="col-sm-2 control-label">Anrede</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="gender" name="gender">
+                        <option value="male">Herr</option>
+                        <option value="female">Frau</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="vorname" class="col-sm-2 control-label">Vorname</label>
                 <div class="col-sm-10 has-error has-feedback">
                     <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben.">
