@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
+-- TODO: Add reference from applicant to table rooms with primary key reference, but optional field to allow setting a room number in the admin UI
 
 -- TABLE: ROOMS
 -- Holds information about the rooms available
