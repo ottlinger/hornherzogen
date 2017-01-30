@@ -87,7 +87,7 @@
     <div class="starter-template">
         <h1>Noch Fragen? Lob oder Kritik?</h1>
         <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a href="mailto:<?php echo \hornherzogen\ConfigurationWrapper::mail();?>">Mail</a> schreiben.</p>
-        <p>Today is <?php echo date('Y-m-d H:i:s'); ?></p>
+        <p><?php \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
     </div>
 
 </div><!-- /.container -->

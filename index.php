@@ -74,7 +74,7 @@
         <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> Weiter zur Anmeldung</a>
         <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> Go to the English version of the registration</a>
         </p>
-        <p>Die aktuelle Zeit lautet: <?php echo date('Y-m-d H:i:s'); ?></p>
+        <p><?php \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
     </div>
 </div><!-- /.container -->
 

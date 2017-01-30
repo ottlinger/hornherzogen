@@ -1,6 +1,6 @@
 <?php
 namespace hornherzogen;
-
+use MessageFormatter;
 
 class HornLocalizer
 {
@@ -22,10 +22,23 @@ class HornLocalizer
         switch ($lang) {
             case "de";
             case "en";
+            case "ru";
                 return $lang;
         }
 
         return HornLocalizer::$fallbackLanguage;
+    }
+
+    public static function i18n($key)
+    {
+         $mf = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
+         echo $mf->format(array());
+    }
+
+    public static function i18nParams($key, $params)
+    {
+        $mf = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
+        echo $mf->format(array($params));
     }
 
 }
