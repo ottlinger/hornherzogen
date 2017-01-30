@@ -31,4 +31,14 @@ class HornLocalizerTest extends TestCase
         $this->assertInstanceOf('hornherzogen\HornLocalizer', $this->language);
     }
 
+    /**
+     * Test fallback 'de' in case of no get parameters.
+     *
+     * @test
+     */
+    public function testFallbackToGerman()
+    {
+        $this->assertEquals('de', \hornherzogen\HornLocalizer::getLanguage());
+    }
+
 }
