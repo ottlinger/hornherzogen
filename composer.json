@@ -15,7 +15,8 @@
       "hornherzogen": "src/"
     },
     "files": [
-      "inc/config.php"
+      "inc/config.php",
+      "inc/localization.php"
     ]
   }
 }

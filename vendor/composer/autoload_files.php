@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'b584899a9e2ebfe4f05039f196029c06' => $baseDir . '/inc/config.php',
+    '792e85942d2d2ed8507d54049b87937a' => $baseDir . '/inc/localization.php',
 );
