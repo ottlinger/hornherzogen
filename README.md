@@ -28,6 +28,14 @@ In order to just play around with it I've integrated a CI run:
 * Webserver (Apache2)
 * MySQL database with tables initialized, see [herzogenhorn.sql](herzogenhorn.sql) for details
 
+### What to change if you want to deploy the application
+
+* Clone the project into your webserver's root directory
+* Bootstrap the database with the help of [herzogenhorn.sql](herzogenhorn.sql)
+* Copy and adapt configuration template as [inc/config.ini.php](/inc/config.ini.php.template)
+* Adapt the admin area credentials setup and path to AuthUserFile in [.htaccess](admin/.htaccess) and [.htpasswd](admin/.htpasswd)
+* Use the project and verify with the help of the test scripts under [admin](admin/index.php) that everything works fine :-)
+
 ### PHP stuff
 
 You need to install php and add some libraries to your local Webserver:
@@ -36,9 +44,8 @@ $ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl
 $ sudo /etc/init.d/apache2 restart
 ```
 
-#### Composer
-
-The dependency manager can be installed
+#### Composer / Dependency Management
+In case you want to develop the dependency manager can be installed
 ```
 $ curl -s http://getcomposer.org/installer | php
 $ php composer.phar install
