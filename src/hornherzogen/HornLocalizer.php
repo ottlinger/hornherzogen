@@ -1,6 +1,6 @@
 <?php
 namespace hornherzogen;
-use MessageFormatter;
+use \MessageFormatter;
 
 class HornLocalizer
 {
