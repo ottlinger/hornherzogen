@@ -35,7 +35,10 @@ In order to just play around with it I've integrated a CI run:
 * Copy and adapt configuration template as [inc/config.ini.php](/inc/config.ini.php.template)
 * Adapt the admin area credentials setup and path to AuthUserFile in [.htaccess](admin/.htaccess) and [.htpasswd](admin/.htpasswd)
 * Use the project and verify with the help of the test scripts under [admin](admin/index.php) that everything works fine :-)
-
+* Check your logs:
+```
+$ tail -f /var/log/apache2/*.log
+```
 ### PHP stuff
 
 You need to install php and add some libraries to your local Webserver:
