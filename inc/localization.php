@@ -20,3 +20,8 @@ $GLOBALS['messages']['en'] = array(
 $GLOBALS['messages']['ru'] = array(
     'FORM.TITLE' => 'Herzogenhorn 2017 заявка',
     'TIME' => 'Сегодня {0}');
+
+// JAPANESE (just for the sake of UTF-8)
+$GLOBALS['messages']['jp'] = array(
+    'FORM.TITLE' => 'Herzogenhorn 2017 登録',
+    'TIME' => '今日 {0}');
