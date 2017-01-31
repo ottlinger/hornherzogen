@@ -8,74 +8,61 @@ namespace hornherzogen;
  */
 class ConfigurationWrapper
 {
+    private static function getFromHornConfiguration($key)
+    {
+        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg'][$key])) {
+            return trim($GLOBALS['horncfg'][$key]);
+        }
+    }
+
     public static function mail()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['mail'])) {
-            return trim($GLOBALS['horncfg']['mail']);
-        }
+        return self::getFromHornConfiguration('mail');
     }
 
     public static function debug()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['debug'])) {
-            return trim($GLOBALS['horncfg']['debug']);
-        }
+        return self::getFromHornConfiguration('debug');
     }
 
     public static function pdf()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['pdf'])) {
-            return trim($GLOBALS['horncfg']['pdf']);
-        }
+        return self::getFromHornConfiguration('pdf');
     }
 
     public static function registrationmail()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['registrationmail'])) {
-            return trim($GLOBALS['horncfg']['registrationmail']);
-        }
+        return self::getFromHornConfiguration('registrationmail');
     }
 
     public static function sendregistrationmails()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['sendregistrationmails'])) {
-            return trim($GLOBALS['horncfg']['sendregistrationmails']);
-        }
+        return self::getFromHornConfiguration('sendregistrationmails');
     }
 
     public static function sendinternalregistrationmails()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['sendinternalregistrationmails'])) {
-            return trim($GLOBALS['horncfg']['sendinternalregistrationmails']);
-        }
+        return self::getFromHornConfiguration('sendinternalregistrationmails');
     }
 
     public static function dbhost()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['dbhost'])) {
-            return trim($GLOBALS['horncfg']['dbhost']);
-        }
+        return self::getFromHornConfiguration('dbhost');
     }
 
     public static function dbuser()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['dbuser'])) {
-            return trim($GLOBALS['horncfg']['dbuser']);
-        }
+        return self::getFromHornConfiguration('dbuser');
     }
 
     public static function dbname()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['dbname'])) {
-            return trim($GLOBALS['horncfg']['dbname']);
-        }
+        return self::getFromHornConfiguration('dbname');
     }
 
     public static function dbpassword()
     {
-        if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg']['dbpassword'])) {
-            return trim($GLOBALS['horncfg']['dbpassword']);
-        }
+        return self::getFromHornConfiguration('dbpassword');
     }
 
     /**
