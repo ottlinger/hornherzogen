@@ -33,14 +33,14 @@ class HornLocalizer
 
     public static function i18n($key)
     {
-        $mf = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
-        echo $mf->format(array());
+        $messageFormatter = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
+        echo $messageFormatter->format(array());
     }
 
     public static function i18nParams($key, $params)
     {
-        $mf = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
-        echo $mf->format(array($params));
+        $messageFormatter = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
+        echo $messageFormatter->format(array($params));
     }
 
 }
