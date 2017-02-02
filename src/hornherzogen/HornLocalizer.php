@@ -8,45 +8,30 @@ class HornLocalizer
     private static $fallbackLanguage = "de";
 
     /**
-     * Retrieve lang parameter if available with fallback to German version (de)
+     * Retrieve language parameter if available with fallback to German version (de) by taking care of session state as well.
      * @return string
      */
     public static function getLanguage()
     {
-        // retrieve former state from session and let parameter overwrite if it exists
-        if (isset($_SESSION) && isset($_SESSION['language'])) {
-            $sessionLanguage = trim(filter_var($_SESSION['language']));
-            echo "session da:".$sessionLanguage;
-        }
+        $sessionLanguage = HornLocalizer::getLanguageFromSession();
+        $lang = HornLocalizer::getLanguageFromUrlParameter();
 
-        if (isset($_SESSION) && isset($_SESSION['language'])) {
-            $lang = trim(filter_var($_GET['lang'], FILTER_SANITIZE_STRING));
-            // does not work in test mode:  $lang = trim(filter_input(INPUT_GET, "lang", FILTER_SANITIZE_STRING));
-        }
-
-        if (isset($lang) && !empty($lang)) {
-            echo "param da:".$lang;
-            unset($sessionLanguage);
-            unset($_SESSION['language']);
-        }
-
-        if ((!isset($lang) || $lang === NULL) && isset($sessionLanguage)) {
-            echo "Fallback from session:".$sessionLanguage;
-            return $sessionLanguage;
-        }
-
+        // no URL parameter given
         if (empty($lang) && empty($sessionLanguage)) {
-            echo "No Param given";
             return self::storeInSession(self::$fallbackLanguage);
         }
 
-        $lang = strtolower($lang);
+        // fallback from session
+        if ((!isset($lang) || $lang === NULL) && isset($sessionLanguage)) {
+            $lang = $sessionLanguage;
+        }
+
+        $lang = trim(strtolower($lang));
         switch ($lang) {
             case "de";
             case "en";
             case "ru";
             case "jp";
-                echo "fallthroughValid:".$lang;
                 return self::storeInSession($lang);
         }
 
@@ -61,6 +46,25 @@ class HornLocalizer
         $_SESSION['language'] = $language;
         return $language;
     }
+
+    /**
+     * @return null|string language setting from session store.
+     */
+    private static function getLanguageFromSession()
+    {
+        return (isset($_SESSION) && isset($_SESSION['language'])) ? trim(filter_var($_SESSION['language'], FILTER_SANITIZE_STRING)) : NULL;
+    }
+
+    /**
+     * @return null|string language setting from session store.
+     */
+    private static function getLanguageFromUrlParameter()
+    {
+        // HINT: not working in tests:
+        //  return (isset($_GET) && isset($_GET['lang'])) ? trim(filter_input(INPUT_GET, "lang", FILTER_SANITIZE_STRING)) : NULL;
+        return (isset($_GET) && isset($_GET['lang'])) ? trim(filter_var($_GET['lang'], FILTER_SANITIZE_STRING)) : NULL;
+    }
+
 
     public static function i18n($key)
     {

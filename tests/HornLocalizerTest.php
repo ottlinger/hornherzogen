@@ -50,10 +50,40 @@ class HornLocalizerTest extends TestCase
      *
      * @test
      */
-    public function testFallbackToGermanIfNoProperLanuageCodeIsGiven()
+    public function testFallbackToGermanIfNoProperLanguageCodeIsGivenInSession()
     {
         $_GET['lang'] = null;
-        $_SESSION['language'] = 'floh';
+        $_SESSION['language'] = 'bogusNotSupportedHere';
+        $this->assertEquals('de', \hornherzogen\HornLocalizer::getLanguage());
+        self::assertTrue(isset($_SESSION));
+        self::assertTrue(isset($_SESSION['language']));
+        $this->assertEquals('de', $_SESSION['language']);
+    }
+
+    /**
+     * Test setting the language to an invalid language not currently supported.
+     *
+     * @test
+     */
+    public function testFallbackToGermanIfNoProperLanguageCodeIsGivenInUrlParameter()
+    {
+        $_GET['lang'] = 'bogusNotSupportedHere';
+        $_SESSION['language'] = null;
+        $this->assertEquals('de', \hornherzogen\HornLocalizer::getLanguage());
+        self::assertTrue(isset($_SESSION));
+        self::assertTrue(isset($_SESSION['language']));
+        $this->assertEquals('de', $_SESSION['language']);
+    }
+
+    /**
+     * Test setting the language to an invalid language not currently supported.
+     *
+     * @test
+     */
+    public function testFallbackToGermanIfNoProperLanguageCodeIsGivenInUrlParameterAndSession()
+    {
+        $_GET['lang'] = 'bogusNotSupportedHere';
+        $_SESSION['language'] = 'bogusNotSupportedHere';
         $this->assertEquals('de', \hornherzogen\HornLocalizer::getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
