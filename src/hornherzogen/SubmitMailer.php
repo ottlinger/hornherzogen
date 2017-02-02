@@ -1,5 +1,7 @@
 <?php namespace hornherzogen;
 
+use hornherzogen\ConfigurationWrapper;
+
 class SubmitMailer
 {
     private $email;// tbd!
@@ -19,7 +21,7 @@ class SubmitMailer
         }
         $this->email = $_POST['email']; // ?? ''; if PHP7 were to work
 
-        $replyto = $GLOBALS["horncfg"]["registrationmail"];
+        $replyto = ConfigurationWrapper::registrationmail();
         // PHP7.0: ?? 'invalidconfigurationfile@example.com';
         if (empty($replyto)) {
             $replyto = 'invalidconfigurationfile@example.com';
@@ -57,11 +59,11 @@ class SubmitMailer
             'Content-type: text/html; charset=utf-8' . "\r\n" .
             'Date: ' . date("r") . "\r\n" .
             'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">\r\n" .
-            'X-Git-Revision: <' . $revision->gitrevision() .">\r\n" .
+            'X-Git-Revision: <' . $revision->gitrevision() . ">\r\n" .
             'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-        if($GLOBALS["horncfg"]["sendregistrationmails"]) {
+        if (ConfigurationWrapper::sendregistrationmails()) {
             mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $replyto);
         }
         return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
@@ -72,8 +74,8 @@ class SubmitMailer
      */
     public function sendInternally()
     {
-        if(!empty($GLOBALS["horncfg"]["sendinternalregistrationmails"])) {
-            return 'Not yet implemented';
+        if (ConfigurationWrapper::sendregistrationmails()) {
+            return 'An internal confirmation mail needs to be send as well :-)';
         }
     }
 
@@ -104,7 +106,6 @@ class SubmitMailer
         </body>
     </html>';
     }
-
 
 
     /**

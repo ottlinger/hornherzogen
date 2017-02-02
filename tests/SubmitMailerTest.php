@@ -38,7 +38,7 @@ class SubmitMailerTest extends PHPUnit_Framework_TestCase
     public function testValidInternalMailSendingWhenConfigIsSetProperly()
     {
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
-        $this->assertEquals('Not yet implemented', $this->mailer->sendInternally());
+        $this->assertNull($this->mailer->sendInternally());
     }
 
 
