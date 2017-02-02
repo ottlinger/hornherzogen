@@ -19,7 +19,7 @@ class HornLocalizer
             echo "session da:".$sessionLanguage;
         }
 
-        if (isset($_SESSION) && isset($_SESSION['language'])) {
+        if (isset($_GET) && isset($_GET['language'])) {
             $lang = trim(filter_var($_GET['lang'], FILTER_SANITIZE_STRING));
             // does not work in test mode:  $lang = trim(filter_input(INPUT_GET, "lang", FILTER_SANITIZE_STRING));
         }
@@ -27,7 +27,7 @@ class HornLocalizer
         if (isset($lang) && !empty($lang)) {
             echo "param da:".$lang;
             unset($sessionLanguage);
-            session_unset($_SESSION['language']);
+            unset($_SESSION['language']);
         }
 
         if ((!isset($lang) || $lang === NULL) && isset($sessionLanguage)) {
@@ -54,7 +54,7 @@ class HornLocalizer
     }
 
     /**
-     * Store given language in session and release session for now.
+     * Store given language in session.
      */
     private static function storeInSession($language)
     {
