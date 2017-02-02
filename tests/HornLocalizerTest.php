@@ -130,15 +130,31 @@ class HornLocalizerTest extends TestCase
         $this->assertEquals('en', $_SESSION['language']);
     }
 
-    public function testSessionDataRetrieval() {
-//        self::assertEmpty(HornLoca)
+    public function testSessionDataRetrieval()
+    {
+        $_SESSION = null;
+        self::assertEmpty(HornLocalizer::getLanguageFromSession());
 
+        $_SESSION = array();
+        $_SESSION['language'] = null;
+        self::assertEmpty(HornLocalizer::getLanguageFromSession());
+
+        $_SESSION['language'] = ' дняtrimMeProper今日lyC         ';
+        self::assertEquals('дняtrimMeProper今日lyC', HornLocalizer::getLanguageFromSession());
     }
 
-    public function testUrlParameterDataRetrieval() {
+    public function testUrlParameterDataRetrieval()
+    {
+        $_GET = null;
+        self::assertEmpty(HornLocalizer::getLanguageFromUrlParameter());
+
+        $_GET = array();
+        $_GET['lang'] = null;
+        self::assertEmpty(HornLocalizer::getLanguageFromUrlParameter());
+
+        $_GET['lang'] = ' дняtrimMeProper今日lyC         ';
+        self::assertEquals('дняtrimMeProper今日lyC', HornLocalizer::getLanguageFromUrlParameter());
 
     }
-
-
 
 }

@@ -50,7 +50,7 @@ class HornLocalizer
     /**
      * @return null|string language setting from session store.
      */
-    private static function getLanguageFromSession()
+    static function getLanguageFromSession()
     {
         return (isset($_SESSION) && isset($_SESSION['language'])) ? trim(filter_var($_SESSION['language'], FILTER_SANITIZE_STRING)) : NULL;
     }
@@ -58,7 +58,7 @@ class HornLocalizer
     /**
      * @return null|string language setting from session store.
      */
-    private static function getLanguageFromUrlParameter()
+    static function getLanguageFromUrlParameter()
     {
         // HINT: not working in tests:
         //  return (isset($_GET) && isset($_GET['lang'])) ? trim(filter_input(INPUT_GET, "lang", FILTER_SANITIZE_STRING)) : NULL;
