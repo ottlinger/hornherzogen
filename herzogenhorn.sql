@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `vorname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   `nachname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `combinedName` varchar(400) COLLATE utf8_bin DEFAULT NULL,
   `street` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `houseno` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `plz` varchar(20) COLLATE utf8_bin DEFAULT NULL,
