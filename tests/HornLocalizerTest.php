@@ -2,7 +2,6 @@
 use PHPUnit\Framework\TestCase;
 use hornherzogen\HornLocalizer;
 
-
 class HornLocalizerTest extends TestCase
 {
     private $language = null;
@@ -154,7 +153,6 @@ class HornLocalizerTest extends TestCase
 
         $_GET['lang'] = ' дняtrimMeProper今日lyC         ';
         self::assertEquals('дняtrimMeProper今日lyC', HornLocalizer::getLanguageFromUrlParameter());
-
     }
 
 }
