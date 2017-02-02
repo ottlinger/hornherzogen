@@ -21,6 +21,16 @@ class ApplicantInput extends Applicant
         return !($this->total == sizeof($this->success) && 0 == sizeof($this->errors));
     }
 
+    public function showHasError($field) {
+        // TODO if field is in $errors
+        return " has-error has-feedback";
+    }
+
+    public function showIsOkay($field) {
+        // TODO if field is in $success
+        return " has-success";
+    }
+
     /**
      * Extracts data from $_POST[].
      */
