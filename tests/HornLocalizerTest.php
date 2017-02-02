@@ -52,6 +52,7 @@ class HornLocalizerTest extends TestCase
      */
     public function testFallbackToGermanIfNoProperLanuageCodeIsGiven()
     {
+        $_GET['lang'] = null;
         $_SESSION['language'] = 'floh';
         $this->assertEquals('de', \hornherzogen\HornLocalizer::getLanguage());
         self::assertTrue(isset($_SESSION));

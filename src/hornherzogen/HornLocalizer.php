@@ -27,7 +27,7 @@ class HornLocalizer
         if (isset($lang) && !empty($lang)) {
             echo "param da:".$lang;
             unset($sessionLanguage);
-            session_unset($_SESSION['language']);
+            unset($_SESSION['language']);
         }
 
         if ((!isset($lang) || $lang === NULL) && isset($sessionLanguage)) {
@@ -54,7 +54,7 @@ class HornLocalizer
     }
 
     /**
-     * Store given language in session and release session for now.
+     * Store given language in session.
      */
     private static function storeInSession($language)
     {
