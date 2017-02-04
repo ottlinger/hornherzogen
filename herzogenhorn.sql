@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `paymentmailed` timestamp NULL,
   `paymentreceived` timestamp NULL,
   `confirmed` timestamp NULL,
+  `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -69,3 +70,11 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `capacity` integer COLLATE utf8_bin DEFAULT 2,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+-- TODO: add foreign key to applicant
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
