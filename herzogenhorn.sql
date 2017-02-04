@@ -78,3 +78,11 @@ CREATE TABLE IF NOT EXISTS `status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
+-- TODO: add status values:
+-- APPLIED - form data is saved
+-- REGISTERED - mail is sent successfully
+-- CONFIRMED - admin checked and verified registration
+-- WAITING_FOR_PAYMENT - we are waiting for payment to come in
+-- CANCEL - manuelly withdrawn
+-- PAID - paid successfully
+-- BOOKED - final confirmation is sent
