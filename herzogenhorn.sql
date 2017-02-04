@@ -51,9 +51,11 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `additionals` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mailed` timestamp NULL,
+  `verified` timestamp NULL,
   `paymentmailed` timestamp NULL,
   `paymentreceived` timestamp NULL,
-  `confirmed` timestamp NULL,
+  `booked` timestamp NULL,
+  `cancelled` timestamp NULL,
   `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
@@ -83,6 +85,6 @@ CREATE TABLE IF NOT EXISTS `status` (
 -- REGISTERED - mail is sent successfully
 -- CONFIRMED - admin checked and verified registration
 -- WAITING_FOR_PAYMENT - we are waiting for payment to come in
--- CANCEL - manuelly withdrawn
+-- CANCELLED - manually withdrawn from seminar
 -- PAID - paid successfully
 -- BOOKED - final confirmation is sent
