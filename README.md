@@ -1,8 +1,10 @@
-[![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
 # Project hornherzogen
 Pet project to manage seminar registration for Herzogenhorn 2017
 
 Status: Work in progress :-)
+
+[![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
+
 
 2017-01-07
 
