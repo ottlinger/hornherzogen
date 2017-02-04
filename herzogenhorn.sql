@@ -18,7 +18,6 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `herzogenhorn`
 --
-
 -- --------------------------------------------------------
 
 --
@@ -60,7 +59,8 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- TODO: Add reference from applicant to table rooms with primary key reference, but optional field to allow setting a room number in the admin UI
+--
+-- https://github.com/ottlinger/hornherzogen/issues/1 TODO: Add reference from applicant to table rooms with primary key reference, but optional field to allow setting a room number in the admin UI
 
 -- TABLE: ROOMS
 -- Holds information about the rooms available
@@ -73,14 +73,14 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- TODO: add foreign key to applicant
+-- https://github.com/ottlinger/hornherzogen/issues/2 TODO add foreign key to applicant
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- TODO: add status values:
+-- https://github.com/ottlinger/hornherzogen/issues/3 TODO: add status values:
 -- APPLIED - form data is saved
 -- REGISTERED - mail is sent successfully
 -- CONFIRMED - admin checked and verified registration

@@ -30,7 +30,7 @@ class Applicant
     private $dateOfLastGrading;
     private $twaNumber;
 
-    private $room;
+    private $room; // which kind of room
     private $partnerOne;
     private $partnerTwo;
 
