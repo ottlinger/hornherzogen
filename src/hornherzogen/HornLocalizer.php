@@ -29,7 +29,7 @@ class HornLocalizer
         return self::checkIfValidOrReturnDefaultAndSetInSession($lang);
     }
 
-    private function checkIfValidOrReturnDefaultAndSetInSession($lang)
+    private static function checkIfValidOrReturnDefaultAndSetInSession($lang)
     {
         if (isset($lang) && !empty($lang)) {
             $lang = trim(strtolower($lang));
