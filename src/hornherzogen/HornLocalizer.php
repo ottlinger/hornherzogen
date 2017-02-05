@@ -13,8 +13,8 @@ class HornLocalizer
      */
     public static function getLanguage()
     {
-        $sessionLanguage = HornLocalizer::getLanguageFromSession();
-        $lang = HornLocalizer::getLanguageFromUrlParameter();
+        $sessionLanguage = self::getLanguageFromSession();
+        $lang = self::getLanguageFromUrlParameter();
 
         // no URL parameter given
         if (empty($lang) && empty($sessionLanguage)) {
