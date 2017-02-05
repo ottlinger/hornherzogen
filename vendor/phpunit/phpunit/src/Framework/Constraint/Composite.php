@@ -7,23 +7,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Framework\Constraint;
-
-use PHPUnit\Framework\ExpectationFailedException;
 
 /**
+ * @since Class available since Release 3.1.0
  */
-abstract class Composite extends Constraint
+abstract class PHPUnit_Framework_Constraint_Composite extends PHPUnit_Framework_Constraint
 {
     /**
-     * @var Constraint
+     * @var PHPUnit_Framework_Constraint
      */
     protected $innerConstraint;
 
     /**
-     * @param Constraint $innerConstraint
+     * @param PHPUnit_Framework_Constraint $innerConstraint
      */
-    public function __construct(Constraint $innerConstraint)
+    public function __construct(PHPUnit_Framework_Constraint $innerConstraint)
     {
         parent::__construct();
         $this->innerConstraint = $innerConstraint;
@@ -45,7 +43,7 @@ abstract class Composite extends Constraint
      *
      * @return mixed
      *
-     * @throws ExpectationFailedException
+     * @throws PHPUnit_Framework_ExpectationFailedException
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -55,7 +53,7 @@ abstract class Composite extends Constraint
                 $description,
                 $returnResult
             );
-        } catch (ExpectationFailedException $e) {
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->fail($other, $description);
         }
     }

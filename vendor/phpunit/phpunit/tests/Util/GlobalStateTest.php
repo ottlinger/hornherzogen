@@ -7,11 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Util\GlobalState;
 
-class Util_GlobalStateTest extends TestCase
+/**
+ */
+class Util_GlobalStateTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers PHPUnit_Util_GlobalState::processIncludedFilesAsString
+     */
     public function testIncludedFilesAsStringSkipsVfsProtocols()
     {
         $dir   = __DIR__;
@@ -27,6 +30,6 @@ class Util_GlobalStateTest extends TestCase
         $this->assertEquals(
             "require_once '" . $dir . "/ConfigurationTest.php';\n" .
             "require_once '" . $dir . "/GlobalStateTest.php';\n" .
-            "require_once 'file://" . $dir . "/XMLTest.php';\n", GlobalState::processIncludedFilesAsString($files));
+            "require_once 'file://" . $dir . "/XMLTest.php';\n", PHPUnit_Util_GlobalState::processIncludedFilesAsString($files));
     }
 }

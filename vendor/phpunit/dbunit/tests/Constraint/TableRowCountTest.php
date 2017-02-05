@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DbUnit.
+ * This file is part of DBUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,15 +8,14 @@
  * file that was distributed with this source code.
  */
 
-use PHPUnit\DbUnit\Constraint\TableRowCount;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\ExpectationFailedException;
-
-class Extensions_Database_Constraint_TableRowCountTest extends TestCase
+/**
+ * @since      File available since Release 1.0.0
+ */
+class Extensions_Database_Constraint_TableRowCountTest extends PHPUnit_Framework_TestCase
 {
     public function testConstraint()
     {
-        $constraint = new TableRowCount('name', 42);
+        $constraint = new PHPUnit_Extensions_Database_Constraint_TableRowCount('name', 42);
 
         $this->assertTrue($constraint->evaluate(42, '', true));
         $this->assertFalse($constraint->evaluate(24, '', true));
@@ -24,7 +23,7 @@ class Extensions_Database_Constraint_TableRowCountTest extends TestCase
 
         try {
             $this->assertThat(24, $constraint, '');
-        } catch (ExpectationFailedException $e) {
+        } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
                 'Failed asserting that 24 is equal to expected row count 42.',
                 $e->getMessage()

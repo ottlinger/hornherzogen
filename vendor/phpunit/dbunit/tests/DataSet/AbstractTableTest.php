@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DbUnit.
+ * This file is part of DBUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,30 +8,26 @@
  * file that was distributed with this source code.
  */
 
-use PHPUnit\DbUnit\DataSet\DefaultTable;
-use PHPUnit\DbUnit\DataSet\DefaultTableMetadata;
-use PHPUnit\DbUnit\DataSet\ITable;
-use PHPUnit\DbUnit\DataSet\ITableMetadata;
-use PHPUnit\DbUnit\DataSet\QueryTable;
-use PHPUnit\Framework\TestCase;
-
-class Extensions_Database_DataSet_AbstractTableTest extends TestCase
+/**
+ * @since      File available since Release 1.0.0
+ */
+class Extensions_Database_DataSet_AbstractTableTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var QueryTable
+     * @var PHPUnit_Extensions_Database_DataSet_QueryTable
      */
     protected $table;
 
     public function setUp()
     {
-        $tableMetaData = new DefaultTableMetadata(
+        $tableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
             'table', ['id', 'column1']
         );
 
-        $this->table = new DefaultTable($tableMetaData);
+        $this->table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($tableMetaData);
 
         $this->table->addRow([
-            'id' => 1,
+            'id'      => 1,
             'column1' => 'randomValue'
         ]);
     }
@@ -57,10 +53,10 @@ class Extensions_Database_DataSet_AbstractTableTest extends TestCase
 
     public function testMatchesWithNonMatchingMetaData()
     {
-        $tableMetaData = $this->createMock(ITableMetadata::class);
-        $otherMetaData = $this->createMock(ITableMetadata::class);
+        $tableMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
+        $otherMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
 
-        $otherTable = $this->createMock(ITable::class);
+        $otherTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $otherTable->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($otherMetaData));
@@ -70,21 +66,16 @@ class Extensions_Database_DataSet_AbstractTableTest extends TestCase
             ->with($otherMetaData)
             ->will($this->returnValue(false));
 
-        $table = new DefaultTable($tableMetaData);
+        $table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($tableMetaData);
         $this->assertFalse($table->matches($otherTable));
     }
 
     public function testMatchesWithNonMatchingRowCount()
     {
-        $tableMetaData = $this->createMock(ITableMetadata::class);
-        $otherMetaData = $this->createMock(ITableMetadata::class);
-        $otherTable = $this->createMock(ITable::class);
+        $tableMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
+        $otherMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
 
-        $table = $this->getMockBuilder(DefaultTable::class)
-                      ->setConstructorArgs([$tableMetaData])
-                      ->setMethods(['getRowCount'])
-                      ->getMock();
-
+        $otherTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $otherTable->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($otherMetaData));
@@ -97,6 +88,7 @@ class Extensions_Database_DataSet_AbstractTableTest extends TestCase
             ->with($otherMetaData)
             ->will($this->returnValue(true));
 
+        $table = $this->getMock('PHPUnit_Extensions_Database_DataSet_DefaultTable', ['getRowCount'], [$tableMetaData]);
         $table->expects($this->once())
             ->method('getRowCount')
             ->will($this->returnValue(1));
@@ -111,15 +103,10 @@ class Extensions_Database_DataSet_AbstractTableTest extends TestCase
      */
     public function testMatchesWithColumnValueComparisons($tableColumnValues, $otherColumnValues, $matches)
     {
-        $tableMetaData = $this->createMock(ITableMetadata::class);
-        $otherMetaData = $this->createMock(ITableMetadata::class);
-        $otherTable = $this->createMock(ITable::class);
+        $tableMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
+        $otherMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
 
-        $table = $this->getMockBuilder(DefaultTable::class)
-                      ->setConstructorArgs([$tableMetaData])
-                      ->setMethods(['getRowCount', 'getValue'])
-                      ->getMock();
-
+        $otherTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $otherTable->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($otherMetaData));
@@ -135,6 +122,7 @@ class Extensions_Database_DataSet_AbstractTableTest extends TestCase
             ->with($otherMetaData)
             ->will($this->returnValue(true));
 
+        $table = $this->getMock('PHPUnit_Extensions_Database_DataSet_DefaultTable', ['getRowCount', 'getValue'], [$tableMetaData]);
         $table->expects($this->any())
             ->method('getRowCount')
             ->will($this->returnValue(count($tableColumnValues)));
@@ -302,4 +290,5 @@ class Extensions_Database_DataSet_AbstractTableTest extends TestCase
             ],
         ];
     }
+
 }

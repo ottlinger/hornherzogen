@@ -7,37 +7,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Util;
-
-use Closure;
 
 /**
+ * @since Class available since Release 3.4.0
  */
-class GlobalState
+class PHPUnit_Util_GlobalState
 {
     /**
      * @var array
      */
     protected static $superGlobalArrays = [
-        '_ENV',
-        '_POST',
-        '_GET',
-        '_COOKIE',
-        '_SERVER',
-        '_FILES',
-        '_REQUEST'
+      '_ENV',
+      '_POST',
+      '_GET',
+      '_COOKIE',
+      '_SERVER',
+      '_FILES',
+      '_REQUEST'
     ];
 
     /**
      * @var array
      */
     protected static $superGlobalArraysLong = [
-        'HTTP_ENV_VARS',
-        'HTTP_POST_VARS',
-        'HTTP_GET_VARS',
-        'HTTP_COOKIE_VARS',
-        'HTTP_SERVER_VARS',
-        'HTTP_POST_FILES'
+      'HTTP_ENV_VARS',
+      'HTTP_POST_VARS',
+      'HTTP_GET_VARS',
+      'HTTP_COOKIE_VARS',
+      'HTTP_SERVER_VARS',
+      'HTTP_POST_FILES'
     ];
 
     /**
@@ -55,7 +53,7 @@ class GlobalState
      */
     public static function processIncludedFilesAsString(array $files)
     {
-        $blacklist = new Blacklist;
+        $blacklist = new PHPUnit_Util_Blacklist;
         $prefix    = false;
         $result    = '';
 
@@ -134,8 +132,7 @@ class GlobalState
 
         foreach ($superGlobalArrays as $superGlobalArray) {
             if (isset($GLOBALS[$superGlobalArray]) &&
-                is_array($GLOBALS[$superGlobalArray])
-            ) {
+                is_array($GLOBALS[$superGlobalArray])) {
                 foreach (array_keys($GLOBALS[$superGlobalArray]) as $key) {
                     if ($GLOBALS[$superGlobalArray][$key] instanceof Closure) {
                         continue;
@@ -185,14 +182,13 @@ class GlobalState
     protected static function exportVariable($variable)
     {
         if (is_scalar($variable) || is_null($variable) ||
-            (is_array($variable) && self::arrayOnlyContainsScalars($variable))
-        ) {
+           (is_array($variable) && self::arrayOnlyContainsScalars($variable))) {
             return var_export($variable, true);
         }
 
         return 'unserialize(' .
-            var_export(serialize($variable), true) .
-            ')';
+                var_export(serialize($variable), true) .
+                ')';
     }
 
     /**

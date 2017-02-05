@@ -7,10 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Framework;
-
-use PHPUnit\Util\Filter;
-use Throwable;
 
 /**
  * Wraps Exceptions thrown by code under test.
@@ -20,8 +16,10 @@ use Throwable;
  *
  * Unlike PHPUnit_Framework_Exception, the complete stack of previous Exceptions
  * is processed.
+ *
+ * @since Class available since Release 4.3.0
  */
-class ExceptionWrapper extends Exception
+class PHPUnit_Framework_ExceptionWrapper extends PHPUnit_Framework_Exception
 {
     /**
      * @var string
@@ -29,31 +27,31 @@ class ExceptionWrapper extends Exception
     protected $className;
 
     /**
-     * @var ExceptionWrapper|null
+     * @var PHPUnit_Framework_ExceptionWrapper|null
      */
     protected $previous;
 
     /**
-     * @param Throwable $t
+     * @param Throwable|Exception $e
      */
-    public function __construct(Throwable $t)
+    public function __construct($e)
     {
         // PDOException::getCode() is a string.
         // @see http://php.net/manual/en/class.pdoexception.php#95812
-        parent::__construct($t->getMessage(), (int) $t->getCode());
+        parent::__construct($e->getMessage(), (int) $e->getCode());
 
-        $this->className = get_class($t);
-        $this->file      = $t->getFile();
-        $this->line      = $t->getLine();
+        $this->className = get_class($e);
+        $this->file      = $e->getFile();
+        $this->line      = $e->getLine();
 
-        $this->serializableTrace = $t->getTrace();
+        $this->serializableTrace = $e->getTrace();
 
         foreach ($this->serializableTrace as $i => $call) {
             unset($this->serializableTrace[$i]['args']);
         }
 
-        if ($t->getPrevious()) {
-            $this->previous = new self($t->getPrevious());
+        if ($e->getPrevious()) {
+            $this->previous = new self($e->getPrevious());
         }
     }
 
@@ -66,7 +64,7 @@ class ExceptionWrapper extends Exception
     }
 
     /**
-     * @return ExceptionWrapper
+     * @return PHPUnit_Framework_ExceptionWrapper
      */
     public function getPreviousWrapped()
     {
@@ -78,9 +76,9 @@ class ExceptionWrapper extends Exception
      */
     public function __toString()
     {
-        $string = TestFailure::exceptionToString($this);
+        $string = PHPUnit_Framework_TestFailure::exceptionToString($this);
 
-        if ($trace = Filter::getFilteredStacktrace($this)) {
+        if ($trace = PHPUnit_Util_Filter::getFilteredStacktrace($this)) {
             $string .= "\n" . $trace;
         }
 

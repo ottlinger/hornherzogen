@@ -7,13 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Framework\Constraint;
 
 /**
  * Constraint that asserts that the string it is evaluated for begins with a
  * given prefix.
+ *
+ * @since Class available since Release 3.4.0
  */
-class StringStartsWith extends Constraint
+class PHPUnit_Framework_Constraint_StringStartsWith extends PHPUnit_Framework_Constraint
 {
     /**
      * @var string

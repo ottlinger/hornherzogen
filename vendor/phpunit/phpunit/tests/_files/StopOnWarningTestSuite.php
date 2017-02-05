@@ -1,11 +1,9 @@
 <?php
-use PHPUnit\Framework\TestSuite;
-
 class StopOnWarningTestSuite
 {
     public static function suite()
     {
-        $suite = new TestSuite('Test Warnings');
+        $suite = new PHPUnit_Framework_TestSuite('Test Warnings');
 
         $suite->addTestSuite('NoTestCases');
         $suite->addTestSuite('CoverageClassTest');

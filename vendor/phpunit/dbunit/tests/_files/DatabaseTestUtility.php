@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DbUnit.
+ * This file is part of DBUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,6 +8,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * @since      Class available since Release 1.0.0
+ */
 class DBUnitTestUtility
 {
     protected static $connection;
@@ -15,7 +18,7 @@ class DBUnitTestUtility
 
     public static function getSQLiteMemoryDB()
     {
-        if (self::$connection === null) {
+        if (self::$connection === NULL) {
             self::$connection = new PDO('sqlite::memory:');
             self::setUpDatabase(self::$connection);
         }
@@ -30,12 +33,12 @@ class DBUnitTestUtility
      * and empty password and listening on unix socket
      *
      * @return PDO
-     *
      * @see    DBUnitTestUtility::setUpMySqlDatabase()
      */
     public static function getMySQLDB()
     {
-        if (self::$mySQLConnection === null) {
+        if (self::$mySQLConnection === NULL) {
+
             self::$mySQLConnection = new PDO(PHPUNIT_TESTSUITE_EXTENSION_DATABASE_MYSQL_DSN, PHPUNIT_TESTSUITE_EXTENSION_DATABASE_MYSQL_USERNAME, PHPUNIT_TESTSUITE_EXTENSION_DATABASE_MYSQL_PASSWORD);
 
             self::setUpMySQLDatabase(self::$mySQLConnection);
@@ -86,7 +89,6 @@ class DBUnitTestUtility
      * for constraint tests to be executed properly
      *
      * @param PDO $connection PDO instance representing connection to MySQL database
-     *
      * @see   DBUnitTestUtility::getMySQLDB()
      */
     protected static function setUpMySqlDatabase(PDO $connection)

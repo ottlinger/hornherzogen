@@ -7,30 +7,33 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use PHPUnit\Framework\Constraint\JsonMatchesErrorMessageProvider;
-use PHPUnit\Framework\TestCase;
 
-class Framework_Constraint_JsonMatches_ErrorMessageProviderTest extends TestCase
+/**
+ * @since      File available since Release 3.7.0
+ */
+class Framework_Constraint_JsonMatches_ErrorMessageProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider translateTypeToPrefixDataprovider
+     * @covers PHPUnit_Framework_Constraint_JsonMatches_ErrorMessageProvider::translateTypeToPrefix
      */
     public function testTranslateTypeToPrefix($expected, $type)
     {
         $this->assertEquals(
             $expected,
-            JsonMatchesErrorMessageProvider::translateTypeToPrefix($type)
+            PHPUnit_Framework_Constraint_JsonMatches_ErrorMessageProvider::translateTypeToPrefix($type)
         );
     }
 
     /**
      * @dataProvider determineJsonErrorDataprovider
+     * @covers PHPUnit_Framework_Constraint_JsonMatches_ErrorMessageProvider::determineJsonError
      */
     public function testDetermineJsonError($expected, $error, $prefix)
     {
         $this->assertEquals(
             $expected,
-            JsonMatchesErrorMessageProvider::determineJsonError(
+            PHPUnit_Framework_Constraint_JsonMatches_ErrorMessageProvider::determineJsonError(
                 $error,
                 $prefix
             )

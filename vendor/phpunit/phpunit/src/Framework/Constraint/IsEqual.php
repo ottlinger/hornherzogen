@@ -7,11 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Framework\Constraint;
-
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Util\InvalidArgumentHelper;
-use SebastianBergmann;
 
 /**
  * Constraint that checks if one value is equal to another.
@@ -21,8 +16,10 @@ use SebastianBergmann;
  * Two values are equal if they have the same value disregarding type.
  *
  * The expected value is passed in the constructor.
+ *
+ * @since Class available since Release 3.0.0
  */
-class IsEqual extends Constraint
+class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
 {
     /**
      * @var mixed
@@ -61,26 +58,26 @@ class IsEqual extends Constraint
      * @param bool  $canonicalize
      * @param bool  $ignoreCase
      *
-     * @throws \PHPUnit\Framework\Exception
+     * @throws PHPUnit_Framework_Exception
      */
     public function __construct($value, $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
     {
         parent::__construct();
 
         if (!is_numeric($delta)) {
-            throw InvalidArgumentHelper::factory(2, 'numeric');
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'numeric');
         }
 
         if (!is_int($maxDepth)) {
-            throw InvalidArgumentHelper::factory(3, 'integer');
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(3, 'integer');
         }
 
         if (!is_bool($canonicalize)) {
-            throw InvalidArgumentHelper::factory(4, 'boolean');
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(4, 'boolean');
         }
 
         if (!is_bool($ignoreCase)) {
-            throw InvalidArgumentHelper::factory(5, 'boolean');
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(5, 'boolean');
         }
 
         $this->value        = $value;
@@ -106,7 +103,7 @@ class IsEqual extends Constraint
      *
      * @return mixed
      *
-     * @throws ExpectationFailedException
+     * @throws PHPUnit_Framework_ExpectationFailedException
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -137,7 +134,7 @@ class IsEqual extends Constraint
                 return false;
             }
 
-            throw new ExpectationFailedException(
+            throw new PHPUnit_Framework_ExpectationFailedException(
                 trim($description . "\n" . $f->getMessage()),
                 $f
             );

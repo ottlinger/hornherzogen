@@ -7,11 +7,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Util\Xml;
 
-class Util_XMLTest extends TestCase
+/**
+ * @since      Class available since Release 3.3.0
+ * @covers     PHPUnit_Util_XML
+ */
+class Util_XMLTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider charProvider
@@ -20,7 +21,7 @@ class Util_XMLTest extends TestCase
     {
         $e = null;
 
-        $escapedString = Xml::prepareString($char);
+        $escapedString = PHPUnit_Util_XML::prepareString($char);
         $xml           = "<?xml version='1.0' encoding='UTF-8' ?><tag>$escapedString</tag>";
         $dom           = new DomDocument('1.0', 'UTF-8');
 
@@ -46,28 +47,31 @@ class Util_XMLTest extends TestCase
         return $data;
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Exception
+     * @expectedExceptionMessage Could not load XML from empty string
+     */
     public function testLoadEmptyString()
     {
-        $this->expectException(PHPUnit\Framework\Exception::class);
-        $this->expectExceptionMessage('Could not load XML from empty string');
-
-        Xml::load('');
+        PHPUnit_Util_XML::load('');
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Exception
+     * @expectedExceptionMessage Could not load XML from array
+     */
     public function testLoadArray()
     {
-        $this->expectException(PHPUnit\Framework\Exception::class);
-        $this->expectExceptionMessage('Could not load XML from array');
-
-        Xml::load([1, 2, 3]);
+        PHPUnit_Util_XML::load([1, 2, 3]);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Exception
+     * @expectedExceptionMessage Could not load XML from boolean
+     */
     public function testLoadBoolean()
     {
-        $this->expectException(PHPUnit\Framework\Exception::class);
-        $this->expectExceptionMessage('Could not load XML from boolean');
-
-        Xml::load(false);
+        PHPUnit_Util_XML::load(false);
     }
 
     public function testNestedXmlToVariable()
@@ -83,7 +87,7 @@ class Util_XMLTest extends TestCase
             'c' => 'bar',
         ];
 
-        $actual = XML::xmlToVariable($dom->documentElement);
+        $actual = PHPUnit_Util_XML::xmlToVariable($dom->documentElement);
 
         $this->assertSame($expected, $actual);
     }

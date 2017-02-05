@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DbUnit.
+ * This file is part of DBUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,13 +8,10 @@
  * file that was distributed with this source code.
  */
 
-use PHPUnit\DbUnit\DataSet\CompositeDataSet;
-use PHPUnit\DbUnit\DataSet\DefaultDataSet;
-use PHPUnit\DbUnit\DataSet\DefaultTable;
-use PHPUnit\DbUnit\DataSet\DefaultTableMetadata;
-use PHPUnit\DbUnit\TestCase;
-
-class Extensions_Database_DataSet_CompositeDataSetTest extends \PHPUnit\Framework\TestCase
+/**
+ * @since      File available since Release 1.0.0
+ */
+class Extensions_Database_DataSet_CompositeDataSetTest extends PHPUnit_Framework_TestCase
 {
     protected $expectedDataSet1;
     protected $expectedDataSet2;
@@ -22,116 +19,116 @@ class Extensions_Database_DataSet_CompositeDataSetTest extends \PHPUnit\Framewor
 
     public function setUp()
     {
-        $table1MetaData = new DefaultTableMetadata(
+        $table1MetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
             'table1', ['table1_id', 'column1', 'column2', 'column3', 'column4']
         );
-        $table2MetaData = new DefaultTableMetadata(
+        $table2MetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
             'table2', ['table2_id', 'column5', 'column6', 'column7', 'column8']
         );
 
-        $table3MetaData = new DefaultTableMetadata(
+        $table3MetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
             'table3', ['table3_id', 'column9', 'column10', 'column11', 'column12']
         );
 
-        $table1 = new DefaultTable($table1MetaData);
-        $table2 = new DefaultTable($table2MetaData);
-        $table3 = new DefaultTable($table3MetaData);
+        $table1 = new PHPUnit_Extensions_Database_DataSet_DefaultTable($table1MetaData);
+        $table2 = new PHPUnit_Extensions_Database_DataSet_DefaultTable($table2MetaData);
+        $table3 = new PHPUnit_Extensions_Database_DataSet_DefaultTable($table3MetaData);
 
         $table1->addRow([
             'table1_id' => 1,
-            'column1' => 'tgfahgasdf',
-            'column2' => 200,
-            'column3' => 34.64,
-            'column4' => 'yghkf;a  hahfg8ja h;'
+            'column1'   => 'tgfahgasdf',
+            'column2'   => 200,
+            'column3'   => 34.64,
+            'column4'   => 'yghkf;a  hahfg8ja h;'
         ]);
         $table1->addRow([
             'table1_id' => 2,
-            'column1' => 'hk;afg',
-            'column2' => 654,
-            'column3' => 46.54,
-            'column4' => '24rwehhads'
+            'column1'   => 'hk;afg',
+            'column2'   => 654,
+            'column3'   => 46.54,
+            'column4'   => '24rwehhads'
         ]);
         $table1->addRow([
             'table1_id' => 3,
-            'column1' => 'ha;gyt',
-            'column2' => 462,
-            'column3' => 1654.4,
-            'column4' => 'asfgklg'
+            'column1'   => 'ha;gyt',
+            'column2'   => 462,
+            'column3'   => 1654.4,
+            'column4'   => 'asfgklg'
         ]);
 
         $table2->addRow([
             'table2_id' => 1,
-            'column5' => 'fhah',
-            'column6' => 456,
-            'column7' => 46.5,
-            'column8' => 'fsdb, ghfdas'
+            'column5'   => 'fhah',
+            'column6'   => 456,
+            'column7'   => 46.5,
+            'column8'   => 'fsdb, ghfdas'
         ]);
         $table2->addRow([
             'table2_id' => 2,
-            'column5' => 'asdhfoih',
-            'column6' => 654,
-            'column7' => 'blah',
-            'column8' => '43asd "fhgj" sfadh'
+            'column5'   => 'asdhfoih',
+            'column6'   => 654,
+            'column7'   => 'blah',
+            'column8'   => '43asd "fhgj" sfadh'
         ]);
         $table2->addRow([
             'table2_id' => 3,
-            'column5' => 'ajsdlkfguitah',
-            'column6' => 654,
-            'column7' => 'blah',
-            'column8' => 'thesethasdl
+            'column5'   => 'ajsdlkfguitah',
+            'column6'   => 654,
+            'column7'   => 'blah',
+            'column8'   => 'thesethasdl
 asdflkjsadf asdfsadfhl "adsf, halsdf" sadfhlasdf'
         ]);
 
         $table3->addRow([
             'table3_id' => 1,
-            'column9' => 'sfgsda',
-            'column10' => 16,
-            'column11' => 45.57,
-            'column12' => 'sdfh .ds,ajfas asdf h'
+            'column9'   => 'sfgsda',
+            'column10'  => 16,
+            'column11'  => 45.57,
+            'column12'  => 'sdfh .ds,ajfas asdf h'
         ]);
         $table3->addRow([
             'table3_id' => 2,
-            'column9' => 'afdstgb',
-            'column10' => 41,
-            'column11' => 46.645,
-            'column12' => '87yhasdf sadf yah;/a '
+            'column9'   => 'afdstgb',
+            'column10'  => 41,
+            'column11'  => 46.645,
+            'column12'  => '87yhasdf sadf yah;/a '
         ]);
         $table3->addRow([
             'table3_id' => 3,
-            'column9' => 'gldsf',
-            'column10' => 46,
-            'column11' => 123.456,
-            'column12' => '0y8hosnd a/df7y olgbjs da'
+            'column9'   => 'gldsf',
+            'column10'  => 46,
+            'column11'  => 123.456,
+            'column12'  => '0y8hosnd a/df7y olgbjs da'
         ]);
 
-        $this->expectedDataSet1 = new DefaultDataSet([$table1, $table2]);
-        $this->expectedDataSet2 = new DefaultDataSet([$table3]);
-        $this->expectedDataSet3 = new DefaultDataSet([$table1, $table2, $table3]);
+        $this->expectedDataSet1 = new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([$table1, $table2]);
+        $this->expectedDataSet2 = new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([$table3]);
+        $this->expectedDataSet3 = new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([$table1, $table2, $table3]);
     }
 
     public function testCompositeDataSet()
     {
-        $actual = new CompositeDataSet([$this->expectedDataSet1, $this->expectedDataSet2]);
+        $actual = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet([$this->expectedDataSet1, $this->expectedDataSet2]);
 
-        TestCase::assertDataSetsEqual($this->expectedDataSet3, $actual);
+        PHPUnit_Extensions_Database_TestCase::assertDataSetsEqual($this->expectedDataSet3, $actual);
     }
 
     public function testCompatibleTablesInDifferentDataSetsNonDuplicateRows()
     {
-        $compatibleTable = new DefaultTable(
+        $compatibleTable = new PHPUnit_Extensions_Database_DataSet_DefaultTable(
             $this->expectedDataSet3->getTable('table3')->getTableMetaData()
         );
 
         $compatibleTable->addRow([
             'table3_id' => 4,
-            'column9' => 'asdasd',
-            'column10' => 17,
-            'column11' => 42.57,
-            'column12' => 'askldja'
+            'column9'   => 'asdasd',
+            'column10'  => 17,
+            'column11'  => 42.57,
+            'column12'  => 'askldja'
         ]);
 
-        $compositeDataSet = new CompositeDataSet([
-            new DefaultDataSet([$compatibleTable]),
+        $compositeDataSet = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet([
+            new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([$compatibleTable]),
             $this->expectedDataSet2
         ]);
 
@@ -144,11 +141,11 @@ asdflkjsadf asdfsadfhl "adsf, halsdf" sadfhlasdf'
      */
     public function testExceptionOnIncompatibleTablesSameTableNames()
     {
-        $inCompatibleTableMetaData = new DefaultTableMetadata(
+        $inCompatibleTableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
             'table3', ['table3_id', 'column13', 'column14', 'column15', 'column16']
         );
 
-        $inCompatibleTable = new DefaultTable($inCompatibleTableMetaData);
+        $inCompatibleTable = new PHPUnit_Extensions_Database_DataSet_DefaultTable($inCompatibleTableMetaData);
         $inCompatibleTable->addRow([
             'column13' => 'asdasda asdasd',
             'column14' => 'aiafsjas asd',
@@ -156,9 +153,9 @@ asdflkjsadf asdfsadfhl "adsf, halsdf" sadfhlasdf'
             'column16' => 2141
         ]);
 
-        $compositeDataSet = new CompositeDataSet([
+        $compositeDataSet = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet([
             $this->expectedDataSet2,
-            new DefaultDataSet([$inCompatibleTable])
+            new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([$inCompatibleTable])
         ]);
     }
 
@@ -168,11 +165,11 @@ asdflkjsadf asdfsadfhl "adsf, halsdf" sadfhlasdf'
      */
     public function testExceptionOnIncompatibleTablesSameTableNames2()
     {
-        $inCompatibleTableMetaData = new DefaultTableMetadata(
+        $inCompatibleTableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
             'table3', ['table3_id', 'column13', 'column14', 'column15', 'column16']
         );
 
-        $inCompatibleTable = new DefaultTable($inCompatibleTableMetaData);
+        $inCompatibleTable = new PHPUnit_Extensions_Database_DataSet_DefaultTable($inCompatibleTableMetaData);
         $inCompatibleTable->addRow([
             'column13' => 'asdasda asdasd',
             'column14' => 'aiafsjas asd',
@@ -180,8 +177,8 @@ asdflkjsadf asdfsadfhl "adsf, halsdf" sadfhlasdf'
             'column16' => 2141
         ]);
 
-        $compositeDataSet = new CompositeDataSet([
-            new DefaultDataSet([$inCompatibleTable]),
+        $compositeDataSet = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet([
+            new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([$inCompatibleTable]),
             $this->expectedDataSet2
         ]);
     }

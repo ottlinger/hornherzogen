@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DbUnit.
+ * This file is part of DBUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,24 +8,20 @@
  * file that was distributed with this source code.
  */
 
-use PHPUnit\DbUnit\Database\DefaultConnection;
-use PHPUnit\DbUnit\DataSet\DefaultTable;
-use PHPUnit\DbUnit\DataSet\DefaultTableMetadata;
-use PHPUnit\DbUnit\DataSet\ITable;
-use PHPUnit\DbUnit\DataSet\QueryDataSet;
-use PHPUnit\DbUnit\TestCase;
-
-class Extensions_Database_DataSet_QueryDataSetTest extends TestCase
+/**
+ * @since      File available since Release 1.0.0
+ */
+class Extensions_Database_DataSet_QueryDataSetTest extends PHPUnit_Extensions_Database_TestCase
 {
     /**
-     * @var QueryDataSet
+     * @var PHPUnit_Extensions_Database_DataSet_QueryDataSet
      */
     protected $dataSet;
 
     protected $pdo;
 
     /**
-     * @return DefaultConnection
+     * @return PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
      */
     protected function getConnection()
     {
@@ -41,7 +37,7 @@ class Extensions_Database_DataSet_QueryDataSetTest extends TestCase
     {
         $this->pdo = DBUnitTestUtility::getSQLiteMemoryDB();
         parent::setUp();
-        $this->dataSet = new QueryDataSet($this->getConnection());
+        $this->dataSet = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
         $this->dataSet->addTable('table1');
         $this->dataSet->addTable('query1', '
             SELECT
@@ -56,8 +52,8 @@ class Extensions_Database_DataSet_QueryDataSetTest extends TestCase
     {
         $expectedTable1 = $this->getConnection()->createDataSet(['table1'])->getTable('table1');
 
-        $expectedTable2 = new DefaultTable(
-            new DefaultTableMetadata('query1', ['tc1', 'tc2'])
+        $expectedTable2 = new PHPUnit_Extensions_Database_DataSet_DefaultTable(
+            new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('query1', ['tc1', 'tc2'])
         );
 
         $expectedTable2->addRow(['tc1' => 'bar', 'tc2' => 'blah']);
@@ -75,14 +71,14 @@ class Extensions_Database_DataSet_QueryDataSetTest extends TestCase
     {
         $expectedTable1 = $this->getConnection()->createDataSet(['table1'])->getTable('table1');
 
-        $expectedTable2 = new DefaultTable(
-            new DefaultTableMetadata('query1', ['tc1', 'tc2'])
+        $expectedTable2 = new PHPUnit_Extensions_Database_DataSet_DefaultTable(
+            new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('query1', ['tc1', 'tc2'])
         );
 
         $expectedTable2->addRow(['tc1' => 'bar', 'tc2' => 'blah']);
 
         foreach ($this->dataSet as $i => $table) {
-            /* @var $table ITable */
+            /* @var $table PHPUnit_Extensions_Database_DataSet_ITable */
             switch ($table->getTableMetaData()->getTableName()) {
                 case 'table1':
                     $this->assertTablesEqual($expectedTable1, $table);

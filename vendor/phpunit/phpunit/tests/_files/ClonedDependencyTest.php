@@ -1,7 +1,5 @@
 <?php
-use PHPUnit\Framework\TestCase;
-
-class ClonedDependencyTest extends TestCase
+class ClonedDependencyTest extends PHPUnit_Framework_TestCase
 {
     private static $dependency;
 
@@ -12,8 +10,6 @@ class ClonedDependencyTest extends TestCase
 
     public function testOne()
     {
-        $this->assertTrue(true);
-
         return self::$dependency;
     }
 

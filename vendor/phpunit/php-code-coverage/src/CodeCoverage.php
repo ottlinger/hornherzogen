@@ -10,8 +10,6 @@
 
 namespace SebastianBergmann\CodeCoverage;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\PhptTestCase;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 use SebastianBergmann\CodeCoverage\Driver\HHVM;
@@ -342,20 +340,20 @@ class CodeCoverage
         $size   = 'unknown';
         $status = null;
 
-        if ($id instanceof TestCase) {
+        if ($id instanceof \PHPUnit_Framework_TestCase) {
             $_size = $id->getSize();
 
-            if ($_size == \PHPUnit\Util\Test::SMALL) {
+            if ($_size == \PHPUnit_Util_Test::SMALL) {
                 $size = 'small';
-            } elseif ($_size == \PHPUnit\Util\Test::MEDIUM) {
+            } elseif ($_size == \PHPUnit_Util_Test::MEDIUM) {
                 $size = 'medium';
-            } elseif ($_size == \PHPUnit\Util\Test::LARGE) {
+            } elseif ($_size == \PHPUnit_Util_Test::LARGE) {
                 $size = 'large';
             }
 
             $status = $id->getStatus();
             $id     = get_class($id) . '::' . $id->getName();
-        } elseif ($id instanceof PhptTestCase) {
+        } elseif ($id instanceof \PHPUnit_Extensions_PhptTestCase) {
             $size = 'large';
             $id   = $id->getName();
         }
@@ -621,7 +619,7 @@ class CodeCoverage
         }
 
         if ($this->checkForUnintentionallyCoveredCode &&
-            (!$this->currentId instanceof TestCase ||
+            (!$this->currentId instanceof \PHPUnit_Framework_TestCase ||
             (!$this->currentId->isMedium() && !$this->currentId->isLarge()))) {
             $this->performUnintentionallyCoveredCodeCheck(
                 $data,

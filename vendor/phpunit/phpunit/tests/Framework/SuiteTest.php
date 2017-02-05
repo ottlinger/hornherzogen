@@ -8,10 +8,6 @@
  * file that was distributed with this source code.
  */
 
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\TestResult;
-use PHPUnit\Framework\TestCase;
-
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'BeforeAndAfterTest.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'BeforeClassAndAfterClassTest.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'TestWithTest.php';
@@ -27,18 +23,22 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPAR
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'OverrideTestCase.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'RequirementsClassBeforeClassHookTest.php';
 
-class Framework_SuiteTest extends TestCase
+/**
+ * @since      Class available since Release 2.0.0
+ * @covers     PHPUnit_Framework_TestSuite
+ */
+class Framework_SuiteTest extends PHPUnit_Framework_TestCase
 {
     protected $result;
 
     protected function setUp()
     {
-        $this->result = new TestResult;
+        $this->result = new PHPUnit_Framework_TestResult;
     }
 
     public static function suite()
     {
-        $suite = new TestSuite;
+        $suite = new PHPUnit_Framework_TestSuite;
 
         $suite->addTest(new self('testAddTestSuite'));
         $suite->addTest(new self('testInheritedTests'));
@@ -64,7 +64,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testAddTestSuite()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'OneTestCase'
         );
 
@@ -75,7 +75,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testInheritedTests()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'InheritedTestCase'
         );
 
@@ -87,7 +87,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testNoTestCases()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'NoTestCases'
         );
 
@@ -99,11 +99,12 @@ class Framework_SuiteTest extends TestCase
         $this->assertCount(1, $this->result);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Exception
+     */
     public function testNoTestCaseClass()
     {
-        $this->expectException(PHPUnit\Framework\Exception::class);
-
-        new TestSuite('NoTestCaseClass');
+        $suite = new PHPUnit_Framework_TestSuite('NoTestCaseClass');
     }
 
     public function testNotExistingTestCase()
@@ -119,7 +120,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testNotPublicTestCase()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'NotPublicTestCase'
         );
 
@@ -128,7 +129,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testNotVoidTestCase()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'NotVoidTestCase'
         );
 
@@ -137,7 +138,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testOneTestCase()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'OneTestCase'
         );
 
@@ -151,7 +152,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testShadowedTests()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'OverrideTestCase'
         );
 
@@ -162,7 +163,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testBeforeClassAndAfterClassAnnotations()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'BeforeClassAndAfterClassTest'
         );
 
@@ -175,7 +176,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testBeforeClassWithDataProviders()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'BeforeClassWithOnlyDataProviderTest'
         );
 
@@ -188,7 +189,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testBeforeAnnotation()
     {
-        $test = new TestSuite(
+        $test = new PHPUnit_Framework_TestSuite(
             'BeforeAndAfterTest'
         );
 
@@ -201,7 +202,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testTestWithAnnotation()
     {
-        $test = new TestSuite(
+        $test = new PHPUnit_Framework_TestSuite(
             'TestWithTest'
         );
 
@@ -213,7 +214,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testSkippedTestDataProvider()
     {
-        $suite = new TestSuite('DataProviderSkippedTest');
+        $suite = new PHPUnit_Framework_TestSuite('DataProviderSkippedTest');
 
         $suite->run($this->result);
 
@@ -223,7 +224,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testTestDataProviderDependency()
     {
-        $suite = new PHPUnit\Framework\TestSuite(DataProviderDependencyTest::class);
+        $suite = new PHPUnit_Framework_TestSuite('DataProviderDependencyTest');
 
         $suite->run($this->result);
 
@@ -236,7 +237,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testIncompleteTestDataProvider()
     {
-        $suite = new TestSuite('DataProviderIncompleteTest');
+        $suite = new PHPUnit_Framework_TestSuite('DataProviderIncompleteTest');
 
         $suite->run($this->result);
 
@@ -246,7 +247,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testRequirementsBeforeClassHook()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'RequirementsClassBeforeClassHookTest'
         );
 
@@ -258,7 +259,7 @@ class Framework_SuiteTest extends TestCase
 
     public function testDontSkipInheritedClass()
     {
-        $suite = new TestSuite(
+        $suite = new PHPUnit_Framework_TestSuite(
             'DontSkipInheritedClass'
         );
 

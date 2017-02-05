@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DbUnit.
+ * This file is part of DBUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,30 +8,28 @@
  * file that was distributed with this source code.
  */
 
-use PHPUnit\DbUnit\Constraint\DataSetIsEqual;
-use PHPUnit\DbUnit\DataSet\Filter;
-use PHPUnit\DbUnit\DataSet\FlatXmlDataSet;
-use PHPUnit\Framework\TestCase;
-
-class Extensions_Database_DataSet_FilterTest extends TestCase
+/**
+ * @since      File available since Release 1.0.0
+ */
+class Extensions_Database_DataSet_FilterTest extends PHPUnit_Framework_TestCase
 {
     protected $expectedDataSet;
 
     public function setUp()
     {
-        $this->expectedDataSet = new FlatXmlDataSet(
+        $this->expectedDataSet = new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
             dirname(__FILE__) . '/../_files/XmlDataSets/FilteredTestFixture.xml'
         );
     }
 
     public function testDeprecatedFilteredDataSetConstructor()
     {
-        $constraint = new DataSetIsEqual($this->expectedDataSet);
-        $dataSet = new FlatXmlDataSet(
+        $constraint = new PHPUnit_Extensions_Database_Constraint_DataSetIsEqual($this->expectedDataSet);
+        $dataSet    = new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
             dirname(__FILE__) . '/../_files/XmlDataSets/FilteredTestComparison.xml'
         );
 
-        $filteredDataSet = new Filter($dataSet, [
+        $filteredDataSet = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($dataSet, [
             'table1' => ['table1_id'],
             'table2' => '*',
             'table3' => 'table3_id'
@@ -42,12 +40,12 @@ class Extensions_Database_DataSet_FilterTest extends TestCase
 
     public function testExcludeFilteredDataSet()
     {
-        $constraint = new DataSetIsEqual($this->expectedDataSet);
-        $dataSet = new FlatXmlDataSet(
+        $constraint = new PHPUnit_Extensions_Database_Constraint_DataSetIsEqual($this->expectedDataSet);
+        $dataSet    = new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
             dirname(__FILE__) . '/../_files/XmlDataSets/FilteredTestComparison.xml'
         );
 
-        $filteredDataSet = new Filter($dataSet);
+        $filteredDataSet = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($dataSet);
 
         $filteredDataSet->addExcludeTables(['table2']);
         $filteredDataSet->setExcludeColumnsForTable('table1', ['table1_id']);
@@ -58,12 +56,12 @@ class Extensions_Database_DataSet_FilterTest extends TestCase
 
     public function testIncludeFilteredDataSet()
     {
-        $constraint = new DataSetIsEqual($this->expectedDataSet);
-        $dataSet = new FlatXmlDataSet(
+        $constraint = new PHPUnit_Extensions_Database_Constraint_DataSetIsEqual($this->expectedDataSet);
+        $dataSet    = new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
             dirname(__FILE__) . '/../_files/XmlDataSets/FilteredTestComparison.xml'
         );
 
-        $filteredDataSet = new Filter($dataSet);
+        $filteredDataSet = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($dataSet);
 
         $filteredDataSet->addIncludeTables(['table1', 'table3']);
         $filteredDataSet->setIncludeColumnsForTable('table1', ['column1', 'column2', 'column3', 'column4']);
@@ -74,12 +72,12 @@ class Extensions_Database_DataSet_FilterTest extends TestCase
 
     public function testIncludeExcludeMixedDataSet()
     {
-        $constraint = new DataSetIsEqual($this->expectedDataSet);
-        $dataSet = new FlatXmlDataSet(
+        $constraint = new PHPUnit_Extensions_Database_Constraint_DataSetIsEqual($this->expectedDataSet);
+        $dataSet    = new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
             dirname(__FILE__) . '/../_files/XmlDataSets/FilteredTestComparison.xml'
         );
 
-        $filteredDataSet = new Filter($dataSet);
+        $filteredDataSet = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($dataSet);
 
         $filteredDataSet->addIncludeTables(['table1', 'table3']);
         $filteredDataSet->setExcludeColumnsForTable('table1', ['table1_id']);

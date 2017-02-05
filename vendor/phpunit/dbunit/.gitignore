@@ -1,5 +1,6 @@
 /.idea
+/.vagrant
 /composer.lock
-/build
+/composer.phar
 /vendor
-/tools
+

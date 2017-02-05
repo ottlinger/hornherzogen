@@ -7,20 +7,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Util;
-
-use DOMCharacterData;
-use DOMDocument;
-use DOMElement;
-use DOMNode;
-use DOMText;
-use PHPUnit\Framework\Exception;
-use ReflectionClass;
 
 /**
  * XML helpers.
+ *
+ * @since Class available since Release 3.2.0
  */
-class Xml
+class PHPUnit_Util_XML
 {
     /**
      * Load an $actual document into a DOMDocument.  This is called
@@ -43,6 +36,8 @@ class Xml
      * @param bool               $strict
      *
      * @return DOMDocument
+     *
+     * @since Method available since Release 3.3.0
      */
     public static function load($actual, $isHtml = false, $filename = '', $xinclude = false, $strict = false)
     {
@@ -51,11 +46,11 @@ class Xml
         }
 
         if (!is_string($actual)) {
-            throw new Exception('Could not load XML from ' . gettype($actual));
+            throw new PHPUnit_Framework_Exception('Could not load XML from ' . gettype($actual));
         }
 
         if ($actual === '') {
-            throw new Exception('Could not load XML from empty string');
+            throw new PHPUnit_Framework_Exception('Could not load XML from empty string');
         }
 
         // Required for XInclude on Windows.
@@ -99,7 +94,7 @@ class Xml
 
         if ($loaded === false || ($strict && $message !== '')) {
             if ($filename !== '') {
-                throw new Exception(
+                throw new PHPUnit_Framework_Exception(
                     sprintf(
                         'Could not load "%s".%s',
                         $filename,
@@ -110,7 +105,7 @@ class Xml
                 if ($message === '') {
                     $message = 'Could not load XML for unknown reason';
                 }
-                throw new Exception($message);
+                throw new PHPUnit_Framework_Exception($message);
             }
         }
 
@@ -126,6 +121,8 @@ class Xml
      * @param bool   $strict
      *
      * @return DOMDocument
+     *
+     * @since Method available since Release 3.3.0
      */
     public static function loadFile($filename, $isHtml = false, $xinclude = false, $strict = false)
     {
@@ -134,7 +131,7 @@ class Xml
         error_reporting($reporting);
 
         if ($contents === false) {
-            throw new Exception(
+            throw new PHPUnit_Framework_Exception(
                 sprintf(
                     'Could not read "%s".',
                     $filename
@@ -147,6 +144,8 @@ class Xml
 
     /**
      * @param DOMNode $node
+     *
+     * @since Method available since Release 3.3.0
      */
     public static function removeCharacterDataNodes(DOMNode $node)
     {
@@ -168,6 +167,8 @@ class Xml
      * @param string $string
      *
      * @return string
+     *
+     * @since Method available since Release 3.4.6
      */
     public static function prepareString($string)
     {
@@ -175,7 +176,7 @@ class Xml
             '/[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]/',
             '',
             htmlspecialchars(
-                self::convertToUtf8($string),
+                PHPUnit_Util_String::convertToUtf8($string),
                 ENT_QUOTES,
                 'UTF-8'
             )
@@ -188,6 +189,8 @@ class Xml
      * @param DOMElement $element
      *
      * @return mixed
+     *
+     * @since Method available since Release 3.4.0
      */
     public static function xmlToVariable(DOMElement $element)
     {
@@ -251,59 +254,5 @@ class Xml
         }
 
         return $variable;
-    }
-
-    /**
-     * Converts a string to UTF-8 encoding.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    private static function convertToUtf8($string)
-    {
-        if (!self::isUtf8($string)) {
-            if (function_exists('mb_convert_encoding')) {
-                $string = mb_convert_encoding($string, 'UTF-8');
-            } else {
-                $string = utf8_encode($string);
-            }
-        }
-
-        return $string;
-    }
-
-    /**
-     * Checks a string for UTF-8 encoding.
-     *
-     * @param string $string
-     *
-     * @return bool
-     */
-    private static function isUtf8($string)
-    {
-        $length = strlen($string);
-
-        for ($i = 0; $i < $length; $i++) {
-            if (ord($string[$i]) < 0x80) {
-                $n = 0;
-            } elseif ((ord($string[$i]) & 0xE0) == 0xC0) {
-                $n = 1;
-            } elseif ((ord($string[$i]) & 0xF0) == 0xE0) {
-                $n = 2;
-            } elseif ((ord($string[$i]) & 0xF0) == 0xF0) {
-                $n = 3;
-            } else {
-                return false;
-            }
-
-            for ($j = 0; $j < $n; $j++) {
-                if ((++$i == $length) || ((ord($string[$i]) & 0xC0) != 0x80)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 }

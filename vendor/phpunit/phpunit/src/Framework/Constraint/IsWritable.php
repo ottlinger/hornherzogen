@@ -7,14 +7,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace PHPUnit\Framework\Constraint;
 
 /**
  * Constraint that checks if the file/dir(name) that it is evaluated for is writable.
  *
  * The file path to check is passed as $other in evaluate().
  */
-class IsWritable extends Constraint
+class PHPUnit_Framework_Constraint_IsWritable extends PHPUnit_Framework_Constraint
 {
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
