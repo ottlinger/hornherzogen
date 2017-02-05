@@ -26,15 +26,21 @@ class HornLocalizer
             $lang = $sessionLanguage;
         }
 
-        $lang = trim(strtolower($lang));
-        switch ($lang) {
-            case "de";
-            case "en";
-            case "ru";
-            case "jp";
-                return self::storeInSession($lang);
-        }
+        return self::checkIfValidOrReturnDefaultAndSetInSession($lang);
+    }
 
+    private function checkIfValidOrReturnDefaultAndSetInSession($lang)
+    {
+        if (isset($lang) && !empty($lang)) {
+            $lang = trim(strtolower($lang));
+            switch ($lang) {
+                case "de";
+                case "en";
+                case "ru";
+                case "jp";
+                    return self::storeInSession($lang);
+            }
+        }
         return self::storeInSession(self::$fallbackLanguage);
     }
 
