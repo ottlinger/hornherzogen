@@ -41,7 +41,7 @@ class Applicant
     // end of form data
 
     // DB-specific stuff
-    private $id;
+    private $persistenceId;
 
     // Admin-related stuff
     private $createdAt; // date when status was set to APPLIED
@@ -453,18 +453,18 @@ class Applicant
     /**
      * @return mixed
      */
-    public function getId()
+    public function getPersistenceId()
     {
-        return $this->id;
+        return $this->persistenceId;
     }
 
     /**
      * @param mixed $id
      * @return Applicant
      */
-    public function setId($id)
+    public function setPersistenceId($id)
     {
-        $this->id = $id;
+        $this->persistenceId = $id;
         return $this;
     }
 
