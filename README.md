@@ -29,6 +29,7 @@ In order to just play around with it I've integrated a CI run:
   * with MBString extension installed
   * with MySQL extension installed
   * with intl/i18n extension installed
+  * (with php-xdebug in case you want local code coverage)
 * Configured Mail server so that PHP may send mails
 * Webserver (Apache2)
 * MySQL database with tables initialized, see [herzogenhorn.sql](herzogenhorn.sql) for details
@@ -49,6 +50,8 @@ $ tail -f /var/log/apache2/*.log
 You need to install php and add some libraries to your local Webserver:
 ```
 $ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl
+or
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php-xdebug
 $ sudo /etc/init.d/apache2 restart
 ```
 
