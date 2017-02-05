@@ -41,5 +41,15 @@ class ApplicantInputTest extends TestCase
         $this->assertTrue($this->applicantInput->hasErrors());
     }
 
+    public function testHasNoErrorsWithoutAnyConfiguration()
+    {
+        $this->assertEmpty($this->applicantInput->showHasError('anythingGoes'));
+    }
+
+    public function testHasNoSuccessesWithoutAnyConfiguration()
+    {
+        $this->assertEmpty($this->applicantInput->showIsOkay('anythingGoes'));
+    }
+
 
 }
