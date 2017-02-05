@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class FooTest extends PHPUnit_Framework_TestCase
+class FooTest extends TestCase
 {
     private $calc = null;
 

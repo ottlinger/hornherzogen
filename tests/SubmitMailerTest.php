@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class SubmitMailerTest extends PHPUnit_Framework_TestCase
+class SubmitMailerTest extends TestCase
 {
     private $mailer = null;
 
