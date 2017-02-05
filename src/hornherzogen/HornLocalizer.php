@@ -5,7 +5,8 @@ use \MessageFormatter;
 
 class HornLocalizer
 {
-    private static $fallbackLanguage = "de";
+    private static $fallbackLanguage = 'de';
+    private static $supportedLanguages = array('de', 'en', 'ru', 'jp');
 
     /**
      * Retrieve language parameter if available with fallback to German version (de) by taking care of session state as well.
@@ -26,21 +27,12 @@ class HornLocalizer
             $lang = $sessionLanguage;
         }
 
-        return self::checkIfValidOrReturnDefaultAndSetInSession($lang);
-    }
+        $lang = trim(strtolower($lang));
 
-    private static function checkIfValidOrReturnDefaultAndSetInSession($lang)
-    {
-        if (isset($lang) && !empty($lang)) {
-            $lang = trim(strtolower($lang));
-            switch ($lang) {
-                case "de";
-                case "en";
-                case "ru";
-                case "jp";
-                    return self::storeInSession($lang);
-            }
+        if (in_array($lang, self::$supportedLanguages)) {
+            return self::storeInSession($lang);
         }
+
         return self::storeInSession(self::$fallbackLanguage);
     }
 
