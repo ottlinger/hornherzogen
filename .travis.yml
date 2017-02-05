@@ -19,6 +19,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
+# Not working with PHP :-(
 # https://github.com/ottlinger/hornherzogen/issues/12
-addons:
-  srcclr: true
+#addons:
+#  srcclr: true
