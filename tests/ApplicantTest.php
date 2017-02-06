@@ -1,5 +1,7 @@
 <?php
+declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
+use hornherzogen\Applicant;
 
 class ApplicantTest extends TestCase
 {
@@ -10,7 +12,7 @@ class ApplicantTest extends TestCase
      */
     public function setUp()
     {
-        $this->applicant = new hornherzogen\Applicant();
+        $this->applicant = new Applicant();
     }
 
     /**
@@ -29,5 +31,11 @@ class ApplicantTest extends TestCase
     public function testInstanceOf()
     {
         $this->assertInstanceOf('hornherzogen\Applicant', $this->applicant);
+    }
+
+    public function testGetPersistenceId() {
+        $persistenceId = 47110815;
+        $this->applicant->setPersistenceId($persistenceId);
+        $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
     }
 }
