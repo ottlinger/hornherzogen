@@ -46,6 +46,14 @@ final class ApplicantInput extends Applicant
         return true;
     }
 
+    public function addError($field) {
+        array_push($this->errors, $field);
+    }
+
+    public function addSuccess($field) {
+        array_push($this->success, $field);
+    }
+
     /**
      * Extracts data from $_POST[].
      */

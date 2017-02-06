@@ -52,11 +52,25 @@ class ApplicantInputTest extends TestCase
         $this->assertEmpty($this->applicantInput->showIsOkay('anythingGoes'));
     }
 
-    public function testEmailIsValid() {
+    public function testHasErrorsWithDummyConfiguration()
+    {
+        $this->applicantInput->addError('name');
+        $this->assertContains('error', $this->applicantInput->showHasError('name'));
+    }
+
+    public function testHasSuccessWithDummyConfiguration()
+    {
+        $this->applicantInput->addSuccess('email');
+        $this->assertContains('success', $this->applicantInput->showIsOkay('email'));
+    }
+
+    public function testEmailIsValid()
+    {
         $this->assertTrue(ApplicantInput::isValidEmail('abc@foo.de'));
     }
 
-    public function testEmailIsValidThrowsExceptionIfEmailIsInvalid() {
+    public function testEmailIsValidThrowsExceptionIfEmailIsInvalid()
+    {
         $this->assertEquals('"abcnodomain" is not a valid email address', ApplicantInput::isValidEmail('abcnodomain'));
     }
 
