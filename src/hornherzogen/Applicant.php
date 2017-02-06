@@ -459,12 +459,12 @@ class Applicant
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $persistenceId
      * @return Applicant
      */
-    public function setPersistenceId($id)
+    public function setPersistenceId($persistenceId)
     {
-        $this->persistenceId = $id;
+        $this->persistenceId = $persistenceId;
         return $this;
     }
 
