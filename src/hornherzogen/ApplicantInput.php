@@ -6,7 +6,7 @@ namespace hornherzogen;
  * holds any validation errors when processing user data extracted from $_POST[].
  * @package hornherzogen
  */
-class ApplicantInput extends Applicant
+final class ApplicantInput extends Applicant
 {
     private $errors = array();
     private $success = array();
@@ -33,6 +33,17 @@ class ApplicantInput extends Applicant
         if (in_array($field, $this->success)) {
             return " has-success";
         }
+    }
+
+    public static function isValidEmail($email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return sprintf(
+                    '"%s" is not a valid email address',
+                    $email
+                );
+        }
+        return true;
     }
 
     /**

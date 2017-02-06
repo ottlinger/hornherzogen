@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use hornherzogen\ApplicantInput;
 
 class ApplicantInputTest extends TestCase
 {
@@ -10,7 +11,7 @@ class ApplicantInputTest extends TestCase
      */
     public function setUp()
     {
-        $this->applicantInput = new hornherzogen\ApplicantInput;
+        $this->applicantInput = new ApplicantInput;
     }
 
     /**
@@ -49,6 +50,14 @@ class ApplicantInputTest extends TestCase
     public function testHasNoSuccessesWithoutAnyConfiguration()
     {
         $this->assertEmpty($this->applicantInput->showIsOkay('anythingGoes'));
+    }
+
+    public function testEmailIsValid() {
+        $this->assertTrue(ApplicantInput::isValidEmail('abc@foo.de'));
+    }
+
+    public function testEmailIsValidThrowsExceptionIfEmailIsInvalid() {
+        $this->assertEquals('"abcnodomain" is not a valid email address', ApplicantInput::isValidEmail('abcnodomain'));
     }
 
 
