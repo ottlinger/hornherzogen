@@ -41,31 +41,31 @@ class SubmitMailer
         $encoded_subject = substr($encoded_subject, strlen('Subject: '));
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
-        $headers =
-            'Bcc: ' . $replyto . "\r\n" .
-            'MIME-Version: 1.0' . "\r\n" .
+        $headers = array();
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Bcc: ' . $replyto;
 
-            'X-Priority: ' . $importance . "\r\n" .
-            'Importance: ' . $importance . "\r\n" .
-            'X-MSMail-Priority: High' . "\r\n" .
+        $headers[] = 'X-Priority: ' . $importance;
+        $headers[] = 'Importance: ' . $importance;
+        $headers[] = 'X-MSMail-Priority: High';
 
-            'Reply-To: ' . $replyto . "\r\n" .
-            // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-            'From: ' . $replyto . "\r\n" .
-            'Sender: ' . $replyto . "\r\n" .
-            'Return-Path: ' . $replyto . "\r\n" .
-            'Errors-To: ' . $replyto . "\r\n" .
+        $headers[] = 'Reply-To: ' . $replyto;
+        // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
+        $headers[] = 'From: ' . $replyto;
+        $headers[] = 'Sender: ' . $replyto;
+        $headers[] = 'Return-Path: ' . $replyto;
+        $headers[] = 'Errors-To: ' . $replyto;
 
-            'Content-type: text/html; charset=utf-8' . "\r\n" .
-            'Date: ' . date("r") . "\r\n" .
-            'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">\r\n" .
-            'X-Git-Revision: <' . $revision->gitrevision() . ">\r\n" .
-            'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+        $headers[] = 'Content-type: text/html; charset=utf-8';
+        $headers[] = 'Date: ' . date("r");
+        $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
+        $headers[] = 'X-Git-Revision: <' . $revision->gitrevision() . ">";
+        $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
+        $headers[] = 'X-Mailer: PHP/' . phpversion();
 
-        if (ConfigurationWrapper::sendregistrationmails()) {
-            mail($this->email, $encoded_subject, $this->getMailtext(), $headers, "-f " . $replyto);
-        }
+//        if (ConfigurationWrapper::sendregistrationmails()) {
+            mail($this->email, $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+//        }
         return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
     }
 
