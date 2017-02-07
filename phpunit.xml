@@ -15,6 +15,7 @@
     <testsuites>
         <testsuite name="Hornherzogen Test Suite">
             <directory>./tests/</directory>
+            <includePath>./inc/</includePath>
         </testsuite>
     </testsuites>
     <logging>
