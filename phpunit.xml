@@ -26,6 +26,7 @@
     </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./tests/</directory>
             <directory suffix=".php">./src/</directory>
             <directory suffix=".php">./inc</directory>
         </whitelist>
