@@ -56,12 +56,14 @@ class ApplicantInputTest extends TestCase
     {
         $this->applicantInput->addError('name');
         $this->assertContains('error', $this->applicantInput->showHasError('name'));
+        $this->assertEquals('', $this->applicantInput->showHasError('unknownKey'));
     }
 
     public function testHasSuccessWithDummyConfiguration()
     {
         $this->applicantInput->addSuccess('email');
         $this->assertContains('success', $this->applicantInput->showIsOkay('email'));
+        $this->assertEquals('', $this->applicantInput->showIsOkay('unknownKey'));
     }
 
     public function testEmailIsValid()
@@ -74,5 +76,17 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals('"abcnodomain" is not a valid email address', ApplicantInput::isValidEmail('abcnodomain'));
     }
 
+    public function testParseFromUserInputWithoutAnyUserInputGiven()
+    {
+        $this->applicantInput->parse();
+        $this->assertEmpty($this->applicantInput->getFirstName());
+    }
+
+    public function testParseFromUserInputWitUserInputGiven()
+    {
+        $_POST["vorname"] = "  <b>My firstname</b> ";
+        $this->applicantInput->parse();
+        $this->assertEquals("&lt;b&gt;My firstname&lt;/b&gt;", $this->applicantInput->getFirstName());
+    }
 
 }

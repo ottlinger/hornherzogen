@@ -1,5 +1,6 @@
 <?php
 namespace hornherzogen;
+use hornherzogen\FormHelper;
 
 /**
  * Class ApplicantInput
@@ -10,6 +11,12 @@ final class ApplicantInput extends Applicant
 {
     private $errors = array();
     private $success = array();
+    private $formHelper;
+
+    function __construct()
+    {
+        $this->formHelper = new FormHelper();
+    }
 
     /**
      * @var int total elements that can be provided in the web form.
@@ -24,15 +31,17 @@ final class ApplicantInput extends Applicant
     public function showHasError($field)
     {
         if (in_array($field, $this->errors)) {
-            return " has-error has-feedback";
+            return ' has-error has-feedback';
         }
+        return '';
     }
 
     public function showIsOkay($field)
     {
         if (in_array($field, $this->success)) {
-            return " has-success";
+            return ' has-success';
         }
+        return '';
     }
 
     public static function isValidEmail($email)
@@ -59,7 +68,11 @@ final class ApplicantInput extends Applicant
      */
     public function parse()
     {
-
+        if(isset($_POST)) {
+            if(isset($_POST["vorname"])) {
+                $this->setFirstname($this->formHelper->filterUserInput($_POST["vorname"]));
+            }
+        }
     }
 
 }
