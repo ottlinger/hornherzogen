@@ -82,6 +82,8 @@
             echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
 
             echo '<pre>';
+            var_dump($file = file_get_contents('php://input'));
+            echo '<p>Converted to POST:</p>';
             var_dump($_POST);
             echo '</pre>';
 
