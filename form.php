@@ -71,10 +71,11 @@
 
         // TODO extract
         function dumpfordummies() {
+            $formHelper = new \hornherzogen\FormHelper();
             echo '<p>Mail sent at '.date('Y-m-d H:i:s').'</p>';
 
-            $nachname = test_input($_POST["nachname"]);
-            echo '<p>Hello ' . test_input($_POST["vorname"]) . ' ' . test_input($_POST["nachname"]) . '!';
+            $nachname = $formHelper->filterUserInput($_POST["nachname"]);
+            echo '<p>Hello ' . $formHelper->filterUserInput($_POST["vorname"]) . ' ' . $nachname . '!';
             echo '<br/>';
             echo 'Hellau ' . $nachname . '!</p>';
 
@@ -88,15 +89,6 @@
             $sender = new \hornherzogen\SubmitMailer();
             echo $sender->send();
             echo $sender->sendInternally();
-        }
-
-
-        function test_input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
         }
 
             dumpfordummies();

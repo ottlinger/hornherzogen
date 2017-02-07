@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use hornherzogen\Foo;
 
 class FooTest extends TestCase
 {
@@ -10,7 +11,7 @@ class FooTest extends TestCase
      */
     public function setUp()
     {
-        $this->calc = new hornherzogen\Foo;
+        $this->calc = new Foo;
     }
 
     /**
