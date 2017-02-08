@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <?php require 'vendor/autoload.php'; ?>
 <html lang="en">
 <head>
@@ -114,7 +114,7 @@
             </div>
 
             <div class="form-group">
-                <label for="flexible" class="col-sm-2 control-label">
+                <label class="col-sm-2 control-label">
                     Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
                 <div class="col-sm-10">
                     <div class="radio" id="flexible">
@@ -214,8 +214,8 @@
                 </div>
             </div>
 
+            <legend>Aikidodaten</legend>
             <div class="form-group">
-                <legend>Aikidodaten</legend>
                 <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
@@ -282,8 +282,8 @@
                 </div>
             </div>
 
+            <legend>Daten zur Unterkunft</legend>
             <div class="form-group">
-                <legend>Daten zur Unterkunft</legend>
                 <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen und
                     Zusammenlegungswünsche angeben</label>
                 <div class="col-sm-10">
@@ -312,7 +312,7 @@
             </div>
 
             <div class="form-group">
-                <label for="essen" class="col-sm-2 control-label">Essenswunsch</label>
+                <label class="col-sm-2 control-label">Essenswunsch</label>
                 <div class="col-sm-10">
 <?php
   //                  <input type="radio" name="gender" ?php if (isset($gender) && $gender=="female") echo "checked"; value="female">Female
@@ -330,8 +330,8 @@
                 </div>
             </div>
 
+            <legend>Sonstiges</legend>
             <div class="form-group">
-                <legend>Sonstiges</legend>
                 <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):</label>
 
                 <!-- TODO: http://getbootstrap.com/css/#forms-control-validation -->
@@ -344,8 +344,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default btn-primary" title="Anmeldung verbindlich machen"
-                            data-content="And here's some amazing content. It's very engaging. right?">Anmeldevorgang
+                    <button type="submit" class="btn btn-default btn-primary" title="Anmeldung verbindlich machen">Anmeldevorgang
                         einleiten
                     </button>
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
