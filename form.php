@@ -314,6 +314,9 @@
             <div class="form-group">
                 <label for="essen" class="col-sm-2 control-label">Essenswunsch</label>
                 <div class="col-sm-10">
+<?php
+  //                  <input type="radio" name="gender" ?php if (isset($gender) && $gender=="female") echo "checked"; value="female">Female
+?>
                     <div class="radio" id="essen">
                         <label>
                             <input type="radio" name="essen" id="meat" value="meat" checked>
