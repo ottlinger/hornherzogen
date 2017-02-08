@@ -1,5 +1,6 @@
 <?php
 namespace hornherzogen;
+
 use hornherzogen\FormHelper;
 
 /**
@@ -47,19 +48,21 @@ final class ApplicantInput extends Applicant
     public static function isValidEmail($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return sprintf(
-                    '"%s" is not a valid email address',
-                    $email
-                );
+            return sprintf(
+                '"%s" is not a valid email address',
+                $email
+            );
         }
         return true;
     }
 
-    public function addError($field) {
+    public function addError($field)
+    {
         array_push($this->errors, $field);
     }
 
-    public function addSuccess($field) {
+    public function addSuccess($field)
+    {
         array_push($this->success, $field);
     }
 
@@ -68,8 +71,9 @@ final class ApplicantInput extends Applicant
      */
     public function parse()
     {
-        if(isset($_POST)) {
-            if(isset($_POST["vorname"])) {
+        if (isset($_POST)) {
+            // TODO if (empty($_POST["name"])) { print isRequired else .... set
+            if (isset($_POST["vorname"])) {
                 $this->setFirstname($this->formHelper->filterUserInput($_POST["vorname"]));
             }
         }
