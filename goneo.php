@@ -29,7 +29,7 @@ function test_input($data) {
 }
 ?>
 
-<h2>PHP <?php echo phpversion(); ?> - Form Validation - let's see if parameters are missing</h2>
+<h2>PHP <?php echo phpversion(); ?> - Form Validation - let's see if parameters are missing during conversion into $_POST array</h2>
 
 <h2>Form example</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -52,8 +52,23 @@ function test_input($data) {
 
     for ($i = 1; $i <= $count; $i++) {
         echo '
+<!-- start '.$i.' -->
         <br><br>
         Name '.$i.': <input type="text" name="name'.$i.'" value="Do not edit field '.$i.'">
+        <br><br>
+         <div class="radio" id="flexible'.$i.'">
+                        <label>
+                            <input type="radio" name="flexible'.$i.'" id="no" value="no'.$i.'" checked>
+                            NeinNein
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="flexible'.$i.'" id="yes" value="yes'.$i.'">
+                            Ja Ja
+                        </label>
+                    </div>
+<!-- end '.$i.' -->
     ';
     }
 
