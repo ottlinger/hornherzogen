@@ -18,7 +18,7 @@ In order to just play around with it I've integrated a CI run:
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c8fc0c6ef3d14192a2a8f84a670ccb92)](https://www.codacy.com/app/github_25/hornherzogen)
 
-[![VersionEye](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
+[![Dependency versions via VersionEye](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
 
 ## Local installation
 
