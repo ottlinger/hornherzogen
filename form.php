@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <?php require 'vendor/autoload.php'; ?>
 <html lang="en">
 <head>
@@ -101,7 +101,7 @@
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
 
-        <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?lang=<?php echo \hornherzogen\HornLocalizer::getLanguage(); ?>">
+        <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group">
                     <label class="col-sm-2 control-label" for="week">Welche Woche</label>
@@ -344,9 +344,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default btn-primary" title="Anmeldung verbindlich machen">Anmeldevorgang
-                        einleiten
-                    </button>
+                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
                 </div>
             </div>
