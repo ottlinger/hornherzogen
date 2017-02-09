@@ -39,7 +39,7 @@ class SubmitMailerTest extends TestCase
     public function testValidInternalMailSendingWhenConfigIsSetProperly()
     {
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
-        $this->assertNull($this->mailer->sendInternally());
+        $this->assertFalse($this->mailer->sendInternally());
     }
 
 

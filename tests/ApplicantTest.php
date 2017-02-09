@@ -33,7 +33,13 @@ class ApplicantTest extends TestCase
         $this->assertInstanceOf('hornherzogen\Applicant', $this->applicant);
     }
 
-    public function testGetPersistenceId() {
+    public function testAttributePersistenceId() {
+        $persistenceId = 47110815;
+        $this->applicant->setPersistenceId($persistenceId);
+        $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
+    }
+
+    public function testAttribute() {
         $persistenceId = 47110815;
         $this->applicant->setPersistenceId($persistenceId);
         $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());

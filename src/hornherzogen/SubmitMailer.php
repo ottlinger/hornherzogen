@@ -63,9 +63,9 @@ class SubmitMailer
         $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
         $headers[] = 'X-Mailer: PHP/' . phpversion();
 
-//        if (ConfigurationWrapper::sendregistrationmails()) {
+        if (ConfigurationWrapper::sendregistrationmails()) {
             mail($this->email, $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
-//        }
+        }
         return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
     }
 
@@ -77,6 +77,7 @@ class SubmitMailer
         if (ConfigurationWrapper::sendregistrationmails()) {
             return 'An internal confirmation mail needs to be send as well :-)';
         }
+        return false;
     }
 
     public function getMailtext()
