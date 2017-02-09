@@ -109,6 +109,7 @@ class Applicant
      */
     public function setFirstname($firstname)
     {
+        $this->fullName = NULL;
         $this->firstname = $firstname;
         return $this;
     }
@@ -127,6 +128,7 @@ class Applicant
      */
     public function setLastname($lastname)
     {
+        $this->fullName = NULL;
         $this->lastname = $lastname;
         return $this;
     }
@@ -136,16 +138,21 @@ class Applicant
      */
     public function getFullName()
     {
+        if(!isset($this->fullName)) {
+            $this->setFullName(NULL);
+        }
+
         return $this->fullName;
     }
 
     /**
-     * @param mixed $fullName
+     * Combines the name as firstname lastname salt if not empty
+     * @param mixed $salt
      * @return Applicant
      */
-    public function setFullName($fullName)
+    public function setFullName($salt)
     {
-        $this->fullName = $fullName;
+        $this->fullName = trim($this->getFirstname().' '.$this->getLastname().' '.$salt);
         return $this;
     }
 
