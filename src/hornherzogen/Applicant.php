@@ -427,11 +427,17 @@ class Applicant
     }
 
     /**
-     * @return mixed
+     * @return mixed true if flexible, false otherwise
      */
     public function getFlexible()
     {
-        return $this->flexible;
+        switch($this->flexible) {
+            case "yes": return true;
+            default:
+                return false;
+        }
+
+
     }
 
     /**
