@@ -8,23 +8,30 @@ Status: Work in progress :-)
 
 2017-01-07
 
-## Travis integration
+## Github integration
+### Travis / CI
 
 In order to just play around with it I've integrated a CI run:
 
 [![Build Status](https://travis-ci.org/ottlinger/hornherzogen.svg?branch=master)](https://travis-ci.org/ottlinger/hornherzogen)
 
+### Code coverage
+
 [![codecov](https://codecov.io/gh/ottlinger/hornherzogen/branch/master/graph/badge.svg)](https://codecov.io/gh/ottlinger/hornherzogen)
+
+### Codacy - code quality and static analysis
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c8fc0c6ef3d14192a2a8f84a670ccb92)](https://www.codacy.com/app/github_25/hornherzogen)
 
-[![Dependency versions via VersionEye](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
+### VersionEye - dependency update management
+
+[![Dependency versions](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
 
 ## Local installation
 
 ### Prerequisites
 
-* PHP >=5.6, since my hoster does not properly support 7.x
+* PHP >=5.6, since my hoster does not properly support 7.x yet
   * with XML module installed
   * with MBString extension installed
   * with MySQL extension installed
