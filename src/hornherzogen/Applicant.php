@@ -59,7 +59,12 @@ class Applicant
      */
     public function getWeek()
     {
-        return $this->week;
+        switch($this->week) {
+            case "week1": return 1;
+            case "week2": return 2;
+            default:
+                return $this->week;
+        }
     }
 
     /**

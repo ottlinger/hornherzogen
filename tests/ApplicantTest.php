@@ -39,9 +39,21 @@ class ApplicantTest extends TestCase
         $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
     }
 
-    public function testAttribute() {
-        $persistenceId = 47110815;
-        $this->applicant->setPersistenceId($persistenceId);
-        $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
+    public function testAttributeWeek() {
+        $week = "week4711";
+        $this->applicant->setWeek($week);
+        $this->assertEquals($week, $this->applicant->getWeek());
+    }
+
+    public function testAttributeWeekParsingOfFormValuesWeekOne() {
+        $week = "week1";
+        $this->applicant->setWeek($week);
+        $this->assertEquals(1, $this->applicant->getWeek());
+    }
+
+    public function testAttributeWeekParsingOfFormValuesWeekTwo() {
+        $week = "week2";
+        $this->applicant->setWeek($week);
+        $this->assertEquals(2, $this->applicant->getWeek());
     }
 }
