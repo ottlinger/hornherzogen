@@ -72,7 +72,7 @@
         // TODO extract
         function dumpfordummies() {
             $formHelper = new \hornherzogen\FormHelper();
-            echo '<p>Mail sent at '.date('Y-m-d H:i:s').'</p>';
+            echo '<p>Mail sent at '.$formHelper->timestamp().'</p>';
 
             $nachname = $formHelper->filterUserInput($_POST["nachname"]);
             echo '<p>Hello ' . $formHelper->filterUserInput($_POST["vorname"]) . ' ' . $nachname . '!';
