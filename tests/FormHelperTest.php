@@ -68,4 +68,10 @@ class FormHelperTest extends TestCase
         $input = str_repeat("b", $length);
         $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     ' . $input . 'aaaaa        ', $length));
     }
+
+    public function testTimestampIsAlwaysFilled()
+    {
+        $this->assertNotNull($this->formHelper->timestamp());
+    }
+
 }
