@@ -25,7 +25,6 @@ class Applicant
     private $country;
     private $email;
     private $dojo;
-    private $dateOfBirth;
     private $grading;
     private $dateOfLastGrading;
     private $twaNumber;
@@ -288,24 +287,6 @@ class Applicant
     public function setDojo($dojo)
     {
         $this->dojo = $dojo;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDateOfBirth()
-    {
-        return $this->dateOfBirth;
-    }
-
-    /**
-     * @param mixed $dateOfBirth
-     * @return Applicant
-     */
-    public function setDateOfBirth($dateOfBirth)
-    {
-        $this->dateOfBirth = $dateOfBirth;
         return $this;
     }
 

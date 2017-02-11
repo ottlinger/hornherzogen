@@ -81,11 +81,86 @@ class ApplicantTest extends TestCase
         $this->assertEquals($firstName . ' ' . $lastName . ' ' . $salt, $this->applicant->getFullname());
     }
 
+    public function testAttributeStreet()
+    {
+        $data = "Up de straat";
+        $this->applicant->setStreet($data);
+        $this->assertEquals($data, $this->applicant->getStreet());
+    }
+
+    public function testAttributeHouseNumber()
+    {
+        $data = "654a";
+        $this->applicant->setHouseNumber($data);
+        $this->assertEquals($data, $this->applicant->getHouseNumber());
+    }
+
+    public function testAttributeZipCode()
+    {
+        $data = "04600";
+        $this->applicant->setZipCode($data);
+        $this->assertEquals($data, $this->applicant->getZipCode());
+    }
+
+    public function testAttributeCity()
+    {
+        $data = "東京";
+        $this->applicant->setCity($data);
+        $this->assertEquals($data, $this->applicant->getCity());
+    }
+
+    public function testAttributeCountry()
+    {
+        $data = "Wonderland";
+        $this->applicant->setCountry($data);
+        $this->assertEquals($data, $this->applicant->getCountry());
+    }
+
+    public function testAttributeEmail()
+    {
+        $data = "winne@example.com";
+        $this->applicant->setEmail($data);
+        $this->assertEquals($data, $this->applicant->getEmail());
+    }
+
     public function testAttributeRoom()
     {
         $data = "Suite with pool";
         $this->applicant->setRoom($data);
         $this->assertEquals($data, $this->applicant->getRoom());
+    }
+
+    public function testAttributeDojo()
+    {
+        $data = "KaiShinKanInHeaven";
+        $this->applicant->setDojo($data);
+        $this->assertEquals($data, $this->applicant->getDojo());
+    }
+
+    public function testAttributeGrading()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setGrading($data);
+        $this->assertEquals($data, $this->applicant->getGrading());
+    }
+
+    public function currentTimestamp()
+    {
+        return date('Y-m-d H:i:s');
+    }
+
+    public function testAttributeDateOfLastGrading()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setDateOfLastGrading($data);
+        $this->assertEquals($data, $this->applicant->getDateOfLastGrading());
+    }
+
+    public function testAttributeTwaNumber()
+    {
+        $data = "DE-0815";
+        $this->applicant->setTwaNumber($data);
+        $this->assertEquals($data, $this->applicant->getTwaNumber());
     }
 
     public function testAttributePartnerOne()
@@ -108,19 +183,6 @@ class ApplicantTest extends TestCase
         $this->applicant->setFoodCategory($data);
         $this->assertEquals($data, $this->applicant->getFoodCategory());
     }
-    /*
-        private $street;
-        private $houseNumber;
-        private $zipCode;
-        private $city;
-        private $country;
-        private $email;
-        private $dojo;
-        private $dateOfBirth;
-        private $grading;
-        private $dateOfLastGrading;
-        private $twaNumber;
-    */
 
     public function testAttributeFlexibleWithParsingToBoolean()
     {
@@ -146,26 +208,23 @@ class ApplicantTest extends TestCase
         $this->applicant->setRemarks($remark . "ThisIsTrimmed");
         $this->assertEquals($remark, $this->applicant->getRemarks());
     }
+    // end of form data
+
+    // DB-specific stuff
 
     public function testAttributeRemarksWithNullParameter()
     {
         $this->applicant->setRemarks(NULL);
         $this->assertNull($this->applicant->getRemarks());
     }
-    // end of form data
 
-    // DB-specific stuff
+    // Admin-related stuff
+
     public function testAttributePersistenceId()
     {
         $persistenceId = 47110815;
         $this->applicant->setPersistenceId($persistenceId);
         $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
-    }
-
-    // Admin-related stuff
-    public function currentTimestamp()
-    {
-        return date('Y-m-d H:i:s');
     }
 
     public function testAttributeCreatedAt()
