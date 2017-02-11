@@ -81,6 +81,33 @@ class ApplicantTest extends TestCase
         $this->assertEquals($firstName . ' ' . $lastName . ' ' . $salt, $this->applicant->getFullname());
     }
 
+    public function testAttributeRoom()
+    {
+        $data = "Suite with pool";
+        $this->applicant->setRoom($data);
+        $this->assertEquals($data, $this->applicant->getRoom());
+    }
+
+    public function testAttributePartnerOne()
+    {
+        $data = "Uke1";
+        $this->applicant->setPartnerOne($data);
+        $this->assertEquals($data, $this->applicant->getPartnerOne());
+    }
+
+    public function testAttributePartnerTwo()
+    {
+        $data = "Uke2";
+        $this->applicant->setPartnerTwo($data);
+        $this->assertEquals($data, $this->applicant->getPartnerTwo());
+    }
+
+    public function testFoodCategory()
+    {
+        $data = "veg";
+        $this->applicant->setFoodCategory($data);
+        $this->assertEquals($data, $this->applicant->getFoodCategory());
+    }
     /*
         private $street;
         private $houseNumber;
@@ -93,12 +120,6 @@ class ApplicantTest extends TestCase
         private $grading;
         private $dateOfLastGrading;
         private $twaNumber;
-
-        private $room; // which kind of room
-        private $partnerOne;
-        private $partnerTwo;
-
-        private $foodCategory;
     */
 
     public function testAttributeFlexibleWithParsingToBoolean()
@@ -131,12 +152,9 @@ class ApplicantTest extends TestCase
         $this->applicant->setRemarks(NULL);
         $this->assertNull($this->applicant->getRemarks());
     }
-
-    /*
     // end of form data
 
     // DB-specific stuff
-    */
     public function testAttributePersistenceId()
     {
         $persistenceId = 47110815;
@@ -145,17 +163,16 @@ class ApplicantTest extends TestCase
     }
 
     // Admin-related stuff
+    public function currentTimestamp()
+    {
+        return date('Y-m-d H:i:s');
+    }
 
     public function testAttributeCreatedAt()
     {
         $data = $this->currentTimestamp();
         $this->applicant->setCreatedAt($data);
         $this->assertEquals($data, $this->applicant->getCreatedAt());
-    }
-
-    public function currentTimestamp()
-    {
-        return date('Y-m-d H:i:s');
     }
 
     public function testAttributeConfirmedAt()
