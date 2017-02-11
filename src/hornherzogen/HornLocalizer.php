@@ -1,12 +1,42 @@
 <?php
 namespace hornherzogen;
 
-use \MessageFormatter;
+use MessageFormatter;
 
 class HornLocalizer
 {
     private static $fallbackLanguage = 'de';
     private static $supportedLanguages = array('de', 'en', 'ru', 'jp');
+
+    public static function i18n($key)
+    {
+        return self::i18nParams($key, []);
+    }
+
+    public static function i18nParams($key, $params)
+    {
+        $messageFormatter = self::getMessageFormatterForKeyWithLanguageFallback($key);
+        if ($messageFormatter) {
+            if (isset($params) && !empty($params)) {
+                return $messageFormatter->format(array($params));
+            }
+            return $messageFormatter->format(array());
+        } else {
+            return 'Unknown key: "' . $key . '"';
+        }
+    }
+
+    /**
+     * @param $key
+     * @return bool|MessageFormatter false in case no key is found for the currently set language or fallback language
+     */
+    private static function getMessageFormatterForKeyWithLanguageFallback($key)
+    {
+        if (isset($GLOBALS['messages'][self::getLanguage()][trim($key)])) {
+            return new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
+        }
+        return false;
+    }
 
     /**
      * Retrieve language parameter if available with fallback to German version (de) by taking care of session state as well.
@@ -37,15 +67,6 @@ class HornLocalizer
     }
 
     /**
-     * Store given language in session.
-     */
-    private static function storeInSession($language)
-    {
-        $_SESSION['language'] = $language;
-        return $language;
-    }
-
-    /**
      * @return null|string language setting from session store.
      */
     static function getLanguageFromSession()
@@ -63,17 +84,13 @@ class HornLocalizer
         return (isset($_GET) && isset($_GET['lang'])) ? trim(filter_var($_GET['lang'], FILTER_SANITIZE_STRING)) : NULL;
     }
 
-
-    public static function i18n($key)
+    /**
+     * Store given language in session.
+     */
+    private static function storeInSession($language)
     {
-        $messageFormatter = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
-        echo $messageFormatter->format(array());
-    }
-
-    public static function i18nParams($key, $params)
-    {
-        $messageFormatter = new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
-        echo $messageFormatter->format(array($params));
+        $_SESSION['language'] = $language;
+        return $language;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
-use PHPUnit\Framework\TestCase;
 use hornherzogen\HornLocalizer;
+use PHPUnit\Framework\TestCase;
 
 class HornLocalizerTest extends TestCase
 {
@@ -153,6 +153,26 @@ class HornLocalizerTest extends TestCase
 
         $_GET['lang'] = ' дняtrimMeProper今日lyC         ';
         self::assertEquals('дняtrimMeProper今日lyC', HornLocalizer::getLanguageFromUrlParameter());
+    }
+
+    public function testLocalizationKeyRetrievalWithUnknownKeyAndNoParams()
+    {
+        self::assertEquals('Unknown key: "unknownI18NKey"', $this->language->i18n('unknownI18NKey'));
+    }
+
+    public function testLocalizationKeyRetrievalWithUnknownKeyAndParams()
+    {
+        self::assertEquals('Unknown key: "unknownI18NKey"', $this->language->i18nParams('unknownI18NKey', 'just', 'a', 'key'));
+    }
+
+    public function testLocalizationKeyRetrievalWithKnownKeyAndNoParams()
+    {
+        self::assertEquals('Herzogenhorn 2017 Anmeldung', $this->language->i18n('FORM.TITLE'));
+    }
+
+    public function testLocalizationKeyRetrievalWithKnownKeyAndParams()
+    {
+        self::assertEquals('Es ist just', $this->language->i18nParams('TIME', 'just', 'a', 'key'));
     }
 
 }
