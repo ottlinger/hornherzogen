@@ -143,6 +143,19 @@ class ApplicantTest extends TestCase
         $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
     }
 
+    public function currentTimestamp() {
+        return date('Y-m-d H:i:s');
+    }
+
+
+    public function testAttributeCreatedAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setCreatedAt($data);
+        $this->assertEquals($data, $this->applicant->getCreatedAt());
+    }
+
+
     /*
         // Admin-related stuff
         private $createdAt; // date when status was set to APPLIED
