@@ -131,10 +131,11 @@ class ApplicantTest extends TestCase
         $this->applicant->setRemarks(NULL);
         $this->assertNull($this->applicant->getRemarks());
     }
-    /*
-        // end of form data
 
-        // DB-specific stuff
+    /*
+    // end of form data
+
+    // DB-specific stuff
     */
     public function testAttributePersistenceId()
     {
@@ -143,10 +144,7 @@ class ApplicantTest extends TestCase
         $this->assertEquals($persistenceId, $this->applicant->getPersistenceId());
     }
 
-    public function currentTimestamp() {
-        return date('Y-m-d H:i:s');
-    }
-
+    // Admin-related stuff
 
     public function testAttributeCreatedAt()
     {
@@ -155,16 +153,57 @@ class ApplicantTest extends TestCase
         $this->assertEquals($data, $this->applicant->getCreatedAt());
     }
 
+    public function currentTimestamp()
+    {
+        return date('Y-m-d H:i:s');
+    }
 
-    /*
-        // Admin-related stuff
-        private $createdAt; // date when status was set to APPLIED
-        private $confirmedAt; // date when status was set to CONFIRMED
-        private $finalRoom; // reference to other table, final room at Herzogenhorn
-        private $currentStatus; // name in other table
-        private $mailedAt; // when the mail was sent and status changed to REGISTERED
-        private $paymentRequestedAt; // when the mail to pay was sent and status changed to WAITING_FOR_PAYMENT
-        private $paymentReceivedAt; // when the payment was received successfully and status changed to PAID
-        private $bookedAt;// final confirmation is sent out and status changed to BOOKED
-    */
+    public function testAttributeConfirmedAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setConfirmedAt($data);
+        $this->assertEquals($data, $this->applicant->getConfirmedAt());
+    }
+
+    public function testFinalRoom()
+    {
+        $data = "0815";
+        $this->applicant->setFinalRoom($data);
+        $this->assertEquals($data, $this->applicant->getFinalRoom());
+    }
+
+    public function testCurrentStatus()
+    {
+        $data = "ASSIMILATED";
+        $this->applicant->setCurrentStatus($data);
+        $this->assertEquals($data, $this->applicant->getCurrentStatus());
+    }
+
+    public function testAttributeMailedAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setMailedAt($data);
+        $this->assertEquals($data, $this->applicant->getMailedAt());
+    }
+
+    public function testAttributePaymentRequestedAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setPaymentRequestedAt($data);
+        $this->assertEquals($data, $this->applicant->getPaymentRequestedAt());
+    }
+
+    public function testAttributePaymentReceivedAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setPaymentReceivedAt($data);
+        $this->assertEquals($data, $this->applicant->getPaymentReceivedAt());
+    }
+
+    public function testAttributeBookedAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setBookedAt($data);
+        $this->assertEquals($data, $this->applicant->getBookedAt());
+    }
 }
