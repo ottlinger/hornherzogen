@@ -1,6 +1,6 @@
 <?php
+use hornherzogen\GitRevision;
 use PHPUnit\Framework\TestCase;
-
 
 class GitRevisionTest extends TestCase
 {
@@ -11,7 +11,7 @@ class GitRevisionTest extends TestCase
      */
     public function setUp()
     {
-        $this->revision = new hornherzogen\GitRevision();
+        $this->revision = new GitRevision();
     }
 
     /**
@@ -40,10 +40,7 @@ class GitRevisionTest extends TestCase
      */
     public function testGitRevisionIsNeverEmpty()
     {
-        $revision = $this->revision->gitrevision();
-        echo 'Running on git revision: ' . $revision;
-        $this->assertFalse(empty($revision));
+        $this->assertFalse(empty($this->revision->gitrevision()));
     }
-
 
 }
