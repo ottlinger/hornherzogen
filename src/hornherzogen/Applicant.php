@@ -51,6 +51,7 @@ class Applicant
     private $paymentRequestedAt; // when the mail to pay was sent and status changed to WAITING_FOR_PAYMENT
     private $paymentReceivedAt; // when the payment was received successfully and status changed to PAID
     private $bookedAt;// final confirmation is sent out and status changed to BOOKED
+    private $cancelledAt; // data at which an applicant cancelled his/her booking
 
     // TECHNICAL attributes
     private $formHelper;
@@ -623,39 +624,22 @@ class Applicant
         return $this;
     }
 
-    /*
-     * Database structure:
-      `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-      `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-      `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-      `vorname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-      `nachname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-      `combinedName` varchar(400) COLLATE utf8_bin DEFAULT NULL,
-      `street` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-      `houseno` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-      `plz` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-      `city` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-      `country` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-      `email` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-      `dojo` varchar(256) COLLATE utf8_bin DEFAULT NULL,
-      `birthdate` date DEFAULT NULL,
-      `grad` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-      `gradsince` date DEFAULT NULL,
-      `twano` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-      `room` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-      `together1` varchar(100) COLLATE utf8_bin DEFAULT NULL,
-      `together2` varchar(100) COLLATE utf8_bin DEFAULT NULL,
-      `essen` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-      `flexible` tinyint(1) DEFAULT NULL,
-      `additionals` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
-      `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      `mailed` timestamp NULL,
-      `verified` timestamp NULL,
-      `paymentmailed` timestamp NULL,
-      `paymentreceived` timestamp NULL,
-      `booked` timestamp NULL,
-      `cancelled` timestamp NULL,
-      `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
-    */
+    /**
+     * @return mixed
+     */
+    public function getCancelledAt()
+    {
+        return $this->cancelledAt;
+    }
+
+    /**
+     * @param mixed $cancelledAt
+     * @return Applicant
+     */
+    public function setCancelledAt($cancelledAt)
+    {
+        $this->cancelledAt = $cancelledAt;
+        return $this;
+    }
 
 }

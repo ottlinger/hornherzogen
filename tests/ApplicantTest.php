@@ -282,4 +282,11 @@ class ApplicantTest extends TestCase
         $this->applicant->setBookedAt($data);
         $this->assertEquals($data, $this->applicant->getBookedAt());
     }
+
+    public function testAttributeCancelledAt()
+    {
+        $data = $this->currentTimestamp();
+        $this->applicant->setCancelledAt($data);
+        $this->assertEquals($data, $this->applicant->getCancelledAt());
+    }
 }
