@@ -54,6 +54,13 @@ class ApplicantTest extends TestCase
         $this->assertEquals(2, $this->applicant->getWeek());
     }
 
+    public function testAttributeGender()
+    {
+        $data = "unsure";
+        $this->applicant->setGender($data);
+        $this->assertEquals($data, $this->applicant->getGender());
+    }
+
     public function testAttributeFirstName()
     {
         $firstName = "Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester";
