@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
-use PHPUnit\Framework\TestCase;
 use hornherzogen\Applicant;
+use PHPUnit\Framework\TestCase;
 
 class ApplicantTest extends TestCase
 {
@@ -112,9 +112,26 @@ class ApplicantTest extends TestCase
         $this->assertTrue($this->applicant->getFlexible());
     }
 
-    /*
+    public function testAttributeRemarks()
+    {
+        $remark = "AnyAdditonalComments";
+        $this->applicant->setRemarks($remark);
+        $this->assertEquals($remark, $this->applicant->getRemarks());
+    }
 
-        private $remarks;
+    public function testAttributeRemarksLengthConstraint()
+    {
+        $remark = str_repeat("a", 400);
+        $this->applicant->setRemarks($remark . "ThisIsTrimmed");
+        $this->assertEquals($remark, $this->applicant->getRemarks());
+    }
+
+    public function testAttributeRemarksWithNullParameter()
+    {
+        $this->applicant->setRemarks(NULL);
+        $this->assertNull($this->applicant->getRemarks());
+    }
+    /*
         // end of form data
 
         // DB-specific stuff

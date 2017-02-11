@@ -59,9 +59,11 @@ class Applicant
      */
     public function getWeek()
     {
-        switch($this->week) {
-            case "week1": return 1;
-            case "week2": return 2;
+        switch ($this->week) {
+            case "week1":
+                return 1;
+            case "week2":
+                return 2;
             default:
                 return $this->week;
         }
@@ -138,7 +140,7 @@ class Applicant
      */
     public function getFullName()
     {
-        if(!isset($this->fullName)) {
+        if (!isset($this->fullName)) {
             $this->setFullName(NULL);
         }
 
@@ -152,7 +154,7 @@ class Applicant
      */
     public function setFullName($salt)
     {
-        $this->fullName = trim($this->getFirstname().' '.$this->getLastname().' '.$salt);
+        $this->fullName = trim($this->getFirstname() . ' ' . $this->getLastname() . ' ' . $salt);
         return $this;
     }
 
@@ -431,8 +433,9 @@ class Applicant
      */
     public function getFlexible()
     {
-        switch($this->flexible) {
-            case "yes": return true;
+        switch ($this->flexible) {
+            case "yes":
+                return true;
             default:
                 return false;
         }
@@ -459,12 +462,16 @@ class Applicant
     }
 
     /**
+     * Sets remark field to the given value at a maximum length of 400.
+     *
      * @param mixed $remarks
      * @return Applicant
      */
     public function setRemarks($remarks)
     {
-        $this->remarks = $remarks;
+        if (isset($remarks)) {
+            $this->remarks = mb_substr(trim($remarks), 0, 400, 'UTF-8');
+        }
         return $this;
     }
 
@@ -630,39 +637,39 @@ class Applicant
         return $this;
     }
 
-/*
- * Database structure:
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `vorname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-  `nachname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-  `combinedName` varchar(400) COLLATE utf8_bin DEFAULT NULL,
-  `street` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `houseno` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `plz` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `city` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `country` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `email` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `dojo` varchar(256) COLLATE utf8_bin DEFAULT NULL,
-  `birthdate` date DEFAULT NULL,
-  `grad` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `gradsince` date DEFAULT NULL,
-  `twano` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `room` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `together1` varchar(100) COLLATE utf8_bin DEFAULT NULL,
-  `together2` varchar(100) COLLATE utf8_bin DEFAULT NULL,
-  `essen` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `flexible` tinyint(1) DEFAULT NULL,
-  `additionals` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `mailed` timestamp NULL,
-  `verified` timestamp NULL,
-  `paymentmailed` timestamp NULL,
-  `paymentreceived` timestamp NULL,
-  `booked` timestamp NULL,
-  `cancelled` timestamp NULL,
-  `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
-*/
+    /*
+     * Database structure:
+      `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+      `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+      `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+      `vorname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+      `nachname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+      `combinedName` varchar(400) COLLATE utf8_bin DEFAULT NULL,
+      `street` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+      `houseno` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+      `plz` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+      `city` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+      `country` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+      `email` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+      `dojo` varchar(256) COLLATE utf8_bin DEFAULT NULL,
+      `birthdate` date DEFAULT NULL,
+      `grad` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+      `gradsince` date DEFAULT NULL,
+      `twano` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+      `room` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+      `together1` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+      `together2` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+      `essen` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+      `flexible` tinyint(1) DEFAULT NULL,
+      `additionals` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
+      `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `mailed` timestamp NULL,
+      `verified` timestamp NULL,
+      `paymentmailed` timestamp NULL,
+      `paymentreceived` timestamp NULL,
+      `booked` timestamp NULL,
+      `cancelled` timestamp NULL,
+      `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
+    */
 
 }
