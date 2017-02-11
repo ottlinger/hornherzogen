@@ -53,6 +53,13 @@ class Applicant
     private $paymentReceivedAt; // when the payment was received successfully and status changed to PAID
     private $bookedAt;// final confirmation is sent out and status changed to BOOKED
 
+    // TECHNICAL attributes
+    private $formHelper;
+
+    function __construct()
+    {
+        $this->formHelper = new FormHelper();
+    }
 
     /**
      * @return mixed
@@ -469,9 +476,7 @@ class Applicant
      */
     public function setRemarks($remarks)
     {
-        if (isset($remarks)) {
-            $this->remarks = mb_substr(trim($remarks), 0, 400, 'UTF-8');
-        }
+        $this->remarks = $this->formHelper->trimAndCutAfter($remarks, 400);
         return $this;
     }
 

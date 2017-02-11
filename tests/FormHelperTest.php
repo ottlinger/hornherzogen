@@ -1,6 +1,6 @@
 <?php
-use PHPUnit\Framework\TestCase;
 use hornherzogen\FormHelper;
+use PHPUnit\Framework\TestCase;
 
 class FormHelperTest extends TestCase
 {
@@ -42,5 +42,30 @@ class FormHelperTest extends TestCase
     {
         $dataIn = ' html    ';
         $this->assertEquals('html', $this->formHelper->filterUserInput($dataIn));
+    }
+
+    public function testTrimmingAndCuttingWithNullDataAndLength()
+    {
+        $dataIn = NULL;
+        $this->assertNull($this->formHelper->trimAndCutAfter($dataIn, 4711));
+    }
+
+    public function testTrimmingAndCuttingWithNullDataAndNullLength()
+    {
+        $this->assertNull($this->formHelper->trimAndCutAfter(NULL, NULL));
+    }
+
+    public function testTrimmingAndCuttingWithDataThatNeedsTrimmingButNoCutting()
+    {
+        $length = 10;
+        $input = str_repeat("b", $length);
+        $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     ' . $input . '        ', $length));
+    }
+
+    public function testTrimmingAndCuttingWithDataThatNeedsTrimmingAndCutting()
+    {
+        $length = 10;
+        $input = str_repeat("b", $length);
+        $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     ' . $input . 'aaaaa        ', $length));
     }
 }
