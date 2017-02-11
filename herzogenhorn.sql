@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `country` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `dojo` varchar(256) COLLATE utf8_bin DEFAULT NULL,
-  `birthdate` date DEFAULT NULL,
   `grad` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `gradsince` date DEFAULT NULL,
   `twano` varchar(20) COLLATE utf8_bin DEFAULT NULL,
