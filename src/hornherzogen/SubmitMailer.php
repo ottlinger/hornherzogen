@@ -1,7 +1,5 @@
 <?php namespace hornherzogen;
 
-use hornherzogen\ConfigurationWrapper;
-
 class SubmitMailer
 {
     private $email;// tbd!
@@ -69,17 +67,6 @@ class SubmitMailer
         return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
     }
 
-    /**
-     * Send mails to us after sending a mail to the person that registered.
-     */
-    public function sendInternally()
-    {
-        if (ConfigurationWrapper::sendregistrationmails()) {
-            return 'An internal confirmation mail needs to be send as well :-)';
-        }
-        return false;
-    }
-
     public function getMailtext()
     {
         $name = trim($this->firstname . ' ' . $this->lastname);
@@ -106,6 +93,17 @@ class SubmitMailer
             </h2>
         </body>
     </html>';
+    }
+
+    /**
+     * Send mails to us after sending a mail to the person that registered.
+     */
+    public function sendInternally()
+    {
+        if (ConfigurationWrapper::sendinternalregistrationmails()) {
+            return 'An internal confirmation mail needs to be sent as well :-)';
+        }
+        return false;
     }
 
 
