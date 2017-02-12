@@ -1,12 +1,8 @@
 <?php namespace hornherzogen;
+use hornherzogen\HornLocalizer;
 
 class SubmitMailer
 {
-    private $email;// tbd!
-    private $firstname = 'Philio'; // tbd!
-    private $lastname = 'Egonitschow'; // tbd!
-    private $subject = 'Herzogenhorn 2017 - Deine Anmeldedaten sind eingegangen bei филипп/フィリップ';
-
     // internal members
     private $formHelper;
     private $applicationInput;
@@ -22,18 +18,7 @@ class SubmitMailer
     public function send()
     {
         date_default_timezone_set('Europe/Berlin');
-
-        // TODO externalize in separate class that maps form input into a bean with a boolean isValid()
-        if (empty($_POST) || empty($_POST['email']) || $_POST['email'] != $_POST["emailcheck"]) {
-            return '<p>Invalid emailadress - no mail to send</p>';
-        }
-        $this->email = $_POST['email']; // ?? ''; if PHP7 were to work
-
         $replyto = ConfigurationWrapper::registrationmail();
-        // PHP7.0: ?? 'invalidconfigurationfile@example.com';
-        if (empty($replyto)) {
-            $replyto = 'invalidconfigurationfile@example.com';
-        }
 
         $importance = 1; //1 UrgentMessage, 3 Normal
 
@@ -45,7 +30,7 @@ class SubmitMailer
         // http://stackoverflow.com/questions/4389676/email-from-php-has-broken-subject-header-encoding#4389755
         // https://ncona.com/2011/06/using-utf-8-characters-on-an-e-mail-subject/
         $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
-        $encoded_subject = iconv_mime_encode('Subject', $this->subject, $preferences);
+        $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
         $encoded_subject = substr($encoded_subject, strlen('Subject: '));
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
@@ -72,36 +57,44 @@ class SubmitMailer
         $headers[] = 'X-Mailer: PHP/' . phpversion();
 
         if (ConfigurationWrapper::sendregistrationmails() && !$this->applicationInput->isMailSent()) {
-            mail($this->email, $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
         }
 
         $this->applicationInput->setMailSent(true);
-        return '<p>Mail abgeschickt um ' . date('Y-m-d H:i:s') . '</p>';
+        return '<p>Mail abgeschickt um ' . $this->formHelper->timestamp() . '</p>';
     }
 
     public function getMailtext()
     {
-        $name = trim($this->firstname . ' ' . $this->lastname);
-
         return '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Anmeldebestätigung Herzogenhorn Woche TBD eingegangen</title >
+            <title>Anmeldebestätigung Herzogenhorn Woche '.$this->applicationInput->getWeek().' eingegangen</title >
         </head>
         <body>
-            <h1>Herzogenhorn 2017 - Anmeldung für Woche 1</h1>
+            <h1>Herzogenhorn 2017 - Anmeldung für Woche '.$this->applicationInput->getWeek().'</h1>
             <h2>
-                Hallo ' . $name . ',</h2>
-                <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . date('Y-m-d H:i:s') . '
+                Hallo ' . $this->applicationInput->getFirstname() . ',</h2>
+                <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . $this->formHelper->timestamp() . '
                 erhalten und melden uns sobald die Anmeldefrist abgelaufen ist und wir die beiden Wochen geplant haben.
+                </p>
+                <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
+                <ol>
+                <li>'.$this->applicationInput->getFirstname().'</li>
+                <li>'.$this->applicationInput->getDojo().'</li>
+                <li>'.$this->applicationInput->getDojo().'</li>
+                <li>'.$this->applicationInput->getDojo().'</li>
+                <li>'.$this->applicationInput->getDojo().'</li>
+                <li></li>
+                </ol>
                 </p>
                 <p>
                 Danke für Deine Geduld und wir freuen uns auf das gemeinsame Traing mit Dir und Meister Shimizu-<br />
                 </p>
-                <h2>
+                <h3>
                 Bis dahin sonnige Grüße aus Berlin<br />
-                von Benjamin und Philipp</h2>
+                von Benjamin und Philipp</h3>
             </h2>
         </body>
     </html>';

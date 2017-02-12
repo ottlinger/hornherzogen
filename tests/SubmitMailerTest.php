@@ -13,7 +13,9 @@ class SubmitMailerTest extends TestCase
     public function setUp()
     {
         // TODO set all necessary attributes
-        $applicantInput = new \hornherzogen\ApplicantInput();
+        $applicantInput = new ApplicantInput();
+        $applicantInput->parse();
+
         $this->mailer = new SubmitMailer($applicantInput);
     }
 
@@ -55,16 +57,6 @@ class SubmitMailerTest extends TestCase
     {
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = false;
         $this->assertEquals('', $this->mailer->sendInternally());
-    }
-
-    /**
-     * Test mail submission fails if no email is set.
-     *
-     * @test
-     */
-    public function testNoMailIsSendWithoutInputData()
-    {
-        $this->assertEquals('<p>Invalid emailadress - no mail to send</p>', $this->mailer->send());
     }
 
     public function testNoMailIsSendIfConfiguredThisWay()

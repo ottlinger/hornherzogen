@@ -90,7 +90,7 @@
             // load data from HttpPOST
             $applicantInput = new \hornherzogen\ApplicantInput();
             $applicantInput->parse();
-            echo '<p>'.$applicantInput->toString().'</p>';
+            echo '<p>'.$applicantInput->__toString().'</p>';
             echo '</pre>';
 
             // send mail

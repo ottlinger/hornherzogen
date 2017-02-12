@@ -217,6 +217,8 @@ final class ApplicantInput extends Applicant
             $this->setRemarks($this->getFromPost("additionals"));
             $this->addSuccess("additionals");
         }
+
+        return $this;
     }
 
     /**
@@ -249,7 +251,7 @@ final class ApplicantInput extends Applicant
         return false;
     }
 
-    public function toString()
+    public function __toString()
     {
         // var_dump ruins the formatting
         $msg = "ERROR: " . var_dump($this->errors);
