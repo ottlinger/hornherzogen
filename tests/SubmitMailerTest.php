@@ -63,7 +63,7 @@ class SubmitMailerTest extends TestCase
         $this->assertEquals('<p>Invalid emailadress - no mail to send</p>', $this->mailer->send());
     }
 
-    public function testNoMailIsSendifConfiguredThisWay()
+    public function testNoMailIsSendIfConfiguredThisWay()
     {
         // do not send any mails in tests
         $GLOBALS["horncfg"]["sendregistrationmails"] = false;
