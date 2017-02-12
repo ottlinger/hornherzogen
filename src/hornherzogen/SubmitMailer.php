@@ -59,8 +59,6 @@ class SubmitMailer
 
         if (ConfigurationWrapper::sendregistrationmails() && !$this->applicationInput->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
-        } else {
-            echo "<p>No mail sent, since already send or disabled by config.</p>";
         }
 
         $this->applicationInput->setMailSent(true);
@@ -118,8 +116,6 @@ class SubmitMailer
     {
         if (ConfigurationWrapper::sendinternalregistrationmails() && !$this->applicationInput->isMailSent()) {
             return 'An internal confirmation mail needs to be sent as well :-)';
-        } else {
-            echo "<p>No internal mail sent, since already send or disabled by config.</p>";
         }
         return false;
     }
