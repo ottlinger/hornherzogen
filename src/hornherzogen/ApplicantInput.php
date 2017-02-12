@@ -14,10 +14,15 @@ final class ApplicantInput extends Applicant
      * @var int total elements that can be provided in the web form.
      */
     private $total = 19;
+    // To prevent double click attacks we only send out mails if not sent before
+    private $mailSent;
 
-    function __construct() {
+
+    function __construct()
+    {
         parent::__construct();
         $this->formHelper = new FormHelper();
+        $this->mailSent = false;
     }
 
     static function getRequiredFields()
@@ -47,9 +52,22 @@ final class ApplicantInput extends Applicant
         return $required;
     }
 
-    public function hasErrors()
+    /**
+     * @return bool
+     */
+    public function isMailSent()
     {
-        return !($this->total == sizeof($this->success) && 0 == sizeof($this->errors));
+        return $this->mailSent;
+    }
+
+    /**
+     * @param bool $mailSent
+     * @return ApplicantInput
+     */
+    public function setMailSent($mailSent)
+    {
+        $this->mailSent = $mailSent;
+        return $this;
     }
 
     public function showHasError($field)
@@ -66,16 +84,6 @@ final class ApplicantInput extends Applicant
             return ' has-success';
         }
         return '';
-    }
-
-    public function addError($field)
-    {
-        array_push($this->errors, $field);
-    }
-
-    public function addSuccess($field)
-    {
-        array_push($this->success, $field);
     }
 
     /**
@@ -153,8 +161,7 @@ final class ApplicantInput extends Applicant
             $this->addError("country");
         }
 
-// TODO special handling for email
-        if ($this->formHelper->isSetAndNotEmpty("email")) {
+        if ($this->formHelper->isSetAndNotEmpty("email") && $this->areEmailAddressesValid()) {
             $this->setEmail($this->getFromPost("email"));
             $this->addSuccess("email");
         } else {
@@ -222,19 +229,39 @@ final class ApplicantInput extends Applicant
         return $this->formHelper->filterUserInput($_POST[$key]);
     }
 
-    function verifyEmailAddresses()
+    public function addSuccess($field)
     {
-        $mail = $this->formHelper->isSetAndNotEmpty("email");
-        $mailCheck = $this->formHelper->isSetAndNotEmpty("emailcheck");
-        return $mail === $mailCheck;
+        array_push($this->success, $field);
     }
 
-    public function toString() {
+    public function addError($field)
+    {
+        array_push($this->errors, $field);
+    }
+
+    function areEmailAddressesValid()
+    {
+        if ($this->formHelper->isSetAndNotEmpty("email") && $this->formHelper->isSetAndNotEmpty("emailcheck")) {
+            $mail = $this->getFromPost("email");
+            $mailCheck = $this->getFromPost("emailcheck");
+            return $mail == $mailCheck && $this->formHelper->isValidEmail($mail);
+        }
+        return false;
+    }
+
+    public function toString()
+    {
         // var_dump ruins the formatting
-        $msg = "ERROR: ".var_dump($this->errors);
-        $msg .= "- SUCCESS: ".var_dump($this->success);
-        $msg .= "WITH A TOTAL OF: ".$this->total;
+        $msg = "ERROR: " . var_dump($this->errors);
+        $msg .= "- SUCCESS: " . var_dump($this->success);
+        $msg .= "WITH A TOTAL OF: " . $this->total;
+        $msg .= " hasErrors? " . boolval($this->hasErrors());
         return $msg;
+    }
+
+    public function hasErrors()
+    {
+        return !($this->total === sizeof($this->success) && 0 === sizeof($this->errors));
     }
 
 }

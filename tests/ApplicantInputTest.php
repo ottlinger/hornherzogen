@@ -83,4 +83,30 @@ class ApplicantInputTest extends TestCase
         $this->assertCount(17, ApplicantInput::getRequiredFields());
     }
 
+    public function testNoMailaddressesGivenResultsInError() {
+        $_POST = array();
+        $this->assertFalse($this->applicantInput->areEmailAddressesValid());
+    }
+
+    public function testNoMatchingMailaddressesGivenResultsInError() {
+        $_POST = array();
+        $_POST['email'] = "justATypoe@example.com";
+        $_POST['emailcheck'] = "justATypo@example.com";
+        $this->assertFalse($this->applicantInput->areEmailAddressesValid());
+    }
+
+    public function testMatchingStringsButNoMailaddressesGivenResultsInError() {
+        $_POST = array();
+        $_POST['email'] = "example.com";
+        $_POST['emailcheck'] = "example.com";
+        $this->assertFalse($this->applicantInput->areEmailAddressesValid());
+    }
+
+    public function testMatchingStringsAndValidMailaddressesGivenWorks() {
+        $_POST = array();
+        $_POST['email'] = "foo@example.com";
+        $_POST['emailcheck'] = "foo@example.com";
+        $this->assertTrue($this->applicantInput->areEmailAddressesValid());
+    }
+
 }
