@@ -274,6 +274,7 @@ final class ApplicantInput extends Applicant
 
     public function hasErrors()
     {
+        // TODO add check for required fields as well
         return !($this->total === sizeof($this->success) && 0 === sizeof($this->errors));
     }
 
