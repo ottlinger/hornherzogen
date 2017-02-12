@@ -21,9 +21,8 @@ class HornLocalizer
                 return $messageFormatter->format(array($params));
             }
             return $messageFormatter->format(array());
-        } else {
-            return 'Unknown key: "' . $key . '"';
         }
+        return 'Unknown key: "' . $key . '"';
     }
 
     /**
