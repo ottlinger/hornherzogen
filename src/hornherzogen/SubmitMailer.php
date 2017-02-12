@@ -1,4 +1,6 @@
-<?php namespace hornherzogen;
+<?php
+declare(strict_types = 1);
+namespace hornherzogen;
 use hornherzogen\HornLocalizer;
 
 class SubmitMailer
@@ -81,8 +83,8 @@ class SubmitMailer
                 </p>
                 <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
                 <ol>
-                <li>'.$this->applicationInput->getFirstname().'</li>
-                <li>'.$this->applicationInput->getDojo().'</li>
+                <li>Name: '.$this->applicationInput->getFirstname().'</li>
+                <li>Umbuchbar? '.$this->applicationInput->getFlexible().'</li>
                 <li>'.$this->applicationInput->getDojo().'</li>
                 <li>'.$this->applicationInput->getDojo().'</li>
                 <li>'.$this->applicationInput->getDojo().'</li>
