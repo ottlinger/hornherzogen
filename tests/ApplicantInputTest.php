@@ -66,16 +66,6 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals('', $this->applicantInput->showIsOkay('unknownKey'));
     }
 
-    public function testEmailIsValid()
-    {
-        $this->assertTrue(ApplicantInput::isValidEmail('abc@foo.de'));
-    }
-
-    public function testEmailIsValidThrowsExceptionIfEmailIsInvalid()
-    {
-        $this->assertEquals('"abcnodomain" is not a valid email address', ApplicantInput::isValidEmail('abcnodomain'));
-    }
-
     public function testParseFromUserInputWithoutAnyUserInputGiven()
     {
         $this->applicantInput->parse();
@@ -87,6 +77,10 @@ class ApplicantInputTest extends TestCase
         $_POST["vorname"] = "  <b>My firstname</b> ";
         $this->applicantInput->parse();
         $this->assertEquals("&lt;b&gt;My firstname&lt;/b&gt;", $this->applicantInput->getFirstName());
+    }
+
+    public function testNumberOfFieldsRequiredInWebFormDidChange() {
+        $this->assertCount(17, ApplicantInput::getRequiredFields());
     }
 
 }

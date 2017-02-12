@@ -86,14 +86,15 @@
             var_dump(file_get_contents('php://input'));
             echo '<p>Converted to POST:</p>';
             var_dump($_POST);
-            echo '</pre>';
 
             // load data from HttpPOST
             $applicantInput = new \hornherzogen\ApplicantInput();
             $applicantInput->parse();
+            echo '<p>'.$applicantInput->toString().'</p>';
+            echo '</pre>';
 
             // send mail
-            $sender = new \hornherzogen\SubmitMailer();
+            $sender = new \hornherzogen\SubmitMailer($applicantInput);
             echo $sender->send();
             echo $sender->sendInternally();
         }
@@ -176,7 +177,7 @@
             <div class="form-group">
                 <label for="houseno" class="col-sm-2 control-label">Hausnummer (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="houseno"
+                    <input type="text" class="form-control" id="houseno" name="houseno"
                            placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben.">
                 </div>
             </div>

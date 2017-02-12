@@ -54,7 +54,7 @@ class Applicant
     private $cancelledAt; // data at which an applicant cancelled his/her booking
 
     // TECHNICAL attributes
-    private $formHelper;
+    protected $formHelper;
 
     function __construct()
     {

@@ -89,4 +89,16 @@ class FormHelperTest extends TestCase
         $_POST[$member] = 'notEmpty';
         $this->assertTrue($this->formHelper->isSetAndNotEmpty($member));
     }
+
+    public function testEmailIsValid()
+    {
+        $this->assertTrue($this->formHelper->isValidEmail('abc@foo.de'));
+    }
+
+    public function testEmailIsValidThrowsExceptionIfEmailIsInvalid()
+    {
+        $this->assertEquals('"abcnodomain" is not a valid email address', $this->formHelper->isValidEmail('abcnodomain'));
+    }
+
+
 }

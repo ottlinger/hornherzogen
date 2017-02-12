@@ -23,6 +23,17 @@ class FormHelper
         return date('Y-m-d H:i:s');
     }
 
+    public function isValidEmail($email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return sprintf(
+                '"%s" is not a valid email address',
+                $email
+            );
+        }
+        return true;
+    }
+
     public function isSetAndNotEmpty($key)
     {
         if(isset($_POST) && isset($key)) {
