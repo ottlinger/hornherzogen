@@ -1,5 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use hornherzogen\SubmitMailer;
+use hornherzogen\ApplicantInput;
 
 class SubmitMailerTest extends TestCase
 {
@@ -10,7 +12,9 @@ class SubmitMailerTest extends TestCase
      */
     public function setUp()
     {
-        $this->mailer = new hornherzogen\SubmitMailer;
+        // TODO set all necessary attributes
+        $applicantInput = new \hornherzogen\ApplicantInput();
+        $this->mailer = new SubmitMailer($applicantInput);
     }
 
     /**

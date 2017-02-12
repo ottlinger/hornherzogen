@@ -7,6 +7,16 @@ class SubmitMailer
     private $lastname = 'Egonitschow'; // tbd!
     private $subject = 'Herzogenhorn 2017 - Deine Anmeldedaten sind eingegangen bei филипп/フィリップ';
 
+    // internal members
+    private $formHelper;
+    private $applicationInput;
+
+    function __construct($applicationInput)
+    {
+        $this->applicationInput = $applicationInput;
+        $this->formHelper = new FormHelper();
+    }
+
     // In case you need authentication you should switch the the PEAR module
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
     public function send()

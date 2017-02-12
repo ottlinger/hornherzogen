@@ -88,6 +88,10 @@
             var_dump($_POST);
             echo '</pre>';
 
+            // load data from HttpPOST
+            $applicantInput = new \hornherzogen\ApplicantInput();
+            $applicantInput->parse();
+
             // send mail
             $sender = new \hornherzogen\SubmitMailer();
             echo $sender->send();
