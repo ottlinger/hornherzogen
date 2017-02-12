@@ -127,6 +127,9 @@ final class ApplicantInput extends Applicant
             $this->addError("nachname");
         }
 
+        // TODO handle this when flushing to the database
+        $this->setFullName('');
+
         if ($this->formHelper->isSetAndNotEmpty("street")) {
             $this->setStreet($this->getFromPost("street"));
             $this->addSuccess("street");
@@ -188,6 +191,13 @@ final class ApplicantInput extends Applicant
             $this->addSuccess("grad");
         } else {
             $this->addError("grad");
+        }
+
+        if ($this->formHelper->isSetAndNotEmpty("gsince")) {
+            $this->setDateOfLastGrading($this->getFromPost("gsince"));
+            $this->addSuccess("gsince");
+        } else {
+            $this->addError("gsince");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("room")) {

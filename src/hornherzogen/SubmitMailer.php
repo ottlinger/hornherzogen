@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 namespace hornherzogen;
-use hornherzogen\HornLocalizer;
 
 class SubmitMailer
 {
@@ -60,6 +59,8 @@ class SubmitMailer
 
         if (ConfigurationWrapper::sendregistrationmails() && !$this->applicationInput->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+        } else {
+            echo "<p>No mail sent, since already send or disabled by config.</p>";
         }
 
         $this->applicationInput->setMailSent(true);
@@ -72,24 +73,32 @@ class SubmitMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Anmeldebestätigung Herzogenhorn Woche '.$this->applicationInput->getWeek().' eingegangen</title >
+            <title>Anmeldebestätigung Herzogenhorn Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
         </head>
         <body>
-            <h1>Herzogenhorn 2017 - Anmeldung für Woche '.$this->applicationInput->getWeek().'</h1>
+            <h1>Herzogenhorn 2017 - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>
                 Hallo ' . $this->applicationInput->getFirstname() . ',</h2>
                 <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . $this->formHelper->timestamp() . '
                 erhalten und melden uns sobald die Anmeldefrist abgelaufen ist und wir die beiden Wochen geplant haben.
                 </p>
                 <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
-                <ol>
-                <li>Name: '.$this->applicationInput->getFirstname().'</li>
-                <li>Umbuchbar? '.$this->applicationInput->getFlexible().'</li>
-                <li>'.$this->applicationInput->getDojo().'</li>
-                <li>'.$this->applicationInput->getDojo().'</li>
-                <li>'.$this->applicationInput->getDojo().'</li>
-                <li></li>
-                </ol>
+                <ul>
+                <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
+                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
+                <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
+                <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
+                <li>Land: ' . $this->applicationInput->getCountry() . '</li>
+                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
+                <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
+                <li>Graduierung: ' . $this->applicationInput->getGrading() . ' (seit ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
+                <li>Zimmer: ' . $this->applicationInput->getRoom() . '</li>
+                <li>Person1: ' . $this->applicationInput->getPartnerOne() . '</li>
+                <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
+                <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
+                <li>Anmerkungen: ' . $this->applicationInput->getRemarks() . '</li>
+                </ul>
                 </p>
                 <p>
                 Danke für Deine Geduld und wir freuen uns auf das gemeinsame Traing mit Dir und Meister Shimizu-<br />
@@ -109,6 +118,8 @@ class SubmitMailer
     {
         if (ConfigurationWrapper::sendinternalregistrationmails() && !$this->applicationInput->isMailSent()) {
             return 'An internal confirmation mail needs to be sent as well :-)';
+        } else {
+            echo "<p>No internal mail sent, since already send or disabled by config.</p>";
         }
         return false;
     }

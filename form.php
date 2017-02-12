@@ -257,7 +257,7 @@
                 <label for="gsince" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung
                     besteht. (*)</label>
                 <div class="col-sm-10">
-                    <div class="bfh-datepicker" data-format="y-m-d" data-date="<?php echo date('Y-m-d'); ?>">
+                    <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d" data-date="<?php echo date('Y-m-d'); ?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             <input type="text" class="input-medium" name="gsince" id="gsince" readonly>
