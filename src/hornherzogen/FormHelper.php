@@ -18,9 +18,19 @@ class FormHelper
         }
     }
 
-    public function timestamp() {
+    public function timestamp()
+    {
         return date('Y-m-d H:i:s');
     }
 
+    public function isSetAndNotEmpty($key)
+    {
+        if(isset($_POST) && isset($key)) {
+            if(isset($_POST[$key])) {
+                return !empty($_POST[$key]);
+            }
+        }
+        return false;
+    }
 
 }

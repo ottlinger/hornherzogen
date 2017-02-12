@@ -74,4 +74,19 @@ class FormHelperTest extends TestCase
         $this->assertNotNull($this->formHelper->timestamp());
     }
 
+    public function testVerifyingIfKeyIsSetInPostArray() {
+        $_POST = NULL;
+        $member = 'bogus';
+        $this->assertFalse($this->formHelper->isSetAndNotEmpty($member));
+
+        $_POST = array();
+        $_POST[$member] = NULL;
+        $this->assertFalse($this->formHelper->isSetAndNotEmpty($member));
+
+        $_POST[$member] = '';
+        $this->assertFalse($this->formHelper->isSetAndNotEmpty($member));
+
+        $_POST[$member] = 'notEmpty';
+        $this->assertTrue($this->formHelper->isSetAndNotEmpty($member));
+    }
 }
