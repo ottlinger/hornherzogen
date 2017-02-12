@@ -32,6 +32,17 @@ class ConfigurationWrapperTest extends TestCase
     }
 
     /**
+     * Return debug value from config.
+     *
+     * @test
+     */
+    public function testDebugModeIsReturnedProperlyFromConfig()
+    {
+        $GLOBALS['horncfg']['debug'] = true;
+        $this->assertEquals(1, $this->configuration->debug());
+    }
+
+    /**
      * Return trimmed mail value from config.
      *
      * @test
