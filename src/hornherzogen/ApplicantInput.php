@@ -73,6 +73,9 @@ final class ApplicantInput extends Applicant
     {
         if (isset($_POST)) {
             // TODO if (empty($_POST["name"])) { print isRequired else .... set
+
+
+
             if (isset($_POST["vorname"])) {
                 $this->setFirstname($this->formHelper->filterUserInput($_POST["vorname"]));
             }

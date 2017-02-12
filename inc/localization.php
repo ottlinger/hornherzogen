@@ -9,11 +9,13 @@ $GLOBALS['messages'] = array();
 // GERMAN
 $GLOBALS['messages']['de'] = array(
     'FORM.TITLE' => 'Herzogenhorn 2017 Anmeldung',
+    'FORM.MANDATORYFIELDS' => 'Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.',
     'TIME' => 'Es ist {0}');
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
     'FORM.TITLE' => 'Herzogenhorn 2017 registration',
+    'FORM.MANDATORYFIELDS' => 'All fields marked with an asterisk (*) are mandatory.',
     'TIME' => 'Today is {0}');
 
 // RUSSIAN (just for the sake of UTF-8)

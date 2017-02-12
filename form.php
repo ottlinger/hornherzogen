@@ -108,7 +108,7 @@
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group">
-                    <label class="col-sm-2 control-label" for="week">Welche Woche</label>
+                    <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="week" name="week">
                             <option value="week1">1.Woche - ab Samstag, den 2017-06-18</option>
@@ -119,7 +119,7 @@
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    Kann ich im Fall einer Überbuchung in die andere Woche ausweichen?</label>
+                    Kann ich im Fall einer Überbuchung in die andere Woche ausweichen? (*)</label>
                 <div class="col-sm-10">
                     <div class="radio" id="flexible">
                         <label>
@@ -139,7 +139,7 @@
             <!-- TODO: has error has-feedback und span für Symbol selbst -->
             <legend>Persönliche Daten</legend>
             <div class="form-group">
-                <label for="gender" class="col-sm-2 control-label">Anrede</label>
+                <label for="gender" class="col-sm-2 control-label">Anrede (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
                         <option value="male">Herr</option>
@@ -149,7 +149,7 @@
             </div>
 
             <div class="form-group">
-                <label for="vorname" class="col-sm-2 control-label">Vorname</label>
+                <label for="vorname" class="col-sm-2 control-label">Vorname (*)</label>
                 <div class="col-sm-10 has-error has-feedback">
                     <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben.">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -157,7 +157,7 @@
             </div>
 
             <div class="form-group">
-                <label for="nachname" class="col-sm-2 control-label">Nachname</label>
+                <label for="nachname" class="col-sm-2 control-label">Nachname (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Bitte Nachname eingeben.">
                 </div>
@@ -166,7 +166,7 @@
             <p>Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:</p>
 
             <div class="form-group">
-                <label for="street" class="col-sm-2 control-label">Straße</label>
+                <label for="street" class="col-sm-2 control-label">Straße (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="street" id="street"
                            placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben.">
@@ -174,7 +174,7 @@
             </div>
 
             <div class="form-group">
-                <label for="houseno" class="col-sm-2 control-label">Hausnummer</label>
+                <label for="houseno" class="col-sm-2 control-label">Hausnummer (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="houseno"
                            placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben.">
@@ -182,36 +182,36 @@
             </div>
 
             <div class="form-group">
-                <label for="plz" class="col-sm-2 control-label">PLZ</label>
+                <label for="plz" class="col-sm-2 control-label">PLZ (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="plz" id="plz" placeholder="Bitte die PLZ eingeben.">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="city" class="col-sm-2 control-label">Ort</label>
+                <label for="city" class="col-sm-2 control-label">Ort (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="city" id="city" placeholder="Bitte den Wohnort eingeben.">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="country" class="col-sm-2 control-label">Land</label>
+                <label for="country" class="col-sm-2 control-label">Land (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="country" id="country" placeholder="Bitte das Land eingeben.">
                 </div>
             </div>
 
-            <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese doppelt
+            <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur Sicherheit doppelt
                 ein:</p>
             <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">E-Mail</label>
+                <label for="email" class="col-sm-2 control-label">E-Mail (*)</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="email" id="email" placeholder="Bitte Mailadresse eingeben.">
                 </div>
             </div>
             <div class="form-group">
-                <label for="emailcheck" class="col-sm-2 control-label">E-Mail-Bestätigung</label>
+                <label for="emailcheck" class="col-sm-2 control-label">E-Mail-Bestätigung (*)</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="emailcheck" id="emailcheck"
                            placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein.">
@@ -220,13 +220,14 @@
 
             <legend>Aikidodaten</legend>
             <div class="form-group">
-                <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt:</label>
+                <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
                            placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?">
                 </div>
             </div>
 
+            <p>Ohne gültige twa-Mitgliedschaft erhöht sich der Preis des Lehrgangs.</p>
             <div class="form-group">
                 <label for="twano" class="col-sm-2 control-label">Mitgliedsnummer (twa)</label>
                 <div class="col-sm-10">
@@ -236,7 +237,7 @@
             </div>
 
             <div class="form-group">
-                <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung</label>
+                <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
                         <option>6.Dan</option>
@@ -253,7 +254,7 @@
 
             <div class="form-group">
                 <label for="gsince" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung
-                    besteht.</label>
+                    besteht. (*)</label>
                 <div class="col-sm-10">
                     <div class="bfh-datepicker" data-format="y-m-d" data-date="<?php echo date('Y-m-d'); ?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
@@ -289,21 +290,24 @@
             <legend>Daten zur Unterkunft</legend>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen und
-                    Zusammenlegungswünsche angeben</label>
+                    Zusammenlegungswünsche angeben (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
+                        <option value="1bed">Einzelzimmer</option>
                         <option value="2bed">2-Bett Zimmer</option>
                         <option value="3bed" selected>3-Bett Zimmer</option>
                     </select>
                 </div>
             </div>
 
-            <p>Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?</p>
-            <div class="form-group">
-                <label for="together1" class="col-sm-2 control-label">Name Person 1</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="together1" id="together1"
-                           placeholder="Bitte den kompletten Namen angeben.">
+            <div id="together1-group">
+                <p>Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?</p>
+                <div class="form-group">
+                    <label for="together1" class="col-sm-2 control-label">Name Person 1</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="together1" id="together1"
+                               placeholder="Bitte den kompletten Namen angeben.">
+                    </div>
                 </div>
             </div>
 
@@ -316,7 +320,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">Essenswunsch</label>
+                <label class="col-sm-2 control-label">Essenswunsch (*)</label>
                 <div class="col-sm-10">
 <?php
   //                  <input type="radio" name="gender" ?php if (isset($gender) && $gender=="female") echo "checked"; value="female">Female
@@ -347,6 +351,7 @@
             </div>
 
             <div class="form-group">
+                <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS')?></p>
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
