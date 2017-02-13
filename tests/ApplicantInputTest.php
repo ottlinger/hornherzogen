@@ -79,34 +79,51 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals("&lt;b&gt;My firstname&lt;/b&gt;", $this->applicantInput->getFirstName());
     }
 
-    public function testNumberOfFieldsRequiredInWebFormDidChange() {
+    public function testNumberOfFieldsRequiredInWebFormDidChange()
+    {
         $this->assertCount(17, ApplicantInput::getRequiredFields());
     }
 
-    public function testNoMailaddressesGivenResultsInError() {
+    public function testNoMailaddressesGivenResultsInError()
+    {
         $_POST = array();
         $this->assertFalse($this->applicantInput->areEmailAddressesValid());
     }
 
-    public function testNoMatchingMailaddressesGivenResultsInError() {
+    public function testNoMatchingMailaddressesGivenResultsInError()
+    {
         $_POST = array();
         $_POST['email'] = "justATypoe@example.com";
         $_POST['emailcheck'] = "justATypo@example.com";
         $this->assertFalse($this->applicantInput->areEmailAddressesValid());
     }
 
-    public function testMatchingStringsButNoMailaddressesGivenResultsInError() {
+    public function testMatchingStringsButNoMailaddressesGivenResultsInError()
+    {
         $_POST = array();
         $_POST['email'] = "example.com";
         $_POST['emailcheck'] = "example.com";
         $this->assertFalse($this->applicantInput->areEmailAddressesValid());
     }
 
-    public function testMatchingStringsAndValidMailaddressesGivenWorks() {
+    public function testMatchingStringsAndValidMailaddressesGivenWorks()
+    {
         $_POST = array();
         $_POST['email'] = "foo@example.com";
         $_POST['emailcheck'] = "foo@example.com";
         $this->assertTrue($this->applicantInput->areEmailAddressesValid());
+    }
+
+    public function testToStringAfterInit()
+    {
+        $_POST = array();
+        $this->applicantInput->parse();
+        $toString = $this->applicantInput->__toString();
+
+        $this->assertContains("ERROR", $toString);
+        $this->assertContains("SUCCESS", $toString);
+        $this->assertContains("WITH A TOTAL OF", $toString);
+        $this->assertContains("hasErrors? 1", $toString);
     }
 
 }
