@@ -2,15 +2,15 @@
 use PHPUnit\Framework\TestCase;
 
 // Included automatically via phpunit.xml
-//include_once 'inc/config.php';
-//include_once 'inc/session.php';
-//include_once 'inc/localization.php';
+//include_once '../inc/config.php';
+//include_once '../inc/session.php';
+//include_once '../inc/localization.php';
 
 class IncludeFilesTest extends TestCase
 {
     public function testConfigurationHasBeenRead()
     {
-        $this->assertNotEmpty($GLOBALS["horncfg"]);
+        $this->assertNotEmpty($GLOBALS['horncfg']);
     }
 
     public function testLocalizationIsInitialized()
