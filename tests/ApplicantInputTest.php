@@ -161,5 +161,89 @@ class ApplicantInputTest extends TestCase
         $_POST[$field] = $field;
     }
 
+    public function testErroneousParsingOfFieldFlexible()
+    {
+        $field = "flexible";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldFlexible()
+    {
+        $field = "flexible";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testErroneousParsingOfFieldGender()
+    {
+        $field = "gender";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldGender()
+    {
+        $field = "gender";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testErroneousParsingOfFieldLastname()
+    {
+        $field = "nachname";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldLastname()
+    {
+        $field = "nachname";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testErroneousParsingOfFieldStreet()
+    {
+        $field = "street";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldStreet()
+    {
+        $field = "street";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testErroneousParsingOfFieldHouseNumber()
+    {
+        $field = "houseno";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldHouseNumber()
+    {
+        $field = "houseno";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
 
 }
