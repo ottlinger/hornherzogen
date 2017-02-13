@@ -1,10 +1,16 @@
 <?php
-use PHPUnit\Framework\TestCase;
 use hornherzogen\ApplicantInput;
+use PHPUnit\Framework\TestCase;
 
 class ApplicantInputTest extends TestCase
 {
     private $applicantInput = null;
+
+    private static function prepareForSuccessParsing($field)
+    {
+        $_POST = array();
+        $_POST[$field] = $field;
+    }
 
     /**
      * Setup the test environment.
@@ -49,7 +55,7 @@ class ApplicantInputTest extends TestCase
 
     public function testHasNoSuccessesWithoutAnyConfiguration()
     {
-        $this->assertEmpty($this->applicantInput->showIsOkay('anythingGoes'));
+        $this->assertEmpty($this->applicantInput->showIsSuccess('anythingGoes'));
     }
 
     public function testHasErrorsWithDummyConfiguration()
@@ -62,8 +68,8 @@ class ApplicantInputTest extends TestCase
     public function testHasSuccessWithDummyConfiguration()
     {
         $this->applicantInput->addSuccess('email');
-        $this->assertContains('success', $this->applicantInput->showIsOkay('email'));
-        $this->assertEquals('', $this->applicantInput->showIsOkay('unknownKey'));
+        $this->assertContains('success', $this->applicantInput->showIsSuccess('email'));
+        $this->assertEquals('', $this->applicantInput->showIsSuccess('unknownKey'));
     }
 
     public function testParseFromUserInputWithoutAnyUserInputGiven()
@@ -125,5 +131,35 @@ class ApplicantInputTest extends TestCase
         $this->assertContains("WITH A TOTAL OF", $toString);
         $this->assertContains("hasErrors? 1", $toString);
     }
+
+    public function testErroneousParsingOfFieldWeek()
+    {
+        $field = "week";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    private static function prepareForErrorParsing($field)
+    {
+        $_POST = array();
+        $_POST[$field] = [];
+    }
+
+    public function testSuccessfulParsingOfFieldWeek()
+    {
+        $field = "week";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    private static function prepareForSuccessfulParsing($field)
+    {
+        $_POST = array();
+        $_POST[$field] = $field;
+    }
+
 
 }

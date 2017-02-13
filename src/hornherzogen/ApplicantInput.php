@@ -79,7 +79,7 @@ final class ApplicantInput extends Applicant
         return '';
     }
 
-    public function showIsOkay($field)
+    public function showIsSuccess($field)
     {
         if (in_array($field, $this->success)) {
             return ' has-success';
