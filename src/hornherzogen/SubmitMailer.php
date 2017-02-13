@@ -99,7 +99,7 @@ class SubmitMailer
                 </ul>
                 </p>
                 <p>
-                Danke für Deine Geduld und wir freuen uns auf das gemeinsame Traing mit Dir und Meister Shimizu-<br />
+                Danke für Deine Geduld und wir freuen uns auf das gemeinsame Training mit Dir und Meister Shimizu-<br />
                 </p>
                 <h3>
                 Bis dahin sonnige Grüße aus Berlin<br />
