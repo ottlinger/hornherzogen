@@ -7,13 +7,18 @@ class SubmitMailerTest extends TestCase
 {
     private $mailer = null;
 
+    private static $firstname = "Hugo Egon";
+    private static $lastname = "Balder";
+
     /**
-     * Setup the test environment.
+     * Setup the test environment and provide an ApplicantInput with all relevant fields set.
      */
     public function setUp()
     {
         // TODO set all necessary attributes
         $applicantInput = new ApplicantInput();
+        $applicantInput->setFirstname(self::$firstname);
+        $applicantInput->setLastname(self::$lastname);
         $applicantInput->parse();
 
         $this->mailer = new SubmitMailer($applicantInput);
@@ -73,6 +78,13 @@ class SubmitMailerTest extends TestCase
 
         $this->assertStringStartsWith('<p>Mail abgeschickt um ', $this->mailer->send());
         $this->assertFalse($this->mailer->sendInternally());
+    }
+
+    public function testMailTextContainsRelevantFields()
+    {
+        $mailtext = $this->mailer->getMailtext();
+        $this->assertContains(self::$firstname, $mailtext);
+        $this->assertContains(self::$lastname, $mailtext);
     }
 
 }
