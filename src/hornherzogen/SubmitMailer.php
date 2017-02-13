@@ -31,7 +31,9 @@ class SubmitMailer
         // http://stackoverflow.com/questions/4389676/email-from-php-has-broken-subject-header-encoding#4389755
         // https://ncona.com/2011/06/using-utf-8-characters-on-an-e-mail-subject/
         $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
-        $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
+// https://github.com/ottlinger/hornherzogen/issues/19
+        $encoded_subject = 'Subject: '.HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp());
+        // not goneo: $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
         $encoded_subject = substr($encoded_subject, strlen('Subject: '));
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
