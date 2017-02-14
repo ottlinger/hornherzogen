@@ -314,4 +314,38 @@ class ApplicantInputTest extends TestCase
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
 
+    public function testErroneousParsingOfFieldTwaNumber()
+    {
+        $field = "twano";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldTwaNumber()
+    {
+        $field = "twano";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testErroneousParsingOfFieldGrading()
+    {
+        $field = "grad";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldGrading()
+    {
+        $field = "grad";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
 }
