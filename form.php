@@ -106,7 +106,7 @@
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
 
-        <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group">
                     <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
