@@ -262,4 +262,22 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals('', $this->applicantInput->showHasError($field));
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
+
+    public function testErroneousParsingOfFieldCity()
+    {
+        $field = "city";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldCity()
+    {
+        $field = "city";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
 }
