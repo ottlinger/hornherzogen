@@ -1,7 +1,7 @@
 <?php
-use PHPUnit\Framework\TestCase;
-use hornherzogen\SubmitMailer;
 use hornherzogen\ApplicantInput;
+use hornherzogen\SubmitMailer;
+use PHPUnit\Framework\TestCase;
 
 class SubmitMailerTest extends TestCase
 {
@@ -9,6 +9,7 @@ class SubmitMailerTest extends TestCase
 
     private static $firstname = "Hugo Egon";
     private static $lastname = "Balder";
+    private static $remarks = "First line\r\nSecond line\nThird line";
 
     /**
      * Setup the test environment and provide an ApplicantInput with all relevant fields set.
@@ -19,6 +20,7 @@ class SubmitMailerTest extends TestCase
         $applicantInput = new ApplicantInput();
         $applicantInput->setFirstname(self::$firstname);
         $applicantInput->setLastname(self::$lastname);
+        $applicantInput->setRemarks(self::$remarks);
         $applicantInput->parse();
 
         $this->mailer = new SubmitMailer($applicantInput);
@@ -85,6 +87,22 @@ class SubmitMailerTest extends TestCase
         $mailtext = $this->mailer->getMailtext();
         $this->assertContains(self::$firstname, $mailtext);
         $this->assertContains(self::$lastname, $mailtext);
+        // remark is parsed/reformated
+        $this->assertContains("line", $mailtext);
+        $this->assertContains("First", $mailtext);
+        $this->assertContains("Second", $mailtext);
+        $this->assertContains("Third", $mailtext);
+    }
+
+    public function testMailTextContainsWithoutRemarks()
+    {
+        $applicantInput = new ApplicantInput();
+        $applicantInput->setRemarks(NULL);
+        $applicantInput->parse();
+
+        $mailer = new SubmitMailer($applicantInput);
+        $mailtext = $mailer->getMailtext();
+        $this->assertContains("n/a", $mailtext);
     }
 
 }

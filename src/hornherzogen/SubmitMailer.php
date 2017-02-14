@@ -32,7 +32,7 @@ class SubmitMailer
         // https://ncona.com/2011/06/using-utf-8-characters-on-an-e-mail-subject/
         $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
 // https://github.com/ottlinger/hornherzogen/issues/19
-        $encoded_subject = 'Subject: '.HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp());
+        $encoded_subject = 'Subject: ' . HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp());
         // not goneo: $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
         $encoded_subject = substr($encoded_subject, strlen('Subject: '));
 
@@ -69,6 +69,13 @@ class SubmitMailer
 
     public function getMailtext()
     {
+        $remarks = $this->applicationInput->getRemarks();
+        if (!empty($remarks)) {
+            $remarks = nl2br($remarks);
+        } else {
+            $remarks = "n/a";
+        }
+
         return '
     <html>
         <head>
@@ -97,7 +104,7 @@ class SubmitMailer
                 <li>Person1: ' . $this->applicationInput->getPartnerOne() . '</li>
                 <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
                 <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
-                <li>Anmerkungen: ' . $this->applicationInput->getRemarks() . '</li>
+                <li>Anmerkungen: ' . $remarks . '</li>
                 </ul>
                 </p>
                 <p>
