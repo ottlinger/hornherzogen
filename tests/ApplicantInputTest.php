@@ -382,4 +382,31 @@ class ApplicantInputTest extends TestCase
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
 
+    public function testErroneousAndSuccessfulParsingOfFieldRoomOneNotMandatory()
+    {
+        $field = "together1";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEmpty($this->applicantInput->showHasError($field));
+
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testErroneousAndSuccessfulParsingOfFieldRoomTwoNotMandatory()
+    {
+        $field = "together2";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEmpty($this->applicantInput->showHasError($field));
+
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+
 }
