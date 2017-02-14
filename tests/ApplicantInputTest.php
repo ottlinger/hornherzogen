@@ -295,4 +295,23 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
-    }}
+    }
+
+    public function testErroneousParsingOfFieldDojo()
+    {
+        $field = "dojo";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldDojo()
+    {
+        $field = "dojo";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+}
