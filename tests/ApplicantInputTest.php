@@ -6,12 +6,6 @@ class ApplicantInputTest extends TestCase
 {
     private $applicantInput = null;
 
-    private static function prepareForSuccessParsing($field)
-    {
-        $_POST = array();
-        $_POST[$field] = $field;
-    }
-
     /**
      * Setup the test environment.
      */
@@ -38,13 +32,9 @@ class ApplicantInputTest extends TestCase
         $this->assertInstanceOf('hornherzogen\ApplicantInput', $this->applicantInput);
     }
 
-    /**
-     * Return trimmed mail value from config.
-     *
-     * @test
-     */
     public function testIsAlwaysErrorSinceNoSuccess()
     {
+        $this->applicantInput->parse();
         $this->assertTrue($this->applicantInput->hasErrors());
     }
 
@@ -87,7 +77,7 @@ class ApplicantInputTest extends TestCase
 
     public function testNumberOfFieldsRequiredInWebFormDidChange()
     {
-        $this->assertCount(17, ApplicantInput::getRequiredFields());
+        $this->assertEquals(17, sizeof(ApplicantInput::getRequiredFields()));
     }
 
     public function testNoMailaddressesGivenResultsInError()
@@ -128,7 +118,6 @@ class ApplicantInputTest extends TestCase
 
         $this->assertContains("ERROR", $toString);
         $this->assertContains("SUCCESS", $toString);
-        $this->assertContains("WITH A TOTAL OF", $toString);
         $this->assertContains("hasErrors? 1", $toString);
     }
 
@@ -414,6 +403,7 @@ class ApplicantInputTest extends TestCase
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
+        $this->assertTrue($this->applicantInput->hasErrors());
     }
 
     public function testSuccessfulParsingOfFieldFoodCategory()
@@ -436,6 +426,11 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testIfAllMandatoryFieldsAreExistingObjectHasNoErrors()
+    {
+
     }
 
 }

@@ -11,10 +11,6 @@ final class ApplicantInput extends Applicant
 {
     private $errors = array();
     private $success = array();
-    /**
-     * @var int total elements that can be provided in the web form.
-     */
-    private $total = 19;
     // To prevent double click attacks we only send out mails if not sent before
     private $mailSent;
 
@@ -24,33 +20,6 @@ final class ApplicantInput extends Applicant
         parent::__construct();
         $this->formHelper = new FormHelper();
         $this->mailSent = false;
-    }
-
-    static function getRequiredFields()
-    {
-        /**
-         * These fields are required from the UI perspective and need to be set.
-         * @var array
-         */
-        static $required = array();
-        $required[] = "week";
-        $required[] = "flexible";
-        $required[] = "gender";
-        $required[] = "firstname";
-        $required[] = "lastname";
-        $required[] = "street";
-        $required[] = "houseno";
-        $required[] = "plz";
-        $required[] = "city";
-        $required[] = "country";
-        $required[] = "email";
-        $required[] = "emailcheck";
-        $required[] = "dojo";
-        $required[] = "grad";
-        $required[] = "gsince";
-        $required[] = "room";
-        $required[] = "essen";
-        return $required;
     }
 
     /**
@@ -267,15 +236,50 @@ final class ApplicantInput extends Applicant
         // var_dump ruins the formatting
         $msg = "ERROR: " . var_dump($this->errors);
         $msg .= "- SUCCESS: " . var_dump($this->success);
-        $msg .= "WITH A TOTAL OF: " . $this->total;
         $msg .= " hasErrors? " . boolval($this->hasErrors());
         return $msg;
     }
 
+    /**
+     * @return bool true iff errors is empty and no required fields are missing.
+     */
     public function hasErrors()
     {
-        // TODO add check for required fields as well
-        return !($this->total === sizeof($this->success) && 0 === sizeof($this->errors));
+        foreach ($this->errors as $value) {
+            if (in_array($value, self::getRequiredFields())) {
+                return true;
+            }
+        }
+
+        return empty($this->success);
+        //return empty($this->success) || (empty($this->errors) && array_intersect($this->errors, self::getRequiredFields()));
+    }
+
+    static function getRequiredFields()
+    {
+        /**
+         * These fields are required from the UI perspective and need to be set.
+         * @var array
+         */
+        $required = array();
+        $required[] = "week";
+        $required[] = "flexible";
+        $required[] = "gender";
+        $required[] = "firstname";
+        $required[] = "lastname";
+        $required[] = "street";
+        $required[] = "houseno";
+        $required[] = "plz";
+        $required[] = "city";
+        $required[] = "country";
+        $required[] = "email";
+        $required[] = "emailcheck";
+        $required[] = "dojo";
+        $required[] = "grad";
+        $required[] = "gsince";
+        $required[] = "room";
+        $required[] = "essen";
+        return $required;
     }
 
 }
