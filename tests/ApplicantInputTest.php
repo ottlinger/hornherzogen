@@ -408,5 +408,34 @@ class ApplicantInputTest extends TestCase
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
 
+    public function testErroneousParsingOfFoodCategory()
+    {
+        $field = "essen";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertNotEmpty($this->applicantInput->showHasError($field));
+    }
+
+    public function testSuccessfulParsingOfFieldFoodCategory()
+    {
+        $field = "essen";
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
+
+    public function testSuccessfulParsingOfFieldAdditionalsNotMandatory()
+    {
+        $field = "additionals";
+        self::prepareForErrorParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEmpty($this->applicantInput->showHasError($field));
+
+        self::prepareForSuccessfulParsing($field);
+        $this->applicantInput->parse();
+        $this->assertEquals('', $this->applicantInput->showHasError($field));
+        $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
+    }
 
 }
