@@ -57,10 +57,13 @@ final class ApplicantInput extends Applicant
     }
 
     /**
-     * Extracts data from $_POST[].
+     * Extracts data from $_POST[], parses it and resets internal error/success counter.
      */
     public function parse()
     {
+        $this->errors = array();
+        $this->success = array();
+
         if ($this->formHelper->isSetAndNotEmpty("week")) {
             $this->setWeek($this->getFromPost("week"));
             $this->addSuccess("week");
@@ -236,6 +239,7 @@ final class ApplicantInput extends Applicant
         // var_dump ruins the formatting
         $msg = "ERROR: " . var_dump($this->errors);
         $msg .= "- SUCCESS: " . var_dump($this->success);
+        $msg .= " hasParseErrors? " . boolval($this->hasParseErrors());
         $msg .= " hasErrors? " . boolval($this->hasErrors());
         return $msg;
     }
@@ -243,7 +247,7 @@ final class ApplicantInput extends Applicant
     /**
      * @return bool true iff errors is empty and no required fields are missing.
      */
-    public function hasErrors()
+    public function hasParseErrors()
     {
         foreach ($this->errors as $value) {
             if (in_array($value, self::getRequiredFields())) {
@@ -251,8 +255,7 @@ final class ApplicantInput extends Applicant
             }
         }
 
-        return empty($this->success);
-        //return empty($this->success) || (empty($this->errors) && array_intersect($this->errors, self::getRequiredFields()));
+        return empty($this->errors);
     }
 
     static function getRequiredFields()
@@ -280,6 +283,16 @@ final class ApplicantInput extends Applicant
         $required[] = "room";
         $required[] = "essen";
         return $required;
+    }
+
+    public function hasErrors()
+    {
+        return null != $this->getWeek() || null != $this->getFlexible() || null != $this->getGender() //
+            || null != $this->getFirstname() || null != $this->getLastname() || null != $this->getStreet() //
+            || null != $this->getHouseNumber() || null != $this->getZipCode() || null != $this->getCity() //
+            || null != $this->getCountry() || null != $this->getEmail() || null != $this->getDojo() //
+            || null != $this->getGrading() || null != $this->getDateOfLastGrading() //
+            || null != $this->getRoom() || null != $this->getFoodCategory();
     }
 
 }

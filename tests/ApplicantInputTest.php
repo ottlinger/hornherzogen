@@ -35,7 +35,7 @@ class ApplicantInputTest extends TestCase
     public function testIsAlwaysErrorSinceNoSuccess()
     {
         $this->applicantInput->parse();
-        $this->assertTrue($this->applicantInput->hasErrors());
+        $this->assertTrue($this->applicantInput->hasParseErrors());
     }
 
     public function testHasNoErrorsWithoutAnyConfiguration()
@@ -118,7 +118,7 @@ class ApplicantInputTest extends TestCase
 
         $this->assertContains("ERROR", $toString);
         $this->assertContains("SUCCESS", $toString);
-        $this->assertContains("hasErrors? 1", $toString);
+        $this->assertContains("hasParseErrors? 1", $toString);
     }
 
     public function testErroneousParsingOfFieldWeek()
@@ -403,7 +403,7 @@ class ApplicantInputTest extends TestCase
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
-        $this->assertTrue($this->applicantInput->hasErrors());
+        $this->assertTrue($this->applicantInput->hasParseErrors());
     }
 
     public function testSuccessfulParsingOfFieldFoodCategory()
@@ -428,9 +428,30 @@ class ApplicantInputTest extends TestCase
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
 
-    public function testIfAllMandatoryFieldsAreExistingObjectHasNoErrors()
+    public function testIfAllMandatoryFieldsAreExistingWithoutParsingFromUserInputObjectHasNoErrors()
     {
+        $this->applicantInput->setFlexible("no");
+        $this->applicantInput->setGender("none");
+        $this->applicantInput->setFirstName("First");
+        $this->applicantInput->setLastName("Name");
+        $this->applicantInput->setStreet("Up de Straat");
+        $this->applicantInput->setHouseNumber("17");
+        $this->applicantInput->setZipCode("04600");
+        $this->applicantInput->setCity("Haarlem");
+        $this->applicantInput->setCountry("Netherlands");
+        $this->applicantInput->setEmail("abc@example.com");
+        $this->applicantInput->setDojo("My little big dojo");
+        $this->applicantInput->setGrading("ikkyu");
+        $this->applicantInput->setGrading("week1");
+        $this->applicantInput->setDateOfLastGrading("2017-02-14");
+        $this->applicantInput->setRoom("single");
+        $this->applicantInput->setFoodCategory("none");
+        $this->applicantInput->setWeek("week2");
 
+        // since we did not extract the data from $_POST
+        $this->assertTrue($this->applicantInput->hasParseErrors());
+        // TODO should be false!!!
+        $this->assertTrue($this->applicantInput->hasErrors());
     }
 
 }
