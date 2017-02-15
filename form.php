@@ -209,10 +209,11 @@
                         <option>Schweiz</option>
                         <option>Österreich</option>
                     </select>
-
                 </div>
+            </div>
 
 
+            <div class="form-group">
                 <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
@@ -226,7 +227,6 @@
                         <option>2.Kyu</option>
                     </select>
                 </div>
-
             </div>
 
             <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur Sicherheit doppelt
