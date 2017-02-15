@@ -40,22 +40,6 @@ final class ApplicantInput extends Applicant
         return $this;
     }
 
-    public function showHasError($field)
-    {
-        if (in_array($field, $this->errors)) {
-            return ' has-error has-feedback';
-        }
-        return '';
-    }
-
-    public function showIsSuccess($field)
-    {
-        if (in_array($field, $this->success)) {
-            return ' has-success';
-        }
-        return '';
-    }
-
     /**
      * Extracts data from $_POST[], parses it and resets internal error/success counter.
      */
@@ -293,7 +277,43 @@ final class ApplicantInput extends Applicant
             || empty($this->getCountry()) || empty($this->getEmail()) || empty($this->getDojo()) //
             || empty($this->getGrading()) || empty($this->getDateOfLastGrading()) //
             || empty($this->getRoom()) || empty($this->getFoodCategory());
+    }
 
+    public function getUIResponse($field)
+    {
+        // TODO add mapping from given field to setter/value in class as a map
+        if (isset($field)) {
+            if ($this->showHasError($field)) {
+                return $this->showHasError($field);
+            }
+            return $this->showIsSuccess($field);
+        }
+        return '';
+    }
+
+    public function showHasError($field)
+    {
+        if (in_array($field, $this->errors)) {
+            return ' has-error has-feedback';
+        }
+        return '';
+    }
+
+    public function showIsSuccess($field)
+    {
+        if (in_array($field, $this->success)) {
+            return ' has-success';
+        }
+        return '';
+    }
+
+    public function getOrDefault($field, $default)
+    {
+        if (isset($field)) {
+            // TODO add mapping from given field to setter/value in class as a map
+            return $field;
+        }
+        return $default;
     }
 
 }

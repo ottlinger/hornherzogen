@@ -67,46 +67,33 @@
         <h1><span class="glyphicon glyphicon-sunglasses"></span> <?php echo \hornherzogen\HornLocalizer::i18n('FORM.TITLE')?></h1>
 
         <?php
+        // we always have an empty container for user input data
+        $applicantInput = new \hornherzogen\ApplicantInput();
+
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        // TODO extract
-        function dumpfordummies() {
-            $formHelper = new \hornherzogen\FormHelper();
-            echo '<p>Mail sent at '.$formHelper->timestamp().'</p>';
-
-            $nachname = $formHelper->filterUserInput($_POST["nachname"]);
-            echo '<p>Hello ' . $formHelper->filterUserInput($_POST["vorname"]) . ' ' . $nachname . '!';
-            echo '<br/>';
-            echo 'Hellau ' . $nachname . '!</p>';
-
-            echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
-
-            echo '<pre>';
-            echo '<p>RAW data after submit:</p>';
-            var_dump(file_get_contents('php://input'));
-            echo '<p>Converted to POST:</p>';
-            var_dump($_POST);
-
-            // load data from HttpPOST
-            $applicantInput = new \hornherzogen\ApplicantInput();
             $applicantInput->parse();
-            echo '<p>'.$applicantInput->__toString().'</p>';
-            echo '</pre>';
 
-            // send mail
-            $sender = new \hornherzogen\SubmitMailer($applicantInput);
-            echo $sender->send();
-            echo $sender->sendInternally();
-        }
+            if(\hornherzogen\ConfigurationWrapper::debug()) {
 
-            dumpfordummies();
+                echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
+                echo '<pre>';
+                echo '<p>RAW data after submit:</p>';
+                var_dump(file_get_contents('php://input'));
+                echo '<p>Converted to POST:</p>';
+                var_dump($_POST);
+                echo '</pre>';
+            } // if debug
+        } // if POST
         ?>
-        <?php } else {
-        ?>
+        <?php if($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
+        <?php } // end if ?>
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group">
                     <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
@@ -151,8 +138,8 @@
 
             <div class="form-group">
                 <label for="vorname" class="col-sm-2 control-label">Vorname (*)</label>
-                <div class="col-sm-10 has-error has-feedback">
-                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben.">
+                <div class="col-sm-10 <?php echo $applicantInput->getUIResponse('vorname'); ?>">
+                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="<?php echo $applicantInput->getOrDefault('vorname', 'Bitte Vorname eingeben.'); ?>">
                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -377,6 +364,9 @@
                 </div>
             </div>
 
+
+            <?php if($applicantInput->hasParseErrors()) { ?>
+
             <div class="form-group">
                 <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS')?></p>
                 <div class="col-sm-offset-2 col-sm-10">
@@ -384,9 +374,18 @@
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
                 </div>
             </div>
-        </form>
+          </form>
 
-        <?php } // end of Http GET ?>
+            <?php } else {
+
+                // send mail only if there are no error messages
+                $sender = new \hornherzogen\SubmitMailer($applicantInput);
+                echo $sender->send();
+                echo $sender->sendInternally();
+                $formHelper = new \hornherzogen\FormHelper();
+                echo '<p>Mail sent at '.$formHelper->timestamp().'</p>';
+            } // if showButtons
+            ?>
     </div>
 
 </div><!-- /.container -->
