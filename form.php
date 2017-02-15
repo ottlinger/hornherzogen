@@ -386,10 +386,8 @@
                 echo '<p>Mail sent at '.$formHelper->timestamp().'</p>';
             } // if showButtons
             ?>
-    </div>
 
-</div><!-- /.container -->
-
+    </div><!-- /.container -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

@@ -281,14 +281,24 @@ final class ApplicantInput extends Applicant
 
     public function getUIResponse($field)
     {
-        // TODO add mapping from given field to setter/value in class as a map
-        if (isset($field)) {
+        if (!empty($this->getFieldValue($field))) {
             if ($this->showHasError($field)) {
                 return $this->showHasError($field);
             }
             return $this->showIsSuccess($field);
         }
         return '';
+    }
+
+    public function getFieldValue($field)
+    {
+        // TODO complete mapping from html form element to getter of this bean
+        switch ($field) {
+            case "vorname":
+                return $this->getFirstname();
+            default:
+                return '';
+        }
     }
 
     public function showHasError($field)
@@ -310,8 +320,7 @@ final class ApplicantInput extends Applicant
     public function getOrDefault($field, $default)
     {
         if (isset($field)) {
-            // TODO add mapping from given field to setter/value in class as a map
-            return $field;
+            return $this->getFieldValue($field);
         }
         return $default;
     }
