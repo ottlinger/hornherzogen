@@ -450,8 +450,41 @@ class ApplicantInputTest extends TestCase
 
         // since we did not extract the data from $_POST
         $this->assertTrue($this->applicantInput->hasParseErrors());
-        // TODO should be false!!!
-        $this->assertTrue($this->applicantInput->hasErrors());
+
+        $this->assertFalse($this->applicantInput->hasErrors());
+        $this->assertEmpty($this->applicantInput->showHasError("week"));
+    }
+
+    public function testMandatoryFieldMissingButOptionalExistingResultsInErrors()
+    {
+        $this->applicantInput->setRemarks("This field is optional");
+        $this->applicantInput->setTwaNumber("This field is optional");
+
+        $this->applicantInput->setFirstName("First");
+        $this->applicantInput->setLastName("Name");
+        $this->applicantInput->setStreet("Up de Straat");
+        $this->applicantInput->setHouseNumber("17");
+        $this->applicantInput->setZipCode("04600");
+        $this->applicantInput->setCity("Haarlem");
+        $this->applicantInput->setCountry("Netherlands");
+        $this->applicantInput->setEmail("abc@example.com");
+        $this->applicantInput->setDojo("My little big dojo");
+        $this->applicantInput->setGrading("ikkyu");
+        $this->applicantInput->setGrading("week1");
+        $this->applicantInput->setDateOfLastGrading("2017-02-14");
+        $this->applicantInput->setRoom("single");
+        $this->applicantInput->setFoodCategory("none");
+        $this->applicantInput->setWeek("week2");
+
+        echo $this->applicantInput->__toString();
+
+        // since we did not extract the data from $_POST
+        $this->assertTrue($this->applicantInput->hasParseErrors());
+
+        $this->assertEquals('', $this->applicantInput->showHasError("week"));
+
+        // TODO should be true
+        $this->assertFalse($this->applicantInput->hasErrors());
     }
 
 }
