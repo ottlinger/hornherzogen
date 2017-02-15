@@ -494,4 +494,14 @@ class ApplicantInputTest extends TestCase
         $this->assertFalse($this->applicantInput->getFlexible());
     }
 
+    public function testFullnameGenerationWithSaltIsTrimmed() {
+        $this->applicantInput->setFirstname(" first");
+        $this->applicantInput->setLastname("last ");
+        $this->applicantInput->setFullname("       ");
+        $this->assertEquals("first last", $this->applicantInput->getFullname());
+
+        $this->applicantInput->setFullname("name");
+        $this->assertEquals("first last  name", $this->applicantInput->getFullname());
+    }
+
 }
