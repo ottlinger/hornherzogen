@@ -317,10 +317,22 @@ final class ApplicantInput extends Applicant
         return '';
     }
 
+    public function showSymbolIfFeedback($field)
+    {
+        if (in_array($field, $this->success) || in_array($field, $this->errors)) {
+            return
+                '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>';
+        }
+        return '';
+
+    }
+
     public function getOrDefault($field, $default)
     {
-        if (isset($field)) {
-            return $this->getFieldValue($field);
+        $fieldValue = $this->getFieldValue($field);
+
+        if (isset($fieldValue)) {
+            return $fieldValue;
         }
         return $default;
     }

@@ -140,7 +140,7 @@
                 <label for="vorname" class="col-sm-2 control-label">Vorname (*)</label>
                 <div class="col-sm-10 <?php echo $applicantInput->getUIResponse('vorname'); ?>">
                     <input type="text" class="form-control" name="vorname" id="vorname" placeholder="<?php echo $applicantInput->getOrDefault('vorname', 'Bitte Vorname eingeben.'); ?>">
-                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>
             </div>
 
