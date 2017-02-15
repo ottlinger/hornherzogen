@@ -199,8 +199,34 @@
             <div class="form-group">
                 <label for="country" class="col-sm-2 control-label">Land (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="country" id="country" placeholder="Bitte das Land eingeben.">
+                    <select class="form-control" id="country" name="country">
+                        <option>Deutschland</option>
+                        <option>Japan</option>
+                        <option>Frankreich</option>
+                        <option>Italien</option>
+                        <option>Belgien</option>
+                        <option>Niederlanden</option>
+                        <option>Schweiz</option>
+                        <option>Österreich</option>
+                    </select>
+
                 </div>
+
+
+                <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung (*)</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="grad" name="grad">
+                        <option>6.Dan</option>
+                        <option>5.Dan</option>
+                        <option>4.Dan</option>
+                        <option>3.Dan</option>
+                        <option>2.Dan</option>
+                        <option selected>1.Dan</option>
+                        <option>1.Kyu</option>
+                        <option>2.Kyu</option>
+                    </select>
+                </div>
+
             </div>
 
             <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur Sicherheit doppelt
