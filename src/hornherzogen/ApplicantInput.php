@@ -287,12 +287,13 @@ final class ApplicantInput extends Applicant
 
     public function hasErrors()
     {
-        return empty($this->getWeek()) && empty($this->getFlexible()) && empty($this->getGender()) //
-            && empty($this->getFirstname()) && empty($this->getLastname()) && empty($this->getStreet()) //
-            && empty($this->getHouseNumber()) && empty($this->getZipCode()) && empty($this->getCity()) //
-            && empty($this->getCountry()) && empty($this->getEmail()) && empty($this->getDojo()) //
-            && empty($this->getGrading()) && empty($this->getDateOfLastGrading()) //
-            && empty($this->getRoom()) && empty($this->getFoodCategory());
+        return empty($this->getWeek()) || $this->getFlexible() || empty($this->getGender()) //
+            || empty($this->getFirstname()) || empty($this->getLastname()) || empty($this->getStreet()) //
+            || empty($this->getHouseNumber()) || empty($this->getZipCode()) || empty($this->getCity()) //
+            || empty($this->getCountry()) || empty($this->getEmail()) || empty($this->getDojo()) //
+            || empty($this->getGrading()) || empty($this->getDateOfLastGrading()) //
+            || empty($this->getRoom()) || empty($this->getFoodCategory());
+
     }
 
 }

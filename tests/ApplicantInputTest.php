@@ -442,7 +442,6 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setEmail("abc@example.com");
         $this->applicantInput->setDojo("My little big dojo");
         $this->applicantInput->setGrading("ikkyu");
-        $this->applicantInput->setGrading("week1");
         $this->applicantInput->setDateOfLastGrading("2017-02-14");
         $this->applicantInput->setRoom("single");
         $this->applicantInput->setFoodCategory("none");
@@ -476,15 +475,23 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setFoodCategory("none");
         $this->applicantInput->setWeek("week2");
 
-        echo $this->applicantInput->__toString();
-
         // since we did not extract the data from $_POST
         $this->assertTrue($this->applicantInput->hasParseErrors());
 
         $this->assertEquals('', $this->applicantInput->showHasError("week"));
+        $this->assertTrue($this->applicantInput->hasErrors());
+    }
 
-        // TODO should be true
-        $this->assertFalse($this->applicantInput->hasErrors());
+    public function testFlexibilityParsing()
+    {
+        $this->applicantInput->setFlexible("yes");
+        $this->assertTrue($this->applicantInput->getFlexible());
+
+        $this->applicantInput->setFlexible("no");
+        $this->assertFalse($this->applicantInput->getFlexible());
+
+        $this->applicantInput->setFlexible("anythingElseIsEMappedToNo");
+        $this->assertFalse($this->applicantInput->getFlexible());
     }
 
 }
