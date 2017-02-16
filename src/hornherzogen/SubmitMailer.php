@@ -30,11 +30,13 @@ class SubmitMailer
         // Fix encoding errors in subject:
         // http://stackoverflow.com/questions/4389676/email-from-php-has-broken-subject-header-encoding#4389755
         // https://ncona.com/2011/06/using-utf-8-characters-on-an-e-mail-subject/
-        $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
-// https://github.com/ottlinger/hornherzogen/issues/19
-        $encoded_subject = 'Subject: ' . HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp());
-        // not goneo: $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
-        $encoded_subject = substr($encoded_subject, strlen('Subject: '));
+
+        // $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
+        // $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
+        // $encoded_subject = substr($encoded_subject, strlen('Subject: '));
+
+        // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
+        $encoded_subject = "=?UTF-8?B?".base64_encode(HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()))."?=";
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
@@ -52,7 +54,7 @@ class SubmitMailer
         $headers[] = 'Return-Path: ' . $replyto;
         $headers[] = 'Errors-To: ' . $replyto;
 
-        $headers[] = 'Content-type: text/html; charset=utf-8';
+        $headers[] = 'Content-type: text/html; charset=UTF-8';
         $headers[] = 'Date: ' . date("r");
         $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
         $headers[] = 'X-Git-Revision: <' . $revision->gitrevision() . ">";
