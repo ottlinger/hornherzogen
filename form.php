@@ -69,29 +69,29 @@
         <?php
         // we always have an empty container for user input data
         $applicantInput = new \hornherzogen\ApplicantInput();
+        $formHelper = new \hornherzogen\FormHelper();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $applicantInput->parse();
 
-//            if(\hornherzogen\ConfigurationWrapper::debug()) {
+            if(\hornherzogen\ConfigurationWrapper::debug()) {
                 echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
                 var_dump(file_get_contents('php://input'));
                 echo '<p>Converted to POST:</p>';
                 var_dump($_POST);
-            echo '<p>email:</p>'.$applicantInput->__toString();
-            echo '<p>emailcheck:</p>'.var_dump($applicantInput);
-            echo '<p>emailcheck:</p>'.var_dump($applicantInput);
+                echo '<p>'.$applicantInput->__toString();
+                echo '</p><p>'.var_dump($applicantInput);
+                echo '</p>';
                 echo '</pre>';
-
-            //          } // if debug
+            } // if debug
         } // if POST
         ?>
         <?php if($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
-        <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
+        <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -363,7 +363,7 @@
             </div>
 
 
-            <?php if($applicantInput->hasParseErrors()) { ?>
+            <?php if($applicantInput->hasParseErrors() || $applicantInput->hasErrors()) { ?>
                 <div class="form-group">
                     <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS')?></p>
                     <div class="col-sm-offset-2 col-sm-10">
@@ -372,14 +372,14 @@
                     </div>
                 </div>
               </form>
-            <?php } else {
-
+            <?php } else { ?>
+            <p class="lead">Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
+            <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+            <?php
                 // send mail only if there are no error messages
                 $sender = new \hornherzogen\SubmitMailer($applicantInput);
                 echo $sender->send();
                 echo $sender->sendInternally();
-                $formHelper = new \hornherzogen\FormHelper();
-                echo '<p>Mail sent at '.$formHelper->timestamp().'</p>';
             } // if showButtons
             ?>
 
