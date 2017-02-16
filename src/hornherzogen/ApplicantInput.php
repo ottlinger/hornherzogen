@@ -149,17 +149,23 @@ final class ApplicantInput extends Applicant
             $this->addError("country");
         }
 
-        if ($this->formHelper->isSetAndNotEmpty("email") && $this->areEmailAddressesValid()) {
+        if ($this->formHelper->isSetAndNotEmpty("email")) {
             $this->setEmail($this->getFromPost("email"));
             $this->addSuccess("email");
         } else {
             $this->addError("email");
         }
 
-        if ($this->formHelper->isSetAndNotEmpty("emailcheck") && $this->areEmailAddressesValid()) {
-            $this->setEmail($this->getFromPost("emailcheck"));
+        if ($this->formHelper->isSetAndNotEmpty("emailcheck")) {
+            $this->setEmailcheck($this->getFromPost("emailcheck"));
             $this->addSuccess("emailcheck");
         } else {
+            $this->addError("emailcheck");
+        }
+
+        // definitely switch to error state if values are not equal
+        if (!$this->areEmailAddressesValid()) {
+            $this->addError("email");
             $this->addError("emailcheck");
         }
 
@@ -295,7 +301,6 @@ final class ApplicantInput extends Applicant
         $required[] = "city";
         $required[] = "country";
         $required[] = "email";
-        $required[] = "emailcheck";
         $required[] = "dojo";
         $required[] = "grad";
         $required[] = "gsince";
@@ -347,16 +352,6 @@ final class ApplicantInput extends Applicant
         }
         return '';
 
-    }
-
-    public function getOrDefault($field, $default)
-    {
-        $fieldValue = $this->getFieldValue($field);
-
-        if (isset($fieldValue)) {
-            return $fieldValue;
-        }
-        return $default;
     }
 
     public function getFieldValue($field)

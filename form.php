@@ -74,15 +74,19 @@
 
             $applicantInput->parse();
 
-            if(\hornherzogen\ConfigurationWrapper::debug()) {
+//            if(\hornherzogen\ConfigurationWrapper::debug()) {
                 echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
                 var_dump(file_get_contents('php://input'));
                 echo '<p>Converted to POST:</p>';
                 var_dump($_POST);
+            echo '<p>email:</p>'.$applicantInput->__toString();
+            echo '<p>emailcheck:</p>'.var_dump($applicantInput);
+            echo '<p>emailcheck:</p>'.var_dump($applicantInput);
                 echo '</pre>';
-            } // if debug
+
+            //          } // if debug
         } // if POST
         ?>
         <?php if($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
@@ -134,8 +138,6 @@
                     <?php echo $applicantInput->showSymbolIfFeedback('gender'); ?>
                 </div>
             </div>
-
-            <h1><?php echo $applicantInput->getUIResponse('vorname'); ?></h1>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('vorname'); ?>">
                 <label for="vorname" class="col-sm-2 control-label">Vorname (*)</label>

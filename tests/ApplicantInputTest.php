@@ -77,7 +77,7 @@ class ApplicantInputTest extends TestCase
 
     public function testNumberOfFieldsRequiredInWebFormDidChange()
     {
-        $this->assertEquals(17, sizeof(ApplicantInput::getRequiredFields()));
+        $this->assertEquals(16, sizeof(ApplicantInput::getRequiredFields()));
     }
 
     public function testNoMailaddressesGivenResultsInError()
