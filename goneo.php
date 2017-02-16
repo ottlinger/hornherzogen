@@ -21,10 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// https://github.com/ottlinger/hornherzogen/issues/19
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
+
+    // this seems to break things with PHP at Goneo
+    $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
+    $encoded = iconv_mime_encode('Subject', $data, $preferences);
+    echo '<h3>IconvMimeEncodedToUTF8: '.$encoded = substr($encoded, strlen('Subject')).'</h3>';
     return $data;
 }
 ?>
