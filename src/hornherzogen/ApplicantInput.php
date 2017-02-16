@@ -280,7 +280,7 @@ final class ApplicantInput extends Applicant
             }
         }
 
-        return empty($this->errors);
+        return 0 != sizeof($this->errors);
     }
 
     static function getRequiredFields()
