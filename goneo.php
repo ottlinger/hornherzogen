@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<h1>Please submit the form to see the error with PHP7 at Goneo</h1>
+
 <?php
 // catch first load
 if(!isset($count)) {
