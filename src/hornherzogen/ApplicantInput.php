@@ -83,7 +83,7 @@ final class ApplicantInput extends Applicant
             $this->addError("nachname");
         }
 
-        // TODO handle this when flushing to the database
+        // do this again when flushing to the database
         $this->setFullName('');
 
         if ($this->formHelper->isSetAndNotEmpty("street")) {
@@ -292,10 +292,39 @@ final class ApplicantInput extends Applicant
 
     public function getFieldValue($field)
     {
-        // TODO complete mapping from html form element to getter of this bean
         switch ($field) {
-            case "vorname":
+            case  "week":
+                return $this->getWeek();
+            case  "flexible":
+                return $this->getFlexible();
+            case  "gender":
+                return $this->getGender();
+            case  "firstname":
                 return $this->getFirstname();
+            case  "lastname":
+                return $this->getLastname();
+            case  "street":
+                return $this->getStreet();
+            case  "houseno":
+                return $this->getHouseNumber();
+            case  "plz":
+                return $this->getZipCode();
+            case  "city":
+                return $this->getCity();
+            case  "country":
+                return $this->getCountry();
+            case  "email":
+                return $this->getEmail();
+            case  "dojo":
+                return $this->getDojo();
+            case  "grad":
+                return $this->getGrading();
+            case  "gsince":
+                return $this->getDateOfLastGrading();
+            case  "room":
+                return $this->getRoom();
+            case  "essen":
+                return $this->getFoodCategory();
             default:
                 return '';
         }
