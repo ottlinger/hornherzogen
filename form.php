@@ -70,13 +70,11 @@
         // we always have an empty container for user input data
         $applicantInput = new \hornherzogen\ApplicantInput();
 
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $applicantInput->parse();
 
             if(\hornherzogen\ConfigurationWrapper::debug()) {
-
                 echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
@@ -95,17 +93,18 @@
 
         <?php } // end if ?>
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
                     <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="week" name="week">
                             <option value="week1">1.Woche - ab Samstag, den 2017-06-18</option>
                             <option value="week2">2.Woche - ab Samstag, den 2017-06-25</option>
                         </select>
+                        <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
                     </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('flexible'); ?>">
                 <label class="col-sm-2 control-label">
                     Kann ich im Fall einer Überbuchung in die andere Woche ausweichen? (*)</label>
                 <div class="col-sm-10">
@@ -124,66 +123,73 @@
                 </div>
             </div>
 
-            <!-- TODO: has error has-feedback und span für Symbol selbst -->
             <legend>Persönliche Daten</legend>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('gender'); ?>">
                 <label for="gender" class="col-sm-2 control-label">Anrede (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
                         <option value="male">Herr</option>
                         <option value="female">Frau</option>
                     </select>
+                    <?php echo $applicantInput->showSymbolIfFeedback('gender'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <h1><?php echo $applicantInput->getUIResponse('vorname'); ?></h1>
+
+            <div class="form-group <?php echo $applicantInput->getUIResponse('vorname'); ?>">
                 <label for="vorname" class="col-sm-2 control-label">Vorname (*)</label>
-                <div class="col-sm-10 <?php echo $applicantInput->getUIResponse('vorname'); ?>">
-                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="<?php echo $applicantInput->getOrDefault('vorname', 'Bitte Vorname eingeben.'); ?>">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben." value="<?php echo $applicantInput->getFirstname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('nachname'); ?>">
                 <label for="nachname" class="col-sm-2 control-label">Nachname (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Bitte Nachname eingeben.">
+                    <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Bitte Nachname eingeben." value="<?php echo $applicantInput->getLastname(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>
             </div>
 
             <p>Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:</p>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('street'); ?>">
                 <label for="street" class="col-sm-2 control-label">Straße (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="street" id="street"
-                           placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben.">
+                           placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben." value="<?php echo $applicantInput->getStreet(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('street'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('houseno'); ?>">
                 <label for="houseno" class="col-sm-2 control-label">Hausnummer (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="houseno" name="houseno"
-                           placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben.">
+                           placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben." value="<?php echo $applicantInput->getHouseNumber(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('houseno'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('plz'); ?>">
                 <label for="plz" class="col-sm-2 control-label">PLZ (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="plz" id="plz" placeholder="Bitte die PLZ eingeben.">
+                    <input type="text" class="form-control" name="plz" id="plz" placeholder="Bitte die PLZ eingeben." value="<?php echo $applicantInput->getZipCode(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('plz'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('city'); ?>">
                 <label for="city" class="col-sm-2 control-label">Ort (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="city" id="city" placeholder="Bitte den Wohnort eingeben.">
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Bitte den Wohnort eingeben." value="<?php echo $applicantInput->getCity(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('city'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('country'); ?>">
                 <label for="country" class="col-sm-2 control-label">Land (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="country" name="country">
@@ -196,61 +202,49 @@
                         <option>Schweiz</option>
                         <option>Österreich</option>
                     </select>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung (*)</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="grad" name="grad">
-                        <option>6.Dan</option>
-                        <option>5.Dan</option>
-                        <option>4.Dan</option>
-                        <option>3.Dan</option>
-                        <option>2.Dan</option>
-                        <option selected>1.Dan</option>
-                        <option>1.Kyu</option>
-                        <option>2.Kyu</option>
-                    </select>
+                    <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
                 </div>
             </div>
 
             <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur Sicherheit doppelt
                 ein:</p>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('email'); ?>">
                 <label for="email" class="col-sm-2 control-label">E-Mail (*)</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Bitte Mailadresse eingeben.">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Bitte Mailadresse eingeben." value="<?php echo $applicantInput->getEmail(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('email'); ?>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('emailcheck'); ?>">
                 <label for="emailcheck" class="col-sm-2 control-label">E-Mail-Bestätigung (*)</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="emailcheck" id="emailcheck"
-                           placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein.">
+                           placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein." value="<?php echo $applicantInput->getEmailcheck(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('emailcheck'); ?>
                 </div>
             </div>
 
             <legend>Aikidodaten</legend>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('dojo'); ?>">
                 <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
-                           placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?">
+                           placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?" value="<?php echo $applicantInput->getDojo(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('dojo'); ?>
                 </div>
             </div>
 
             <p>Ohne gültige twa-Mitgliedschaft erhöht sich der Preis des Lehrgangs.</p>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('twano'); ?>">
                 <label for="twano" class="col-sm-2 control-label">Mitgliedsnummer (twa)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="twano" id="twano"
-                           placeholder="Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!">
+                           placeholder="Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!" value="<?php echo $applicantInput->getTwaNumber(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('twano'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('grad'); ?>">
                 <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
@@ -263,10 +257,11 @@
                         <option>1.Kyu</option>
                         <option>2.Kyu</option>
                     </select>
+                    <?php echo $applicantInput->showSymbolIfFeedback('grad'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('gsince'); ?>">
                 <label for="gsince" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung
                     besteht. (*)</label>
                 <div class="col-sm-10">
@@ -274,6 +269,7 @@
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             <input type="text" class="input-medium" name="gsince" id="gsince" readonly>
+                            <?php echo $applicantInput->showSymbolIfFeedback('gsince'); ?>
                         </div>
                         <div class="bfh-datepicker-calendar">
                             <table class="calendar table table-bordered">
@@ -302,7 +298,7 @@
             </div>
 
             <legend>Daten zur Unterkunft</legend>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('room'); ?>">
                 <label class="col-sm-2 control-label" for="room">Bitte die Zimmerkategorie festlegen und
                     Zusammenlegungswünsche angeben (*)</label>
                 <div class="col-sm-10">
@@ -311,29 +307,32 @@
                         <option value="2bed">2-Bett Zimmer</option>
                         <option value="3bed" selected>3-Bett Zimmer</option>
                     </select>
+                    <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
             </div>
 
             <div id="together1-group">
                 <p>Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?</p>
-                <div class="form-group">
+                <div class="form-group <?php echo $applicantInput->getUIResponse('together1'); ?>">
                     <label for="together1" class="col-sm-2 control-label">Name Person 1</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="together1" id="together1"
-                               placeholder="Bitte den kompletten Namen angeben.">
+                               placeholder="Bitte den kompletten Namen angeben." value="<?php echo $applicantInput->getPartnerOne(); ?>"/>
+                        <?php echo $applicantInput->showSymbolIfFeedback('together1'); ?>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group" id="together2-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('together2'); ?>" id="together2-group">
                 <label for="together2" class="col-sm-2 control-label">Name Person 2</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="together2" id="together2"
-                           placeholder="Bitte den kompletten Namen angeben.">
+                           placeholder="Bitte den kompletten Namen angeben." value="<?php echo $applicantInput->getPartnerTwo(); ?>"/>
+                    <?php echo $applicantInput->showSymbolIfFeedback('together2'); ?>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('essen'); ?>">
                 <label class="col-sm-2 control-label">Essenswunsch (*)</label>
                 <div class="col-sm-10">
 <?php
@@ -353,29 +352,24 @@
             </div>
 
             <legend>Sonstiges</legend>
-            <div class="form-group">
+            <div class="form-group <?php echo $applicantInput->getUIResponse('additionals'); ?>">
                 <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):</label>
-
-                <!-- TODO: http://getbootstrap.com/css/#forms-control-validation -->
-                <!-- has-error in case of errors -->
-                <!-- has-success in case of successful submit -->
-                <div class="col-sm-10 has-success">
-                    <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"></textarea>
+                <div class="col-sm-10">
+                    <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400" placeholder="Bitte gern optional Anmerkungen hinterlassen."><?php echo $applicantInput->getRemarks(); ?></textarea>
+                    <?php echo $applicantInput->showSymbolIfFeedback('additionals'); ?>
                 </div>
             </div>
 
 
             <?php if($applicantInput->hasParseErrors()) { ?>
-
-            <div class="form-group">
-                <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS')?></p>
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
-                    <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
+                <div class="form-group">
+                    <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS')?></p>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
+                        <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
+                    </div>
                 </div>
-            </div>
-          </form>
-
+              </form>
             <?php } else {
 
                 // send mail only if there are no error messages

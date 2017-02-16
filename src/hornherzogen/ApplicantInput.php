@@ -14,12 +14,40 @@ final class ApplicantInput extends Applicant
     // To prevent double click attacks we only send out mails if not sent before
     private $mailSent;
 
+    // this field is only visible in the form and is not persisted anywhere
+    private $emailcheck;
 
     function __construct()
     {
         parent::__construct();
         $this->formHelper = new FormHelper();
         $this->mailSent = false;
+    }
+
+    static function getFieldsWithIcons()
+    {
+        /**
+         * These fields can have icons in case of form feedback, see
+         * http://getbootstrap.com/css/#forms-control-validation
+         * @var array
+         */
+        $required = array();
+        $required[] = "week";
+        $required[] = "gender";
+        $required[] = "firstname";
+        $required[] = "lastname";
+        $required[] = "street";
+        $required[] = "houseno";
+        $required[] = "plz";
+        $required[] = "city";
+        $required[] = "email";
+        $required[] = "emailcheck";
+        $required[] = "dojo";
+        $required[] = "twano";
+        $required[] = "together1";
+        $required[] = "together2";
+        $required[] = "additionals";
+        return $required;
     }
 
     /**
@@ -128,6 +156,13 @@ final class ApplicantInput extends Applicant
             $this->addError("email");
         }
 
+        if ($this->formHelper->isSetAndNotEmpty("emailcheck") && $this->areEmailAddressesValid()) {
+            $this->setEmail($this->getFromPost("emailcheck"));
+            $this->addSuccess("emailcheck");
+        } else {
+            $this->addError("emailcheck");
+        }
+
         if ($this->formHelper->isSetAndNotEmpty("dojo")) {
             $this->setDojo($this->getFromPost("dojo"));
             $this->addSuccess("dojo");
@@ -213,7 +248,7 @@ final class ApplicantInput extends Applicant
         if ($this->formHelper->isSetAndNotEmpty("email") && $this->formHelper->isSetAndNotEmpty("emailcheck")) {
             $mail = $this->getFromPost("email");
             $mailCheck = $this->getFromPost("emailcheck");
-            return $mail == $mailCheck && $this->formHelper->isValidEmail($mail);
+            return $mail === $mailCheck && $this->formHelper->isValidEmail($mail);
         }
         return false;
     }
@@ -281,53 +316,10 @@ final class ApplicantInput extends Applicant
 
     public function getUIResponse($field)
     {
-        if (!empty($this->getFieldValue($field))) {
-            if ($this->showHasError($field)) {
-                return $this->showHasError($field);
-            }
-            return $this->showIsSuccess($field);
+        if (!empty($this->showHasError($field))) {
+            return $this->showHasError($field);
         }
-        return '';
-    }
-
-    public function getFieldValue($field)
-    {
-        switch ($field) {
-            case  "week":
-                return $this->getWeek();
-            case  "flexible":
-                return $this->getFlexible();
-            case  "gender":
-                return $this->getGender();
-            case  "firstname":
-                return $this->getFirstname();
-            case  "lastname":
-                return $this->getLastname();
-            case  "street":
-                return $this->getStreet();
-            case  "houseno":
-                return $this->getHouseNumber();
-            case  "plz":
-                return $this->getZipCode();
-            case  "city":
-                return $this->getCity();
-            case  "country":
-                return $this->getCountry();
-            case  "email":
-                return $this->getEmail();
-            case  "dojo":
-                return $this->getDojo();
-            case  "grad":
-                return $this->getGrading();
-            case  "gsince":
-                return $this->getDateOfLastGrading();
-            case  "room":
-                return $this->getRoom();
-            case  "essen":
-                return $this->getFoodCategory();
-            default:
-                return '';
-        }
+        return $this->showIsSuccess($field);
     }
 
     public function showHasError($field)
@@ -341,13 +333,14 @@ final class ApplicantInput extends Applicant
     public function showIsSuccess($field)
     {
         if (in_array($field, $this->success)) {
-            return ' has-success';
+            return ' has-success has-feedback';
         }
         return '';
     }
 
     public function showSymbolIfFeedback($field)
     {
+        // TODO use getIfFieldIconsBla()
         if (in_array($field, $this->success) || in_array($field, $this->errors)) {
             return
                 '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>';
@@ -364,6 +357,64 @@ final class ApplicantInput extends Applicant
             return $fieldValue;
         }
         return $default;
+    }
+
+    public function getFieldValue($field)
+    {
+        switch ($field) {
+            case  "week":
+                return $this->getWeek();
+            case  "flexible":
+                return $this->getFlexible();
+            case  "gender":
+                return $this->getGender();
+            case  "vorname":
+                return $this->getFirstname();
+            case  "lastname":
+                return $this->getLastname();
+            case  "street":
+                return $this->getStreet();
+            case  "houseno":
+                return $this->getHouseNumber();
+            case  "plz":
+                return $this->getZipCode();
+            case  "city":
+                return $this->getCity();
+            case  "country":
+                return $this->getCountry();
+            case "email":
+                return $this->getEmail();
+            case "emailcheck":
+                return $this->getEmailcheck();
+            case  "dojo":
+                return $this->getDojo();
+            case  "grad":
+                return $this->getGrading();
+            case  "gsince":
+                return $this->getDateOfLastGrading();
+            case  "room":
+                return $this->getRoom();
+            case  "essen":
+                return $this->getFoodCategory();
+            default:
+                return '';
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmailcheck()
+    {
+        return $this->emailcheck;
+    }
+
+    /**
+     * @param mixed $emailcheck
+     */
+    public function setEmailcheck($emailcheck)
+    {
+        $this->emailcheck = $emailcheck;
     }
 
 }
