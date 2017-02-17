@@ -84,7 +84,7 @@
 
             $applicantInput->parse();
 
-            if (\hornherzogen\ConfigurationWrapper::debug()) {
+//            if (\hornherzogen\ConfigurationWrapper::debug()) {
                 echo '<h2>Language setting is: ' . \hornherzogen\HornLocalizer::getLanguage() . '</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
@@ -95,7 +95,7 @@
                 echo '</p><p>' . var_dump($applicantInput);
                 echo '</p>';
                 echo '</pre>';
-            } // if debug
+  //          } // if debug
         } // if POST
         ?>
         <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
@@ -208,20 +208,33 @@
                 </div>
             </div>
 
+            <?php
+            /**
+             * TODO:
+             * http://bootstrapformhelpers.com/country/#jquery-plugins
+             * Available languages
+             *
+             * English (US)
+             * Arabic
+             * German (DE)
+             * Spanish (ES)
+             * Italian (IT)
+             * Portuguese (BR)
+             * Simplified Chinese (CN)
+             * Simplified Chinese (TW)
+             * add mapper to Localizer! to get String for Mail
+             *
+             * Add method for country preselection:
+             * de -> DE
+             * en -> GB
+             * jp -> JP
+             *
+             */
+            ?>
             <div class="form-group <?php echo $applicantInput->getUIResponse('country'); ?>">
                 <label for="country" class="col-sm-2 control-label">Land (*)</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="country" name="country">
-                        <option>Deutschland</option>
-                        <option>Japan</option>
-                        <option>Frankreich</option>
-                        <option>Italien</option>
-                        <option>Belgien</option>
-                        <option>Niederlanden</option>
-                        <option>Schweiz</option>
-                        <option>Österreich</option>
-                    </select>
-                    <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
+                <div id="country" data-name="country" class="col-sm-10 bfh-selectbox bfh-countries" data-country="<?php echo $applicantInput->getCountry();?>" data-flags="true">
+                 <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
                 </div>
             </div>
 
@@ -394,7 +407,9 @@
             <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
+                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular
+                        absenden
+                    </button>
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
                 </div>
             </div>
@@ -413,15 +428,15 @@
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="./js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="./js/bootstrap-formhelpers.min.js"></script>
-    <script src="./js/app.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="./js/bootstrap-formhelpers.min.js"></script>
+<script src="./js/app.js"></script>
 </body>
 </html>
