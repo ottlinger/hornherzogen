@@ -1,6 +1,7 @@
 composer.phar
-**/config.ini.php
+inc/config.ini.php
 .idea
 *.iml
 coverage.xml
-testdox**
+testdox.html
+testdox.txt
