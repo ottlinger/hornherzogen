@@ -58,13 +58,19 @@
                 <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> Fragen</a></li>
             </ul>
         </div><!--/.nav-collapse -->
-    </div>
+    </div><!--/.container -->
 </nav>
 
 <div class="container theme-showcase">
     <div class="starter-template">
-      <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img style="position: absolute; top: 100px; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-        <h1><span class="glyphicon glyphicon-sunglasses"></span> <?php echo \hornherzogen\HornLocalizer::i18n('FORM.TITLE')?></h1>
+        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
+                    style="position: absolute; top: 100px; right: 0; border: 0;"
+                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
+                    alt="Fork me on GitHub"
+                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+        <h1>
+            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo \hornherzogen\HornLocalizer::i18n('FORM.TITLE') ?>
+        </h1>
 
         <?php
         // we always have an empty container for user input data
@@ -75,37 +81,37 @@
 
             $applicantInput->parse();
 
-            if(\hornherzogen\ConfigurationWrapper::debug()) {
-                echo '<h2>Language setting is: '.\hornherzogen\HornLocalizer::getLanguage().'</h2>';
+            if (\hornherzogen\ConfigurationWrapper::debug()) {
+                echo '<h2>Language setting is: ' . \hornherzogen\HornLocalizer::getLanguage() . '</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
                 var_dump(file_get_contents('php://input'));
                 echo '<p>Converted to POST:</p>';
                 var_dump($_POST);
-                echo '<p>'.$applicantInput->__toString();
-                echo '</p><p>'.var_dump($applicantInput);
+                echo '<p>' . $applicantInput->__toString();
+                echo '</p><p>' . var_dump($applicantInput);
                 echo '</p>';
                 echo '</pre>';
             } // if debug
         } // if POST
         ?>
-        <?php if($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
+        <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
-        <?php } // end if ?>
+            <?php } // end if ?>
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
-                    <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
-                    <div class="col-sm-10">
-                        <select class="form-control" id="week" name="week">
-                            <option value="week1">1.Woche - ab Samstag, den 2017-06-18</option>
-                            <option value="week2">2.Woche - ab Samstag, den 2017-06-25</option>
-                        </select>
-                        <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
-                    </div>
+                <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="week" name="week">
+                        <option value="week1">1.Woche - ab Samstag, den 2017-06-18</option>
+                        <option value="week2">2.Woche - ab Samstag, den 2017-06-25</option>
+                    </select>
+                    <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
+                </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('flexible'); ?>">
@@ -142,7 +148,9 @@
             <div class="form-group <?php echo $applicantInput->getUIResponse('vorname'); ?>">
                 <label for="vorname" class="col-sm-2 control-label">Vorname (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="vorname" id="vorname" placeholder="Bitte Vorname eingeben." value="<?php echo $applicantInput->getFirstname(); ?>"/>
+                    <input type="text" class="form-control" name="vorname" id="vorname"
+                           placeholder="Bitte Vorname eingeben."
+                           value="<?php echo $applicantInput->getFirstname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>
             </div>
@@ -150,7 +158,9 @@
             <div class="form-group <?php echo $applicantInput->getUIResponse('nachname'); ?>">
                 <label for="nachname" class="col-sm-2 control-label">Nachname (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nachname" id="nachname" placeholder="Bitte Nachname eingeben." value="<?php echo $applicantInput->getLastname(); ?>"/>
+                    <input type="text" class="form-control" name="nachname" id="nachname"
+                           placeholder="Bitte Nachname eingeben."
+                           value="<?php echo $applicantInput->getLastname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>
             </div>
@@ -161,7 +171,8 @@
                 <label for="street" class="col-sm-2 control-label">Straße (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="street" id="street"
-                           placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben." value="<?php echo $applicantInput->getStreet(); ?>"/>
+                           placeholder="Bitte die Straße der Postanschrift ohne Hausnummer eingeben."
+                           value="<?php echo $applicantInput->getStreet(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('street'); ?>
                 </div>
             </div>
@@ -170,7 +181,8 @@
                 <label for="houseno" class="col-sm-2 control-label">Hausnummer (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="houseno" name="houseno"
-                           placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben." value="<?php echo $applicantInput->getHouseNumber(); ?>"/>
+                           placeholder="Bitte die komplette Hausnummer zur Postanschrift eingeben."
+                           value="<?php echo $applicantInput->getHouseNumber(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('houseno'); ?>
                 </div>
             </div>
@@ -178,7 +190,8 @@
             <div class="form-group <?php echo $applicantInput->getUIResponse('plz'); ?>">
                 <label for="plz" class="col-sm-2 control-label">PLZ (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="plz" id="plz" placeholder="Bitte die PLZ eingeben." value="<?php echo $applicantInput->getZipCode(); ?>"/>
+                    <input type="text" class="form-control" name="plz" id="plz" placeholder="Bitte die PLZ eingeben."
+                           value="<?php echo $applicantInput->getZipCode(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('plz'); ?>
                 </div>
             </div>
@@ -186,7 +199,8 @@
             <div class="form-group <?php echo $applicantInput->getUIResponse('city'); ?>">
                 <label for="city" class="col-sm-2 control-label">Ort (*)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="city" id="city" placeholder="Bitte den Wohnort eingeben." value="<?php echo $applicantInput->getCity(); ?>"/>
+                    <input type="text" class="form-control" name="city" id="city"
+                           placeholder="Bitte den Wohnort eingeben." value="<?php echo $applicantInput->getCity(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('city'); ?>
                 </div>
             </div>
@@ -208,20 +222,24 @@
                 </div>
             </div>
 
-            <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur Sicherheit doppelt
-                ein:</p>
+            <p>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur
+                Sicherheit doppelt ein:</p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('email'); ?>">
                 <label for="email" class="col-sm-2 control-label">E-Mail (*)</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Bitte Mailadresse eingeben." value="<?php echo $applicantInput->getEmail(); ?>"/>
+                    <input type="email" class="form-control" name="email" id="email"
+                           placeholder="Bitte Mailadresse eingeben."
+                           value="<?php echo $applicantInput->getEmail(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('email'); ?>
                 </div>
             </div>
+
             <div class="form-group <?php echo $applicantInput->getUIResponse('emailcheck'); ?>">
                 <label for="emailcheck" class="col-sm-2 control-label">E-Mail-Bestätigung (*)</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="emailcheck" id="emailcheck"
-                           placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein." value="<?php echo $applicantInput->getEmailcheck(); ?>"/>
+                           placeholder="Bitte gib die Mailadresse nochmals zur Bestätigung ein."
+                           value="<?php echo $applicantInput->getEmailcheck(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('emailcheck'); ?>
                 </div>
             </div>
@@ -231,7 +249,8 @@
                 <label for="dojo" class="col-sm-2 control-label">Dojo / Stadt (*)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
-                           placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?" value="<?php echo $applicantInput->getDojo(); ?>"/>
+                           placeholder="In welchem Dojo trainierst Du bzw. in welcher Stadt?"
+                           value="<?php echo $applicantInput->getDojo(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('dojo'); ?>
                 </div>
             </div>
@@ -241,7 +260,8 @@
                 <label for="twano" class="col-sm-2 control-label">Mitgliedsnummer (twa)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="twano" id="twano"
-                           placeholder="Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!" value="<?php echo $applicantInput->getTwaNumber(); ?>"/>
+                           placeholder="Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!"
+                           value="<?php echo $applicantInput->getTwaNumber(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('twano'); ?>
                 </div>
             </div>
@@ -267,7 +287,8 @@
                 <label for="gsince" class="col-sm-2 control-label">Bitte angeben, seit wann die aktuelle Graduierung
                     besteht. (*)</label>
                 <div class="col-sm-10">
-                    <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d" data-date="<?php echo date('Y-m-d'); ?>">
+                    <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d"
+                         data-date="<?php echo date('Y-m-d'); ?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             <input type="text" class="input-medium" name="gsince" id="gsince" readonly>
@@ -319,7 +340,8 @@
                     <label for="together1" class="col-sm-2 control-label">Name Person 1</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="together1" id="together1"
-                               placeholder="Bitte den kompletten Namen angeben." value="<?php echo $applicantInput->getPartnerOne(); ?>"/>
+                               placeholder="Bitte den kompletten Namen angeben."
+                               value="<?php echo $applicantInput->getPartnerOne(); ?>"/>
                         <?php echo $applicantInput->showSymbolIfFeedback('together1'); ?>
                     </div>
                 </div>
@@ -329,7 +351,8 @@
                 <label for="together2" class="col-sm-2 control-label">Name Person 2</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="together2" id="together2"
-                           placeholder="Bitte den kompletten Namen angeben." value="<?php echo $applicantInput->getPartnerTwo(); ?>"/>
+                           placeholder="Bitte den kompletten Namen angeben."
+                           value="<?php echo $applicantInput->getPartnerTwo(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('together2'); ?>
                 </div>
             </div>
@@ -337,9 +360,9 @@
             <div class="form-group <?php echo $applicantInput->getUIResponse('essen'); ?>">
                 <label class="col-sm-2 control-label">Essenswunsch (*)</label>
                 <div class="col-sm-10">
-<?php
-  //                  <input type="radio" name="gender" ?php if (isset($gender) && $gender=="female") echo "checked"; value="female">Female
-?>
+                    <?php
+                    //                  <input type="radio" name="gender" ?php if (isset($gender) && $gender=="female") echo "checked"; value="female">Female
+                    ?>
                     <div class="radio" id="essen">
                         <label>
                             <input type="radio" name="essen" id="meat" value="meat" checked>
@@ -355,45 +378,47 @@
 
             <legend>Sonstiges</legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('additionals'); ?>">
-                <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):</label>
+                <label for="additionals" class="col-sm-2 control-label">Anmerkungen / Wünsche / Besonderheiten (max. 400
+                    Zeichen):</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400" placeholder="Bitte gern optional Anmerkungen hinterlassen."><?php echo $applicantInput->getRemarks(); ?></textarea>
+                    <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"
+                              placeholder="Bitte gern optional Anmerkungen hinterlassen."><?php echo $applicantInput->getRemarks(); ?></textarea>
                     <?php echo $applicantInput->showSymbolIfFeedback('additionals'); ?>
                 </div>
             </div>
 
-
-            <?php if($applicantInput->hasParseErrors() || $applicantInput->hasErrors()) { ?>
-                <div class="form-group">
-                    <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS')?></p>
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
-                        <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
-                    </div>
+            <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors()) { ?>
+            <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
+                    <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
                 </div>
-              </form>
-            <?php } else { ?>
-            <p class="lead">Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
-            <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
-            <?php
-                // send mail only if there are no error messages
-                $sender = new \hornherzogen\SubmitMailer($applicantInput);
-                echo $sender->send();
-                echo $sender->sendInternally();
-            } // if showButtons
-            ?>
+            </div>
+        </form>
+    <?php } else { ?>
+        <p class="lead">Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
+        <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+        <?php
+        // send mail only if there are no error messages
+        $sender = new \hornherzogen\SubmitMailer($applicantInput);
+        echo $sender->send();
+        echo $sender->sendInternally();
+    } // if showButtons
+    ?>
 
-    </div><!-- /.container -->
+    </div><!-- /.starter-template -->
+</div><!-- /.container -->
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="./js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
-<script src="./js/bootstrap-formhelpers.min.js"></script>
-<script src="./js/app.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/bootstrap-formhelpers.min.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 </html>
