@@ -24,6 +24,9 @@
     <link href="./css/starter-template.css" rel="stylesheet">
     <link href="./css/theme.css" rel="stylesheet">
 
+    <!-- Calendar stuff -->
+    <link href="./css/bootstrap-formhelpers.min.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="./assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
