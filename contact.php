@@ -2,7 +2,7 @@
 <?php require 'vendor/autoload.php'; ?>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -66,7 +66,11 @@
 
 <div class="container">
     <div class="starter-template">
-      <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img style="position: absolute; top: 100px; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
+                    style="position: absolute; top: 100px; right: 0; border: 0;"
+                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
+                    alt="Fork me on GitHub"
+                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
         <h1><span class="glyphicon glyphicon-send"></span> Anmeldung</h1>
         <p class="lead">Die Ausschreibung gibt es seit 2017-02-xx,<br>bitte für die jeweilige Lehrgangswoche <a
                     href="form.php">elektronisch</a> anmelden und per E-Mail bestätigen.</p>
@@ -86,12 +90,11 @@
 
     <div class="starter-template">
         <h1>Noch Fragen? Lob oder Kritik?</h1>
-        <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a href="mailto:<?php echo \hornherzogen\ConfigurationWrapper::mail();?>">Mail</a> schreiben.</p>
+        <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a
+                    href="mailto:<?php echo \hornherzogen\ConfigurationWrapper::mail(); ?>">Mail</a> schreiben.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
-    </div>
-
+    </div><!-- /.starter-template -->
 </div><!-- /.container -->
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

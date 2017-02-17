@@ -2,7 +2,7 @@
 <?php require 'vendor/autoload.php'; ?>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -75,9 +75,8 @@
         <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> Go to the English version of the registration</a>
         </p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
-    </div>
+    </div><!-- /.starter-template -->
 </div><!-- /.container -->
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
