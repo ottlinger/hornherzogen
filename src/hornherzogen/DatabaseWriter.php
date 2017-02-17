@@ -11,4 +11,6 @@ class DatabaseWriter
     // 3)getByName(....) - makes a search in combinedName column
     // call $this->setFullName(''); with a salt if a user with that first/last name exists already
 
+    // Tests auf DB-Ebene:
+    // https://phpunit.de/manual/current/en/database.html
 }
