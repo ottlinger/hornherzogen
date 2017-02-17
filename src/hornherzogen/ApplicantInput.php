@@ -179,8 +179,6 @@ final class ApplicantInput extends Applicant
         if ($this->formHelper->isSetAndNotEmpty("twano")) {
             $this->setTwaNumber($this->getFromPost("twano"));
             $this->addSuccess("twano");
-        } else {
-            $this->addError("twano");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("grad")) {
