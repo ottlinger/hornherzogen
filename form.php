@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php'; ?>
-<html lang="en">
+<html lang="en" manifest="manifest.appcache">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
