@@ -84,7 +84,7 @@
 
             $applicantInput->parse();
 
-//            if (\hornherzogen\ConfigurationWrapper::debug()) {
+            if (\hornherzogen\ConfigurationWrapper::debug()) {
                 echo '<h2>Language setting is: ' . \hornherzogen\HornLocalizer::getLanguage() . '</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
@@ -95,7 +95,7 @@
                 echo '</p><p>' . var_dump($applicantInput);
                 echo '</p>';
                 echo '</pre>';
-  //          } // if debug
+            } // if debug
         } // if POST
         ?>
         <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
@@ -222,9 +222,9 @@
              * Portuguese (BR)
              * Simplified Chinese (CN)
              * Simplified Chinese (TW)
-             * add mapper to Localizer! to get String for Mail
+             * add mapper to Localizer! to get String for SubmitMailer
              *
-             * Add method for country preselection:
+             * Add method for country preselection if getCountrx is empty:
              * de -> DE
              * en -> GB
              * jp -> JP
@@ -304,7 +304,7 @@
                     besteht. (*)</label>
                 <div class="col-sm-10">
                     <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d"
-                         data-date="<?php echo date('Y-m-d'); ?>">
+                         data-date="<?php if(empty($applicantInput->getDateOfLastGrading())) { echo date('Y-m-d'); } else { echo $applicantInput->getDateOfLastGrading(); }?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             <input type="text" class="input-medium" name="gsince" id="gsince" readonly>
