@@ -7,11 +7,13 @@ class SubmitMailer
     // internal members
     private $formHelper;
     private $applicationInput;
+    private $revision;
 
     function __construct($applicationInput)
     {
         $this->applicationInput = $applicationInput;
         $this->formHelper = new FormHelper();
+        $this->revision = new GitRevision();
     }
 
     // In case you need authentication you should switch the the PEAR module
@@ -22,8 +24,6 @@ class SubmitMailer
         $replyto = ConfigurationWrapper::registrationmail();
 
         $importance = 1; //1 UrgentMessage, 3 Normal
-
-        $revision = new GitRevision();
 
         // HowToSend at all: https://wiki.goneo.de/mailversand_php_cgi
 
@@ -57,7 +57,7 @@ class SubmitMailer
         $headers[] = 'Content-type: text/html; charset=UTF-8';
         $headers[] = 'Date: ' . date("r");
         $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
-        $headers[] = 'X-Git-Revision: <' . $revision->gitrevision() . ">";
+        $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
         $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
         $headers[] = 'X-Mailer: PHP/' . phpversion();
 

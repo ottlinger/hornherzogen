@@ -424,7 +424,8 @@
             </div>
         </form>
     <?php } else { ?>
-        <p class="lead">Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
+        <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
+            Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
         <?php
         // send mail only if there are no error messages
