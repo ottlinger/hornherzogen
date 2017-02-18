@@ -24,32 +24,6 @@ final class ApplicantInput extends Applicant
         $this->mailSent = false;
     }
 
-    static function getFieldsWithIcons()
-    {
-        /**
-         * These fields can have icons in case of form feedback, see
-         *
-         * @var array
-         */
-        $required = array();
-        $required[] = "week";
-        $required[] = "gender";
-        $required[] = "firstname";
-        $required[] = "lastname";
-        $required[] = "street";
-        $required[] = "houseno";
-        $required[] = "plz";
-        $required[] = "city";
-        $required[] = "email";
-        $required[] = "emailcheck";
-        $required[] = "dojo";
-        $required[] = "twano";
-        $required[] = "together1";
-        $required[] = "together2";
-        $required[] = "additionals";
-        return $required;
-    }
-
     /**
      * @return bool
      */
@@ -267,10 +241,6 @@ final class ApplicantInput extends Applicant
         return $msg;
     }
 
-    public function getErrorCount() {
-        return sizeof($this->errors);
-    }
-
     /**
      * @return bool true iff errors is empty and no required fields are missing.
      */
@@ -321,6 +291,11 @@ final class ApplicantInput extends Applicant
             || empty($this->getRoom()) || empty($this->getFoodCategory());
     }
 
+    public function getErrorCount()
+    {
+        return sizeof($this->errors);
+    }
+
     public function getUIResponse($field)
     {
         if (!empty($this->showHasError($field))) {
@@ -359,48 +334,6 @@ final class ApplicantInput extends Applicant
         }
         return '';
 
-    }
-
-    public function getFieldValue($field)
-    {
-        switch ($field) {
-            case  "week":
-                return $this->getWeek();
-            case  "flexible":
-                return $this->getFlexible();
-            case  "gender":
-                return $this->getGender();
-            case  "vorname":
-                return $this->getFirstname();
-            case  "lastname":
-                return $this->getLastname();
-            case  "street":
-                return $this->getStreet();
-            case  "houseno":
-                return $this->getHouseNumber();
-            case  "plz":
-                return $this->getZipCode();
-            case  "city":
-                return $this->getCity();
-            case  "country":
-                return $this->getCountry();
-            case "email":
-                return $this->getEmail();
-            case "emailcheck":
-                return $this->getEmailcheck();
-            case  "dojo":
-                return $this->getDojo();
-            case  "grad":
-                return $this->getGrading();
-            case  "gsince":
-                return $this->getDateOfLastGrading();
-            case  "room":
-                return $this->getRoom();
-            case  "essen":
-                return $this->getFoodCategory();
-            default:
-                return '';
-        }
     }
 
     /**
