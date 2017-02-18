@@ -28,7 +28,7 @@ final class ApplicantInput extends Applicant
     {
         /**
          * These fields can have icons in case of form feedback, see
-         * http://getbootstrap.com/css/#forms-control-validation
+         *
          * @var array
          */
         $required = array();
@@ -343,10 +343,15 @@ final class ApplicantInput extends Applicant
 
     public function showSymbolIfFeedback($field)
     {
-        // TODO use getIfFieldIconsBla()
-        if (in_array($field, $this->success) || in_array($field, $this->errors)) {
+        // http://getbootstrap.com/css/#forms-control-validation
+        if (in_array($field, $this->errors)) {
             return
                 '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>';
+        }
+
+        if (in_array($field, $this->success)) {
+            return
+                '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>';
         }
         return '';
 
