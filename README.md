@@ -43,9 +43,9 @@ In order to just play around with it I've integrated a CI run:
 
 ### What to change if you want to deploy the application
 
-* Clone the project into your webserver's root directory
-* Bootstrap the database with the help of [herzogenhorn.sql](herzogenhorn.sql)
-* Copy and adapt configuration template as [inc/config.ini.php](/inc/config.ini.php.template)
+* Clone the project into your webserver's root directory or download it as ZIP if you do not have a [Git](https://git-scm.com/) properly set up
+* Bootstrap the database with the help of [herzogenhorn.sql](herzogenhorn.sql) and your favourite database admin tool
+* Copy and adapt the configuration template as [inc/config.ini.php](/inc/config.ini.php.template) with all your credentials
 * Adapt the admin area credentials setup and path to AuthUserFile in [.htaccess](admin/.htaccess) and [.htpasswd](admin/.htpasswd)
 * Use the project and verify with the help of the test scripts under [admin](admin/index.php) that everything works fine :-)
 * Check your logs:
