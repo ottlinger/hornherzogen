@@ -267,6 +267,10 @@ final class ApplicantInput extends Applicant
         return $msg;
     }
 
+    public function getErrorCount() {
+        return sizeof($this->errors);
+    }
+
     /**
      * @return bool true iff errors is empty and no required fields are missing.
      */

@@ -524,6 +524,7 @@ class ApplicantInputTest extends TestCase
     public function testUIResponseForFieldInStateError()
     {
         $this->applicantInput->addError("unknown");
+        $this->assertEquals(1, $this->applicantInput->getErrorCount());
         $this->assertEquals(" has-error has-feedback", $this->applicantInput->getUIResponse("unknown"));
     }
 

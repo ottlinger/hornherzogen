@@ -24,7 +24,7 @@
     <link href="./css/starter-template.css" rel="stylesheet">
     <link href="./css/theme.css" rel="stylesheet">
 
-    <!-- Calendar stuff -->
+    <!-- Calendar-related stuff -->
     <link href="./css/bootstrap-formhelpers.min.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -101,6 +101,10 @@
         <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+
+        <?php if ($applicantInput->hasParseErrors()) {
+            echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span>" . \hornherzogen\HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+        } // show error message ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -233,8 +237,9 @@
             ?>
             <div class="form-group <?php echo $applicantInput->getUIResponse('country'); ?>">
                 <label for="country" class="col-sm-2 control-label">Land (*)</label>
-                <div id="country" data-name="country" class="col-sm-10 bfh-selectbox bfh-countries" data-country="<?php echo $applicantInput->getCountry();?>" data-flags="true">
-                 <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
+                <div id="country" data-name="country" class="col-sm-10 bfh-selectbox bfh-countries"
+                     data-country="<?php echo $applicantInput->getCountry(); ?>" data-flags="true">
+                    <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
                 </div>
             </div>
 
@@ -304,7 +309,11 @@
                     besteht. (*)</label>
                 <div class="col-sm-10">
                     <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d"
-                         data-date="<?php if(empty($applicantInput->getDateOfLastGrading())) { echo date('Y-m-d'); } else { echo $applicantInput->getDateOfLastGrading(); }?>">
+                         data-date="<?php if (empty($applicantInput->getDateOfLastGrading())) {
+                             echo date('Y-m-d');
+                         } else {
+                             echo $applicantInput->getDateOfLastGrading();
+                         } ?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             <input type="text" class="input-medium" name="gsince" id="gsince" readonly>

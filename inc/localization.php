@@ -11,6 +11,7 @@ $GLOBALS['messages']['de'] = array(
     'FORM.TITLE' => 'Herzogenhorn 2017 Anmeldung',
     'FORM.MANDATORYFIELDS' => 'Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.',
     'MAIL.SUBJECT' => 'Anmeldung für den 合気道-Lehrgang auf dem Herzogenhorn 2017 - eingegangen {0}',
+    'FORM.ERROR_MESSAGE' => 'Es gibt noch {0} Felder mit Fehlern - bitte korrigieren und erneut absenden!',
     'TIME' => 'Es ist {0}');
 
 // ENGLISH
@@ -18,6 +19,7 @@ $GLOBALS['messages']['en'] = array(
     'FORM.TITLE' => 'Herzogenhorn 2017 registration',
     'FORM.MANDATORYFIELDS' => 'All fields marked with an asterisk (*) are mandatory.',
     'MAIL.SUBJECT' => 'Application 合気道 seminar Herzogenhorn 2017 - registered at {0}',
+    'FORM.ERROR_MESSAGE' => 'There are {0} input fields with errors, please correct them and resubmit your application!',
     'TIME' => 'Today is {0}');
 
 // RUSSIAN (just for the sake of UTF-8)
