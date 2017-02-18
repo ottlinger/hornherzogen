@@ -32,6 +32,13 @@ class ApplicantInputTest extends TestCase
         $this->assertInstanceOf('hornherzogen\ApplicantInput', $this->applicantInput);
     }
 
+    public function testGetAndSetFieldEmailcheck()
+    {
+        $value = "emailCheck@example.com";
+        $this->applicantInput->setEmailcheck($value);
+        $this->assertEquals($value, $this->applicantInput->getEmailcheck());
+    }
+
     public function testIsAlwaysErrorSinceNoSuccess()
     {
         $this->applicantInput->parse();
@@ -492,7 +499,8 @@ class ApplicantInputTest extends TestCase
         $this->assertFalse($this->applicantInput->getFlexible());
     }
 
-    public function testFullnameGenerationWithSaltIsTrimmed() {
+    public function testFullnameGenerationWithSaltIsTrimmed()
+    {
         $this->applicantInput->setFirstname(" first");
         $this->applicantInput->setLastname("last ");
         $this->applicantInput->setFullname("       ");
