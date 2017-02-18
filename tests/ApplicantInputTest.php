@@ -528,4 +528,21 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals(" has-error has-feedback", $this->applicantInput->getUIResponse("unknown"));
     }
 
+    public function testSymbolRetrievalInUIInputTextFieldForUnknownField()
+    {
+        $this->assertEmpty($this->applicantInput->showSymbolIfFeedback("unknown"));
+    }
+
+    public function testSymbolRetrievalInUIInputTextFieldForFieldInStateOk()
+    {
+        $this->applicantInput->addSuccess("unknown");
+        $this->assertEquals("<span class=\"glyphicon glyphicon-ok form-control-feedback\" aria-hidden=\"true\"></span>", $this->applicantInput->showSymbolIfFeedback("unknown"));
+    }
+
+    public function testSymbolRetrievalInUIInputTextFieldForFieldInStateError()
+    {
+        $this->applicantInput->addError("unknown");
+        $this->assertEquals("<span class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span>", $this->applicantInput->showSymbolIfFeedback("unknown"));
+    }
+
 }
