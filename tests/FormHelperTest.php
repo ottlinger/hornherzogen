@@ -74,7 +74,8 @@ class FormHelperTest extends TestCase
         $this->assertNotNull($this->formHelper->timestamp());
     }
 
-    public function testVerifyingIfKeyIsSetInPostArray() {
+    public function testVerifyingIfKeyIsSetInPostArray()
+    {
         $_POST = NULL;
         $member = 'bogus';
         $this->assertFalse($this->formHelper->isSetAndNotEmpty($member));
@@ -98,6 +99,36 @@ class FormHelperTest extends TestCase
     public function testEmailIsValid()
     {
         $this->assertTrue($this->formHelper->isValidEmail('abc@example.de'));
+    }
+
+    public function testWhoSubmittedTheFormNoDataFound()
+    {
+        $this->assertEmpty($this->formHelper->whoSendIt());
+    }
+
+    public function testWhoSubmittedTheFormWithAllEntries()
+    {
+        $_SERVER["HTTP_USER_AGENT"] = "My browser";
+        $_SERVER["REMOTE_HOST"] = "http://localhost";
+        $_SERVER["REMOTE_ADDR"] = "127.0.0.1";
+
+        /*
+                if (self::isSetAndNotEmptyInArray($_SERVER, "HTTP_USER_AGENT")) {
+                    $result[] = array('BROWSER', self::filterUserInput($_SERVER["HTTP_USER_AGENT"]));
+                }
+                if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_HOST")) {
+                    $result[] = array('R_HOST', self::filterUserInput($_SERVER["REMOTE_HOST"]));
+                }
+                if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_ADDR")) {
+                    $result[] = array('R_ADDR', self::filterUserInput($_SERVER["REMOTE_ADDR"]));
+        */
+
+
+        $result = $this->formHelper->whoSendIt();
+
+        echo var_dump($result);
+        $this->assertSameSize(array(), $result);
+        $this->assertEquals(0, sizeof($result));
     }
 
 }

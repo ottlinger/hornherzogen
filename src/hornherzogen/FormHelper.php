@@ -4,19 +4,6 @@ namespace hornherzogen;
 class FormHelper
 {
     /**
-     * Strips the given user input and replaces any XSS-attacks.
-     * @param $data
-     * @return string
-     */
-    public function filterUserInput($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    /**
      * Trims the given String after the given length while keeping it in UTF-8 encoding.
      * @param $input
      * @param $length
@@ -58,12 +45,49 @@ class FormHelper
      */
     public function isSetAndNotEmpty($key)
     {
-        if (isset($_POST) && isset($key)) {
-            if (isset($_POST[$key])) {
-                return !empty($_POST[$key]);
+        return self::isSetAndNotEmptyInArray($_POST, $key);
+    }
+
+    private function isSetAndNotEmptyInArray($array, $key)
+    {
+        if (isset($array) && isset($key)) {
+            if (isset($array[$key])) {
+                return !empty($array[$key]);
             }
         }
         return false;
+    }
+
+    public function whoSendIt()
+    {
+        $result = array();
+
+        if (isset($SERVER)) {
+            if (self::isSetAndNotEmptyInArray($_SERVER, "HTTP_USER_AGENT")) {
+                $result[] = array('BROWSER', self::filterUserInput($_SERVER["HTTP_USER_AGENT"]));
+            }
+            if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_HOST")) {
+                $result[] = array('R_HOST', self::filterUserInput($_SERVER["REMOTE_HOST"]));
+            }
+            if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_ADDR")) {
+                $result[] = array('R_ADDR', self::filterUserInput($_SERVER["REMOTE_ADDR"]));
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Strips the given user input and replaces any XSS-attacks.
+     * @param $data
+     * @return string
+     */
+    public function filterUserInput($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 
 }
