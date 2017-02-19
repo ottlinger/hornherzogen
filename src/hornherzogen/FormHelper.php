@@ -65,17 +65,17 @@ class FormHelper
 
         if (isset($_SERVER)) {
             if (self::isSetAndNotEmptyInArray($_SERVER, "HTTP_USER_AGENT")) {
-                $result[] = array('BROWSER', self::filterUserInput($_SERVER["HTTP_USER_AGENT"]));
+                $result['BROWSER'] = self::filterUserInput($_SERVER["HTTP_USER_AGENT"]);
             }
             if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_HOST")) {
-                $result[] = array('R_HOST', self::filterUserInput($_SERVER["REMOTE_HOST"]));
+                $result['R_HOST'] = self::filterUserInput($_SERVER["REMOTE_HOST"]);
             }
             if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_ADDR")) {
-                $result[] = array('R_ADDR', self::filterUserInput($_SERVER["REMOTE_ADDR"]));
+                $result['R_ADDR'] = self::filterUserInput($_SERVER["REMOTE_ADDR"]);
             }
         }
 
-        $result[] = array('LANG', HornLocalizer::getLanguage());
+        $result['LANG'] = HornLocalizer::getLanguage();
 
         return $result;
     }

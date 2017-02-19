@@ -36,7 +36,7 @@ class SubmitMailer
         // $encoded_subject = substr($encoded_subject, strlen('Subject: '));
 
         // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
-        $encoded_subject = "=?UTF-8?B?".base64_encode(HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()))."?=";
+        $encoded_subject = "=?UTF-8?B?" . base64_encode(HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
@@ -78,7 +78,10 @@ class SubmitMailer
             $remarks = "n/a";
         }
 
-        return '
+        $metadata = $this->formHelper->extractMetadataForFormSubmission();
+
+        $mailtext =
+            '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -115,9 +118,21 @@ class SubmitMailer
                 <h3>
                 Bis dahin sonnige Grüße aus Berlin<br />
                 von Benjamin und Philipp</h3>
-            </h2>
+            </h2>';
+
+        if (4 == sizeof($metadata)) {
+            $mailtext .= '
+            <p>
+            PS: Du hast die Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
+            und von der Adresse "' . $metadata['R_HOST'] . '" (' . $metadata['R_ADDR'] . ') das Formular versendet
+            </p>';
+        }
+
+        $mailtext .= '
         </body>
     </html>';
+
+        return $mailtext;
     }
 
     /**

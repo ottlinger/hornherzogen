@@ -110,26 +110,21 @@ class FormHelperTest extends TestCase
 
     public function testWhoSubmittedTheFormWithAllEntries()
     {
-        $_SERVER["HTTP_USER_AGENT"] = "My browser";
-        $_SERVER["REMOTE_HOST"] = "http://localhost";
-        $_SERVER["REMOTE_ADDR"] = "127.0.0.1";
-
-        /*
-                if (self::isSetAndNotEmptyInArray($_SERVER, "HTTP_USER_AGENT")) {
-                    $result[] = array('BROWSER', self::filterUserInput($_SERVER["HTTP_USER_AGENT"]));
-                }
-                if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_HOST")) {
-                    $result[] = array('R_HOST', self::filterUserInput($_SERVER["REMOTE_HOST"]));
-                }
-                if (self::isSetAndNotEmptyInArray($_SERVER, "REMOTE_ADDR")) {
-                    $result[] = array('R_ADDR', self::filterUserInput($_SERVER["REMOTE_ADDR"]));
-        */
-
+        $browser = "My browser";
+        $host = "http://localhost";
+        $ip = "127.0.0.1";
+        $_SERVER["HTTP_USER_AGENT"] = $browser;
+        $_SERVER["REMOTE_HOST"] = $host;
+        $_SERVER["REMOTE_ADDR"] = $ip;
 
         $result = $this->formHelper->extractMetadataForFormSubmission();
 
-        echo var_dump($result);
         $this->assertEquals(4, sizeof($result));
+        // should be the fallback language
+        $this->assertEquals("en", $result['LANG']);
+        $this->assertEquals($browser, $result['BROWSER']);
+        $this->assertEquals($host, $result['R_HOST']);
+        $this->assertEquals($ip, $result['R_ADDR']);
     }
 
 }

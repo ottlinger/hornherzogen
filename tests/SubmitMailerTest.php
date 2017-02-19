@@ -5,11 +5,10 @@ use PHPUnit\Framework\TestCase;
 
 class SubmitMailerTest extends TestCase
 {
-    private $mailer = null;
-
     private static $firstname = "Hugo Egon";
     private static $lastname = "Balder";
     private static $remarks = "First line\r\nSecond line\nThird line";
+    private $mailer = null;
 
     /**
      * Setup the test environment and provide an ApplicantInput with all relevant fields set.
@@ -103,6 +102,26 @@ class SubmitMailerTest extends TestCase
         $mailer = new SubmitMailer($applicantInput);
         $mailtext = $mailer->getMailtext();
         $this->assertContains("n/a", $mailtext);
+    }
+
+    public function testMailTextContainsAllMetadataIfSetBefore()
+    {
+        $browser = "My browser";
+        $host = "http://localhost";
+        $ip = "127.0.0.1";
+        $_SERVER["HTTP_USER_AGENT"] = $browser;
+        $_SERVER["REMOTE_HOST"] = $host;
+        $_SERVER["REMOTE_ADDR"] = $ip;
+
+        $applicantInput = new ApplicantInput();
+        $applicantInput->parse();
+
+        $mailer = new SubmitMailer($applicantInput);
+        $mailtext = $mailer->getMailtext();
+        $this->assertContains('"en"', $mailtext);
+        $this->assertContains($browser, $mailtext);
+        $this->assertContains($host, $mailtext);
+        $this->assertContains("(".$ip.")", $mailtext);
     }
 
 }
