@@ -22,13 +22,16 @@ final class ApplicantInput extends Applicant
         parent::__construct();
         $this->formHelper = new FormHelper();
         $this->mailSent = false;
+        // set default country to Germany
+        $this->setCountry('DE');
     }
 
     /**
      * @return bool true iff no parsing happened and neither errors nor successes are reported.
      */
-    public function hasParsingHappened() {
-        return 0 == sizeof($this->errors) && 0 == sizeof($this->success);
+    public function hasParsingHappened()
+    {
+        return 0 != sizeof($this->errors) && 0 != sizeof($this->success);
     }
 
     /**
