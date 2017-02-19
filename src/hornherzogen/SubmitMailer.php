@@ -8,12 +8,14 @@ class SubmitMailer
     private $formHelper;
     private $applicationInput;
     private $revision;
+    private $localizer;
 
     function __construct($applicationInput)
     {
         $this->applicationInput = $applicationInput;
         $this->formHelper = new FormHelper();
         $this->revision = new GitRevision();
+        $this->localizer = new HornLocalizer();
     }
 
     // In case you need authentication you should switch the the PEAR module
@@ -32,11 +34,11 @@ class SubmitMailer
         // https://ncona.com/2011/06/using-utf-8-characters-on-an-e-mail-subject/
 
         // $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
-        // $encoded_subject = iconv_mime_encode('Subject', HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
+        // $encoded_subject = iconv_mime_encode('Subject', $this->localizer->i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
         // $encoded_subject = substr($encoded_subject, strlen('Subject: '));
 
         // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
-        $encoded_subject = "=?UTF-8?B?" . base64_encode(HornLocalizer::i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
+        $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
@@ -146,22 +148,4 @@ class SubmitMailer
         return false;
     }
 
-
-    /**
-     * private function mail_utf8($to, $from_user, $from_email,
-     * $subject = '(No subject)', $message = '')
-     * {
-     * $from_user = "=?UTF-8?B?".base64_encode($from_user)."?=";
-     * $subject = "=?UTF-8?B?".base64_encode($subject)."?=";
-     *
-     * $headers = "From: $from_user <$from_email>\r\n".
-     * "MIME-Version: 1.0" . "\r\n" .
-     * "Content-type: text/html; charset=UTF-8" . "\r\n";
-     *
-     * return mail($to, $subject, $message, $headers);
-     * }
-     */
-
 }
-
-?>
