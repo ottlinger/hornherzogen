@@ -128,7 +128,7 @@ class SubmitMailer
             $mailtext .= '(' . $metadata['R_HOST'] . ')';
         }
 
-        $mailtext .= ' das Formular versendet
+        $mailtext .= ' das Formular versendet.
             </p>';
         //}
 
