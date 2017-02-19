@@ -127,4 +127,18 @@ class FormHelperTest extends TestCase
         $this->assertEquals($ip, $result['R_ADDR']);
     }
 
+    public function testExtractionFromArray()
+    {
+        $arr = array();
+        $arr['a'] = 'b';
+
+        $this->assertTrue($this->formHelper->isSetAndNotEmptyInArray($arr, 'a'));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, 'A'));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, 'B'));
+
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(NULL, NULL));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, NULL));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(NULL, 'a'));
+    }
+
 }

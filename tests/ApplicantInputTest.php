@@ -545,4 +545,12 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals("<span class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span>", $this->applicantInput->showSymbolIfFeedback("unknown"));
     }
 
+    public function testBooleanMarkerInCaseNoParsingTookPlace() {
+        $this->assertFalse($this->applicantInput->hasParsingHappened());
+
+        $this->applicantInput->parse();
+
+        $this->assertTrue($this->applicantInput->hasParsingHappened());
+    }
+
 }

@@ -49,7 +49,7 @@ class FormHelper
         return self::isSetAndNotEmptyInArray($_POST, $key);
     }
 
-    private function isSetAndNotEmptyInArray($array, $key)
+    public function isSetAndNotEmptyInArray($array, $key)
     {
         if (isset($array) && isset($key)) {
             if (isset($array[$key])) {

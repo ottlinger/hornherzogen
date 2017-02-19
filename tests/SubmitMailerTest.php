@@ -121,7 +121,7 @@ class SubmitMailerTest extends TestCase
         $this->assertContains('"en"', $mailtext);
         $this->assertContains($browser, $mailtext);
         $this->assertContains($host, $mailtext);
-        $this->assertContains("(".$ip.")", $mailtext);
+        $this->assertContains($ip, $mailtext);
     }
 
 }

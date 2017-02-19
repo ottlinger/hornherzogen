@@ -120,15 +120,17 @@ class SubmitMailer
                 <h3>
                 Bis dahin sonnige Grüße aus Berlin<br />
                 von Benjamin und Philipp</h3>
-            </h2>';
-
-        if (4 === sizeof($metadata)) {
-            $mailtext .= '
+            </h2>
             <p>
             PS: Du hast die Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
-            und von der Adresse "' . $metadata['R_HOST'] . '" (' . $metadata['R_ADDR'] . ') das Formular versendet
-            </p>';
+            und von der Adresse "' . $metadata['R_ADDR'] . '"';
+        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
+            $mailtext .= '(' . $metadata['R_HOST'] . ')';
         }
+
+        $mailtext .= ' das Formular versendet
+            </p>';
+        //}
 
         $mailtext .= '
         </body>
