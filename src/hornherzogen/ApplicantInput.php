@@ -333,7 +333,6 @@ final class ApplicantInput extends Applicant
                 '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>';
         }
         return '';
-
     }
 
     /**
