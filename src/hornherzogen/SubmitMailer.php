@@ -122,7 +122,7 @@ class SubmitMailer
                 von Benjamin und Philipp</h3>
             </h2>';
 
-        if (4 == sizeof($metadata)) {
+        if (4 === sizeof($metadata)) {
             $mailtext .= '
             <p>
             PS: Du hast die Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
