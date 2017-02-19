@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 use hornherzogen\FormHelper;
 use PHPUnit\Framework\TestCase;
 
@@ -101,9 +102,10 @@ class FormHelperTest extends TestCase
         $this->assertTrue($this->formHelper->isValidEmail('abc@example.de'));
     }
 
-    public function testWhoSubmittedTheFormNoDataFound()
+    public function testWhoSubmittedTheFormOnlyLanguageFound()
     {
-        $this->assertEmpty($this->formHelper->whoSendIt());
+        $result = $this->formHelper->extractMetadataForFormSubmission();
+        $this->assertEquals(1, sizeof($result));
     }
 
     public function testWhoSubmittedTheFormWithAllEntries()
@@ -124,11 +126,10 @@ class FormHelperTest extends TestCase
         */
 
 
-        $result = $this->formHelper->whoSendIt();
+        $result = $this->formHelper->extractMetadataForFormSubmission();
 
         echo var_dump($result);
-        $this->assertSameSize(array(), $result);
-        $this->assertEquals(0, sizeof($result));
+        $this->assertEquals(4, sizeof($result));
     }
 
 }

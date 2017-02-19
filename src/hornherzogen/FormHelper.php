@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 namespace hornherzogen;
 
 class FormHelper
@@ -58,11 +59,11 @@ class FormHelper
         return false;
     }
 
-    public function whoSendIt()
+    public function extractMetadataForFormSubmission()
     {
         $result = array();
 
-        if (isset($SERVER)) {
+        if (isset($_SERVER)) {
             if (self::isSetAndNotEmptyInArray($_SERVER, "HTTP_USER_AGENT")) {
                 $result[] = array('BROWSER', self::filterUserInput($_SERVER["HTTP_USER_AGENT"]));
             }
@@ -73,6 +74,8 @@ class FormHelper
                 $result[] = array('R_ADDR', self::filterUserInput($_SERVER["REMOTE_ADDR"]));
             }
         }
+
+        $result[] = array('LANG', HornLocalizer::getLanguage());
 
         return $result;
     }
