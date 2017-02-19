@@ -25,6 +25,13 @@ final class ApplicantInput extends Applicant
     }
 
     /**
+     * @return bool true iff no parsing happened and neither errors nor successes are reported.
+     */
+    public function hasParsingHappened() {
+        return 0 == sizeof($this->errors) && 0 == sizeof($this->success);
+    }
+
+    /**
      * @return bool
      */
     public function isMailSent()
