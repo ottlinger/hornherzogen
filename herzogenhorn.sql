@@ -54,10 +54,12 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `paymentreceived` timestamp NULL,
   `booked` timestamp NULL,
   `cancelled` timestamp NULL,
-  `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
-  PRIMARY KEY (`id`)
---  FOREIGN KEY fk_status(id)
---  REFERENCES status(id)
+  -- https://github.com/ottlinger/hornherzogen/issues/2
+  `statusId` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT status_id_fk
+  FOREIGN KEY (statusId)
+  REFERENCES status(id) ON DELETE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -74,7 +76,6 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- https://github.com/ottlinger/hornherzogen/issues/2 TODO add foreign key to applicant
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
