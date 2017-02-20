@@ -156,7 +156,7 @@ class SubmitMailer
             $importance = 1;
 
             // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
-            $encoded_subject = "=?UTF-8?B?Anmeldung Herzogenhorn eingegangen?=";
+            $encoded_subject = "=?UTF-8?B?" . base64_encode("Anmeldung Herzogenhorn eingegangen") . "?=";
 
             // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
             $headers = array();
