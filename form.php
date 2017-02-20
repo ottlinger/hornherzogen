@@ -432,7 +432,6 @@
         $sender = new \hornherzogen\SubmitMailer($applicantInput);
         echo $sender->send();
         echo $sender->sendInternally();
-        $applicantInput->setMailSent(true);
     } // if showButtons
     ?>
 
