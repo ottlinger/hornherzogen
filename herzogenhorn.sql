@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `cancelled` timestamp NULL,
   `status` varchar(50) COLLATE utf8_bin DEFAULT 'APPLIED',
   PRIMARY KEY (`id`)
+--  FOREIGN KEY fk_status(id)
+--  REFERENCES status(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -79,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- https://github.com/ottlinger/hornherzogen/issues/3 TODO: add status values:
+-- https://github.com/ottlinger/hornherzogen/issues/3
 -- APPLIED - form data is saved
 -- REGISTERED - mail is sent successfully
 -- CONFIRMED - admin checked and verified registration
@@ -87,3 +89,11 @@ CREATE TABLE IF NOT EXISTS `status` (
 -- CANCELLED - manually withdrawn from seminar
 -- PAID - paid successfully
 -- BOOKED - final confirmation is sent
+-- SPAM - in case we have to delete stuff
+INSERT INTO status (name) VALUES ('APPLIED');
+INSERT INTO status (name) VALUES ('REGISTERED');
+INSERT INTO status (name) VALUES ('CONFIRMED');
+INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
+INSERT INTO status (name) VALUES ('CANCELLED');
+INSERT INTO status (name) VALUES ('PAID');
+INSERT INTO status (name) VALUES ('SPAM');
