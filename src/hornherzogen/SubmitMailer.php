@@ -185,7 +185,6 @@ class SubmitMailer
 
             return '<p>Interne Mail an das Organisationsteam abgeschickt um ' . $this->formHelper->timestamp() . '</p>';
         }
-        return false;
     }
 
     public function getInternalMailtext()

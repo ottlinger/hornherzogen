@@ -81,7 +81,7 @@ class SubmitMailerTest extends TestCase
         $_SERVER["SERVER_NAME"] = 'justATest.local';
 
         $this->assertStringStartsWith('<p>Mail abgeschickt um ', $this->mailer->send());
-        $this->assertFalse($this->mailer->sendInternally());
+        $this->assertNull($this->mailer->sendInternally());
     }
 
     public function testMailTextContainsRelevantFields()
