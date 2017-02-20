@@ -222,7 +222,7 @@ class SubmitMailer
                 </p>
             </h2>
             <p>
-            PS: hast die Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
+            PS: Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
             und von der Adresse "' . $metadata['R_ADDR'] . '"';
         if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
             $mailtext .= '(' . $metadata['R_HOST'] . ')';
