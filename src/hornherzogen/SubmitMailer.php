@@ -66,11 +66,11 @@ class SubmitMailer
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
         }
 
-        $confirmedAt = $this->formHelper->timestamp();
+        $appliedAt = $this->formHelper->timestamp();
 
         $this->applicationInput->setMailSent(true);
-        $this->applicationInput->setConfirmedAt($confirmedAt);
-        return '<p>Mail abgeschickt um ' . $confirmedAt . '</p>';
+        $this->applicationInput->setCreatedAt($appliedAt);
+        return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
     }
 
     public function getMailtext()
