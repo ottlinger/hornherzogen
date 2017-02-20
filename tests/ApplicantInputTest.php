@@ -515,14 +515,21 @@ class ApplicantInputTest extends TestCase
         $this->assertEmpty($this->applicantInput->getUIResponse("unknown"));
     }
 
-    public function testUIResponseForFieldInStateOkay()
+    public function testUIResponseForFieldInStateOkayAndIsIdempotent()
     {
+        $this->applicantInput->addSuccess("unknown");
+        $this->applicantInput->addSuccess("unknown");
+        $this->applicantInput->addSuccess("unknown");
+        $this->applicantInput->addSuccess("unknown");
         $this->applicantInput->addSuccess("unknown");
         $this->assertEquals(" has-success has-feedback", $this->applicantInput->getUIResponse("unknown"));
     }
 
-    public function testUIResponseForFieldInStateError()
+    public function testUIResponseForFieldInStateErrorAndIsIdempotent()
     {
+        $this->applicantInput->addError("unknown");
+        $this->applicantInput->addError("unknown");
+        $this->applicantInput->addError("unknown");
         $this->applicantInput->addError("unknown");
         $this->assertEquals(1, $this->applicantInput->getErrorCount());
         $this->assertEquals(" has-error has-feedback", $this->applicantInput->getUIResponse("unknown"));

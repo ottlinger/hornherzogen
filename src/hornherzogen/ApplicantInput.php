@@ -57,6 +57,7 @@ final class ApplicantInput extends Applicant
      */
     public function parse()
     {
+        // reset internal state
         $this->errors = array();
         $this->success = array();
 
@@ -223,12 +224,17 @@ final class ApplicantInput extends Applicant
 
     public function addSuccess($field)
     {
-        array_push($this->success, $field);
+        if (!in_array($field, $this->success)) {
+            array_push($this->success, $field);
+        }
     }
+
 
     public function addError($field)
     {
-        array_push($this->errors, $field);
+        if (!in_array($field, $this->errors)) {
+            array_push($this->errors, $field);
+        }
     }
 
     function areEmailAddressesValid()
@@ -254,7 +260,8 @@ final class ApplicantInput extends Applicant
     /**
      * @return bool true iff errors is empty and no required fields are missing.
      */
-    public function hasParseErrors()
+    public
+    function hasParseErrors()
     {
         foreach ($this->errors as $value) {
             if (in_array($value, self::getRequiredFields())) {
@@ -291,7 +298,8 @@ final class ApplicantInput extends Applicant
         return $required;
     }
 
-    public function hasErrors()
+    public
+    function hasErrors()
     {
         return empty($this->getWeek()) || $this->getFlexible() || empty($this->getGender()) //
             || empty($this->getFirstname()) || empty($this->getLastname()) || empty($this->getStreet()) //
@@ -301,12 +309,14 @@ final class ApplicantInput extends Applicant
             || empty($this->getRoom()) || empty($this->getFoodCategory());
     }
 
-    public function getErrorCount()
+    public
+    function getErrorCount()
     {
         return sizeof($this->errors);
     }
 
-    public function getUIResponse($field)
+    public
+    function getUIResponse($field)
     {
         if (!empty($this->showHasError($field))) {
             return $this->showHasError($field);
@@ -314,7 +324,8 @@ final class ApplicantInput extends Applicant
         return $this->showIsSuccess($field);
     }
 
-    public function showHasError($field)
+    public
+    function showHasError($field)
     {
         if (in_array($field, $this->errors)) {
             return ' has-error has-feedback';
@@ -322,7 +333,8 @@ final class ApplicantInput extends Applicant
         return '';
     }
 
-    public function showIsSuccess($field)
+    public
+    function showIsSuccess($field)
     {
         if (in_array($field, $this->success)) {
             return ' has-success has-feedback';
@@ -330,7 +342,8 @@ final class ApplicantInput extends Applicant
         return '';
     }
 
-    public function showSymbolIfFeedback($field)
+    public
+    function showSymbolIfFeedback($field)
     {
         // http://getbootstrap.com/css/#forms-control-validation
         if (in_array($field, $this->errors)) {
@@ -348,7 +361,8 @@ final class ApplicantInput extends Applicant
     /**
      * @return mixed
      */
-    public function getEmailcheck()
+    public
+    function getEmailcheck()
     {
         return $this->emailcheck;
     }
@@ -356,7 +370,8 @@ final class ApplicantInput extends Applicant
     /**
      * @param mixed $emailcheck
      */
-    public function setEmailcheck($emailcheck)
+    public
+    function setEmailcheck($emailcheck)
     {
         $this->emailcheck = $emailcheck;
     }
