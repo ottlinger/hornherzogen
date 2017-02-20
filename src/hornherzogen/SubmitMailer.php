@@ -16,13 +16,13 @@ class SubmitMailer
         $this->formHelper = new FormHelper();
         $this->revision = new GitRevision();
         $this->localizer = new HornLocalizer();
+        date_default_timezone_set('Europe/Berlin');
     }
 
     // In case you need authentication you should switch the the PEAR module
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
     public function send()
     {
-        date_default_timezone_set('Europe/Berlin');
         $replyto = ConfigurationWrapper::registrationmail();
 
         $importance = 1; //1 UrgentMessage, 3 Normal
@@ -67,18 +67,16 @@ class SubmitMailer
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
         }
 
+        $confirmedAt = $this->formHelper->timestamp();
+
         $this->applicationInput->setMailSent(true);
-        return '<p>Mail abgeschickt um ' . $this->formHelper->timestamp() . '</p>';
+        $this->applicationInput->setConfirmedAt($confirmedAt);
+        return '<p>Mail abgeschickt um ' . $confirmedAt . '</p>';
     }
 
     public function getMailtext()
     {
-        $remarks = $this->applicationInput->getRemarks();
-        if (!empty($remarks)) {
-            $remarks = nl2br($remarks);
-        } else {
-            $remarks = "n/a";
-        }
+        $remarks = self::reformat($this->applicationInput->getRemarks());
 
         $metadata = $this->formHelper->extractMetadataForFormSubmission();
 
@@ -129,14 +127,22 @@ class SubmitMailer
         }
 
         $mailtext .= ' das Formular versendet.
-            </p>';
-        //}
-
-        $mailtext .= '
+            </p>
         </body>
     </html>';
 
         return $mailtext;
+    }
+
+    private static function reformat($input)
+    {
+        $remarks = $input;
+        if (!empty($remarks)) {
+            $remarks = nl2br($remarks);
+        } else {
+            $remarks = "n/a";
+        }
+        return $remarks;
     }
 
     /**
@@ -145,9 +151,92 @@ class SubmitMailer
     public function sendInternally()
     {
         if (ConfigurationWrapper::sendinternalregistrationmails() && !$this->applicationInput->isMailSent()) {
-            return 'An internal confirmation mail needs to be sent as well :-)';
+
+            $replyto = ConfigurationWrapper::registrationmail();
+            $importance = 1;
+
+            // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
+            $encoded_subject = "=?UTF-8?B?Anmeldung Herzogenhorn eingegangen?=";
+
+            // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
+            $headers = array();
+            $headers[] = 'MIME-Version: 1.0';
+            $headers[] = 'Bcc: ' . $replyto;
+
+            $headers[] = 'X-Priority: ' . $importance;
+            $headers[] = 'Importance: ' . $importance;
+            $headers[] = 'X-MSMail-Priority: High';
+
+            $headers[] = 'Reply-To: ' . $replyto;
+            // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
+            $headers[] = 'From: ' . $replyto;
+            $headers[] = 'Sender: ' . $replyto;
+            $headers[] = 'Return-Path: ' . $replyto;
+            $headers[] = 'Errors-To: ' . $replyto;
+
+            $headers[] = 'Content-type: text/html; charset=UTF-8';
+            $headers[] = 'Date: ' . date("r");
+            $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
+            $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
+            $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
+            $headers[] = 'X-Mailer: PHP/' . phpversion();
+
+            mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+
+            return '<p>Interne Mail an das Organisationsteam abgeschickt um ' . $this->formHelper->timestamp() . '</p>';
         }
         return false;
+    }
+
+    public function getInternalMailtext()
+    {
+        $remarks = self::reformat($this->applicationInput->getRemarks());
+
+        $metadata = $this->formHelper->extractMetadataForFormSubmission();
+
+        $mailtext =
+            '
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
+        </head>
+        <body>
+            <h1>Herzogenhorn 2017 - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
+            <h2>Anmeldungsdetails</h2>
+                <p>gegen ' . $this->formHelper->timestamp() . ' ging die folgende Anmeldung ein:</p>
+                <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
+                <ul>
+                <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
+                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
+                <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
+                <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
+                <li>Land: ' . $this->applicationInput->getCountry() . '</li>
+                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
+                <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
+                <li>Graduierung: ' . $this->applicationInput->getGrading() . ' (seit ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
+                <li>Zimmer: ' . $this->applicationInput->getRoom() . '</li>
+                <li>Person1: ' . $this->applicationInput->getPartnerOne() . '</li>
+                <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
+                <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
+                <li>Anmerkungen: ' . $remarks . '</li>
+                </ul>
+                </p>
+            </h2>
+            <p>
+            PS: hast die Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
+            und von der Adresse "' . $metadata['R_ADDR'] . '"';
+        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
+            $mailtext .= '(' . $metadata['R_HOST'] . ')';
+        }
+
+        $mailtext .= ' das Formular versendet.
+            </p>
+        </body>
+    </html>';
+
+        return $mailtext;
     }
 
 }

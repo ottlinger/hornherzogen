@@ -50,8 +50,11 @@ class SubmitMailerTest extends TestCase
      */
     public function testValidInternalMailSendingWhenConfigIsSetProperly()
     {
+        $_SERVER["REMOTE_ADDR"] = '127.0.0.1';
+        $_SERVER["SERVER_NAME"] = 'justATest.local';
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
-        $this->assertEquals("An internal confirmation mail needs to be sent as well :-)", $this->mailer->sendInternally());
+        $GLOBALS["horncfg"]["registrationmail"] = 'me@example.com';
+        $this->assertStringStartsWith("<p>Interne Mail an das Organisationsteam abgeschickt um ", $this->mailer->sendInternally());
     }
 
     /**

@@ -103,7 +103,7 @@
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <?php if ($applicantInput->hasParseErrors()) {
-            echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span>" . \hornherzogen\HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+            echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . \hornherzogen\HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
         } // show error message ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
