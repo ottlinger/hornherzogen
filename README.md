@@ -54,6 +54,8 @@ $ tail -f /var/log/apache2/*.log
 ```
 ### PHP stuff
 
+#### Ubuntu
+
 You need to install php and add some libraries to your local Webserver:
 ```
 $ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl
@@ -61,6 +63,14 @@ or
 $ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php-xdebug
 $ sudo /etc/init.d/apache2 restart
 ```
+
+#### MacOS
+
+The equivalent installation via homebrew is
+```
+$ brew install php70 php70-intl
+```
+to make the tests run locally.
 
 #### Composer / Dependency Management
 In case you want to develop the dependency manager can be installed
@@ -118,7 +128,7 @@ The configuration file needs to be created in order to set certain application p
 | dbuser | database username |
 | dbpassword | database password |
 
-See example configurations in 
+See example configurations in
 [configuration example of this project](inc/config.ini.php.template)
 
 ## Links
