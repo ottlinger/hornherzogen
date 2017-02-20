@@ -43,7 +43,6 @@ class SubmitMailer
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
         $headers[] = 'MIME-Version: 1.0';
-        $headers[] = 'Bcc: ' . $replyto;
 
         $headers[] = 'X-Priority: ' . $importance;
         $headers[] = 'Importance: ' . $importance;
@@ -161,7 +160,6 @@ class SubmitMailer
             // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
             $headers = array();
             $headers[] = 'MIME-Version: 1.0';
-            $headers[] = 'Bcc: ' . $replyto;
 
             $headers[] = 'X-Priority: ' . $importance;
             $headers[] = 'Importance: ' . $importance;
