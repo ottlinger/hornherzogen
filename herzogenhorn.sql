@@ -20,10 +20,37 @@ SET time_zone = "+00:00";
 --
 -- --------------------------------------------------------
 
+
+--
+-- Tabellenstruktur für Tabelle `status`
+--
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+-- https://github.com/ottlinger/hornherzogen/issues/3
+-- APPLIED - form data is saved
+-- REGISTERED - mail is sent successfully
+-- CONFIRMED - admin checked and verified registration
+-- WAITING_FOR_PAYMENT - we are waiting for payment to come in
+-- CANCELLED - manually withdrawn from seminar
+-- PAID - paid successfully
+-- BOOKED - final confirmation is sent
+-- SPAM - in case we have to delete stuff
+INSERT INTO status (name) VALUES ('APPLIED');
+INSERT INTO status (name) VALUES ('REGISTERED');
+INSERT INTO status (name) VALUES ('CONFIRMED');
+INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
+INSERT INTO status (name) VALUES ('CANCELLED');
+INSERT INTO status (name) VALUES ('PAID');
+INSERT INTO status (name) VALUES ('SPAM');
+
+
 --
 -- Tabellenstruktur für Tabelle `applicants`
 --
-
 CREATE TABLE IF NOT EXISTS `applicants` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -63,8 +90,6 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
--- https://github.com/ottlinger/hornherzogen/issues/1 TODO: Add reference from applicant to table rooms with primary key reference, but optional field to allow setting a room number in the admin UI
-
 -- TABLE: ROOMS
 -- Holds information about the rooms available
 -- Capacity should be 1, 2,3 depending on how many beds there are
@@ -83,25 +108,17 @@ INSERT INTO rooms (name, capacity) VALUES ('Zimmer3',3);
 INSERT INTO rooms (name, capacity) VALUES ('Zimmer4',3);
 INSERT INTO rooms (name, capacity) VALUES ('Zimmer5',3);
 
-CREATE TABLE IF NOT EXISTS `status` (
+-- TABLE booking
+-- https://github.com/ottlinger/hornherzogen/issues/1
+CREATE TABLE IF NOT EXISTS `roombooking` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `statusId` int(10) unsigned NOT NULL,
+  CONSTRAINT status_id_fk
+  FOREIGN KEY (statusId)
+  REFERENCES status(id) ON DELETE CASCADE,
+    `applicantId` int(10) unsigned NOT NULL,
+  CONSTRAINT applicant_id_fk
+  FOREIGN KEY (applicantId)
+  REFERENCES applicant(id) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
-
--- https://github.com/ottlinger/hornherzogen/issues/3
--- APPLIED - form data is saved
--- REGISTERED - mail is sent successfully
--- CONFIRMED - admin checked and verified registration
--- WAITING_FOR_PAYMENT - we are waiting for payment to come in
--- CANCELLED - manually withdrawn from seminar
--- PAID - paid successfully
--- BOOKED - final confirmation is sent
--- SPAM - in case we have to delete stuff
-INSERT INTO status (name) VALUES ('APPLIED');
-INSERT INTO status (name) VALUES ('REGISTERED');
-INSERT INTO status (name) VALUES ('CONFIRMED');
-INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
-INSERT INTO status (name) VALUES ('CANCELLED');
-INSERT INTO status (name) VALUES ('PAID');
-INSERT INTO status (name) VALUES ('SPAM');
