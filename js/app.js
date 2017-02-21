@@ -1,6 +1,8 @@
 $(function () {
         $("#room").change(
             function () {
+                $("#together1-group").show();
+                $("#together2-group").show();
                 if (this.selectedIndex === 0) {
                     $("#together1-group").hide();
                     $("#together2-group").hide();
@@ -12,8 +14,6 @@ $(function () {
                     return;
                 }
 
-                $("#together1-group").show();
-                $("#together2-group").show();
             });
     }
 );
