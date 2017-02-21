@@ -112,13 +112,13 @@ INSERT INTO rooms (name, capacity) VALUES ('Zimmer5',3);
 -- https://github.com/ottlinger/hornherzogen/issues/1
 CREATE TABLE IF NOT EXISTS `roombooking` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `statusId` int(10) unsigned NOT NULL,
-  CONSTRAINT status_id_fk
-  FOREIGN KEY (statusId)
-  REFERENCES status(id) ON DELETE CASCADE,
-    `applicantId` int(10) unsigned NOT NULL,
+  `roomId` int(10) unsigned NOT NULL,
+  `applicantId` int(10) unsigned NOT NULL,
+  CONSTRAINT room_id_fk
+  FOREIGN KEY (roomId)
+  REFERENCES rooms(id) ON DELETE NO ACTION,
   CONSTRAINT applicant_id_fk
   FOREIGN KEY (applicantId)
-  REFERENCES applicant(id) ON DELETE CASCADE,
+  REFERENCES applicants(id) ON DELETE NO ACTION,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
