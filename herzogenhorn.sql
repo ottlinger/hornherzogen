@@ -72,9 +72,16 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 CREATE TABLE IF NOT EXISTS `rooms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `capacity` integer COLLATE utf8_bin DEFAULT 2,
+  `capacity` integer COLLATE utf8_bin DEFAULT 3,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+-- Replace with real data if available
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer1',1);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer2',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer3',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer4',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer5',3);
 
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
