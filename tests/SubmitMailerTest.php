@@ -127,4 +127,18 @@ class SubmitMailerTest extends TestCase
         $this->assertContains($ip, $mailtext);
     }
 
+    public function testIsMailSentLogicalFlag()
+    {
+        $this->assertFalse($this->mailer->isMailSent());
+
+        $_SERVER["REMOTE_ADDR"] = '127.0.0.1';
+        $_SERVER["SERVER_NAME"] = 'justATest.local';
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = false;
+        $GLOBALS["horncfg"]["sendregistrationmails"] = false;
+        $GLOBALS["horncfg"]["registrationmail"] = 'me@example.com';
+        $this->mailer->send();
+
+        $this->assertTrue($this->mailer->isMailSent());
+    }
+
 }

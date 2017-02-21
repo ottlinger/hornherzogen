@@ -73,6 +73,11 @@ class SubmitMailer
         return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
     }
 
+    public function isMailSent()
+    {
+        return $this->applicationInput->isMailSent();
+    }
+
     public function getMailtext()
     {
         $remarks = self::reformat($this->applicationInput->getRemarks());
