@@ -229,7 +229,6 @@ final class ApplicantInput extends Applicant
         }
     }
 
-
     public function addError($field)
     {
         if (!in_array($field, $this->errors)) {
@@ -260,8 +259,7 @@ final class ApplicantInput extends Applicant
     /**
      * @return bool true iff errors is empty and no required fields are missing.
      */
-    public
-    function hasParseErrors()
+    public function hasParseErrors()
     {
         foreach ($this->errors as $value) {
             if (in_array($value, self::getRequiredFields())) {
