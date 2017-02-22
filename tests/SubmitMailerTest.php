@@ -15,6 +15,11 @@ class SubmitMailerTest extends TestCase
      */
     public function setUp()
     {
+        $this->mailer = new SubmitMailer(self::createApplicantInput());
+    }
+
+    private static function createApplicantInput()
+    {
         // TODO set all necessary attributes
         $applicantInput = new ApplicantInput();
         $applicantInput->setFirstname(self::$firstname);
@@ -22,7 +27,7 @@ class SubmitMailerTest extends TestCase
         $applicantInput->setRemarks(self::$remarks);
         $applicantInput->parse();
 
-        $this->mailer = new SubmitMailer($applicantInput);
+        return $applicantInput;
     }
 
     /**
@@ -65,6 +70,18 @@ class SubmitMailerTest extends TestCase
     public function testInternalMailsAreNotSendIfNotConfigured()
     {
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = false;
+        $this->assertEquals('', $this->mailer->sendInternally());
+    }
+
+    public function testInternalMailsAreNotSendIfAlreadySent()
+    {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
+
+        $applicantInput = self::createApplicantInput();
+        $applicantInput->setMailSent(true);
+
+        $this->mailer = new SubmitMailer($applicantInput);
+
         $this->assertEquals('', $this->mailer->sendInternally());
     }
 
