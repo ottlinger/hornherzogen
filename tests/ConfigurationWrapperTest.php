@@ -132,4 +132,44 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertEquals('dbpasswordNE', $this->configuration->dbpassword());
     }
 
+    public function testFilterBooleanMethodsTrueCase()
+    {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
+        $GLOBALS["horncfg"]["sendregistrationmails"] = true;
+
+        $this->assertTrue($this->configuration->sendregistrationmails());
+        $this->assertTrue($this->configuration->sendinternalregistrationmails());
+    }
+
+    public function testFilterBooleanMethodsFalseCase()
+    {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = false;
+        $GLOBALS["horncfg"]["sendregistrationmails"] = false;
+
+        $this->assertFalse($this->configuration->sendregistrationmails());
+        $this->assertFalse($this->configuration->sendinternalregistrationmails());
+    }
+
+    public function testFilterBooleanMethodsNullCase()
+    {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = NULL;
+        $GLOBALS["horncfg"]["sendregistrationmails"] = NULL;
+
+        $this->assertFalse($this->configuration->sendregistrationmails());
+        $this->assertFalse($this->configuration->sendinternalregistrationmails());
+
+        $GLOBALS["horncfg"] = NULL;
+        $this->assertFalse($this->configuration->sendregistrationmails());
+        $this->assertFalse($this->configuration->sendinternalregistrationmails());
+    }
+
+    public function testFilterBooleanMethodsRandomStringMapsToTrue()
+    {
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = 'thisIsNotABoolean';
+        $GLOBALS["horncfg"]["sendregistrationmails"] = 'thisIsNotABoolean';
+
+        $this->assertTrue($this->configuration->sendregistrationmails());
+        $this->assertTrue($this->configuration->sendinternalregistrationmails());
+    }
+
 }

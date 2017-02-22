@@ -37,12 +37,12 @@ class ConfigurationWrapper
 
     public static function sendregistrationmails()
     {
-        return self::getFromHornConfiguration('sendregistrationmails');
+        return boolval(self::getFromHornConfiguration('sendregistrationmails'));
     }
 
     public static function sendinternalregistrationmails()
     {
-        return self::getFromHornConfiguration('sendinternalregistrationmails');
+        return boolval(self::getFromHornConfiguration('sendinternalregistrationmails'));
     }
 
     public static function dbhost()

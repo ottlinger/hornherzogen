@@ -154,7 +154,7 @@ class SubmitMailer
      */
     public function sendInternally()
     {
-        if (ConfigurationWrapper::sendinternalregistrationmails()) {
+        if (ConfigurationWrapper::sendinternalregistrationmails() && !$this->isMailSent()) {
 
             $replyto = ConfigurationWrapper::registrationmail();
             $importance = 1;
