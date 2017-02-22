@@ -31,7 +31,7 @@ In order to just play around with it I've integrated a CI run:
 
 ### Prerequisites
 
-* PHP >=5.6, since my hoster does not properly support 7.x yet
+* PHP >=5.6
   * with XML module installed
   * with MBString extension installed
   * with MySQL extension installed
@@ -53,6 +53,10 @@ In order to just play around with it I've integrated a CI run:
 $ tail -f /var/log/apache2/*.log
 ```
 ### PHP stuff
+
+Local installations work fine with PHP7, while some hosters have trouble because of
+* UTF-8 issues
+* missing modules such as intl for l10n
 
 #### Ubuntu
 
