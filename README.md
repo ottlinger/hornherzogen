@@ -146,4 +146,4 @@ This a collection of related links:
 
 ## License
 
-* [GPLv3](LICENSE)
+* (C) 2017 Ottlinger under [GPLv3](LICENSE)
