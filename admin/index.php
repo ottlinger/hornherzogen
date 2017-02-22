@@ -20,6 +20,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 <ul>
     <li><a href="dbtest.php">ensure <strong>database</strong> is working smoothly</a></li>
     <li><a href="db_rooms.php">show list of <strong>available rooms</strong> in the database</a></li>
+    <li><a href="db_bookings.php">show list of <strong>bookings</strong> in the database</a></li>
     <li><a href="i18n.php">ensure <strong>localization</strong> is working smoothly</a></li>
     <li><a href="path.php">show <strong>path to authentication setup</strong>, which needs to be changed manually after
             deployment to prod</a></li>

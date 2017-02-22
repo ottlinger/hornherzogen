@@ -22,7 +22,13 @@ if (ConfigurationWrapper::isValidDatabaseConfig()) {
             print "<h2>$row[vorname] $row[nachname] created at $row[created] with status $row[name]</h2>\n";
         }
 
-        $result = $db->exec("DELETE FROM `applicants` WHERE vorname='Hugo'");
+        $result = $db->exec("INSERT INTO `roombooking` (roomId,applicantId) VALUES ( (SELECT r.id AS roomId FROM `rooms` r where r.name like '%Zimmer1%' ), (SELECT a.id AS applicantId FROM `applicants` a where a.vorname like '%Hugo%') )");
+        if (false === $result) {
+            $error = $db->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
+
+        //        $result = $db->exec("DELETE FROM `applicants` WHERE vorname='Hugo'");
 
     } catch (PDOException $e) {
         print "Unable to connect to db:" . $e->getMessage();
