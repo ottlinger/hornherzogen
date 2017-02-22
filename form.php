@@ -412,7 +412,7 @@
                 </div>
             </div>
 
-            <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors()) { ?>
+            <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors() && !$applicantInput->isMailSent()) { ?>
             <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

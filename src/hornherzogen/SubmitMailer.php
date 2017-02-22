@@ -62,7 +62,7 @@ class SubmitMailer
         $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
         $headers[] = 'X-Mailer: PHP/' . phpversion();
 
-        if (ConfigurationWrapper::sendregistrationmails() && !$this->applicationInput->isMailSent()) {
+        if (ConfigurationWrapper::sendregistrationmails() && !$this->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setCreatedAt($appliedAt);
@@ -75,7 +75,7 @@ class SubmitMailer
 
     public function isMailSent()
     {
-        return $this->applicationInput->isMailSent();
+        return boolval($this->applicationInput->isMailSent());
     }
 
     public function getMailtext()
