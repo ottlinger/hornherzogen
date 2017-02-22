@@ -64,13 +64,13 @@ class SubmitMailer
 
         if (ConfigurationWrapper::sendregistrationmails() && !$this->applicationInput->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $appliedAt = $this->formHelper->timestamp();
+            $this->applicationInput->setCreatedAt($appliedAt);
+            return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
         }
 
-        $appliedAt = $this->formHelper->timestamp();
-
         $this->applicationInput->setMailSent(true);
-        $this->applicationInput->setCreatedAt($appliedAt);
-        return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
+        return '';
     }
 
     public function isMailSent()
@@ -188,6 +188,7 @@ class SubmitMailer
 
             return '<p>Interne Mail an das Organisationsteam abgeschickt um ' . $this->formHelper->timestamp() . '</p>';
         }
+        return '';
     }
 
     public function getInternalMailtext()

@@ -67,13 +67,13 @@ class SubmitMailerTest extends TestCase
      *
      * @test
      */
-    public function testInternalMailsAreNotSendIfNotConfigured()
+    public function testInternalMailsAreNotSentIfNotConfigured()
     {
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = false;
         $this->assertEquals('', $this->mailer->sendInternally());
     }
 
-    public function testInternalMailsAreNotSendIfAlreadySent()
+    public function testInternalMailsAreNotSentIfAlreadySent()
     {
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
 
@@ -85,7 +85,20 @@ class SubmitMailerTest extends TestCase
         $this->assertEquals('', $this->mailer->sendInternally());
     }
 
-    public function testNoMailIsSendIfConfiguredThisWay()
+    public function testMailsAreNotSentfAlreadySent()
+    {
+        $GLOBALS["horncfg"]["sendregistrationmails"] = true;
+
+        $applicantInput = self::createApplicantInput();
+        $applicantInput->setMailSent(true);
+
+        $this->mailer = new SubmitMailer($applicantInput);
+
+        $this->assertEquals('', $this->mailer->send());
+    }
+
+
+    public function testNoMailIsSentIfConfiguredThisWay()
     {
         // do not send any mails in tests
         $GLOBALS["horncfg"]["sendregistrationmails"] = false;
@@ -97,8 +110,24 @@ class SubmitMailerTest extends TestCase
         $_SERVER["REMOTE_ADDR"] = '127.0.0.1';
         $_SERVER["SERVER_NAME"] = 'justATest.local';
 
-        $this->assertStringStartsWith('<p>Mail abgeschickt um ', $this->mailer->send());
-        $this->assertNull($this->mailer->sendInternally());
+        $this->assertEquals('', $this->mailer->send());
+        $this->assertEquals('', $this->mailer->sendInternally());
+    }
+
+    public function testMailIsSentIfConfiguredThisWay()
+    {
+        // do not send any mails in tests
+        $GLOBALS["horncfg"]["sendregistrationmails"] = true;
+        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
+
+        // Faked correct $_POST - will disappear if extracted properly
+        $_POST['email'] = 'admin@foo.bar';
+        $_POST['emailcheck'] = 'admin@foo.bar';
+        $_SERVER["REMOTE_ADDR"] = '127.0.0.1';
+        $_SERVER["SERVER_NAME"] = 'justATest.local';
+
+        $this->assertStringStartsWith('<p>Mail abgeschickt um', $this->mailer->send());
+        $this->assertStringStartsWith('<p>Interne Mail an das', $this->mailer->sendInternally());
     }
 
     public function testMailTextContainsRelevantFields()
@@ -133,10 +162,7 @@ class SubmitMailerTest extends TestCase
         $_SERVER["REMOTE_HOST"] = $host;
         $_SERVER["REMOTE_ADDR"] = $ip;
 
-        $applicantInput = new ApplicantInput();
-        $applicantInput->parse();
-
-        $mailer = new SubmitMailer($applicantInput);
+        $mailer = new SubmitMailer(self::createApplicantInput());
         $mailtext = $mailer->getMailtext();
         $this->assertContains('"en"', $mailtext);
         $this->assertContains($browser, $mailtext);
