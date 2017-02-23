@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require 'vendor/autoload.php'; ?>
+<?php require 'vendor/autoload.php';
+$config = new \hornherzogen\ConfigurationWrapper();
+?>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,7 +86,7 @@
 
             $applicantInput->parse();
 
-            if (\hornherzogen\ConfigurationWrapper::debug()) {
+            if ($config->debug()) {
                 echo '<h2>Language setting is: ' . \hornherzogen\HornLocalizer::getLanguage() . '</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';

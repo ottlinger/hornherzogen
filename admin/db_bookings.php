@@ -5,10 +5,12 @@ use \hornherzogen\ConfigurationWrapper;
 
 echo "<p>Retrieving bookings from DB ....</p>";
 
-if (ConfigurationWrapper::isValidDatabaseConfig()) {
+$config = new ConfigurationWrapper();
+
+if ($config->isValidDatabaseConfig()) {
 
     try {
-        $db = new PDO('mysql:host=' . ConfigurationWrapper::dbhost() . ';dbname=' . ConfigurationWrapper::dbname(), ConfigurationWrapper::dbuser(), ConfigurationWrapper::dbpassword());
+        $db = new PDO('mysql:host=' . $config->dbhost() . ';dbname=' . $config->dbname(), $config->dbuser(), $config->dbpassword());
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $q = $db->query("SELECT r.roomId, r.applicantId FROM `roombooking` r");
@@ -22,4 +24,3 @@ if (ConfigurationWrapper::isValidDatabaseConfig()) {
 } else {
     echo "You need to edit your database-related parts of the configuration in order to properly connect to the database.";
 }
-

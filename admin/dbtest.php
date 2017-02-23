@@ -5,10 +5,12 @@ use \hornherzogen\ConfigurationWrapper;
 
 echo "<p>Establishing DB connection ....</p>";
 
-if (ConfigurationWrapper::isValidDatabaseConfig()) {
+$config = new ConfigurationWrapper();
+
+if ($config->isValidDatabaseConfig()) {
 
     try {
-        $db = new PDO('mysql:host=' . ConfigurationWrapper::dbhost() . ';dbname=' . ConfigurationWrapper::dbname(), ConfigurationWrapper::dbuser(), ConfigurationWrapper::dbpassword());
+        $db = new PDO('mysql:host=' . $config->dbhost() . ';dbname=' . $config->dbname(), $config->dbuser(), $config->dbpassword());
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $result = $db->exec("INSERT INTO `applicants` (vorname,nachname,statusId) SELECT 'Hugo','Hirsch',id from `status` WHERE NAME = 'APPLIED'");

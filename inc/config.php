@@ -13,7 +13,9 @@ $isTemplate = strpos($filename, '.template') !== FALSE;
 // load configuration and dump if template or debug=true
 $GLOBALS["horncfg"] = parse_ini_file($filename);
 
-if (ConfigurationWrapper::debug() || $isTemplate) {
+$config = new ConfigurationWrapper();
+
+if ($config->debug() || $isTemplate) {
     // allow error reporting
     ini_set('display_errors', 'on');
     ini_set('display_startup_errors', 'on');

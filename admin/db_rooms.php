@@ -4,11 +4,12 @@ require '../vendor/autoload.php';
 use \hornherzogen\ConfigurationWrapper;
 
 echo "<p>Retrieving rooms from DB ....</p>";
+$config = new ConfigurationWrapper();
 
-if (ConfigurationWrapper::isValidDatabaseConfig()) {
+if ($config->isValidDatabaseConfig()) {
 
     try {
-        $db = new PDO('mysql:host=' . ConfigurationWrapper::dbhost() . ';dbname=' . ConfigurationWrapper::dbname(), ConfigurationWrapper::dbuser(), ConfigurationWrapper::dbpassword());
+        $db = new PDO('mysql:host=' . $config->dbhost() . ';dbname=' . $config->dbname(), $config->dbuser(), $config->dbpassword());
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $q = $db->query("SELECT r.name, r.capacity FROM `rooms` r");

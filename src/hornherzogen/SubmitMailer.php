@@ -9,6 +9,7 @@ class SubmitMailer
     private $applicationInput;
     private $revision;
     private $localizer;
+    private $config;
 
     function __construct($applicationInput)
     {
@@ -16,6 +17,7 @@ class SubmitMailer
         $this->formHelper = new FormHelper();
         $this->revision = new GitRevision();
         $this->localizer = new HornLocalizer();
+        $this->config = new ConfigurationWrapper();
         date_default_timezone_set('Europe/Berlin');
     }
 
@@ -23,7 +25,7 @@ class SubmitMailer
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
     public function send()
     {
-        $replyto = ConfigurationWrapper::registrationmail();
+        $replyto = $this->config->registrationmail();
 
         $importance = 1; //1 UrgentMessage, 3 Normal
 
@@ -62,7 +64,7 @@ class SubmitMailer
         $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
         $headers[] = 'X-Mailer: PHP/' . phpversion();
 
-        if (ConfigurationWrapper::sendregistrationmails() && !$this->isMailSent()) {
+        if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setCreatedAt($appliedAt);
@@ -154,9 +156,9 @@ class SubmitMailer
      */
     public function sendInternally()
     {
-        if (ConfigurationWrapper::sendinternalregistrationmails() && !$this->isMailSent()) {
+        if ($this->config->sendinternalregistrationmails() && !$this->isMailSent()) {
 
-            $replyto = ConfigurationWrapper::registrationmail();
+            $replyto = $this->config->registrationmail();
             $importance = 1;
 
             // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:

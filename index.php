@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require 'vendor/autoload.php'; ?>
+<?php require 'vendor/autoload.php';
+$config = new \hornherzogen\ConfigurationWrapper();
+?>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -69,7 +71,7 @@
         <h1><span class="glyphicon glyphicon-dashboard"></span> Herzlich Willkommen</h1>
         <p>Auf diesen Seiten kann man sich für den Herzogenhornlehrgang 2017 anmelden. <br/>Die Anmeldung läuft über die
             Berliner Aikidoka.<br/>
-            <br> Die Ausschreibung findet sich <a href="<?php echo \hornherzogen\ConfigurationWrapper::pdf();?>" target="_blank">hier</a>.
+            <br> Die Ausschreibung findet sich <a href="<?php echo $config->pdf();?>" target="_blank">hier</a>.
         </p>
         <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> Weiter zur Anmeldung</a>
         <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> Go to the English version of the registration</a>

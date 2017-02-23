@@ -15,52 +15,52 @@ class ConfigurationWrapper
         }
     }
 
-    public static function mail()
+    public function mail()
     {
         return self::getFromHornConfiguration('mail');
     }
 
-    public static function debug()
+    public function debug()
     {
         return self::getFromHornConfiguration('debug');
     }
 
-    public static function pdf()
+    public function pdf()
     {
         return self::getFromHornConfiguration('pdf');
     }
 
-    public static function registrationmail()
+    public function registrationmail()
     {
         return self::getFromHornConfiguration('registrationmail');
     }
 
-    public static function sendregistrationmails()
+    public function sendregistrationmails()
     {
         return boolval(self::getFromHornConfiguration('sendregistrationmails'));
     }
 
-    public static function sendinternalregistrationmails()
+    public function sendinternalregistrationmails()
     {
         return boolval(self::getFromHornConfiguration('sendinternalregistrationmails'));
     }
 
-    public static function dbhost()
+    public function dbhost()
     {
         return self::getFromHornConfiguration('dbhost');
     }
 
-    public static function dbuser()
+    public function dbuser()
     {
         return self::getFromHornConfiguration('dbuser');
     }
 
-    public static function dbname()
+    public function dbname()
     {
         return self::getFromHornConfiguration('dbname');
     }
 
-    public static function dbpassword()
+    public function dbpassword()
     {
         return self::getFromHornConfiguration('dbpassword');
     }
@@ -69,9 +69,9 @@ class ConfigurationWrapper
      * @return bool TRUE if database configuration is complete
      */
 
-    public static function isValidDatabaseConfig()
+    public function isValidDatabaseConfig()
     {
-        return !empty(self::dbpassword()) && !empty(self::dbuser()) && !empty(self::dbhost()) && !empty(self::dbname());
+        return !empty($this->dbpassword()) && !empty($this->dbuser()) && !empty($this->dbhost()) && !empty($this->dbname());
     }
 
 }

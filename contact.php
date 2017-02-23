@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require 'vendor/autoload.php'; ?>
+<?php require 'vendor/autoload.php';
+$config = new \hornherzogen\ConfigurationWrapper();
+?>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -91,7 +93,7 @@
     <div class="starter-template">
         <h1>Noch Fragen? Lob oder Kritik?</h1>
         <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a
-                    href="mailto:<?php echo \hornherzogen\ConfigurationWrapper::mail(); ?>">Mail</a> schreiben.</p>
+                    href="mailto:<?php echo $config->mail(); ?>">Mail</a> schreiben.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
