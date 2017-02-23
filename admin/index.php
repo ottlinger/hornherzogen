@@ -33,5 +33,12 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     <li>perform bookings (set room number, match wanted partners)</li>
     <li>change state of application to trigger final confirmation mails</li>
 </ul>
+<h2>Current configuration</h2>
+<p>
+    <?php
+    use \hornherzogen\ConfigurationWrapper;
+    echo new ConfigurationWrapper();
+    ?>
+</p>
 </body>
 </html>
