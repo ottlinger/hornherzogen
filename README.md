@@ -1,12 +1,11 @@
 # Project hornherzogen
 Pet project to manage seminar registration for Herzogenhorn 2017
 
-Status: Work in progress :-)
+Status: Work in progress :-) since 2017-01-07
 
 [![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
 
-
-2017-01-07
+[![GPL v3.0](https://img.shields.io/github/license/ottlinger/hornherzogen.svg)](https://www.gnu.org/licenses/gpl.html)
 
 ## Github integration
 ### Travis / CI
