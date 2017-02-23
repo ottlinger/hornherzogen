@@ -8,6 +8,12 @@ namespace hornherzogen;
  */
 class ConfigurationWrapper
 {
+    public function __toString()
+    {
+        $status = "Current configuration is: ";
+        return $status;
+    }
+
     private static function getFromHornConfiguration($key)
     {
         if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg'][$key])) {

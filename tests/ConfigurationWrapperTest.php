@@ -172,4 +172,9 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertTrue($this->configuration->sendinternalregistrationmails());
     }
 
+    public function testToStringWithoutPasswords() {
+        // TODO #24
+        $this->assertEquals("Current configuration is: ", $this->configuration->__toString());
+
+    }
 }
