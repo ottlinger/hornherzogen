@@ -51,6 +51,7 @@ class FormHelper
 
     public function isSetAndNotEmptyInArray($array, $key)
     {
+        // array_key_exists($key, $array) is similar but ot null-safe
         if (isset($array) && isset($key)) {
             if (isset($array[$key])) {
                 return !empty($array[$key]);
