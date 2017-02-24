@@ -74,7 +74,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     alt="Fork me on GitHub"
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo \hornherzogen\HornLocalizer::i18n('FORM.TITLE') ?>
+            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo \hornherzogen\HornLocalizer::i18n('FORM.TITLE'); ?>
         </h1>
 
         <?php
