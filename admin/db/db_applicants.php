@@ -22,10 +22,10 @@ if ($config->isValidDatabaseConfig()) {
 
         echo "<h1>Currently there are ".$q->rowCount()." applicants in the database</h1>";
 
+        $rowNum = 0;
         while ($row = $q->fetch()) {
-
-            $row[]
-            print "<h2>$row[vorname] $row[nachname] created at $row[created] with status $row[name]</h2>\n";
+            $rowNum++;
+            print "<h2>($rowNum) $row[vorname] $row[nachname] created at $row[created] with status $row[name]</h2>\n";
         }
 
     } catch (PDOException $e) {
