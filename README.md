@@ -114,6 +114,13 @@ $ sudo apt install mysql-workbench
 ```
 a try.
 
+##### Database Bootstrap
+
+You may now use the bootstrap script [herzogenhorn.sql](herzogenhorn.sql)
+
+If you need to remove all tables, use [herzogenhorn_remove.sql](herzogenhorn_remove.sql) with *GREAT CAUTION*!
+
+
 #### Composer / Dependency Management
 In case you want to develop the dependency manager can be installed
 ```
