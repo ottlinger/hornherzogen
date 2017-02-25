@@ -30,7 +30,7 @@ if ($config->isValidDatabaseConfig()) {
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
 
-        //        $result = $db->exec("DELETE FROM `applicants` WHERE vorname='Hugo'");
+        // $result = $db->exec("DELETE FROM `applicants` WHERE vorname='Hugo'");
 
     } catch (PDOException $e) {
         print "Unable to connect to db:" . $e->getMessage();

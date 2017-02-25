@@ -36,6 +36,7 @@ In order to just play around with it I've integrated a CI run:
   * with MySQL extension installed
   * with intl/i18n extension installed
   * (with php-xdebug in case you want local code coverage)
+  * with MySQL extension enabled
 * Configured Mail server so that PHP may send mails
 * Webserver (Apache2)
 * MySQL database with tables initialized, see [herzogenhorn.sql](herzogenhorn.sql) for details
@@ -61,9 +62,9 @@ Local installations work fine with PHP7, while some hosters have trouble because
 
 You need to install php and add some libraries to your local Webserver:
 ```
-$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql
 or
-$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php-xdebug
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql php-xdebug
 $ sudo /etc/init.d/apache2 restart
 ```
 
@@ -74,6 +75,44 @@ The equivalent installation via homebrew is
 $ brew install php70 php70-intl php70-xdebug
 ```
 to make the tests run locally.
+
+#### Database Management
+
+##### Create an individual database
+
+If you are using MySQL you may setup your databases locally for easier development:
+```
+$ sudo apt install mysql
+...
+You will be asked for the MySQL root password - remember to remember that password!
+...
+$ mysqladmin create hornherzogen -u root -p
+Enter password: // use above freshly created root user
+
+$ mysql -u root -p
+
+// if you want to connect from local
+mysql> grant usage on *.* to dbuser@localhost identified by 'yourpasswordhere';
+Query OK, 0 rows affected, 1 warning (0,00 sec)
+
+mysql> grant all privileges on hornherzogen.* to dbuser@localhost;
+Query OK, 0 rows affected (0,00 sec)
+
+mysql> exit
+
+$ mysql -u dbuser -p'yourpasswordhere' hornherzogen
+// successful if you see:
+mysql>
+```
+Do not forget to put above credentials into your inc/config.ini.php file.
+
+##### Graphical database Management
+
+In case you do not have a phpMyAdmin installed, you might want to give
+```
+$ sudo apt install mysql-workbench
+```
+a try.
 
 #### Composer / Dependency Management
 In case you want to develop the dependency manager can be installed
