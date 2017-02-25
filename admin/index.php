@@ -21,7 +21,8 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     <li><a href="db/db_connect.php">ensure <strong>database</strong> can be connected to</a></li>
     <li><a href="db/dbtest.php">ensure <strong>database tables</strong> are working smoothly, performs a minor roundtrip based on some assumptions</a></li>
     <li><a href="db/db_rooms.php">show list of <strong>available rooms</strong> in the database</a></li>
-    <li><a href="db/db_bookings.php">show list of <strong>bookings</strong> in the database</a></li>
+    <li><a href="db/db_applicants.php">show list of <strong>applications</strong> and their current state</a></li>
+    <li><a href="db/db_bookings.php">show list of <strong>room bookings</strong> in the database</a></li>
     <li><a href="i18n.php">ensure <strong>localization</strong> is working smoothly</a></li>
     <li><a href="path.php">show <strong>path to authentication setup</strong>, which needs to be changed manually after
             deployment to prod</a></li>
@@ -30,15 +31,16 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 </ul>
 <h2>Possible admin actions - tbd</h2>
 <ul>
-    <li>retrieve lists of applicants</li>
     <li>perform bookings (set room number, match wanted partners)</li>
     <li>change state of application to trigger final confirmation mails</li>
 </ul>
 <h2>Current configuration</h2>
 <p>
     <?php
-    use \hornherzogen\ConfigurationWrapper;
-    echo new ConfigurationWrapper();
+    $config = new \hornherzogen\ConfigurationWrapper();
+
+    print_r($config, true);
+    echo $config;
     ?>
 </p>
 </body>
