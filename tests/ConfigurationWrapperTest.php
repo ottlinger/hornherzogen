@@ -172,7 +172,22 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertTrue($this->configuration->sendinternalregistrationmails());
     }
 
-    public function testToStringWithoutPasswords() {
+
+    public function testMaskWithAsteriskShitInShitOut()
+    {
+        $this->assertNull($this->configuration->maskWithAsterisk(NULL));
+    }
+
+    public function testMaskWithAsteriskRegularUsage()
+    {
+        $this->assertEquals("***", $this->configuration->maskWithAsterisk("abc"));
+        $this->assertEquals("*", $this->configuration->maskWithAsterisk("a"));
+        $this->assertEquals("*", $this->configuration->maskWithAsterisk(" "));
+        $this->assertEquals("", $this->configuration->maskWithAsterisk(""));
+    }
+
+    public function testToStringWithoutPasswords()
+    {
         // TODO #24
         $this->assertEquals("Current configuration is: ", $this->configuration->__toString());
 

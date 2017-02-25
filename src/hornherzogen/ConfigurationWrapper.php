@@ -8,10 +8,28 @@ namespace hornherzogen;
  */
 class ConfigurationWrapper
 {
+    static function maskWithAsterisk($input)
+    {
+        if (isset($input) && strlen($input) > 0) {
+            $result = "";
+            $characters = str_split($input);
+            for ($i = 0; $i < sizeof($characters); $i++) {
+                $result .= '*';
+            }
+            return $result;
+        }
+        return $input;
+    }
+
     public function __toString()
     {
         $status = "Current configuration is: ";
         return $status;
+    }
+
+    public function mail()
+    {
+        return self::getFromHornConfiguration('mail');
     }
 
     private static function getFromHornConfiguration($key)
@@ -19,11 +37,7 @@ class ConfigurationWrapper
         if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg'][$key])) {
             return trim($GLOBALS['horncfg'][$key]);
         }
-    }
-
-    public function mail()
-    {
-        return self::getFromHornConfiguration('mail');
+        return NULL;
     }
 
     public function debug()
@@ -51,26 +65,6 @@ class ConfigurationWrapper
         return boolval(self::getFromHornConfiguration('sendinternalregistrationmails'));
     }
 
-    public function dbhost()
-    {
-        return self::getFromHornConfiguration('dbhost');
-    }
-
-    public function dbuser()
-    {
-        return self::getFromHornConfiguration('dbuser');
-    }
-
-    public function dbname()
-    {
-        return self::getFromHornConfiguration('dbname');
-    }
-
-    public function dbpassword()
-    {
-        return self::getFromHornConfiguration('dbpassword');
-    }
-
     /**
      * @return bool TRUE if database configuration is complete
      */
@@ -78,6 +72,26 @@ class ConfigurationWrapper
     public function isValidDatabaseConfig()
     {
         return !empty($this->dbpassword()) && !empty($this->dbuser()) && !empty($this->dbhost()) && !empty($this->dbname());
+    }
+
+    public function dbpassword()
+    {
+        return self::getFromHornConfiguration('dbpassword');
+    }
+
+    public function dbuser()
+    {
+        return self::getFromHornConfiguration('dbuser');
+    }
+
+    public function dbhost()
+    {
+        return self::getFromHornConfiguration('dbhost');
+    }
+
+    public function dbname()
+    {
+        return self::getFromHornConfiguration('dbname');
     }
 
 }
