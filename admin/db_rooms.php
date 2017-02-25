@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 
 use \hornherzogen\ConfigurationWrapper;
 
-echo "<p>Retrieving rooms from DB ....</p>";
+echo "<h1>Retrieving rooms from DB ....</h1>";
 $config = new ConfigurationWrapper();
 
 if ($config->isValidDatabaseConfig()) {

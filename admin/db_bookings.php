@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 
 use \hornherzogen\ConfigurationWrapper;
 
-echo "<p>Retrieving bookings from DB ....</p>";
+echo "<h1>Retrieving bookings from DB ....</h1>";
 
 $config = new ConfigurationWrapper();
 

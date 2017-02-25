@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
-echo "<p>Trying to check that localization with intl-extension is possible</p>";
+echo "<h1>Trying to check that localization with intl-extension is possible</h1>";
 
 $messages = array();
 $messages['de_DE'] = array('KEY_WITH_PARAM' => 'Meine besonderen Interessen liegen im Bereich {0} uvm.',
