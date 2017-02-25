@@ -51,13 +51,13 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="./index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                Herzogenhorn 2017</a>
+                <?php echo \hornherzogen\HornLocalizer::i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> Anmeldung</a></li>
-                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> Fragen</a></li>
-                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> Admin-Bereich</a></li>
+                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
+                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
+                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><span class="glyphicon glyphicon-education"></span><?php echo date('Y-m-d H:i:s'); ?></li>

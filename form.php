@@ -58,9 +58,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./form.php"><span class="glyphicon glyphicon-home"></span> Anmeldung</a>
-                </li>
-                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> Fragen</a></li>
+                <li class="active"><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
+                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
+                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
