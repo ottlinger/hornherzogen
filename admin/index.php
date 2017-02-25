@@ -1,4 +1,10 @@
-<?php echo '<?xml version="1.0"?>'; ?>
+<?php
+require '../vendor/autoload.php';
+
+use \hornherzogen\ConfigurationWrapper;
+
+echo '<?xml version="1.0"?>';
+?>
 <html>
 <head>
     <title>Admin area</title>
@@ -34,13 +40,10 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     <li>perform bookings (set room number, match wanted partners)</li>
     <li>change state of application to trigger final confirmation mails</li>
 </ul>
-<h2>Current configuration</h2>
+<h2>What's the configuration like?</h2>
 <p>
     <?php
-    $config = new \hornherzogen\ConfigurationWrapper();
-
-    print_r($config, true);
-    echo $config;
+        echo new ConfigurationWrapper();
     ?>
 </p>
 </body>
