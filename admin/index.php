@@ -18,10 +18,10 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 ?>
 <h2>Possible setup/verification actions</h2>
 <ul>
-    <li><a href="db_connect.php">ensure <strong>database</strong> can be connected to</a></li>
-    <li><a href="dbtest.php">ensure <strong>database tables</strong> are working smoothly, performs a minor roundtrip based on some assumptions</a></li>
-    <li><a href="db_rooms.php">show list of <strong>available rooms</strong> in the database</a></li>
-    <li><a href="db_bookings.php">show list of <strong>bookings</strong> in the database</a></li>
+    <li><a href="db/db_connect.php">ensure <strong>database</strong> can be connected to</a></li>
+    <li><a href="db/dbtest.php">ensure <strong>database tables</strong> are working smoothly, performs a minor roundtrip based on some assumptions</a></li>
+    <li><a href="db/db_rooms.php">show list of <strong>available rooms</strong> in the database</a></li>
+    <li><a href="db/db_bookings.php">show list of <strong>bookings</strong> in the database</a></li>
     <li><a href="i18n.php">ensure <strong>localization</strong> is working smoothly</a></li>
     <li><a href="path.php">show <strong>path to authentication setup</strong>, which needs to be changed manually after
             deployment to prod</a></li>
