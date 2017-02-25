@@ -176,6 +176,7 @@ class ConfigurationWrapperTest extends TestCase
     public function testMaskWithAsteriskShitInShitOut()
     {
         $this->assertNull($this->configuration->maskWithAsterisk(NULL));
+        $this->assertNull($this->configuration->maskWithAsterisk(NULL, 47));
     }
 
     public function testMaskWithAsteriskRegularUsage()
@@ -186,10 +187,19 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertEquals("", $this->configuration->maskWithAsterisk(""));
     }
 
-    public function testToStringWithoutPasswords()
+    public function testMaskWithAsteriskRegularUsageWithPartialMasking()
+    {
+        $this->assertEquals("a**", $this->configuration->maskWithAsterisk("abc", 1));
+        $this->assertEquals("a", $this->configuration->maskWithAsterisk("a", 1));
+        $this->assertEquals("bd**", $this->configuration->maskWithAsterisk("bdef", 2));
+    }
+
+    public function testToStringWithoutDefaultPasswordsFromConfigurationTemplate()
     {
         // TODO #24
-        $this->assertEquals("Current configuration is: ", $this->configuration->__toString());
+        $this->assertStringStartsWith("<pre>Current configuration is: ", $this->configuration->__toString());
+        $this->assertNotContains("pi2ieVid1234567", $this->configuration->__toString());
+        $this->assertNotContains("pi2************", $this->configuration->__toString());
 
     }
 }

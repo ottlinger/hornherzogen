@@ -8,13 +8,18 @@ namespace hornherzogen;
  */
 class ConfigurationWrapper
 {
-    static function maskWithAsterisk($input)
+    static function maskWithAsterisk($input, $fromPosition = 0)
     {
         if (isset($input) && strlen($input) > 0) {
             $result = "";
             $characters = str_split($input);
             for ($i = 0; $i < sizeof($characters); $i++) {
-                $result .= '*';
+
+                if ($i >= $fromPosition) {
+                    $result .= '*';
+                } else {
+                    $result .= $characters[$i];
+                }
             }
             return $result;
         }
@@ -23,7 +28,12 @@ class ConfigurationWrapper
 
     public function __toString()
     {
-        $status = "Current configuration is: ";
+        $lb = "<br />\r\n";
+
+        $status = "<pre>Current configuration is: ".$lb;
+        $status .= "DB-User: ".self::maskWithAsterisk($this->dbuser(), 3).$lb;
+        $status .= "</pre>";
+
         return $status;
     }
 
