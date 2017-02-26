@@ -197,4 +197,6 @@ This a collection of related links that helped working on and with this applicat
 
 ## License
 
-* Copyright © 2017 P. Ottlinger under [GPLv3](LICENSE)
+* Copyright © 2017 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
+
+ 
