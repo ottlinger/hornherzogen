@@ -141,4 +141,9 @@ class FormHelperTest extends TestCase
         $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(NULL, 'a'));
     }
 
+    public function testFilterIsNullsafe()
+    {
+        $this->assertNull($this->formHelper->filterUserInput(NULL));
+    }
+
 }
