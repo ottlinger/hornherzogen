@@ -184,16 +184,20 @@ See example configurations in
 
 This a collection of related links that helped working on and with this application:
 
+* [Markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 * [Bootstrap UI framework](http://getbootstrap.com/getting-started/#download) with Starter Template used here
   * [download v3.3.7](https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip)
   * [download with examples v3.3.7](https://github.com/twbs/bootstrap/archive/v3.3.7.zip)
   * [additional snippets for Bootstrap projects](http://bootsnipp.com/)
   * [additional form helpers](http://bootstrapformhelpers.com/) such as language list or datepicker
-* [PHPUnit](https://phpunit.de/manual/current/en/writing-tests-for-phpunit.html)
-* [PHPUnit - database tests](https://phpunit.de/manual/current/en/database.html)
-* [PHP manual](http://php.net/manual/en/)
-* book: [Learning PHP: A Gentle Introduction to the Web's Most Popular Language, David Sklar](https://www.amazon.de/Learning-PHP-Introduction-Popular-Language/dp/1491933577?tag=tendoryuberlin)
-* [Learning PHP-example code](https://github.com/oreillymedia/Learning_PHP)
+* PHP  
+  * [PHPUnit](https://phpunit.de/manual/current/en/writing-tests-for-phpunit.html)
+  * [PHPUnit - database tests](https://phpunit.de/manual/current/en/database.html)
+  * [PHP manual](http://php.net/manual/en/)
+  * [Learning PHP-example code](https://github.com/oreillymedia/Learning_PHP)
+* books
+  * [Learning PHP: A Gentle Introduction to the Web's Most Popular Language, David Sklar](https://www.amazon.de/Learning-PHP-Introduction-Popular-Language/dp/1491933577?tag=tendoryuberlin)
+  * [Git Pocket Guide](https://www.amazon.de/Git-Pocket-Guide-Richard-Silverman/dp/1449325866?tag=tendoryuberlin) 
 
 ## License
 
