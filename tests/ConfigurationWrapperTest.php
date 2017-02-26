@@ -196,7 +196,6 @@ class ConfigurationWrapperTest extends TestCase
 
     public function testToStringWithoutDefaultPasswordsFromConfigurationTemplate()
     {
-        // TODO #24
         $this->assertStringStartsWith("<pre>Current configuration is: ", $this->configuration->__toString());
         $this->assertNotContains("pi2ieVid1234567", $this->configuration->__toString());
         $this->assertNotContains("pi2************", $this->configuration->__toString());
