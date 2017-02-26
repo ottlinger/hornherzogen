@@ -180,9 +180,9 @@ The configuration file needs to be created in order to set certain application p
 See example configurations in
 [configuration example of this project](inc/config.ini.php.template)
 
-## Links
+## Links and tutorials
 
-This a collection of related links:
+This a collection of related links that helped working on and with this application:
 
 * [Bootstrap UI framework](http://getbootstrap.com/getting-started/#download) with Starter Template used here
   * [download v3.3.7](https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip)
