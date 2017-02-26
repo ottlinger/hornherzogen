@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `status` (
 -- PAID - paid successfully
 -- BOOKED - final confirmation is sent
 -- SPAM - in case we have to delete stuff
+-- REJECTED - if application is rejected e.g. due to overbooking
 INSERT INTO status (name) VALUES ('APPLIED');
 INSERT INTO status (name) VALUES ('REGISTERED');
 INSERT INTO status (name) VALUES ('CONFIRMED');
@@ -37,7 +38,7 @@ INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
 INSERT INTO status (name) VALUES ('CANCELLED');
 INSERT INTO status (name) VALUES ('PAID');
 INSERT INTO status (name) VALUES ('SPAM');
-
+INSERT INTO status (name) VALUES ('REJECTED');
 --
 -- Tabellenstruktur für Tabelle `applicants`
 --
