@@ -8,6 +8,17 @@ namespace hornherzogen;
  */
 class ConfigurationWrapper
 {
+    const LINEBREAK = "<br />\r\n";
+
+    public function __toString()
+    {
+        $status = "<pre>Current configuration is: " . self::LINEBREAK;
+        $status .= "DB-User: " . self::maskWithAsterisk($this->dbuser(), 3) . self::LINEBREAK;
+        $status .= "</pre>";
+
+        return $status;
+    }
+
     static function maskWithAsterisk($input, $fromPosition = 0)
     {
         if (isset($input) && strlen($input) > 0) {
@@ -26,20 +37,9 @@ class ConfigurationWrapper
         return $input;
     }
 
-    public function __toString()
+    public function dbuser()
     {
-        $lb = "<br />\r\n";
-
-        $status = "<pre>Current configuration is: ".$lb;
-        $status .= "DB-User: ".self::maskWithAsterisk($this->dbuser(), 3).$lb;
-        $status .= "</pre>";
-
-        return $status;
-    }
-
-    public function mail()
-    {
-        return self::getFromHornConfiguration('mail');
+        return self::getFromHornConfiguration('dbuser');
     }
 
     private static function getFromHornConfiguration($key)
@@ -48,6 +48,11 @@ class ConfigurationWrapper
             return trim($GLOBALS['horncfg'][$key]);
         }
         return NULL;
+    }
+
+    public function mail()
+    {
+        return self::getFromHornConfiguration('mail');
     }
 
     public function debug()
@@ -87,11 +92,6 @@ class ConfigurationWrapper
     public function dbpassword()
     {
         return self::getFromHornConfiguration('dbpassword');
-    }
-
-    public function dbuser()
-    {
-        return self::getFromHornConfiguration('dbuser');
     }
 
     public function dbhost()
