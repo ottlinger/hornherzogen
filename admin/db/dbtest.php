@@ -3,7 +3,7 @@ require '../../vendor/autoload.php';
 
 use \hornherzogen\ConfigurationWrapper;
 
-echo "<h1>Establishing DB connection ....</h1>";
+echo "<h1>Establishing DB connection to insert data ....</h1>";
 
 $config = new ConfigurationWrapper();
 
