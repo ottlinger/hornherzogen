@@ -36,6 +36,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
             deployment to prod</a></li>
     <li><a href="setup/php.php">show <strong>php</strong> version and extension settings</a></li>
     <li><a href="setup/showconfig.php">show <strong>application configuration</strong> of this app</a></li>
+    <li><a href="setup/htaccessgen.php">create new <strong>registered users</strong> for this admin area</a></li>
     <li><a href="db/dbtest.php">ensure <strong>database tables</strong> are working smoothly, performs a minor roundtrip based on some assumptions</a></li>
     <li><a href="..">return to <strong>main application</strong></a></li>
 </ul>
