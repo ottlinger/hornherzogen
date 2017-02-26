@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 echo "<h1>Trying to check that localization with intl-extension is possible</h1>";
 
@@ -13,3 +13,4 @@ $withoutParam = new MessageFormatter('de_DE', $messages['de_DE']['KEY_PLAIN']);
 echo "<h1>Mit Parameter: " . $withParam->format(array("PHP und OpenSource, Tendoryu Aikido")) . "</h1>";
 echo "<h1>Ohne Parameter: " . $withoutParam->format(array()) . "</h1>";
 
+// TBD: add health check / statistics about l10n

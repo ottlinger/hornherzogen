@@ -31,11 +31,11 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 </ul>
 <h2>One-time setup and verification actions</h2>
 <ul>
-    <li><a href="i18n.php">ensure <strong>localization</strong> is working smoothly</a></li>
-    <li><a href="path.php">show <strong>path to authentication setup</strong>, which needs to be changed manually after
+    <li><a href="setup/i18n.php">ensure <strong>localization</strong> is working smoothly</a></li>
+    <li><a href="setup/path.php">show <strong>path to authentication setup</strong>, which needs to be changed manually after
             deployment to prod</a></li>
-    <li><a href="php.php">show <strong>php</strong> version and extension settings</a></li>
-    <li><a href="showconfig.php">show <strong>application configuration</strong> of this app</a></li>
+    <li><a href="setup/php.php">show <strong>php</strong> version and extension settings</a></li>
+    <li><a href="setup/showconfig.php">show <strong>application configuration</strong> of this app</a></li>
     <li><a href="db/dbtest.php">ensure <strong>database tables</strong> are working smoothly, performs a minor roundtrip based on some assumptions</a></li>
     <li><a href="..">return to <strong>main application</strong></a></li>
 </ul>
