@@ -13,6 +13,20 @@ if ($config->isValidDatabaseConfig()) {
         $db = new PDO('mysql:host=' . $config->dbhost() . ';dbname=' . $config->dbname(), $config->dbuser(), $config->dbpassword());
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        // STATS
+        echo "<h3>Applicants by week and status</h3>";
+        $q = $db->query("SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week");
+        if (false === $q) {
+            $error = $db->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
+        $rowNum = 0;
+        while ($row = $q->fetch()) {
+            $rowNum++;
+            print "<h2>($rowNum) '$row[name]' in week $row[week] for $row[howmany] applicants</h2>\n";
+        }
+
+        // ALL with status
         echo "<h2>Show all applicants and their status ...</h2>";
         $q = $db->query("SELECT a.vorname, a.nachname, a.created, s.name FROM `applicants` a, `status` s WHERE s.id = a.statusId ORDER BY s.name");
         if (false === $q) {
