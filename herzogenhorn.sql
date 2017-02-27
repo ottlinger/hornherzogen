@@ -93,11 +93,50 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- Replace with real data if available
-INSERT INTO rooms (name, capacity) VALUES ('Zimmer1',1);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer1',2);
 INSERT INTO rooms (name, capacity) VALUES ('Zimmer2',2);
-INSERT INTO rooms (name, capacity) VALUES ('Zimmer3',3);
-INSERT INTO rooms (name, capacity) VALUES ('Zimmer4',3);
-INSERT INTO rooms (name, capacity) VALUES ('Zimmer5',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer3',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer4',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer5',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer6',1);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer7',1);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer8',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer9',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer10',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer11',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer12',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer13',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer14',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer15',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer16',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer17',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer18',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer19',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer20',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer21',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer22',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer23',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer24',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer25',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer26',3);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer27',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer28',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer29',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer30',0);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer31',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer32',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer33',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer34',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer35',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer36',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer37',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer38',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer39',2);
+INSERT INTO rooms (name, capacity) VALUES ('Zimmer40',0);
+INSERT INTO rooms (name, capacity) VALUES ('Wohnung1',2);
+INSERT INTO rooms (name, capacity) VALUES ('Wohnung2',2);
+INSERT INTO rooms (name, capacity) VALUES ('Wohnung3',2);
+INSERT INTO rooms (name, capacity) VALUES ('Wohnung4',3);
 
 -- TABLE booking
 -- https://github.com/ottlinger/hornherzogen/issues/1
