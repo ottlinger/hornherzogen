@@ -27,6 +27,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     <li><a href="db/db_rooms.php">show list of <strong>available rooms</strong> in the database</a></li>
     <li><a href="db/db_applicants.php">show list of <strong>applications</strong> and their current state</a></li>
     <li><a href="db/db_bookings.php">show list of <strong>room bookings</strong> in the database</a></li>
+    <li><a href="db/db_statuses.php">show list of <strong>applicant statuses</strong> and their count in the database</a></li>
     <li><a href="..">return to <strong>main application</strong></a></li>
 </ul>
 <h2>One-time setup and verification actions</h2>
