@@ -14,20 +14,34 @@ if ($config->isValidDatabaseConfig()) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         echo "<h2>Show all applicants and their status ...</h2>";
-        // only existing statuses: SELECT s.name FROM `status` s, (SELECT a.statusId, COUNT(*) AS count FROM `applicants` a GROUP BY a.statusId) AS appl WHERE s.id=appl.statusId ORDER BY s.name
+        // ALL values
+        echo "<h3>All statuses</h3>";
         $q = $db->query("SELECT s.name FROM `status` s ORDER BY s.name");
         if (false === $q) {
             $error = $db->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
-
-        echo "<h1>Currently there are ".$q->rowCount()." status values available in the database</h1>";
+        echo "<h3>Currently there are ".$q->rowCount()." status values available in the database</h3>";
 
         $rowNum = 0;
         while ($row = $q->fetch()) {
             $rowNum++;
             print "<h2>($rowNum) $row[name]</h2>\n";
         }
+
+        // COUNT from the applicants table
+        echo "<h3>Statuses grouped by applicants in the database</h3>";
+        $q = $db->query("SELECT s.name, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId");
+        if (false === $q) {
+            $error = $db->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
+        $rowNum = 0;
+        while ($row = $q->fetch()) {
+            $rowNum++;
+            print "<h2>($rowNum) '$row[name]' set for $row[howmany] applicants</h2>\n";
+        }
+
 
     } catch (PDOException $e) {
         print "Unable to connect to db:" . $e->getMessage();
