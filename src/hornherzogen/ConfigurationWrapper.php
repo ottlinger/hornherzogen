@@ -65,9 +65,9 @@ class ConfigurationWrapper
 
                 if ($i >= $fromPosition) {
                     $result .= '*';
-                } else {
-                    $result .= $characters[$i];
+                    continue;
                 }
+                $result .= $characters[$i];
             }
             return $result;
         }
