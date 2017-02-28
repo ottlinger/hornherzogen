@@ -296,9 +296,12 @@ final class ApplicantInput extends Applicant
         return $required;
     }
 
+    /**
+     * @return bool true iff any required field is empty.
+     */
     public function hasErrors()
     {
-        return empty($this->getWeek()) || $this->getFlexible() || empty($this->getGender()) //
+        return empty($this->getWeek()) || boolval($this->getFlexible()) || empty($this->getGender()) //
             || empty($this->getFirstname()) || empty($this->getLastname()) || empty($this->getStreet()) //
             || empty($this->getHouseNumber()) || empty($this->getZipCode()) || empty($this->getCity()) //
             || empty($this->getCountry()) || empty($this->getEmail()) || empty($this->getDojo()) //
