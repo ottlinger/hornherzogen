@@ -460,9 +460,11 @@ class ApplicantInputTest extends TestCase
 
     public function testMandatoryFieldMissingButOptionalExistingResultsInErrors()
     {
+        // OPTIONAL
         $this->applicantInput->setRemarks("This field is optional");
         $this->applicantInput->setTwaNumber("This field is optional");
 
+        // MNADATORY: flexible is missing
         $this->applicantInput->setFirstName("First");
         $this->applicantInput->setLastName("Name");
         $this->applicantInput->setStreet("Up de Straat");
