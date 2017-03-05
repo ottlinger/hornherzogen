@@ -12,7 +12,8 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function setUp()
     {
-        $this->writer = new ApplicantDatabaseWriter(true);
+        // TODO true only possible if database is setup
+        $this->writer = new ApplicantDatabaseWriter();
     }
 
     /**
