@@ -1,9 +1,9 @@
 <?php
 use hornherzogen\db\ApplicantDatabaseWriter;
-use PHPUnit\Framework\TestCase;
 
+// https://github.com/sebastianbergmann/dbunit/blob/2.0/samples/BankAccountDB/BankAccountDBTest.php
 
-class ApplicantDatabaseWriterTest extends TestCase
+class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
 {
     private $writer = null;
 
@@ -44,4 +44,23 @@ class ApplicantDatabaseWriterTest extends TestCase
         $this->assertEquals(0, sizeof($this->writer->getAllByWeek("week1")));
     }
 
+    /**
+     * Returns the test database connection.
+     *
+     * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+     */
+    protected function getConnection()
+    {
+        // TODO: Implement getConnection() method.
+    }
+
+    /**
+     * Returns the test dataset.
+     *
+     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
+     */
+    protected function getDataSet()
+    {
+        // TODO: Implement getDataSet() method.
+    }
 }

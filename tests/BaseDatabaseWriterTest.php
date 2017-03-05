@@ -32,4 +32,8 @@ class BaseDatabaseWriterTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\BaseDatabaseWriter', $this->writer);
     }
 
+    public function testDatabaseConnectionIsHealthyLocally() {
+        $this->assertFalse($this->writer->isHealthy());
+    }
+
 }

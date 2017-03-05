@@ -12,6 +12,8 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
     }
 
     function persist($applicantInput)
+        // add logics to create a new combined Name
+        // add helper method to transform a given Object into an INSERT INTO
     {
 
     }
