@@ -433,7 +433,8 @@ class ApplicantInputTest extends TestCase
 
     public function testIfAllMandatoryFieldsAreExistingWithoutParsingFromUserInputObjectHasNoErrors()
     {
-        $this->applicantInput->setFlexible("no");
+        // MANDATORY: set all mandatory fields
+        $this->applicantInput->setFlexible(NULL);
         $this->applicantInput->setGender("none");
         $this->applicantInput->setFirstName("First");
         $this->applicantInput->setLastName("Name");
@@ -449,9 +450,10 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setRoom("single");
         $this->applicantInput->setFoodCategory("none");
         $this->applicantInput->setWeek("week2");
+        // make sure this test fails if any configuration of required fields changes
+        $this->assertEquals(16, sizeof($this->applicantInput->getRequiredFields()));
 
         // since we did not extract the data from $_POST
-        // FIXME should be true
         $this->assertFalse($this->applicantInput->hasParseErrors());
 
         $this->assertFalse($this->applicantInput->hasErrors());
@@ -464,7 +466,7 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setRemarks("This field is optional");
         $this->applicantInput->setTwaNumber("This field is optional");
 
-        // MNADATORY: flexible is missing
+        // MANDATORY: flexible is missing
         $this->applicantInput->setFirstName("First");
         $this->applicantInput->setLastName("Name");
         $this->applicantInput->setStreet("Up de Straat");
@@ -482,7 +484,6 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setWeek("week2");
 
         // since we did not extract the data from $_POST
-        // FIXME should be true
         $this->assertFalse($this->applicantInput->hasParseErrors());
 
         $this->assertEquals('', $this->applicantInput->showHasError("week"));
@@ -554,7 +555,8 @@ class ApplicantInputTest extends TestCase
         $this->assertEquals("<span class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span>", $this->applicantInput->showSymbolIfFeedback("unknown"));
     }
 
-    public function testBooleanMarkerInCaseNoParsingTookPlace() {
+    public function testBooleanMarkerInCaseNoParsingTookPlace()
+    {
         $this->assertFalse($this->applicantInput->hasParsingHappened());
 
         $this->applicantInput->parse();

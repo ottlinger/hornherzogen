@@ -248,7 +248,7 @@ final class ApplicantInput extends Applicant
 
     public function __toString()
     {
-        // var_dump ruins the formatting
+        // var_dump ruins the formatting in markup
         $msg = "ERROR: " . var_dump($this->errors);
         $msg .= "- SUCCESS: " . var_dump($this->success);
         $msg .= " hasParseErrors? " . boolval($this->hasParseErrors());
