@@ -3,7 +3,7 @@ namespace hornherzogen;
 use PDO;
 use PDOException;
 
-class DatabaseWriter
+class BaseDatabaseWriter
 {
     private $config;
     private $database;
