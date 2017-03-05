@@ -12,7 +12,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function setUp()
     {
-        $this->writer = new ApplicantDatabaseWriter();
+        $this->writer = new ApplicantDatabaseWriter(true);
     }
 
     /**
