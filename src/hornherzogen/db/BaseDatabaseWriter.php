@@ -1,22 +1,30 @@
 <?php
 namespace hornherzogen\db;
+
+use hornherzogen\ConfigurationWrapper;
 use PDO;
 use PDOException;
-use hornherzogen\ConfigurationWrapper;
 
 class BaseDatabaseWriter
 {
-    private $config;
     protected $database;
+    private $config;
     private $healthy = NULL;
 
-    function __construct()
+    function __construct($testMode = false)
     {
         $this->config = new ConfigurationWrapper();
-        $this->validateDatabaseConnectionFailIfIncorrect();
+        if (boolval($testMode)) {
+            print "Running in memory SQLite database.";
+            $this->database = new PDO('sqlite::memory:');
+            $this->healthy = true;
+        } else {
+            $this->validateDatabaseConnectionFailIfIncorrect();
+        }
     }
 
-    private function validateDatabaseConnectionFailIfIncorrect() {
+    private function validateDatabaseConnectionFailIfIncorrect()
+    {
         try {
             $this->database = new PDO('mysql:host=' . $this->config->dbhost() . ';dbname=' . $this->config->dbname(), $this->config->dbuser(), $this->config->dbpassword());
             $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

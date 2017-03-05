@@ -36,7 +36,7 @@ In order to just play around with it I've integrated a CI run:
   * with MySQL extension installed
   * with intl/i18n extension installed
   * (with php-xdebug in case you want local code coverage)
-  * with MySQL extension enabled
+  * (with SQLite extension installed (for tests only)
 * Configured Mail server so that PHP may send mails
 * Webserver (Apache2)
 * MySQL database with tables initialized, see [herzogenhorn.sql](sql/herzogenhorn.sql) for details
@@ -64,7 +64,7 @@ You need to install php and add some libraries to your local Webserver:
 ```
 $ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql
 or
-$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql php-xdebug
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql php-xdebug sqlite3 php7.0-sqlite3
 $ sudo /etc/init.d/apache2 restart
 ```
 

@@ -11,7 +11,7 @@ class BaseDatabaseWriterTest extends TestCase
      */
     public function setUp()
     {
-        $this->writer = new BaseDatabaseWriter();
+        $this->writer = new BaseDatabaseWriter(true);
     }
 
     /**
