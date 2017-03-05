@@ -1,7 +1,8 @@
 <?php
-namespace hornherzogen;
+namespace hornherzogen\db;
 use PDO;
 use PDOException;
+use hornherzogen\ConfigurationWrapper;
 
 class BaseDatabaseWriter
 {

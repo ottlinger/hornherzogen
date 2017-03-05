@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use hornherzogen\BaseDatabaseWriter;
+use hornherzogen\db\BaseDatabaseWriter;
 
 class BaseDatabaseWriterTest extends TestCase
 {
@@ -29,7 +29,7 @@ class BaseDatabaseWriterTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\BaseDatabaseWriter', $this->writer);
+        $this->assertInstanceOf('hornherzogen\db\BaseDatabaseWriter', $this->writer);
     }
 
 }
