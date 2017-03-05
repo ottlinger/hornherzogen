@@ -32,8 +32,14 @@ class BaseDatabaseWriterTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\BaseDatabaseWriter', $this->writer);
     }
 
-    public function testDatabaseConnectionIsHealthyLocally() {
-        $this->assertFalse($this->writer->isHealthy());
+    public function testDatabaseConnectionIsHealthyDueToSqlite() {
+        $this->assertTrue($this->writer->isHealthy());
+    }
+
+    // works on CI, but fails locally due to real config
+    public function testDatabaseConnectionIsUnhealthyWithDummyConfiguration() {
+        $writer = new BaseDatabaseWriter();
+        $this->assertFalse($writer->isHealthy());
     }
 
 }

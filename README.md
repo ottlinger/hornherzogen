@@ -72,7 +72,7 @@ $ sudo /etc/init.d/apache2 restart
 
 The equivalent installation via homebrew is
 ```
-$ brew install php70 php70-intl php70-xdebug
+$ brew install php70 php70-intl php70-xdebug TODO:sqlite and php7-sqlite???
 ```
 to make the tests run locally.
 
