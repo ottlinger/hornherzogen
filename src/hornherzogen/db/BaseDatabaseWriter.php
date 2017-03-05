@@ -7,7 +7,7 @@ use hornherzogen\ConfigurationWrapper;
 class BaseDatabaseWriter
 {
     private $config;
-    private $database;
+    protected $database;
     private $healthy = NULL;
 
     function __construct()
@@ -21,20 +21,7 @@ class BaseDatabaseWriter
             $this->database = new PDO('mysql:host=' . $this->config->dbhost() . ';dbname=' . $this->config->dbname(), $this->config->dbuser(), $this->config->dbpassword());
             $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            /*
-            $q = $db->query("select curdate() AS foo from dual");
-            if (false === $q) {
-                $error = $db->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
-            while ($row = $q->fetch()) {
-                print "<h2>SUCCESS: Database date is set to '$row[foo]'</h2>\n";
-            }
-
-            */
-
             $this->healthy = true;
-
         } catch (PDOException $e) {
             print "Unable to connect to database please check your configuration settings! Message was: " . $e->getMessage();
         }

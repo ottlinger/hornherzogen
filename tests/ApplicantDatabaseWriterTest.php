@@ -1,6 +1,6 @@
 <?php
-use PHPUnit\Framework\TestCase;
 use hornherzogen\db\ApplicantDatabaseWriter;
+use PHPUnit\Framework\TestCase;
 
 
 class ApplicantDatabaseWriterTest extends TestCase
@@ -31,6 +31,16 @@ class ApplicantDatabaseWriterTest extends TestCase
     public function testInstanceOf()
     {
         $this->assertInstanceOf('hornherzogen\db\ApplicantDatabaseWriter', $this->writer);
+    }
+
+    public function testWithoutConfigEmptyListIsRetrievedWithoutWeekParameter()
+    {
+        $this->assertEquals(1, sizeof($this->writer->getAllByWeek()));
+    }
+
+    public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
+    {
+        $this->assertEquals(1, sizeof($this->writer->getAllByWeek("week1")));
     }
 
 }
