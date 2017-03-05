@@ -35,7 +35,8 @@ class ApplicantDatabaseWriterTest extends TestCase
 
     public function testWithoutConfigEmptyListIsRetrievedWithoutWeekParameter()
     {
-        $this->assertEquals(1, sizeof($this->writer->getAllByWeek()));
+        // may return results locally :-D
+        $this->assertEquals(0, sizeof($this->writer->getAllByWeek()));
     }
 
     public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
