@@ -67,7 +67,7 @@ if ($config->isValidDatabaseConfig()) {
         echo "<td>".$applicant->getPersistenceId()."</td>";
         echo "<td>".$applicant->getFirstname()."</td>";
         echo "<td>".$applicant->getLastname()."</td>";
-        echo "<td>".$applicant->getMail()."</td>";
+        echo "<td>".$applicant->getEmail()."</td>";
         echo "</tr>";
     }
     echo "</tbody>";
