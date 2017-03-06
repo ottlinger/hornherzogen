@@ -8,14 +8,16 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
 
     function getByNameAndMailadress($firstname, $lastname, $mail)
     {
-
+        echo $firstname;
+        echo $lastname;
+        echo $mail;
     }
 
     function persist($applicantInput)
         // add logics to create a new combined Name
         // add helper method to transform a given Object into an INSERT INTO
     {
-
+        echo $applicantInput;
     }
 
     function getAllByWeek($week = NULL)
