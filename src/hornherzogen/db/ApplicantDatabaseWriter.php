@@ -28,12 +28,12 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
                 $query .= " WHERE a.week LIKE '%" . trim($week) . "%'";
             }
 
-            $q = $this->database->query($query);
-            if (false === $q) {
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
-            while ($row = $q->fetch()) {
+            while ($row = $dbResult->fetch()) {
                 print "<h2>$row[week] - $row[vorname], $row[nachname], $row[email], $[city]</h2>\n";
                 $results[] = self::fromDatabaseToObject($row);
             }
