@@ -2,6 +2,7 @@
 namespace hornherzogen\db;
 
 use hornherzogen\ConfigurationWrapper;
+use hornherzogen\FormHelper;
 use PDO;
 use PDOException;
 
@@ -9,13 +10,16 @@ class BaseDatabaseWriter
 {
     protected $database;
     private $config;
+    private $formHelper;
     private $healthy = NULL;
 
     function __construct($databaseConnection = NULL)
     {
         $this->config = new ConfigurationWrapper();
+        $this->formHelper = new FormHelper();
+
         if (isset($databaseConnection)) {
-            print "Running on configured datasource.";
+            print "Running on given test datasource.";
             $this->database = $databaseConnection;
             $this->healthy = true;
         } else {
@@ -43,13 +47,4 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    // TODO
-    // contains the DB access and helper methods e.g.
-    // 1)exists(firstname, lastname) to properly calculate the combinedName as firstname + timestamp + lastname to avoid disambiguities
-    // 2)persist()
-    // 3)getByName(....) - makes a search in combinedName column
-    // call $this->setFullName(''); with a salt if a user with that first/last name exists already
-
-    // Tests auf DB-Ebene:
-    // https://phpunit.de/manual/current/en/database.html
 }

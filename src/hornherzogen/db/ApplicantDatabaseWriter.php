@@ -45,8 +45,9 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
 
     private static function fromDatabaseToObject($row)
     {
-        // TODO add mapping
-        return new Applicant();
+        $applicant = new Applicant();
+
+        return $applicant;
     }
 
 }
