@@ -29,7 +29,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         // TODO replace with prepared statement
         $query = 'SELECT * from `applicants` a ';
         $query .= ' WHERE a.vorname = "' . $firstname . '" ';
-        $query .= ' AND a.lastname = "' . $lastname . '" ';
+        $query .= ' AND a.nachname = "' . $lastname . '" ';
         $query .= ' AND a.email = "' . $mail . '" ';
 
         $dbResult = $this->database->query($query);

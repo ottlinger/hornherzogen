@@ -90,8 +90,14 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(0, sizeof($this->writer->getAllByWeek("week1")));
     }
 
+    public function testRetrieveNameMailCombination() {
+        $result = $this->writer->getByNameAndMailadress('Hugo','Hirsch','foo@baar.de');
+        $this->assertNull($result);
+    }
+
     public function testMappingFromDatabaseToPojo()
     {
+        // TODO continue with all attributes
         $row = array(
             'gender' => 'male',
             'vorname' => 'Hugo',
