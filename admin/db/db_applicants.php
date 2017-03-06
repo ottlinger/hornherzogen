@@ -51,7 +51,25 @@ if ($config->isValidDatabaseConfig()) {
     print "<h1>Use DatabaseWriter</h1>";
     $writer = new \hornherzogen\db\ApplicantDatabaseWriter();
 
-    $writer->getAllByWeek();
+    $applicants = $writer->getAllByWeek();
+    echo "<table>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<td>DB-Id</td>";
+    echo "<td>Vorname</td>";
+    echo "<td>Nachname</td>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($applicants as  $applicant) {
+        echo "<tr>";
+        echo "<td>".$applicant->getPersistenceId()."</td>";
+        echo "<td>".$applicant->getFirstname()."</td>";
+        echo "<td>".$applicant->getLastname()."</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
 
 } else {
     echo "You need to edit your database-related parts of the configuration in order to properly connect to the database.";
