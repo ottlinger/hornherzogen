@@ -91,7 +91,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     public function testRetrieveNameMailCombination() {
-        $result = $this->writer->getByNameAndMailadress('Hugo','Hirsch','foo@baar.de');
+        $result = $this->writer->getByNameAndMailadress('Hugo','Hirsch','foo@bar.de');
         $this->assertNull($result);
     }
 
