@@ -9,12 +9,10 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
     function persist($applicantInput)
     {
         if (NULL != $this->getByNameAndMailadress($applicantInput->getFirstname(), $applicantInput->getLastname(), $applicantInput->getEmail())) {
-            throw new \InvalidArgumentException("Unable to persist entry that already exists .... yet :-)");
+            $applicantInput->setFullname($this->formHelper->timestamp());
         }
 
         // TODO handle non-optional fields and empty values
-
-
     }
 
     /**
