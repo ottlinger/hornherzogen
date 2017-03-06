@@ -37,15 +37,48 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
             while ($row = $dbResult->fetch()) {
                 print "<h3>$row[week] - $row[vorname], $row[nachname], $row[email], $row[city]</h3>\n";
-                $results[] = self::fromDatabaseToObject($row);
+                $results[] = $this->fromDatabaseToObject($row);
             }
         }
         return $results;
     }
 
-    private static function fromDatabaseToObject($row)
+    function fromDatabaseToObject($row)
     {
         $applicant = new Applicant();
+        if (isset($row)) {
+
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'id')) {
+                $applicant->setPersistenceId($row['id']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'week')) {
+                $applicant->setWeek($row['week']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'gender')) {
+                $applicant->setGender($row['gender']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'email')) {
+                $applicant->setEmail($row['email']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'city')) {
+                $applicant->setCity($row['city']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'country')) {
+                $applicant->setCountry($row['country']);
+            }
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'vorname')) {
+                $applicant->setFirstname($row['vorname']);
+            }
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'nachname')) {
+                $applicant->setLastname($row['nachname']);
+            }
+        }
 
         return $applicant;
     }

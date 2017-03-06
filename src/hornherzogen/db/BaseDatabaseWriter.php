@@ -9,8 +9,8 @@ use PDOException;
 class BaseDatabaseWriter
 {
     protected $database;
+    protected $formHelper;
     private $config;
-    private $formHelper;
     private $healthy = NULL;
 
     function __construct($databaseConnection = NULL)

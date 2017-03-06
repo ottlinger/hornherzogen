@@ -46,6 +46,13 @@ if ($config->isValidDatabaseConfig()) {
         print "Unable to connect to db:" . $e->getMessage();
     }
 
+
+    // retrieve via helper
+    print "<h1>Use DatabaseWriter</h1>";
+    $writer = new \hornherzogen\db\ApplicantDatabaseWriter();
+
+    $writer->getAllByWeek();
+
 } else {
     echo "You need to edit your database-related parts of the configuration in order to properly connect to the database.";
 }

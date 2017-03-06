@@ -9,6 +9,18 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     private $pdo = null;
 
     // without foreign key constraints to ease testing
+
+    /**
+     * Setup the test environment.
+     */
+    public function setUp()
+    {
+        $this->pdo = new PDO('sqlite::memory:');
+//        $this->writer = new ApplicantDatabaseWriter($this->pdo);
+        $this->writer = new ApplicantDatabaseWriter();
+        self::createTable($this->pdo);
+    }
+
     static public function createTable(PDO $pdo)
     {
         $query = "
@@ -50,17 +62,6 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
-     * Setup the test environment.
-     */
-    public function setUp()
-    {
-        $this->pdo = new PDO('sqlite::memory:');
-//        $this->writer = new ApplicantDatabaseWriter($this->pdo);
-        $this->writer = new ApplicantDatabaseWriter();
-        self::createTable($this->pdo);
-    }
-
-    /**
      * Teardown the test environment.
      */
     public function tearDown()
@@ -87,6 +88,31 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
     {
         $this->assertEquals(0, sizeof($this->writer->getAllByWeek("week1")));
+    }
+
+    public function testMappingFromDatabaseToPojo()
+    {
+        $row = array(
+            'gender' => 'male',
+            'vorname' => 'Hugo',
+            'week' => 'week1'
+        );
+        $applicant = $this->writer->fromDatabaseToObject($row);
+        $this->assertNotNull($applicant);
+
+        $this->assertEquals('male', $applicant->getGender());
+        $this->assertEquals('Hugo', $applicant->getFirstname());
+        $this->assertEquals('1', $applicant->getWeek());
+
+    }
+
+    public function testMappingEmptyRowFromDatabaseToPojo()
+    {
+        $applicant = $this->writer->fromDatabaseToObject(NULL);
+        $this->assertNotNull($applicant);
+
+        $applicant = $this->writer->fromDatabaseToObject(array());
+        $this->assertNotNull($applicant);
     }
 
     /**
