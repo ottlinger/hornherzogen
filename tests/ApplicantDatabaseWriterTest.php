@@ -13,6 +13,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     public function setUp()
     {
         // TODO true only possible if database is setup
+        // new PDO('sqlite::memory:')
         $this->writer = new ApplicantDatabaseWriter();
     }
 

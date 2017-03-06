@@ -11,12 +11,12 @@ class BaseDatabaseWriter
     private $config;
     private $healthy = NULL;
 
-    function __construct($testMode = false)
+    function __construct($databaseConnection = NULL)
     {
         $this->config = new ConfigurationWrapper();
-        if (boolval($testMode)) {
-            print "Running in memory SQLite database.";
-            $this->database = new PDO('sqlite::memory:');
+        if (isset($databaseConnection)) {
+            print "Running on configured datasource.";
+            $this->database = $databaseConnection;
             $this->healthy = true;
         } else {
             $this->validateDatabaseConnectionFailIfIncorrect();
