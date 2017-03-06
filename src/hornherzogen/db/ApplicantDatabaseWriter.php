@@ -36,7 +36,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
             while ($row = $dbResult->fetch()) {
-                print "<h2>$row[week] - $row[vorname], $row[nachname], $row[email], $[city]</h2>\n";
+                print "<h3>$row[week] - $row[vorname], $row[nachname], $row[email], $row[city]</h3>\n";
                 $results[] = self::fromDatabaseToObject($row);
             }
         }

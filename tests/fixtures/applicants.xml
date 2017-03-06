@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <applicants statusId="1" vorname="Karl" nachname="Bestmountain" city="Nuremberg" email="karl@bestmountain.co.uk" week="week1"/>
+    <applicants statusId="1" vorname="Karla" nachname="Bestmount" city="Nuremberg" email="karla@bestmount.co.uk" week="week2"/>
+</dataset>

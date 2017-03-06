@@ -6,15 +6,58 @@ use hornherzogen\db\ApplicantDatabaseWriter;
 class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
 {
     private $writer = null;
+    private $pdo = null;
+
+    // without foreign key constraints to ease testing
+    static public function createTable(PDO $pdo)
+    {
+        $query = "
+        CREATE TABLE IF NOT EXISTS `applicants` (
+          `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+          `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+          `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+          `vorname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+          `nachname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+          `combinedName` varchar(400) COLLATE utf8_bin DEFAULT NULL,
+          `street` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+          `houseno` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+          `plz` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+          `city` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+          `country` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+          `email` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+          `dojo` varchar(256) COLLATE utf8_bin DEFAULT NULL,
+          `grad` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+          `gradsince` date DEFAULT NULL,
+          `twano` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+          `room` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+          `together1` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+          `together2` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+          `essen` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+          `flexible` tinyint(1) DEFAULT NULL,
+          `additionals` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
+          `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          `mailed` timestamp NULL,
+          `verified` timestamp NULL,
+          `paymentmailed` timestamp NULL,
+          `paymentreceived` timestamp NULL,
+          `booked` timestamp NULL,
+          `cancelled` timestamp NULL,
+          `statusId` int(10) unsigned NOT NULL,
+          PRIMARY KEY (`id`),
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+        ";
+        $pdo->query($query);
+    }
 
     /**
      * Setup the test environment.
      */
     public function setUp()
     {
-        // TODO true only possible if database is setup
-        // new PDO('sqlite::memory:')
+        $this->pdo = new PDO('sqlite::memory:');
+//        $this->writer = new ApplicantDatabaseWriter($this->pdo);
         $this->writer = new ApplicantDatabaseWriter();
+        self::createTable($this->pdo);
     }
 
     /**
@@ -53,7 +96,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
      */
     protected function getConnection()
     {
-        // TODO: Implement getConnection() method.
+        return $this->pdo;
     }
 
     /**
@@ -63,6 +106,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
      */
     protected function getDataSet()
     {
-        // TODO: Implement getDataSet() method.
+        return $this->createFlatXMLDataSet(dirname(__FILE__) . '/fixtures/applicants.xml');
     }
+
 }
