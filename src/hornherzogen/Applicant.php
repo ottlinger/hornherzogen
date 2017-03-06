@@ -68,8 +68,10 @@ class Applicant
     {
         switch ($this->week) {
             case "week1":
+            case "1":
                 return 1;
             case "week2":
+            case "2":
                 return 2;
             default:
                 return $this->week;

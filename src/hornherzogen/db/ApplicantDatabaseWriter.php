@@ -6,40 +6,45 @@ use hornherzogen\Applicant;
 class ApplicantDatabaseWriter extends BaseDatabaseWriter
 {
 
+    function persist($applicantInput)
+    {
+        if (NULL != $this->getByNameAndMailadress($applicantInput->getFirstname(), $applicantInput->getLastname(), $applicantInput->getEmail())) {
+            throw new \InvalidArgumentException("Unable to persist entry that already exists .... yet :-)");
+        }
+
+        // TODO handle non-optional fields and empty values
+
+
+    }
+
+    /**
+     * @param $firstname
+     * @param $lastname
+     * @param $mail
+     * @return array|null : null iff the given combination is not found in the database,
+     * the possible list of found entries in an array.
+     */
     function getByNameAndMailadress($firstname, $lastname, $mail)
     {
-        echo $firstname;
-        echo $lastname;
-        echo $mail;
-    }
+        // TODO replace with prepared statement
+        $query = 'SELECT * from `applicants` a ';
+        $query .= ' WHERE a.vorname = "' . $firstname . '" ';
+        $query .= ' AND a.lastname = "' . $lastname . '" ';
+        $query .= ' AND a.email = "' . $mail . '" ';
 
-    function persist($applicantInput)
-        // add logics to create a new combined Name
-        // add helper method to transform a given Object into an INSERT INTO
-    {
-        echo $applicantInput;
-    }
+        $dbResult = $this->database->query($query);
+        if (false === $dbResult) {
+            $error = $this->database->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
 
-    function getAllByWeek($week = NULL)
-    {
+        if (0 == $dbResult->rowCount()) {
+            return NULL;
+        }
+
         $results = array();
-        if (self::isHealthy()) {
-            $query = "SELECT * from `applicants` a";
-            // if week == null - return all, else for the given week
-            if (isset($week)) {
-                $query .= " WHERE a.week LIKE '%" . trim($week) . "%'";
-            }
-
-            $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
-            while ($row = $dbResult->fetch()) {
-                // TODO replace me
-                print "<h3>DEBUG: w:$row[week] - v:$row[vorname], n:$row[nachname], @:$row[email], c:$row[city]</h3>\n";
-                $results[] = $this->fromDatabaseToObject($row);
-            }
+        while ($row = $dbResult->fetch()) {
+            $results[] = $this->fromDatabaseToObject($row);
         }
         return $results;
     }
@@ -48,7 +53,6 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
     {
         $applicant = new Applicant();
         if (isset($row)) {
-
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'id')) {
                 $applicant->setPersistenceId($row['id']);
@@ -82,6 +86,31 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         }
 
         return $applicant;
+    }
+
+    // add logics to create a new combined Name
+    // add helper method to transform a given Object into an INSERT INTO
+
+    function getAllByWeek($week = NULL)
+    {
+        $results = array();
+        if (self::isHealthy()) {
+            $query = "SELECT * from `applicants` a";
+            // if week == null - return all, else for the given week
+            if (isset($week)) {
+                $query .= " WHERE a.week LIKE '%" . trim($week) . "%'";
+            }
+
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->fromDatabaseToObject($row);
+            }
+        }
+        return $results;
     }
 
 }
