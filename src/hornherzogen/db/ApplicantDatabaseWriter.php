@@ -24,6 +24,10 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
      */
     function getByNameAndMailadress($firstname, $lastname, $mail)
     {
+        if (!self::isHealthy()) {
+            return NULL;
+        }
+
         // TODO replace with prepared statement
         $query = 'SELECT * from `applicants` a ';
         $query .= ' WHERE a.vorname = "' . $firstname . '" ';
