@@ -105,12 +105,12 @@ if ($config->isValidDatabaseConfig()) {
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFullName() . "</td>";
-        echo "<td>" . $applicant->getStreet() . " " . $applicants->getHouseNumber() . "</td>";
-        echo "<td>" . $applicant->getZipCode() . " " . $applicants->getCity() . "</td>";
+        echo "<td>" . $applicant->getStreet() . " " . $applicant->getHouseNumber() . "</td>";
+        echo "<td>" . $applicant->getZipCode() . " " . $applicant->getCity() . "</td>";
         echo "<td>" . $applicant->getCountry() . "</td>";
         echo "<td>" . $applicant->getEmail() . "</td>";
         echo "<td>" . $applicant->getDojo() . "</td>";
-        echo "<td>" . $applicant->getGrading() . " seit " . $applicants->getDateOfLastGrading() . "</td>";
+        echo "<td>" . $applicant->getGrading() . " seit " . $applicant->getDateOfLastGrading() . "</td>";
         echo "</tr>";
     }
     echo "</tbody>";
