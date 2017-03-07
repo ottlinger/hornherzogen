@@ -54,12 +54,4 @@ class BaseDatabaseWriterTest extends TestCase
         $this->assertEquals("' \%sdasd \_ff\_'", $this->writer->makeSQLCapable(" %sdasd _ff_"));
     }
 
-    public function testEmptyToNullWithNullArgument() {
-        $this->assertNull($this->writer->emptyToNull(NULL));
-    }
-
-    public function testEmptyToNullWithNonNullArgument() {
-        $this->assertEquals("asd dsa", $this->writer->emptyToNull("  asd dsa "));
-    }
-
 }
