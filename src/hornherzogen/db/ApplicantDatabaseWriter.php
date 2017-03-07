@@ -133,27 +133,26 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'essen')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setFoodCategory($row['nachname']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'flexible')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setFlexible($row['flexible']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'additionals')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setRemarks($row['additionals']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'created')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setCreatedAt($row['created']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'mailed')) {
-                $applicant->setConfirmedAt($row['nachname']);
+                $applicant->setMailedAt($row['mailed']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'verified')) {
-                // TODO
                 $applicant->setConfirmedAt($row['verified']);
             }
 
