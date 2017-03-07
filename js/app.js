@@ -3,7 +3,8 @@ $(function () {
             function () {
                 $("#together1-group").show();
                 $("#together2-group").show();
-                if (this.selectedIndex === 0) {
+
+                if (this.selectedIndex === 2) {
                     $("#together1-group").hide();
                     $("#together2-group").hide();
                     return;
