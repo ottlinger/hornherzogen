@@ -5,19 +5,20 @@ use hornherzogen\Applicant;
 
 class ApplicantDatabaseWriter extends BaseDatabaseWriter
 {
-
+    /**
+     * Check if the given applicant already exists. If so, add a random salt (=timestamp) to its fullname and persist it into the database.
+     * @param $applicantInput
+     */
     function persist($applicantInput)
     {
         if (NULL != $this->getByNameAndMailadress($applicantInput->getFirstname(), $applicantInput->getLastname(), $applicantInput->getEmail())) {
             $applicantInput->setFullname($this->formHelper->timestamp());
         }
 
-/* works for insert only
-        $statement = $this->database->prepare('SELECT * from `applicants` a ');
-        $statement->execute(array($firstname, $lastname, $mail));
-*/
-        // TODO handle non-optional fields and empty values in separate class ApplicantParser: input $applicant, return value array(fields => (foo,faa), values => ('foo','faa')
-        // use emptyToNull() on self
+        $parser = new ApplicantDatabaseParser($applicantInput);
+
+        $statement = $this->database->prepare($parser->getInsertIntoSql());
+        $statement->execute($parser->getInsertIntoValues());
     }
 
     /**

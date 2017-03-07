@@ -1,6 +1,7 @@
 <?php
-use PHPUnit\Framework\TestCase;
+use hornherzogen\ApplicantInput;
 use hornherzogen\db\ApplicantDatabaseParser;
+use PHPUnit\Framework\TestCase;
 
 class ApplicantDatabaseParserTest extends TestCase
 {
@@ -11,7 +12,7 @@ class ApplicantDatabaseParserTest extends TestCase
      */
     public function setUp()
     {
-        $this->writer = new ApplicantDatabaseParser();
+        $this->writer = new ApplicantDatabaseParser(new ApplicantInput());
     }
 
     /**
@@ -32,11 +33,13 @@ class ApplicantDatabaseParserTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\ApplicantDatabaseParser', $this->writer);
     }
 
-    public function testEmptyToNullWithNullArgument() {
+    public function testEmptyToNullWithNullArgument()
+    {
         $this->assertNull($this->writer->emptyToNull(NULL));
     }
 
-    public function testEmptyToNullWithNonNullArgument() {
+    public function testEmptyToNullWithNonNullArgument()
+    {
         $this->assertEquals("asd dsa", $this->writer->emptyToNull("  asd dsa "));
     }
 
