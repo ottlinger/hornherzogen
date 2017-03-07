@@ -6,7 +6,6 @@ use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\FormHelper;
 
 echo "<h1>List all applicants ....</h1>";
-$formHelper = new FormHelper();
 
 $config = new ConfigurationWrapper();
 
@@ -29,41 +28,44 @@ if ($config->isValidDatabaseConfig()) {
             print "<h2>($rowNum) '$row[name]' in week $row[week] for $row[howmany] applicants</h2>\n";
         }
 
-        // ALL with status
-        echo "<h2>Show all applicants and their status ...</h2>";
-        $q = $db->query("SELECT a.vorname, a.nachname, a.created, s.name FROM `applicants` a, `status` s WHERE s.id = a.statusId ORDER BY s.name");
-        if (false === $q) {
-            $error = $db->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        /*
+                // ALL with status
+                echo "<h2>Show all applicants and their status ...</h2>";
+                $q = $db->query("SELECT a.vorname, a.nachname, a.created, s.name FROM `applicants` a, `status` s WHERE s.id = a.statusId ORDER BY s.name");
+                if (false === $q) {
+                    $error = $db->errorInfo();
+                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+                }
 
-        echo "<h1>Currently there are " . $q->rowCount() . " applicants in the database</h1>";
+                echo "<h1>Currently there are " . $q->rowCount() . " applicants in the database</h1>";
 
-        $rowNum = 0;
-        while ($row = $q->fetch()) {
-            $rowNum++;
-            print "<h2>($rowNum) $row[vorname] $row[nachname] created at $row[created] with status $row[name]</h2>\n";
-        }
+                $rowNum = 0;
+                while ($row = $q->fetch()) {
+                    $rowNum++;
+                    print "<h2>($rowNum) $row[vorname] $row[nachname] created at $row[created] with status $row[name]</h2>\n";
+                }
+        */
 
     } catch (PDOException $e) {
         print "Unable to connect to db:" . $e->getMessage();
     }
 
     // retrieve via helper
-    print "<h1>Use DatabaseWriter</h1>";
-
-    // filter for week?
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $week = $formHelper->filterUserInput($_POST['week']);
-        if (strlen($week)) {
-            echo "Filterung nach Woche " . $week;
-        }
-    }
+    print "<h1>So wird es zukünftig mal aussehen</h1>";
 
     ?>
     <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
+            <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?</label>
+            <?php
+            // filter for week?
+            $formHelper = new FormHelper();
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $week = $formHelper->filterUserInput($_POST['week']);
+                echo strlen($week) ? "Filterung nach Woche " . $week : "beide";
+            }
+            ?>
             <div class="col-sm-10">
                 <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                     <option value="">beide</option>
@@ -94,6 +96,8 @@ if ($config->isValidDatabaseConfig()) {
     echo "<td>E-Mail</td>";
     echo "<td>Dojo</td>";
     echo "<td>Graduierung</td>";
+    echo "<td>twa?</td>";
+    echo "<td>Zimmer</td>";
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -111,6 +115,8 @@ if ($config->isValidDatabaseConfig()) {
         echo "<td>" . $applicant->getEmail() . "</td>";
         echo "<td>" . $applicant->getDojo() . "</td>";
         echo "<td>" . $applicant->getGrading() . " seit " . $applicant->getDateOfLastGrading() . "</td>";
+        echo "<td>" . (strlen($applicant->getTwaNumber()) ? " ja,  " . $applicant->getTwaNumber() : "nein") . "</td>";
+        echo "<td>" . $applicant->getRoom() . "</td>";
         echo "</tr>";
     }
     echo "</tbody>";
