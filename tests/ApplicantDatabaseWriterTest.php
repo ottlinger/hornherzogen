@@ -111,6 +111,13 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
             'street' => 'Up de straat',
             'houseno' => '3',
             'plz' => '12345',
+            'dojo' => 'KaiShinKan',
+            'grad' => '6.Kyu',
+            'gradsince' => '1970-01-01',
+            'twano' => 'UX-1',
+            'room' => '1a',
+            'together1' => 'p1',
+            'together2' => 'p2',
         );
         $applicant = $this->writer->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
@@ -126,6 +133,12 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('Up de straat', $applicant->getStreet());
         $this->assertEquals('3', $applicant->getHousenumber());
         $this->assertEquals('12345', $applicant->getZipcode());
+        $this->assertEquals('KaiShinKan', $applicant->getDojo());
+        $this->assertEquals('6.Kyu', $applicant->getGrading());
+        $this->assertEquals('1970-01-01', $applicant->getDateOfLastGrading());
+        $this->assertEquals('1a', $applicant->getRoom());
+        $this->assertEquals('p1', $applicant->getPartnerOne());
+        $this->assertEquals('p2', $applicant->getPartnerTwo());
 
     }
 
