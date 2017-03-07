@@ -47,4 +47,11 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
+    public function preventSQLInjection($input) {
+        if(isset($input)) {
+            return $input;
+        }
+        return $input;
+    }
+
 }
