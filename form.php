@@ -116,8 +116,8 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week">
-                        <option value="week1">1.Woche - ab Samstag, den 2017-06-18</option>
-                        <option value="week2">2.Woche - ab Samstag, den 2017-06-25</option>
+                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>>1.Woche - ab Samstag, den 2017-06-18</option>
+                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>>2.Woche - ab Samstag, den 2017-06-25</option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
                 </div>
