@@ -25,6 +25,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 <h2>Possible admin actions</h2>
 <ul>
     <li><a href="db/db_connect.php">verify <strong>database connection</strong> is healthy</a></li>
+    <li><a href="db/db_stats.php">show <strong>database</strong> statistics per table</a></li>
     <li><a href="db/db_rooms.php">show list of <strong>available rooms</strong> in the database</a></li>
     <li><a href="db/db_applicants.php">show list of <strong>applications</strong> and their current state</a></li>
     <li><a href="db/db_bookings.php">show list of <strong>room bookings</strong> in the database</a></li>

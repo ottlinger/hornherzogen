@@ -47,7 +47,7 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    public function makeSQLcapable($input) {
+    public function makeSQLCapable($input) {
         if(isset($input)) {
             $mask = $this->database->quote($input);
             $mask = strtr($mask, array('_' => '\_', '%' => '\%'));

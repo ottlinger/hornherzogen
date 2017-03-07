@@ -12,6 +12,10 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             $applicantInput->setFullname($this->formHelper->timestamp());
         }
 
+/* works for insert only
+        $statement = $this->database->prepare('SELECT * from `applicants` a ');
+        $statement->execute(array($firstname, $lastname, $mail));
+*/
         // TODO handle non-optional fields and empty values
     }
 
@@ -28,12 +32,10 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             return NULL;
         }
 
-        // TODO replace with prepared statement
         $query = 'SELECT * from `applicants` a ';
         $query .= ' WHERE a.vorname = "' . $firstname . '" ';
         $query .= ' AND a.nachname = "' . $lastname . '" ';
         $query .= ' AND a.email = "' . $mail . '" ';
-
         $dbResult = $this->database->query($query);
         if (false === $dbResult) {
             $error = $this->database->errorInfo();

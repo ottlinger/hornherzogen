@@ -43,15 +43,15 @@ class BaseDatabaseWriterTest extends TestCase
     }
 
     public function testPreventSQLInjectionWithParameterNull() {
-        $this->assertNull($this->writer->preventSQLInjection(NULL));
+        $this->assertNull($this->writer->makeSQLCapable(NULL));
     }
 
     public function testPreventSQLInjectionWithParameterGiven() {
-        $this->assertEquals("'no change needed'", $this->writer->preventSQLInjection("no change needed"));
+        $this->assertEquals("'no change needed'", $this->writer->makeSQLCapable("no change needed"));
     }
 
     public function testPreventSQLInjectionWithSqlInParameterGiven() {
-        $this->assertEquals("' \%sdasd \_ff\_'", $this->writer->preventSQLInjection(" %sdasd _ff_"));
+        $this->assertEquals("' \%sdasd \_ff\_'", $this->writer->makeSQLCapable(" %sdasd _ff_"));
     }
 
 }

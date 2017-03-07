@@ -8,7 +8,6 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     private $writer = null;
     private $pdo = null;
 
-    // without foreign key constraints to ease testing
 
     /**
      * Setup the test environment.
@@ -21,6 +20,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         self::createTable($this->pdo);
     }
 
+    // without foreign key constraints to ease testing
     static public function createTable(PDO $pdo)
     {
         $query = "
@@ -95,9 +95,8 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertNull($result);
     }
 
-    public function testMappingFromDatabaseToPojo()
+    public function testMappingFromDatabaseToBeanIsComplete()
     {
-        // TODO continue with all attributes
         $row = array(
             'id' => '4711',
             'week' => 'week1',
@@ -161,9 +160,6 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('1970-02-06', $applicant->getBookedAt());
         $this->assertEquals('1970-02-07', $applicant->getCancelledAt());
         $this->assertEquals('47110815', $applicant->getCurrentStatus());
-
-
-
     }
 
     public function testMappingEmptyRowFromDatabaseToPojo()
