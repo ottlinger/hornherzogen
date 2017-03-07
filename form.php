@@ -387,16 +387,13 @@ $config = new \hornherzogen\ConfigurationWrapper();
             <div class="form-group <?php echo $applicantInput->getUIResponse('essen'); ?>">
                 <label class="col-sm-2 control-label">Essenswunsch (*)</label>
                 <div class="col-sm-10">
-                    <?php
-                    //                  <input type="radio" name="gender" ?php if (isset($gender) && $gender=="female") echo "checked"; value="female">Female
-                    ?>
                     <div class="radio" id="essen">
                         <label>
-                            <input type="radio" name="essen" id="meat" value="meat" checked>
+                            <input type="radio" name="essen" id="meat" value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
                             normale Kost (mit Fleisch)
                         </label>
                         <label>
-                            <input type="radio" name="essen" id="veg" value="veg">
+                            <input type="radio" name="essen" id="veg" value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
                             vegetarische Kost (ohne Fleisch)
                         </label>
                     </div>
