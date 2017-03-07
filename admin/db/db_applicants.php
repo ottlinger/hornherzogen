@@ -19,7 +19,7 @@ use hornherzogen\HornLocalizer;
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Herzogenhorn Anmeldeformular</title>
+    <title>Herzogenhorn Adminbereich - Anmeldungen</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +60,7 @@ use hornherzogen\HornLocalizer;
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="../../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                Adminbereich Herzogenhorn 2017</a>
+                Adminbereich Herzogenhorn 2017 - Anmeldungen</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -218,22 +218,15 @@ use hornherzogen\HornLocalizer;
             echo "<td>" . $applicant->getFoodCategory() . "</td>";
             echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
             echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-            echo "<td>" . $applicant->getStatusId() . "</td>";
+            echo "<td>" . $applicant->getCurrentStatus() . "</td>";
             echo "<td>";
             echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
             echo "MAILED: " . $applicant->getMailedAt() . "</br>";
             echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
             echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
+            echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
+            echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
+            echo "CANCELLED: " . $applicant->getCancelledAt();
             echo "</td>";
             echo "</tr>";
         }
