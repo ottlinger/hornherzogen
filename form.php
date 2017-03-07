@@ -129,13 +129,13 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <div class="col-sm-10">
                     <div class="radio" id="flexible">
                         <label>
-                            <input type="radio" name="flexible" id="no" value="no" checked>
+                            <input type="radio" name="flexible" id="no" value="no" <?php if ('1' != $applicantInput->getFlexible()) echo ' checked'; ?>>
                             Ich kann nur in dieser Woche am Lehrgang teilnehmen.
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="flexible" id="yes" value="yes">
+                            <input type="radio" name="flexible" id="yes" value="yes" <?php if ('1' == $applicantInput->getFlexible()) echo ' checked'; ?>>
                             Ich bin flexibel, <strong>falls</strong> diese Woche überbucht ist.
                         </label>
                     </div>
