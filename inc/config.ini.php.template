@@ -23,7 +23,7 @@ sendregistrationmails = false;
 ;;// whether to send mails to us to handle registrations
 sendinternalregistrationmails = true;
 ;;// database host
-dbhost = 'mysql.example.com:3365';
+dbhost = 'mysql.notfoundbecausetoolong123123123.com:3365';
 ;;// database name
 dbname = 'ooNg2sal';
 ;;// database user
