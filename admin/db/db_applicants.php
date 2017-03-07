@@ -1,9 +1,12 @@
 <?php
 require '../../vendor/autoload.php';
 
-use \hornherzogen\ConfigurationWrapper;
+use hornherzogen\ConfigurationWrapper;
+use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\FormHelper;
 
 echo "<h1>List all applicants ....</h1>";
+$formHelper = new FormHelper();
 
 $config = new ConfigurationWrapper();
 
@@ -34,7 +37,7 @@ if ($config->isValidDatabaseConfig()) {
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
 
-        echo "<h1>Currently there are ".$q->rowCount()." applicants in the database</h1>";
+        echo "<h1>Currently there are " . $q->rowCount() . " applicants in the database</h1>";
 
         $rowNum = 0;
         while ($row = $q->fetch()) {
@@ -46,28 +49,68 @@ if ($config->isValidDatabaseConfig()) {
         print "Unable to connect to db:" . $e->getMessage();
     }
 
-
     // retrieve via helper
     print "<h1>Use DatabaseWriter</h1>";
-    $writer = new \hornherzogen\db\ApplicantDatabaseWriter();
 
-    $applicants = $writer->getAllByWeek();
+    // filter for week?
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $week = $formHelper->filterUserInput($_POST['week']);
+        if (strlen($week)) {
+            echo "Filterung nach Woche " . $week;
+        }
+    }
+
+    ?>
+    <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="week" name="week" onchange="this.form.submit()">
+                    <option value="">beide</option>
+                    <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche</option>
+                    <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche</option>
+                </select>
+            </div>
+        </div>
+        <noscript><input type="submit" value="submit"></noscript>
+    </form>
+
+    <?php
+
+    $writer = new ApplicantDatabaseWriter();
+    $applicants = $writer->getAllByWeek($week);
     echo "<table>";
     echo "<thead>";
     echo "<tr>";
     echo "<td>DB-Id</td>";
+    echo "<td>Woche</td>";
+    echo "<td>Anrede</td>";
     echo "<td>Vorname</td>";
     echo "<td>Nachname</td>";
+    echo "<td>Gesamtname</td>";
+    echo "<td>Adresse</td>";
+    echo "<td>PLZ/Stadt</td>";
+    echo "<td>Land</td>";
     echo "<td>E-Mail</td>";
+    echo "<td>Dojo</td>";
+    echo "<td>Graduierung</td>";
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
-    foreach ($applicants as  $applicant) {
+    foreach ($applicants as $applicant) {
         echo "<tr>";
-        echo "<td>".$applicant->getPersistenceId()."</td>";
-        echo "<td>".$applicant->getFirstname()."</td>";
-        echo "<td>".$applicant->getLastname()."</td>";
-        echo "<td>".$applicant->getEmail()."</td>";
+        echo "<td>" . $applicant->getPersistenceId() . "</td>";
+        echo "<td>" . $applicant->getWeek() . "</td>";
+        echo "<td>" . $applicant->getGender() . "</td>";
+        echo "<td>" . $applicant->getFirstname() . "</td>";
+        echo "<td>" . $applicant->getLastname() . "</td>";
+        echo "<td>" . $applicant->getFullName() . "</td>";
+        echo "<td>" . $applicant->getStreet() . " " . $applicants->getHouseNumber() . "</td>";
+        echo "<td>" . $applicant->getZipCode() . " " . $applicants->getCity() . "</td>";
+        echo "<td>" . $applicant->getCountry() . "</td>";
+        echo "<td>" . $applicant->getEmail() . "</td>";
+        echo "<td>" . $applicant->getDojo() . "</td>";
+        echo "<td>" . $applicant->getGrading() . " seit " . $applicants->getDateOfLastGrading() . "</td>";
         echo "</tr>";
     }
     echo "</tbody>";

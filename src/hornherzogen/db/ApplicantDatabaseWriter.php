@@ -16,7 +16,8 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         $statement = $this->database->prepare('SELECT * from `applicants` a ');
         $statement->execute(array($firstname, $lastname, $mail));
 */
-        // TODO handle non-optional fields and empty values
+        // TODO handle non-optional fields and empty values in separate class ApplicantParser: input $applicant, return value array(fields => (foo,faa), values => ('foo','faa')
+        // use emptyToNull() on self
     }
 
     /**
@@ -192,7 +193,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         if (self::isHealthy()) {
             $query = "SELECT * from `applicants` a";
             // if week == null - return all, else for the given week
-            if (isset($week)) {
+            if (isset($week) && strlen($week)) {
                 $query .= " WHERE a.week LIKE '%" . trim($week) . "%'";
             }
 
