@@ -79,10 +79,100 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'country')) {
                 $applicant->setCountry($row['country']);
             }
+
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'vorname')) {
                 $applicant->setFirstname($row['vorname']);
             }
+
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'nachname')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'combinedName')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'street')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'houseno')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'plz')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'dojo')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'grad')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'gradsince')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'twano')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'room')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'together1')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'together2')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'essen')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'flexible')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'additionals')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'created')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'mailed')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'verified')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'paymentmailed')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'paymentreceived')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'booked')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'cancelled')) {
+                $applicant->setLastname($row['nachname']);
+            }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'statusId')) {
                 $applicant->setLastname($row['nachname']);
             }
         }
