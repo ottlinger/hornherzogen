@@ -118,6 +118,8 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
             'room' => '1a',
             'together1' => 'p1',
             'together2' => 'p2',
+            'essen' => 'veg',
+            'flexible' => 'no',
         );
         $applicant = $this->writer->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
@@ -139,6 +141,8 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('1a', $applicant->getRoom());
         $this->assertEquals('p1', $applicant->getPartnerOne());
         $this->assertEquals('p2', $applicant->getPartnerTwo());
+        $this->assertEquals('veg', $applicant->getFoodCategory());
+        $this->assertFalse($applicant->getFlexible());
 
     }
 

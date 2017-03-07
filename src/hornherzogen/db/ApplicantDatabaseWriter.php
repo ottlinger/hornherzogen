@@ -133,7 +133,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'essen')) {
-                $applicant->setFoodCategory($row['nachname']);
+                $applicant->setFoodCategory($row['essen']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'flexible')) {
