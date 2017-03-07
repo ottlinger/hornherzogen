@@ -353,9 +353,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     Zusammenlegungswünsche angeben (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
-                        <option value="1bed">Einzelzimmer</option>
-                        <option value="2bed">2-Bett Zimmer</option>
-                        <option value="3bed" selected>3-Bett Zimmer</option>
+                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>>3-Bett Zimmer</option>
+                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>>2-Bett Zimmer</option>
+                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>>Einzelzimmer</option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
