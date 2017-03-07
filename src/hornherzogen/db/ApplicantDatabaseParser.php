@@ -11,6 +11,7 @@ class ApplicantDatabaseParser
     function __construct($applicant)
     {
         $this->applicant = $applicant;
+        $this->values = array();
         $this->prepare();
     }
 
