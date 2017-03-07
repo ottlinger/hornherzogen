@@ -293,14 +293,14 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <label for="grad" class="col-sm-2 control-label">Aktuelle Graduierung (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
-                        <option>6.Dan</option>
-                        <option>5.Dan</option>
-                        <option>4.Dan</option>
-                        <option>3.Dan</option>
-                        <option>2.Dan</option>
-                        <option selected>1.Dan</option>
-                        <option>1.Kyu</option>
-                        <option>2.Kyu</option>
+                        <option <?php if ('6.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>6.Dan</option>
+                        <option <?php if ('5.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>5.Dan</option>
+                        <option <?php if ('4.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>4.Dan</option>
+                        <option <?php if ('3.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>3.Dan</option>
+                        <option <?php if ('2.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>2.Dan</option>
+                        <option <?php if ('1.Dan' == $applicantInput->getGrading() || !strlen($applicantInput->getGrading())) echo ' selected'; ?>>1.Dan</option>
+                        <option> <?php if ('1.Kyu' == $applicantInput->getGrading()) echo ' selected'; ?>1.Kyu</option>
+                        <option> <?php if ('2.Kyu' == $applicantInput->getGrading()) echo ' selected'; ?>2.Kyu</option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('grad'); ?>
                 </div>
