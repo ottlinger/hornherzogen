@@ -54,6 +54,7 @@ final class ApplicantInput extends Applicant
 
     /**
      * Extracts data from $_POST[], parses it and resets internal error/success counter.
+     * All data is cut after the maximum number of characters that fits into the database.
      */
     public function parse()
     {
@@ -83,66 +84,66 @@ final class ApplicantInput extends Applicant
         }
 
         if ($this->formHelper->isSetAndNotEmpty("vorname")) {
-            $this->setFirstname($this->formHelper->filterUserInput($_POST["vorname"]));
+            $this->setFirstname($this->formHelper->trimAndCutAfter($this->formHelper->filterUserInput($_POST["vorname"]), 200));
             $this->addSuccess("vorname");
         } else {
             $this->addError("vorname");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("nachname")) {
-            $this->setLastname($this->formHelper->filterUserInput($_POST["nachname"]));
+            $this->setLastname($this->formHelper->trimAndCutAfter($this->formHelper->filterUserInput($_POST["nachname"]), 200));
             $this->addSuccess("nachname");
         } else {
             $this->addError("nachname");
         }
 
-        // do this again when flushing to the database
+        // is set when flushing into the database
         $this->setFullName('');
 
         if ($this->formHelper->isSetAndNotEmpty("street")) {
-            $this->setStreet($this->getFromPost("street"));
+            $this->setStreet($this->formHelper->trimAndCutAfter($this->getFromPost("street"), 250));
             $this->addSuccess("street");
         } else {
             $this->addError("street");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("houseno")) {
-            $this->setHouseNumber($this->getFromPost("houseno"));
+            $this->setHouseNumber($this->formHelper->trimAndCutAfter($this->getFromPost("houseno"), 20));
             $this->addSuccess("houseno");
         } else {
             $this->addError("houseno");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("plz")) {
-            $this->setZipCode($this->getFromPost("plz"));
+            $this->setZipCode($this->formHelper->trimAndCutAfter($this->getFromPost("plz"), 20));
             $this->addSuccess("plz");
         } else {
             $this->addError("plz");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("city")) {
-            $this->setCity($this->getFromPost("city"));
+            $this->setCity($this->formHelper->trimAndCutAfter($this->getFromPost("city"), 250));
             $this->addSuccess("city");
         } else {
             $this->addError("city");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("country")) {
-            $this->setCountry($this->getFromPost("country"));
+            $this->setCountry($this->formHelper->trimAndCutAfter($this->getFromPost("country"), 250));
             $this->addSuccess("country");
         } else {
             $this->addError("country");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("email")) {
-            $this->setEmail($this->getFromPost("email"));
+            $this->setEmail($this->formHelper->trimAndCutAfter($this->getFromPost("email"), 250));
             $this->addSuccess("email");
         } else {
             $this->addError("email");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("emailcheck")) {
-            $this->setEmailcheck($this->getFromPost("emailcheck"));
+            $this->setEmailcheck($this->formHelper->trimAndCutAfter($this->getFromPost("emailcheck"), 250));
             $this->addSuccess("emailcheck");
         } else {
             $this->addError("emailcheck");
@@ -155,14 +156,14 @@ final class ApplicantInput extends Applicant
         }
 
         if ($this->formHelper->isSetAndNotEmpty("dojo")) {
-            $this->setDojo($this->getFromPost("dojo"));
+            $this->setDojo($this->formHelper->trimAndCutAfter($this->getFromPost("dojo"), 256));
             $this->addSuccess("dojo");
         } else {
             $this->addError("dojo");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("twano")) {
-            $this->setTwaNumber($this->getFromPost("twano"));
+            $this->setTwaNumber($this->formHelper->trimAndCutAfter($this->getFromPost("twano"), 20));
             $this->addSuccess("twano");
         }
 
@@ -188,12 +189,12 @@ final class ApplicantInput extends Applicant
         }
 
         if ($this->formHelper->isSetAndNotEmpty("together1")) {
-            $this->setPartnerOne($this->getFromPost("together1"));
+            $this->setPartnerOne($this->formHelper->trimAndCutAfter($this->getFromPost("together1"), 100));
             $this->addSuccess("together1");
         }
 
         if ($this->formHelper->isSetAndNotEmpty("together2")) {
-            $this->setPartnerTwo($this->getFromPost("together2"));
+            $this->setPartnerTwo($this->formHelper->trimAndCutAfter($this->getFromPost("together2"), 100));
             $this->addSuccess("together2");
         }
 
@@ -205,7 +206,7 @@ final class ApplicantInput extends Applicant
         }
 
         if ($this->formHelper->isSetAndNotEmpty("additionals")) {
-            $this->setRemarks($this->getFromPost("additionals"));
+            $this->setRemarks($this->formHelper->trimAndCutAfter($this->getFromPost("additionals"), 1024));
             $this->addSuccess("additionals");
         }
 
