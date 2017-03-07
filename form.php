@@ -147,8 +147,8 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <label for="gender" class="col-sm-2 control-label">Anrede (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
-                        <option value="male">Herr</option>
-                        <option value="female">Frau</option>
+                        <option value="male" <?php if ('male' == $applicantInput->getGender()) echo ' selected'; ?>>Herr</option>
+                        <option value="female" <?php if ('female' == $applicantInput->getGender()) echo ' selected'; ?>>Frau</option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('gender'); ?>
                 </div>
