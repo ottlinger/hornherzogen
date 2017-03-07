@@ -99,16 +99,24 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     {
         // TODO continue with all attributes
         $row = array(
+            'id' => '4711',
+            'week' => 'week1',
             'gender' => 'male',
+            'email' => 'foo@bar.de',
+            'city' => 'Beijing',
             'vorname' => 'Hugo',
-            'week' => 'week1'
+            'nachname' => 'Balder'
         );
         $applicant = $this->writer->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
 
-        $this->assertEquals('male', $applicant->getGender());
-        $this->assertEquals('Hugo', $applicant->getFirstname());
+        $this->assertEquals('4711', $applicant->getPersistenceId());
         $this->assertEquals('1', $applicant->getWeek());
+        $this->assertEquals('male', $applicant->getGender());
+        $this->assertEquals('foo@bar.de', $applicant->getEmail());
+        $this->assertEquals('Beijing', $applicant->getCity());
+        $this->assertEquals('Hugo', $applicant->getFirstname());
+        $this->assertEquals('Balder', $applicant->getLastname());
 
     }
 
