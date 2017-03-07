@@ -47,9 +47,11 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    public function preventSQLInjection($input) {
+    public function makeSQLcapable($input) {
         if(isset($input)) {
-            return $input;
+            $mask = $this->database->quote($input);
+            $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
+            return $mask;
         }
         return $input;
     }
