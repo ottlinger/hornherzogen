@@ -104,8 +104,10 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
             'gender' => 'male',
             'email' => 'foo@bar.de',
             'city' => 'Beijing',
+            'country' => 'Doitsu',
             'vorname' => 'Hugo',
-            'nachname' => 'Balder'
+            'nachname' => 'Balder',
+            'combinedName' => 'Hugo Balder'
         );
         $applicant = $this->writer->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
@@ -115,8 +117,10 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('male', $applicant->getGender());
         $this->assertEquals('foo@bar.de', $applicant->getEmail());
         $this->assertEquals('Beijing', $applicant->getCity());
+        $this->assertEquals('Doitsu', $applicant->getCountry());
         $this->assertEquals('Hugo', $applicant->getFirstname());
         $this->assertEquals('Balder', $applicant->getLastname());
+        $this->assertEquals('Hugo Balder', $applicant->getFullname());
 
     }
 

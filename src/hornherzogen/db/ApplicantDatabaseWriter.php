@@ -149,31 +149,32 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'mailed')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setConfirmedAt($row['nachname']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'verified')) {
-                $applicant->setLastname($row['nachname']);
+                // TODO
+                $applicant->setConfirmedAt($row['verified']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'paymentmailed')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setPaymentRequestedAt($row['paymentmailed']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'paymentreceived')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setPaymentReceivedAt($row['paymentreceived']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'booked')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setBookedAt($row['booked']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'cancelled')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setCancelledAt($row['cancelled']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'statusId')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setCurrentStatus($row['statusId']);
             }
         }
 
