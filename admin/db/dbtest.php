@@ -28,7 +28,7 @@ if ($config->isValidDatabaseConfig()) {
         }
 
         echo "<h2>Insert fake applicant ...</h2>";
-        $result = $db->exec("INSERT INTO `applicants` (vorname,nachname,email,statusId) SELECT 'Hugo','Hirsch','foo@bar.de',id from `status` WHERE NAME = 'APPLIED'");
+        $result = $db->exec("INSERT INTO `applicants` (vorname,nachname,week,email,statusId) SELECT 'Hugo','Hirsch','week1','foo@bar.de',id from `status` WHERE NAME = 'APPLIED'");
         if (false === $result) {
             $error = $db->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
