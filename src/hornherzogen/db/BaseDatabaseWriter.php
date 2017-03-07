@@ -22,9 +22,9 @@ class BaseDatabaseWriter
             print "Running on given test datasource.";
             $this->database = $databaseConnection;
             $this->healthy = true;
-        } else {
-            $this->validateDatabaseConnectionFailIfIncorrect();
+            return;
         }
+        $this->validateDatabaseConnectionFailIfIncorrect();
     }
 
     private function validateDatabaseConnectionFailIfIncorrect()
