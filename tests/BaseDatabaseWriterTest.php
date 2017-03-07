@@ -39,7 +39,7 @@ class BaseDatabaseWriterTest extends TestCase
     // works on CI, but fails locally due to real config
     public function testDatabaseConnectionIsUnhealthyWithDummyConfiguration() {
         $writer = new BaseDatabaseWriter();
-        $this->assertTrue($writer->isHealthy());
+        $this->assertFalse($writer->isHealthy());
     }
 
     public function testPreventSQLInjectionWithParameterNull() {
