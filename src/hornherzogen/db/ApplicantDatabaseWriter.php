@@ -89,47 +89,47 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'combinedName')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setFullName($row['combinedName']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'street')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setStreet($row['street']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'houseno')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setHouseNumber($row['houseno']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'plz')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setZipCode($row['plz']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'dojo')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setDojo($row['dojo']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'grad')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setGrading($row['grad']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'gradsince')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setDateOfLastGrading($row['gradsince']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'twano')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setTwaNumber($row['twano']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'room')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setRoom($row['room']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'together1')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setPartnerOne($row['together1']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'together2')) {
-                $applicant->setLastname($row['nachname']);
+                $applicant->setPartnerTwo($row['together2']);
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'essen')) {
