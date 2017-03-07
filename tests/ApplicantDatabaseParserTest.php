@@ -43,4 +43,9 @@ class ApplicantDatabaseParserTest extends TestCase
         $this->assertEquals("asd dsa", $this->writer->emptyToNull("  asd dsa "));
     }
 
+    public function testParsing() {
+        $this->assertStringStartsWith("INSERT INTO applicants(", $this->writer->getInsertIntoSql());
+        $this->assertEquals(0, sizeof($this->writer->getInsertIntoValues()));
+    }
+
 }
