@@ -50,4 +50,8 @@ class BaseDatabaseWriterTest extends TestCase
         $this->assertEquals("'no change needed'", $this->writer->preventSQLInjection("no change needed"));
     }
 
+    public function testPreventSQLInjectionWithSqlInParameterGiven() {
+        $this->assertEquals("' \%sdasd \_ff\_'", $this->writer->preventSQLInjection(" %sdasd _ff_"));
+    }
+
 }
