@@ -120,6 +120,15 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
             'together2' => 'p2',
             'essen' => 'veg',
             'flexible' => 'no',
+            'additionals' => 'This is possible',
+            'created' => '1970-02-01',
+            'mailed' => '1970-02-02',
+            'verified' => '1970-02-03',
+            'paymentmailed' => '1970-02-04',
+            'paymentreceived' => '1970-02-05',
+            'booked' => '1970-02-06',
+            'cancelled' => '1970-02-07',
+            'statusId' => '47110815',
         );
         $applicant = $this->writer->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
@@ -143,6 +152,17 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('p2', $applicant->getPartnerTwo());
         $this->assertEquals('veg', $applicant->getFoodCategory());
         $this->assertFalse($applicant->getFlexible());
+        $this->assertEquals('This is possible', $applicant->getRemarks());
+        $this->assertEquals('1970-02-01', $applicant->getCreatedAt());
+        $this->assertEquals('1970-02-02', $applicant->getMailedAt());
+        $this->assertEquals('1970-02-03', $applicant->getConfirmedAt());
+        $this->assertEquals('1970-02-04', $applicant->getPaymentRequestedAt());
+        $this->assertEquals('1970-02-05', $applicant->getPaymentReceivedAt());
+        $this->assertEquals('1970-02-06', $applicant->getBookedAt());
+        $this->assertEquals('1970-02-07', $applicant->getCancelledAt());
+        $this->assertEquals('47110815', $applicant->getCurrentStatus());
+
+
 
     }
 
