@@ -24,3 +24,8 @@ after_success:
 # https://github.com/ottlinger/hornherzogen/issues/12
 #addons:
 #  srcclr: true
+
+addons:
+  apt:
+    packages:
+    - sendmail 
