@@ -59,13 +59,13 @@ use hornherzogen\HornLocalizer;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
+            <a class="navbar-brand" href="../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
                 Adminbereich Herzogenhorn 2017 - Anmeldungen</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <!-- TODO FIXME menu structure -->
-                <li class="active"><a href="../../admin" target="_blank"><span
+                <li class="active"><a href="../"><span
                                 class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
                     </a></li>
             </ul>
