@@ -533,6 +533,8 @@ class ApplicantInputTest extends TestCase
 
         $this->applicantInput->setFullname("name");
         $this->assertEquals("first last  name", $this->applicantInput->getFullname());
+        $this->assertEquals("first last  name", $this->applicantInput->getFullname());
+        $this->assertEquals("first last  name", $this->applicantInput->getFullname());
     }
 
     public function testUIResponseForUnknownField()

@@ -66,8 +66,8 @@ class ApplicantDatabaseParser
             $this->placeholder[] = 'nachname';
         }
 
-        if (boolval($this->emptyToNull($this->applicant->getFullName()))) {
-            $this->values[] = $this->trimAndMask($this->applicant->getFullName());
+        if (boolval($this->emptyToNull($this->applicant->getFullname()))) {
+            $this->values[] = $this->trimAndMask($this->applicant->getFullname());
             $this->placeholder[] = 'combinedName';
         }
 
