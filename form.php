@@ -429,9 +429,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <?php
         // send mail only if there are no error messages and nothing already exists in the database
         $sender = new \hornherzogen\SubmitMailer($applicantInput);
-        echo $sender->send();
-        echo $sender->sendInternally();
-        echo "<p>Gespeichert als #".$sender->saveInDatabase()."</p>";
+
+        if(!$sender->existsInDatabase()) {
+            echo $sender->send();
+            echo $sender->sendInternally();
+            echo "<p>Gespeichert als #".$sender->saveInDatabase()."</p>";
+        }
     } // if showButtons
     ?>
 

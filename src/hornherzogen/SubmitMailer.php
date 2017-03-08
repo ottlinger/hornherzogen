@@ -84,8 +84,11 @@ class SubmitMailer
     }
 
     public function saveInDatabase() {
-
         return $this->dbWriter->persist($this->applicationInput);
+    }
+
+    public function existsInDatabase() {
+        return boolval($this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail()));
     }
 
     public function isMailSent()
