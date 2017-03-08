@@ -431,8 +431,6 @@ class Applicant
             default:
                 return false;
         }
-
-
     }
 
     /**
