@@ -11,7 +11,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <meta name="description" content="Herzogenhorn 2017 Anmeldung">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
-    <link rel="icon" href="./favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <title>Herzogenhorn 2017 - Startseite</title>
 
