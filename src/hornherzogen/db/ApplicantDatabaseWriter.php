@@ -12,7 +12,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
     function persist($applicantInput)
     {
         if (NULL != $this->getByNameAndMailadress($applicantInput->getFirstname(), $applicantInput->getLastname(), $applicantInput->getEmail())) {
-            $applicantInput->setFullname($this->formHelper->timestamp());
+            $applicantInput->setFullName($this->formHelper->timestamp());
         }
 
         $parser = new ApplicantDatabaseParser($applicantInput);

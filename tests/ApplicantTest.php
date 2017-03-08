@@ -80,12 +80,12 @@ class ApplicantTest extends TestCase
         $lastName = "Buhl-Freiherr von und zu Guttenberg";
         $firstName = "Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester";
         $this->applicant->setFirstname($firstName)->setLastname($lastName);
-        $this->assertEquals(trim($firstName . ' ' . $lastName), $this->applicant->getFullname());
+        $this->assertEquals(trim($firstName . ' ' . $lastName), $this->applicant->getFullName());
 
         // with salt
         $salt = "the third";
         $this->applicant->setFullName($salt);
-        $this->assertEquals($firstName . ' ' . $lastName . ' ' . $salt, $this->applicant->getFullname());
+        $this->assertEquals($firstName . ' ' . $lastName . ' ' . $salt, $this->applicant->getFullName());
     }
 
     public function testAttributeStreet()
