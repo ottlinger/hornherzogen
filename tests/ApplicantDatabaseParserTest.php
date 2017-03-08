@@ -12,7 +12,14 @@ class ApplicantDatabaseParserTest extends TestCase
      */
     public function setUp()
     {
-        $this->writer = new ApplicantDatabaseParser(new ApplicantInput());
+        $applicantInput = new ApplicantInput();
+        $applicantInput->setWeek("1");
+        $applicantInput->setCountry("DE");
+        $applicantInput->setCity("Berlin");
+        $applicantInput->setFirstname("Egon");
+        $applicantInput->setLastname("Balder");
+        $applicantInput->setCurrentStatus(1); // APPLIED
+        $this->writer = new ApplicantDatabaseParser($applicantInput);
     }
 
     /**
@@ -43,9 +50,14 @@ class ApplicantDatabaseParserTest extends TestCase
         $this->assertEquals("asd dsa", $this->writer->emptyToNull("  asd dsa "));
     }
 
-    public function testParsing() {
-        $this->assertStringStartsWith("INSERT INTO applicants(", $this->writer->getInsertIntoSql());
-        $this->assertEquals(0, sizeof($this->writer->getInsertIntoValues()));
+    public function testParsingIntoSqlString() {
+        $this->assertStringStartsWith("INSERT INTO applicants (", $this->writer->getInsertIntoSql());
+        $this->assertEquals("INSERT INTO applicants (week,city,country,vorname,nachname,combinedName,statusId) VALUES ('1','Berlin','DE','Egon','Balder','Egon Balder',1)", $this->writer->getInsertIntoSql());
+        $this->assertEquals(7, sizeof($this->writer->getInsertIntoValues()));
+    }
+
+    public function testParsingOfPotentiallyNullableStrings() {
+        $this->assertFalse(boolval(NULL));
     }
 
 }
