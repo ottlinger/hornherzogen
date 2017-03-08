@@ -75,5 +75,12 @@ class StatusDatabaseReaderTest extends TestCase
         $this->assertEquals(array('id' => "4711", 'name' => "TESTSTATE"), $this->writer->fromDatabaseToArray($row));
     }
 
+    public function testReadFromDatabaseWithConfiguredDatasourceWorksOnCi() {
+        $reader = new StatusDatabaseReader();
+
+        $this->assertFalse($reader->isHealthy());
+        $this->assertNull($reader->getById("anyWillGo"));
+    }
+
 
 }
