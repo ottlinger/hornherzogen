@@ -68,6 +68,8 @@ class SubmitMailer
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setCreatedAt($appliedAt);
+            // TODO fixme: dynamically retrieve from database, use id from 'APPLIED'
+            $this->applicationInput->setCurrentStatus(1);
             return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
         }
 
