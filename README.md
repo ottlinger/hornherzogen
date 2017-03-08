@@ -3,6 +3,7 @@ Pet project to manage seminar registration for Herzogenhorn 2017
 
 Status: Work in progress :-) since 2017-01-07
 
+[![Stories in Backlog](https://badge.waffle.io/ottlinger/hornherzogen.png?label=backlog&title=Backlog)](https://waffle.io/ottlinger/hornherzogen)
 [![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
 [![Stories in Progress](https://badge.waffle.io/ottlinger/hornherzogen.png?label=in%20progress&title=In%20Progress)](https://waffle.io/ottlinger/hornherzogen)
 [![Stories in Done](https://badge.waffle.io/ottlinger/hornherzogen.png?label=done&title=Done)](https://waffle.io/ottlinger/hornherzogen)
