@@ -15,7 +15,7 @@ class StatusDatabaseReader extends BaseDatabaseWriter
 
     private function getResultsFromDatabase($query)
     {
-        if (!self::isHealthy() || isset($query)) {
+        if (!self::isHealthy() || !isset($query)) {
             return NULL;
         }
 
@@ -49,7 +49,7 @@ class StatusDatabaseReader extends BaseDatabaseWriter
 
     function getByName($name)
     {
-        if (!self::isHealthy() || isset($name)) {
+        if (!self::isHealthy() || !isset($name)) {
             return NULL;
         }
 
