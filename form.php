@@ -427,10 +427,11 @@ $config = new \hornherzogen\ConfigurationWrapper();
             Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
         <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
         <?php
-        // send mail only if there are no error messages
+        // send mail only if there are no error messages and nothing already exists in the database
         $sender = new \hornherzogen\SubmitMailer($applicantInput);
         echo $sender->send();
         echo $sender->sendInternally();
+        echo "<p>Gespeichert als #".$sender->saveInDatabase()."</p>";
     } // if showButtons
     ?>
 

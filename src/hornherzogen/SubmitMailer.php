@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace hornherzogen;
 
+use hornherzogen\db\ApplicantDatabaseWriter;
+
 class SubmitMailer
 {
     // internal members
@@ -10,6 +12,7 @@ class SubmitMailer
     private $revision;
     private $localizer;
     private $config;
+    private $dbWriter;
 
     function __construct($applicationInput)
     {
@@ -18,6 +21,8 @@ class SubmitMailer
         $this->revision = new GitRevision();
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
+        $this->dbWriter = new ApplicantDatabaseWriter();
+
         date_default_timezone_set('Europe/Berlin');
     }
 
@@ -70,11 +75,18 @@ class SubmitMailer
             $this->applicationInput->setCreatedAt($appliedAt);
             // TODO fixme: dynamically retrieve from database, use id from 'APPLIED'
             $this->applicationInput->setCurrentStatus(1);
+
             return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
         }
-
         $this->applicationInput->setMailSent(true);
+
         return '';
+    }
+
+    public function saveInDatabase() {
+
+        $this->dbWriter->getByNameAndMailadress()
+        return $this->dbWriter->persist($this->applicationInput);
     }
 
     public function isMailSent()
