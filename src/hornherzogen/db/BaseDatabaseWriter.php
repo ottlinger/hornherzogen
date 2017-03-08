@@ -36,6 +36,7 @@ class BaseDatabaseWriter
             $this->healthy = true;
         } catch (PDOException $e) {
             print "Unable to connect to database please check your configuration settings! Message was: " . $e->getMessage();
+            $this->healthy = false;
         }
     }
 
