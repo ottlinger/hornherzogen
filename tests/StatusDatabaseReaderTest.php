@@ -19,9 +19,9 @@ class StatusDatabaseReaderTest extends TestCase
     private static function createTables()
     {
         if(isset(self::$pdo)) {
-            echo "Using existing SQLiteDB";
             return self::$pdo;
         }
+        echo "InitDB for statuses.";
         self::$pdo = new PDO('sqlite::memory:');
 
         $query = '
@@ -36,10 +36,13 @@ class StatusDatabaseReaderTest extends TestCase
             $error = self::$pdo->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
-        echo "Table da";
 
-        self::$pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED');");
-
+        $dbResult = self::$pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED');");
+        if (false === $dbResult) {
+            $error = self::$pdo->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            echo "XXXXXXXXXXAAAAAYYYYY";
+        }
 
 /*
         INSERT INTO status (name) VALUES ('REGISTERED');

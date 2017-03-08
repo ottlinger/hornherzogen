@@ -19,7 +19,6 @@ class BaseDatabaseWriter
         $this->formHelper = new FormHelper();
 
         if (isset($databaseConnection)) {
-            print "Running on given test datasource.";
             $this->database = $databaseConnection;
             $this->healthy = true;
             return;
