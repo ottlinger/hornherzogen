@@ -1,5 +1,4 @@
 <?php
-use PHPUnit\Framework\TestCase;
 use hornherzogen\db\StatusDatabaseReader;
 
 class StatusDatabaseReaderTest
@@ -11,7 +10,19 @@ class StatusDatabaseReaderTest
      */
     public function setUp()
     {
-        $this->writer = new StatusDatabaseReader(new PDO('sqlite::memory:'));
+        $pdo = new PDO('sqlite::memory:');
+        self::createTables($pdo);
+        $this->writer = new StatusDatabaseReader($pdo);
+    }
+
+    private static function createTables($pdo)
+    {
+        $query = '
+        
+        ';
+
+
+        $pdo->query($query);
     }
 
     /**
@@ -32,8 +43,14 @@ class StatusDatabaseReaderTest
         $this->assertInstanceOf('hornherzogen\db\StatusDatabaseReader', $this->writer);
     }
 
-    public function testDatabaseConnectionIsHealthyDueToSqlite() {
+    public function testDatabaseConnectionIsHealthyDueToSqlite()
+    {
         $this->assertTrue($this->writer->isHealthy());
+    }
+
+    public function testRowConversionWithNullArguments()
+    {
+        $this->assertNull($this->writer->fromDatabaseToArray(NULL));
     }
 
 }
