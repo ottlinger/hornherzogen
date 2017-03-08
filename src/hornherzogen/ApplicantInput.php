@@ -302,7 +302,8 @@ final class ApplicantInput extends Applicant
      */
     public function hasErrors()
     {
-        return empty($this->getWeek()) || boolval($this->getFlexible()) || empty($this->getGender()) //
+        // flexible is excluded since it may be false/empty
+        return empty($this->getWeek()) || empty($this->getGender()) //
             || empty($this->getFirstname()) || empty($this->getLastname()) || empty($this->getStreet()) //
             || empty($this->getHouseNumber()) || empty($this->getZipCode()) || empty($this->getCity()) //
             || empty($this->getCountry()) || empty($this->getEmail()) || empty($this->getDojo()) //
