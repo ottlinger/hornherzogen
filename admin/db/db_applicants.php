@@ -4,6 +4,7 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
@@ -169,6 +170,7 @@ use hornherzogen\HornLocalizer;
         </form>
 
         <?php
+        $statusReader = new StatusDatabaseReader();
 
         $writer = new ApplicantDatabaseWriter();
         $applicants = $writer->getAllByWeek($week);
@@ -218,7 +220,7 @@ use hornherzogen\HornLocalizer;
             echo "<td>" . $applicant->getFoodCategory() . "</td>";
             echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
             echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-            echo "<td>" . $applicant->getCurrentStatus() . "</td>";
+            echo "<td>" . $statusReader->getById($applicant->getCurrentStatus())[0]['name'] . "</td>";
             echo "<td>";
             echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
             echo "MAILED: " . $applicant->getMailedAt() . "</br>";
