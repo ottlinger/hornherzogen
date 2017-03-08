@@ -426,6 +426,7 @@ class Applicant
     {
         switch ($this->flexible) {
             case "yes":
+            case "1":
                 return true;
             default:
                 return false;

@@ -495,6 +495,9 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setFlexible("yes");
         $this->assertTrue($this->applicantInput->getFlexible());
 
+        $this->applicantInput->setFlexible("1");
+        $this->assertTrue($this->applicantInput->getFlexible());
+
         $this->applicantInput->setFlexible("no");
         $this->assertFalse($this->applicantInput->getFlexible());
 
