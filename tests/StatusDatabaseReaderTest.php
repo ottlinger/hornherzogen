@@ -19,23 +19,32 @@ class StatusDatabaseReaderTest extends TestCase
     private static function createTables($pdo)
     {
         $query = '
-            CREATE TABLE IF NOT EXISTS `status` (
-              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-              PRIMARY KEY (`id`)
-            ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
-            
-            INSERT INTO status (name) VALUES (\'APPLIED\');
-            INSERT INTO status (name) VALUES (\'REGISTERED\');
-            INSERT INTO status (name) VALUES (\'CONFIRMED\');
-            INSERT INTO status (name) VALUES (\'WAITING_FOR_PAYMENT\');
-            INSERT INTO status (name) VALUES (\'CANCELLED\');
-            INSERT INTO status (name) VALUES (\'PAID\');
-            INSERT INTO status (name) VALUES (\'SPAM\');
-            INSERT INTO status (name) VALUES (\'REJECTED\');
+            CREATE TABLE status (
+              id int PRIMARY KEY NOT NULL,
+              name CHAR(50) DEFAULT NULL
+            );
         ';
 
-        $pdo->query($query);
+        $dbResult = $pdo->query($query);
+        if (false === $dbResult) {
+            $error = $pdo->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
+        echo "Table da";
+
+        $pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED')");
+
+
+/*
+        INSERT INTO status (name) VALUES ('REGISTERED');
+            INSERT INTO status (name) VALUES ('CONFIRMED');
+            INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
+            INSERT INTO status (name) VALUES ('CANCELLED');
+            INSERT INTO status (name) VALUES ('PAID');
+            INSERT INTO status (name) VALUES ('SPAM');
+            INSERT INTO status (name) VALUES ('REJECTED');
+*/
+
     }
 
     /**
@@ -80,6 +89,14 @@ class StatusDatabaseReaderTest extends TestCase
 
         $this->assertFalse($reader->isHealthy());
         $this->assertNull($reader->getById("anyWillGo"));
+    }
+
+    public function testReadStatusFromDatabaseById() {
+        $this->assertEquals(array('id' => "1", 'name' => "APPLIED"), $this->writer->getById("1"));
+    }
+
+    public function testReadStatusFromDatabaseByName() {
+        $this->assertEquals(array('id' => "1", 'name' => "APPLIED"), $this->writer->getByName("APPLIED"));
     }
 
 

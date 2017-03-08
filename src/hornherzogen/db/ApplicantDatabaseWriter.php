@@ -19,6 +19,8 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
 
         $statement = $this->database->prepare($parser->getInsertIntoSql());
         $statement->execute($parser->getInsertIntoValues());
+
+        return $this->database->lastInsertId();
     }
 
     /**
