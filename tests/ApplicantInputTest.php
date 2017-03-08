@@ -505,6 +505,25 @@ class ApplicantInputTest extends TestCase
         $this->assertFalse($this->applicantInput->getFlexible());
     }
 
+    public function testFlexibilityParsingFromUserInputWithNotFlexible() {
+        $_POST['flexible'] = "no";
+        $this->applicantInput->parse();
+
+        $this->assertFalse($this->applicantInput->getFlexible());
+
+        $_POST['flexible'] = NULL;
+        $this->applicantInput->parse();
+
+        $this->assertFalse($this->applicantInput->getFlexible());
+    }
+
+    public function testFlexibilityParsingFromUserInputWithBeingFlexible() {
+        $_POST['flexible'] = "yes";
+        $this->applicantInput->parse();
+
+        $this->assertTrue($this->applicantInput->getFlexible());
+    }
+
     public function testFullnameGenerationWithSaltIsTrimmed()
     {
         $this->applicantInput->setFirstname(" first");
