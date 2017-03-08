@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class StatusDatabaseReaderTest extends TestCase
 {
-    private $writer = null;
+    private $reader = null;
 
     /**
      * Setup the test environment.
@@ -13,7 +13,7 @@ class StatusDatabaseReaderTest extends TestCase
     {
         $pdo = new PDO('sqlite::memory:');
         self::createTables($pdo);
-        $this->writer = new StatusDatabaseReader($pdo);
+        $this->reader = new StatusDatabaseReader($pdo);
     }
 
     private static function createTables($pdo)
@@ -52,7 +52,7 @@ class StatusDatabaseReaderTest extends TestCase
      */
     public function tearDown()
     {
-        $this->writer = null;
+        $this->reader = null;
     }
 
     /**
@@ -62,17 +62,17 @@ class StatusDatabaseReaderTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\db\StatusDatabaseReader', $this->writer);
+        $this->assertInstanceOf('hornherzogen\db\StatusDatabaseReader', $this->reader);
     }
 
     public function testDatabaseConnectionIsHealthyDueToSqlite()
     {
-        $this->assertTrue($this->writer->isHealthy());
+        $this->assertTrue($this->reader->isHealthy());
     }
 
     public function testRowConversionWithNullArguments()
     {
-        $this->assertNull($this->writer->fromDatabaseToArray(NULL));
+        $this->assertNull($this->reader->fromDatabaseToArray(NULL));
     }
 
     public function testRowConversionWithRowGiven()
@@ -81,7 +81,7 @@ class StatusDatabaseReaderTest extends TestCase
         $row['id'] = "4711";
         $row['name'] = "TESTSTATE";
 
-        $this->assertEquals(array('id' => "4711", 'name' => "TESTSTATE"), $this->writer->fromDatabaseToArray($row));
+        $this->assertEquals(array('id' => "4711", 'name' => "TESTSTATE"), $this->reader->fromDatabaseToArray($row));
     }
 
     public function testReadFromDatabaseWithConfiguredDatasourceWorksOnCi() {
@@ -93,13 +93,13 @@ class StatusDatabaseReaderTest extends TestCase
 
     // FIXME
     public function testReadStatusFromDatabaseById() {
-        $this->assertNull($this->writer->getById("1"));
+        $this->assertNull($this->reader->getById("1"));
 //        $this->assertEquals(array('id' => "1", 'name' => "APPLIED"), $this->writer->getById("1"));
     }
 
     // FIXME
     public function testReadStatusFromDatabaseByName() {
-        $this->assertNull($this->writer->getByName("APPLIED"));
+        $this->assertNull($this->reader->getByName("APPLIED"));
 //        $this->assertEquals(array('id' => "1", 'name' => "APPLIED"), $this->writer->getByName("APPLIED"));
     }
 
