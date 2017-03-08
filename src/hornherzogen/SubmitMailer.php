@@ -85,7 +85,6 @@ class SubmitMailer
 
     public function saveInDatabase() {
 
-        $this->dbWriter->getByNameAndMailadress()
         return $this->dbWriter->persist($this->applicationInput);
     }
 
