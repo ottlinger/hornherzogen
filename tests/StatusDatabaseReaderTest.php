@@ -5,19 +5,25 @@ use PHPUnit\Framework\TestCase;
 class StatusDatabaseReaderTest extends TestCase
 {
     private $reader = null;
+    private static $pdo = null;
 
     /**
      * Setup the test environment.
      */
     public function setUp()
     {
-        $pdo = new PDO('sqlite::memory:');
-        self::createTables($pdo);
-        $this->reader = new StatusDatabaseReader($pdo);
+        self::createTables();
+        $this->reader = new StatusDatabaseReader(self::$pdo);
     }
 
-    private static function createTables($pdo)
+    private static function createTables()
     {
+        if(isset(self::$pdo)) {
+            echo "Using existing SQLiteDB";
+            return self::$pdo;
+        }
+        self::$pdo = new PDO('sqlite::memory:');
+
         $query = '
             CREATE TABLE status (
               id int PRIMARY KEY NOT NULL,
@@ -25,14 +31,14 @@ class StatusDatabaseReaderTest extends TestCase
             );
         ';
 
-        $dbResult = $pdo->query($query);
+        $dbResult = self::$pdo->query($query);
         if (false === $dbResult) {
-            $error = $pdo->errorInfo();
+            $error = self::$pdo->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
         echo "Table da";
 
-        $pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED')");
+        self::$pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED');");
 
 
 /*
