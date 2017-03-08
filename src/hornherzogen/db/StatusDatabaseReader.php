@@ -15,10 +15,6 @@ class StatusDatabaseReader extends BaseDatabaseWriter
 
     private function getResultsFromDatabase($query)
     {
-        if (!isset($query)) {
-            return NULL;
-        }
-
         $dbResult = $this->database->query($query);
         if (false === $dbResult) {
             $error = $this->database->errorInfo();

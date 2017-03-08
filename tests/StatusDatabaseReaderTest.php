@@ -119,4 +119,8 @@ class StatusDatabaseReaderTest extends TestCase
         $this->assertTrue($this->reader->isHealthy());
         $this->assertEquals(array(array('id' => "1", 'name' => "APPLIED")), $this->reader->getByName("APPLIED"));
     }
+
+    public function testGetByNameWithNoName() {
+        $this->assertNull($this->reader->getByName(NULL));
+    }
 }
