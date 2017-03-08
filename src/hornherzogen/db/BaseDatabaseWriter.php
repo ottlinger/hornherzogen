@@ -21,13 +21,18 @@ class BaseDatabaseWriter
         if (isset($databaseConnection)) {
             $this->database = $databaseConnection;
             $this->healthy = true;
-            return;
+        } else {
+            $this->validateDatabaseConnectionFailIfIncorrect();
         }
-        $this->validateDatabaseConnectionFailIfIncorrect();
     }
 
     private function validateDatabaseConnectionFailIfIncorrect()
     {
+        if(!$this->config->isValidDatabaseConfig()) {
+            echo "Illegal DB configuration.";
+            return;
+        }
+
         try {
             $this->database = new PDO('mysql:host=' . $this->config->dbhost() . ';dbname=' . $this->config->dbname(), $this->config->dbuser(), $this->config->dbpassword());
             $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -49,7 +54,9 @@ class BaseDatabaseWriter
 
     public function makeSQLCapable($input) {
         if(isset($input)) {
-            $mask = $this->database->quote($input);
+            if(isset($this->database)) {
+                $mask = $this->database->quote($input);
+            }
             $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
             return $mask;
         }

@@ -4,56 +4,65 @@ use PHPUnit\Framework\TestCase;
 
 class StatusDatabaseReaderTest extends TestCase
 {
-    private $reader = null;
     private static $pdo = null;
+    private $reader = null;
 
     /**
      * Setup the test environment.
      */
     public function setUp()
     {
-        self::createTables();
+        self::$pdo = $this->createTables();
         $this->reader = new StatusDatabaseReader(self::$pdo);
     }
 
-    private static function createTables()
+    private function createTables()
     {
-        if(isset(self::$pdo)) {
+        if (isset(self::$pdo)) {
             return self::$pdo;
         }
         echo "InitDB for statuses.";
-        self::$pdo = new PDO('sqlite::memory:');
+        $pdo = new PDO('sqlite::memory:');
 
         $query = '
             CREATE TABLE status (
-              id int PRIMARY KEY NOT NULL,
+              id int PRIMARY KEY  NOT NULL,
               name CHAR(50) DEFAULT NULL
             );
         ';
 
-        $dbResult = self::$pdo->query($query);
+        $dbResult = $pdo->query($query);
         if (false === $dbResult) {
-            $error = self::$pdo->errorInfo();
+            $error = $pdo->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
 
-        $dbResult = self::$pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED');");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (2,'REGISTERED')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (3,'CONFIRMED')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (4,'WAITING_FOR_PAYMENT')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (5,'CANCELLED')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (6,'PAID')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (7,'SPAM')");
+        $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (8,'REJECTED')");
         if (false === $dbResult) {
-            $error = self::$pdo->errorInfo();
+            $error = $pdo->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            echo "XXXXXXXXXXAAAAAYYYYY";
         }
 
-/*
-        INSERT INTO status (name) VALUES ('REGISTERED');
-            INSERT INTO status (name) VALUES ('CONFIRMED');
-            INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
-            INSERT INTO status (name) VALUES ('CANCELLED');
-            INSERT INTO status (name) VALUES ('PAID');
-            INSERT INTO status (name) VALUES ('SPAM');
-            INSERT INTO status (name) VALUES ('REJECTED');
-*/
+        $dbResult = $pdo->query("SELECT * FROM status");
+        if (false === $dbResult) {
+            $error = $pdo->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
 
+        echo ">>>";
+        while ($row = $dbResult->fetch()) {
+            echo $row['id'] . "/" . $row['name'];
+        }
+        echo "<<<";
+
+        return $pdo;
     }
 
     /**
@@ -93,24 +102,21 @@ class StatusDatabaseReaderTest extends TestCase
         $this->assertEquals(array('id' => "4711", 'name' => "TESTSTATE"), $this->reader->fromDatabaseToArray($row));
     }
 
-    public function testReadFromDatabaseWithConfiguredDatasourceWorksOnCi() {
-        $reader = new StatusDatabaseReader();
-
-        $this->assertFalse($reader->isHealthy());
-        $this->assertNull($reader->getById("anyWillGo"));
+    public function testReadStatusFromDatabaseById()
+    {
+        $this->assertTrue($this->reader->isHealthy());
+        $this->assertEquals(array(array('id' => "1", 'name' => "APPLIED")), $this->reader->getById(1));
     }
 
-    // FIXME
-    public function testReadStatusFromDatabaseById() {
-        $this->assertNull($this->reader->getById("1"));
-//        $this->assertEquals(array('id' => "1", 'name' => "APPLIED"), $this->writer->getById("1"));
+    public function testReadStatusFromDatabaseByIdWithBogusInput()
+    {
+        $this->assertTrue($this->reader->isHealthy());
+        $this->assertNull($this->reader->getById("ThisIsNotANumber"));
     }
 
-    // FIXME
-    public function testReadStatusFromDatabaseByName() {
-        $this->assertNull($this->reader->getByName("APPLIED"));
-//        $this->assertEquals(array('id' => "1", 'name' => "APPLIED"), $this->writer->getByName("APPLIED"));
+    public function testReadStatusFromDatabaseByName()
+    {
+        $this->assertTrue($this->reader->isHealthy());
+        $this->assertEquals(array(array('id' => "1", 'name' => "APPLIED")), $this->reader->getByName("APPLIED"));
     }
-
-
 }

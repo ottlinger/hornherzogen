@@ -10,12 +10,12 @@ class StatusDatabaseReader extends BaseDatabaseWriter
             return NULL;
         }
 
-        return $this->getResultsFromDatabase('SELECT * from status s WHERE s.id = "' . $id . '"');
+        return $this->getResultsFromDatabase('SELECT * from status s WHERE s.id = "' . $id . '";');
     }
 
     private function getResultsFromDatabase($query)
     {
-        if (!self::isHealthy() || !isset($query)) {
+        if (!isset($query)) {
             return NULL;
         }
 
@@ -25,15 +25,12 @@ class StatusDatabaseReader extends BaseDatabaseWriter
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
 
-        if (0 == $dbResult->rowCount()) {
-            return NULL;
-        }
-
         $results = array();
         while ($row = $dbResult->fetch()) {
             $results[] = $this->fromDatabaseToArray($row);
         }
-        return $results;
+
+        return empty($results) ? NULL : $results;
     }
 
     function fromDatabaseToArray($row)
@@ -53,7 +50,7 @@ class StatusDatabaseReader extends BaseDatabaseWriter
             return NULL;
         }
 
-        return $this->getResultsFromDatabase('SELECT * from status s WHERE s.name = "' . strtoupper($name) . '"');
+        return $this->getResultsFromDatabase('SELECT * from status s WHERE s.name = "' . strtoupper($name) . '";');
     }
 
 }

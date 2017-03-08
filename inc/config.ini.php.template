@@ -23,12 +23,12 @@ sendregistrationmails = false;
 ;;// whether to send mails to us to handle registrations
 sendinternalregistrationmails = true;
 ;;// database host, e.g. 'mydb.com:3365'
-;;// dbhost =
+dbhost = 'anyhost';
 ;;// database name, e.g. 'ooNg2sal'
-;;// dbname =
+dbname = 'adbname';
 ;;// database user, e.g. 'pi2ieVid1234567'
-;;// dbuser = 'pi2ieVid1234567';
+dbuser = 'pi2ieVid1234567';
 ;;// database password, e.g. 'AiCh3ieSbou5Gee2deadbeaf';
-;;// dbpassword =
+dbpassword = 'anypassword';
 ;*/
 ;?>
