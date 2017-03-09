@@ -110,7 +110,22 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
-            <?php } // end if ?>
+         <?php } else { ?>
+            <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
+                Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
+            <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+            <?php
+            // send mail only if there are no error messages and nothing already exists in the database
+            $sender = new \hornherzogen\SubmitMailer($applicantInput);
+
+            if(!$sender->existsInDatabase()) {
+                echo $sender->send();
+                echo $sender->sendInternally();
+                echo "<p>Gespeichert als #".$sender->saveInDatabase()."</p>";
+            }
+        } // if showButtons
+        ?>
+
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
                 <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
@@ -411,7 +426,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors() && !$applicantInput->isMailSent()) { ?>
+         <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors() && !$applicantInput->isMailSent()) { ?>
             <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -422,21 +437,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
         </form>
-    <?php } else { ?>
-        <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
-            Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
-        <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
-        <?php
-        // send mail only if there are no error messages and nothing already exists in the database
-        $sender = new \hornherzogen\SubmitMailer($applicantInput);
-
-        if(!$sender->existsInDatabase()) {
-            echo $sender->send();
-            echo $sender->sendInternally();
-            echo "<p>Gespeichert als #".$sender->saveInDatabase()."</p>";
-        }
-    } // if showButtons
-    ?>
+         <?php } // buttonIf ?>
 
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
