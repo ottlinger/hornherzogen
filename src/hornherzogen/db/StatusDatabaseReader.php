@@ -4,13 +4,13 @@ namespace hornherzogen\db;
 
 class StatusDatabaseReader extends BaseDatabaseWriter
 {
-    function getById($id)
+    function getById($databaseId)
     {
-        if (!self::isHealthy() || !is_numeric($id)) {
+        if (!self::isHealthy() || !is_numeric($databaseId)) {
             return NULL;
         }
 
-        return $this->getResultsFromDatabase('SELECT * from status s WHERE s.id = "' . $id . '";');
+        return $this->getResultsFromDatabase('SELECT * from status s WHERE s.id = "' . $databaseId . '";');
     }
 
     private function getResultsFromDatabase($query)
