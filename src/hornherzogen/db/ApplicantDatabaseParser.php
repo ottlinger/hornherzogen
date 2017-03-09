@@ -1,7 +1,7 @@
 <?php
 namespace hornherzogen\db;
-use hornherzogen\HornLocalizer;
 
+use hornherzogen\HornLocalizer;
 
 /**
  * Class ApplicantDatabaseParser encapsulates an INSERT INTO-sql String from a given applicant.
