@@ -21,14 +21,14 @@ class BaseDatabaseWriter
         if (isset($databaseConnection)) {
             $this->database = $databaseConnection;
             $this->healthy = true;
-        } else {
-            $this->validateDatabaseConnectionFailIfIncorrect();
+            return;
         }
+        $this->validateDatabaseConnectionFailIfIncorrect();
     }
 
     private function validateDatabaseConnectionFailIfIncorrect()
     {
-        if(!$this->config->isValidDatabaseConfig()) {
+        if (!$this->config->isValidDatabaseConfig()) {
             echo "Illegal DB configuration.";
             return;
         }
@@ -52,9 +52,10 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    public function makeSQLCapable($input) {
-        if(isset($input)) {
-            if(isset($this->database)) {
+    public function makeSQLCapable($input)
+    {
+        if (isset($input)) {
+            if (isset($this->database)) {
                 $mask = $this->database->quote($input);
             }
             $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
