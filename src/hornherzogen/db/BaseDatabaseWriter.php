@@ -57,6 +57,8 @@ class BaseDatabaseWriter
         if (isset($input)) {
             if (isset($this->database)) {
                 $mask = $this->database->quote($input);
+            } else {
+                $mask = "'" . $input . "'";
             }
             $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
             return $mask;
