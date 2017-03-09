@@ -38,7 +38,7 @@ class HornLocalizer
     }
 
     /**
-     * Retrieve language parameter if available with fallback to German version (de) by taking care of session state as well.
+     * Retrieve language parameter if available with fallback to en by taking care of session state as well.
      * @return string
      */
     public static function getLanguage()
