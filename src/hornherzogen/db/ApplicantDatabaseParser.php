@@ -28,9 +28,11 @@ class ApplicantDatabaseParser
         $this->sql = "INSERT INTO applicants (" . implode(",", $this->placeholder) . ") VALUES (" . implode(",", $this->values) . ")";
     }
 
-
     private function parseValues()
     {
+        $this->values[] = $this->trimAndMask($this->applicant->getLanguage());
+        $this->placeholder[] = 'language';
+
         if (boolval($this->emptyToNull($this->applicant->getWeek()))) {
             $this->values[] = $this->trimAndMask($this->applicant->getWeek());
             $this->placeholder[] = 'week';
@@ -66,8 +68,10 @@ class ApplicantDatabaseParser
             $this->placeholder[] = 'nachname';
         }
 
-        if (boolval($this->emptyToNull($this->applicant->getFullName()))) {
-            $this->values[] = $this->trimAndMask($this->applicant->getFullName());
+
+        $full = $this->applicant->getFullName();
+        if (boolval($this->emptyToNull($full))) {
+            $this->values[] = $this->trimAndMask($full);
             $this->placeholder[] = 'combinedName';
         }
 
@@ -148,15 +152,6 @@ class ApplicantDatabaseParser
         */
     }
 
-    public function emptyToNull($input)
-    {
-        if (isset($input) && strlen(trim($input))) {
-            return trim($input);
-        }
-        return NULL;
-    }
-
-
     /**
      * Trims given data and surrounds with quotes for SQL insertion.
      * @param $input
@@ -165,12 +160,19 @@ class ApplicantDatabaseParser
     public function trimAndMask($input)
     {
         $trimmed = $this->emptyToNull($input);
-        if(boolval($trimmed)) {
-            return '\''.$trimmed.'\'';
+        if (boolval($trimmed)) {
+            return '\'' . $trimmed . '\'';
         }
         return NULL;
     }
 
+    public function emptyToNull($input)
+    {
+        if (isset($input) && strlen(trim($input))) {
+            return trim($input);
+        }
+        return NULL;
+    }
 
     public function getInsertIntoSql()
     {
