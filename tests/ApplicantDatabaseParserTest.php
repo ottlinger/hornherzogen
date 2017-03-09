@@ -19,7 +19,6 @@ class ApplicantDatabaseParserTest extends TestCase
         $applicantInput->setFirstname("Egon");
         $applicantInput->setLastname("Balder");
         $applicantInput->setCurrentStatus(1); // APPLIED
-        $applicantInput->setLanguage("at");
         $this->writer = new ApplicantDatabaseParser($applicantInput);
     }
 
@@ -53,7 +52,7 @@ class ApplicantDatabaseParserTest extends TestCase
 
     public function testParsingIntoSqlString() {
         $this->assertStringStartsWith("INSERT INTO applicants (", $this->writer->getInsertIntoSql());
-        $this->assertEquals("INSERT INTO applicants (language,week,city,country,vorname,nachname,combinedName,statusId) VALUES ('at','1','Berlin','DE','Egon','Balder','Egon Balder',1)", $this->writer->getInsertIntoSql());
+        $this->assertEquals("INSERT INTO applicants (language,week,city,country,vorname,nachname,combinedName,statusId) VALUES ('en','1','Berlin','DE','Egon','Balder','Egon Balder',1)", $this->writer->getInsertIntoSql());
         $this->assertEquals(8, sizeof($this->writer->getInsertIntoValues()));
     }
 

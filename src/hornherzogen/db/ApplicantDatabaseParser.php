@@ -1,5 +1,6 @@
 <?php
 namespace hornherzogen\db;
+use hornherzogen\HornLocalizer;
 
 
 /**
@@ -30,7 +31,7 @@ class ApplicantDatabaseParser
 
     private function parseValues()
     {
-        $this->values[] = $this->trimAndMask($this->applicant->getLanguage());
+        $this->values[] = $this->trimAndMask(HornLocalizer::getLanguage());
         $this->placeholder[] = 'language';
 
         if (boolval($this->emptyToNull($this->applicant->getWeek()))) {
@@ -67,7 +68,6 @@ class ApplicantDatabaseParser
             $this->values[] = $this->trimAndMask($this->applicant->getLastname());
             $this->placeholder[] = 'nachname';
         }
-
 
         $full = $this->applicant->getFullName();
         if (boolval($this->emptyToNull($full))) {
