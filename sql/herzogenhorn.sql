@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `language` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `vorname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   `nachname` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   `combinedName` varchar(400) COLLATE utf8_bin DEFAULT NULL,

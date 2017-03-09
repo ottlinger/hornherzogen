@@ -28,6 +28,7 @@ class Applicant
     private $grading;
     private $dateOfLastGrading;
     private $twaNumber;
+    private $language; // language used when submitting the form
 
     private $room; // which kind of room
     private $partnerOne;
@@ -59,6 +60,22 @@ class Applicant
     function __construct()
     {
         $this->formHelper = new FormHelper();
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
     }
 
     /**

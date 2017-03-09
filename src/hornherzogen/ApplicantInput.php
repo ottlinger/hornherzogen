@@ -62,6 +62,9 @@ final class ApplicantInput extends Applicant
         $this->errors = array();
         $this->success = array();
 
+        // language is always in session, so attach it to the current applicant
+        $this->setLanguage(HornLocalizer::getLanguage());
+
         if ($this->formHelper->isSetAndNotEmpty("week")) {
             $this->setWeek($this->getFromPost("week"));
             $this->addSuccess("week");

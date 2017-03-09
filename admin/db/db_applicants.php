@@ -179,6 +179,7 @@ use hornherzogen\HornLocalizer;
         echo "<tr>";
         echo "<th>DB-Id</th>";
         echo "<th>Woche</th>";
+        echo "<th>Sprache</th>";
         echo "<th>Anrede</th>";
         echo "<th>Vorname</th>";
         echo "<th>Nachname</th>";
@@ -204,6 +205,7 @@ use hornherzogen\HornLocalizer;
             echo "<tr>";
             echo "<td>" . $applicant->getPersistenceId() . "</td>";
             echo "<td>" . $applicant->getWeek() . "</td>";
+            echo "<td>" . $applicant->getLanguage() . "</td>";
             echo "<td>" . $applicant->getGender() . "</td>";
             echo "<td>" . $applicant->getFirstname() . "</td>";
             echo "<td>" . $applicant->getLastname() . "</td>";
@@ -238,9 +240,7 @@ use hornherzogen\HornLocalizer;
         } else {
             echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
         }
-
         ?>
-        </p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 

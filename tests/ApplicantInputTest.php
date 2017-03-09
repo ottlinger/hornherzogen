@@ -431,6 +431,12 @@ class ApplicantInputTest extends TestCase
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
 
+    public function testLanguageIsSetImplicitlyDuringParsingToDefaultLanguage() {
+        $this->applicantInput->parse();
+
+        $this->assertEquals('en', $this->applicantInput->getLanguage());
+    }
+
     public function testIfAllMandatoryFieldsAreExistingWithoutParsingFromUserInputObjectHasNoErrors()
     {
         // MANDATORY: set all mandatory fields
