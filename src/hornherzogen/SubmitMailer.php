@@ -81,8 +81,6 @@ class SubmitMailer
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            $this->dbWriter->persist($this->applicationInput);
-
             return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
         }
         $this->applicationInput->setMailSent(true);
@@ -95,6 +93,10 @@ class SubmitMailer
         if(isset($statusApplied)) {
             $this->applicationInput->setCurrentStatus($statusApplied[0]['id']);
         }
+    }
+
+    public function saveInDatabase() {
+        return $this->dbWriter->persist($this->applicationInput);
     }
 
     public function existsInDatabase() {
