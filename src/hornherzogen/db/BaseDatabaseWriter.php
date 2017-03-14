@@ -30,8 +30,7 @@ class BaseDatabaseWriter
     {
         if (!$this->config->isValidDatabaseConfig()) {
             echo "Illegal DB configuration, will fallback to in memory SQLite to ease testing.";
-            $this->database = new PDO('sqlite::memory:');
-            $this->healthy = true;
+            $this->healthy = false;
             return;
         }
 

@@ -1,0 +1,18 @@
+<?php
+;ini_set('display_errors', 'on');
+;ini_set('display_startup_errors', 'on');
+;error_reporting(E_ALL);
+
+/*
+[hornherzogen]
+debug = false;
+mail = '&#104;&#111;&#114;&#110;&#64;&#107;&#97;&#105;&#115;&#104;&#105;&#110;&#107;&#97;&#110;&#46;&#100;&#101;&#63;&#115;&#117;&#98;&#106;&#101;&#99;&#116;&#61;&#70;&#114;&#97;&#103;&#101;&nbsp;&#122;&#117;&#114;&nbsp;&#65;&#110;&#109;&#101;&#108;&#100;&#117;&#110;&#103;&nbsp;&#72;&#101;&#114;&#122;&#111;&#103;&#101;&#110;&#104;&#111;&#114;&#110;&nbsp;&#50;&#48;&#49;&#55;';
+pdf = 'https://example.com/data/any.pdf';
+registrationmail = 'horn@kaishinkan.de';
+sendregistrationmails = true;
+sendinternalregistrationmails = true;
+dbhost = 'localhost';
+dbname = 'hornherzogen'; //'34021m23452_9';
+dbuser = 'weihnachtsmann'; //'34021m23452_9';
+dbpassword = 'alleJahreWieder'; //'7k7vsVlu';
+*/
