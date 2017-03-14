@@ -19,6 +19,7 @@ class StatusDatabaseReader extends BaseDatabaseWriter
         if (false === $dbResult) {
             $error = $this->database->errorInfo();
             print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            return NULL;
         }
 
         $results = array();

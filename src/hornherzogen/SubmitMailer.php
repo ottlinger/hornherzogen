@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace hornherzogen;
 
 use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\db\StatusDatabaseReader;
 
 class SubmitMailer
 {
@@ -13,15 +14,18 @@ class SubmitMailer
     private $localizer;
     private $config;
     private $dbWriter;
+    private $statusReader;
 
     function __construct($applicationInput)
     {
         $this->applicationInput = $applicationInput;
+
         $this->formHelper = new FormHelper();
         $this->revision = new GitRevision();
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
         $this->dbWriter = new ApplicantDatabaseWriter();
+        $this->statusReader = new StatusDatabaseReader();
 
         date_default_timezone_set('Europe/Berlin');
     }
@@ -73,8 +77,11 @@ class SubmitMailer
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setCreatedAt($appliedAt);
-            // TODO fixme: dynamically retrieve from database, use id from 'APPLIED'
-            $this->applicationInput->setCurrentStatus(1);
+
+            $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
+            $this->setStatusAppliedIfPossible();
+
+            $this->dbWriter->persist($this->applicationInput);
 
             return '<p>Mail abgeschickt um ' . $appliedAt . '</p>';
         }
@@ -83,8 +90,11 @@ class SubmitMailer
         return '';
     }
 
-    public function saveInDatabase() {
-        return $this->dbWriter->persist($this->applicationInput);
+    private function setStatusAppliedIfPossible() {
+        $statusApplied = $this->statusReader->getByName('APPLIED');
+        if(isset($statusApplied)) {
+            $this->applicationInput->setCurrentStatus($statusApplied->getPersistenceId());
+        }
     }
 
     public function existsInDatabase() {
