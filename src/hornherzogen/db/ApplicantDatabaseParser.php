@@ -27,8 +27,6 @@ class ApplicantDatabaseParser
     {
         $this->parseValues();
         $this->sql = "INSERT INTO applicants (" . implode(",", $this->placeholder) . ") VALUES (" . implode(",", $this->values) . ")";
-        // TODO remove me
-        echo "<pre>".$this->sql."</pre>";
     }
 
     private function parseValues()
