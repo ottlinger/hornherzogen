@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `booked` timestamp NULL,
   `cancelled` timestamp NULL,
   -- https://github.com/ottlinger/hornherzogen/issues/2
-  `statusId` int(10) unsigned NOT NULL,
+  `statusId` int(10) unsigned,
   PRIMARY KEY (`id`),
   CONSTRAINT status_id_fk
   FOREIGN KEY (statusId)
