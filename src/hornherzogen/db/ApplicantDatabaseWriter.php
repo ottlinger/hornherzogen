@@ -8,6 +8,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
     /**
      * Check if the given applicant already exists. If so, add a random salt (=timestamp) to its fullname and persist it into the database.
      * @param $applicantInput
+     * @return string last inserted database Id or 4711 in test mode.
      */
     function persist($applicantInput)
     {

@@ -128,6 +128,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
             'booked' => '1970-02-06',
             'cancelled' => '1970-02-07',
             'statusId' => '47110815',
+            'language' => 'co.jp',
         );
         $applicant = $this->writer->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
@@ -160,6 +161,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('1970-02-06', $applicant->getBookedAt());
         $this->assertEquals('1970-02-07', $applicant->getCancelledAt());
         $this->assertEquals('47110815', $applicant->getCurrentStatus());
+        $this->assertEquals('co.jp', $applicant->getLanguage());
     }
 
     public function testMappingEmptyRowFromDatabaseToPojo()
