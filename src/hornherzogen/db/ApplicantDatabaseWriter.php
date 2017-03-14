@@ -101,10 +101,6 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
                 $applicant->setLastname($row['nachname']);
             }
 
-            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'combinedName')) {
-                $applicant->setFullName($row['combinedName']);
-            }
-
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'street')) {
                 $applicant->setStreet($row['street']);
             }
