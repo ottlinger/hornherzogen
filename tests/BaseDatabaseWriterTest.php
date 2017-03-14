@@ -54,4 +54,14 @@ class BaseDatabaseWriterTest extends TestCase
         $this->assertEquals("' \%sdasd \_ff\_'", $this->writer->makeSQLCapable(" %sdasd _ff_"));
     }
 
+    public function testPreventSQLInjectionWithParameterGivenWithoutDatabaseConnection() {
+        $writer = new BaseDatabaseWriter();
+        $this->assertEquals("'no change needed'", $writer->makeSQLCapable("no change needed"));
+    }
+
+    public function testPreventSQLInjectionWithSqlInParameterGivenWithoutDatabaseConnection() {
+        $writer = new BaseDatabaseWriter();
+        $this->assertEquals("' \%sdasd \_ff\_'", $writer->makeSQLCapable(" %sdasd _ff_"));
+    }
+
 }
