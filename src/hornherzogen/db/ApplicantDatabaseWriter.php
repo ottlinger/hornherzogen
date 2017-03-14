@@ -17,6 +17,11 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
 
         $parser = new ApplicantDatabaseParser($applicantInput);
 
+        // fake test mode
+        if(!isset($this->database)) {
+            return "4711";
+        }
+
         $statement = $this->database->prepare($parser->getInsertIntoSql());
         $statement->execute($parser->getInsertIntoValues());
 
@@ -183,6 +188,11 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
                 // TODO add mapping to name from status.id
                 $applicant->setCurrentStatus($row['statusId']);
             }
+
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'language')) {
+                $applicant->setLanguage($row['language']);
+            }
+
         }
 
         return $applicant;

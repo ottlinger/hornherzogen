@@ -93,7 +93,7 @@ class SubmitMailer
     private function setStatusAppliedIfPossible() {
         $statusApplied = $this->statusReader->getByName('APPLIED');
         if(isset($statusApplied)) {
-            $this->applicationInput->setCurrentStatus($statusApplied->getPersistenceId());
+            $this->applicationInput->setCurrentStatus($statusApplied[0]['id']);
         }
     }
 
