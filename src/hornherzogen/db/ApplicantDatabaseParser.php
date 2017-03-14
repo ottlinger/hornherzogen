@@ -27,12 +27,16 @@ class ApplicantDatabaseParser
     {
         $this->parseValues();
         $this->sql = "INSERT INTO applicants (" . implode(",", $this->placeholder) . ") VALUES (" . implode(",", $this->values) . ")";
+        // TODO remove me
+        echo "<pre>".$this->sql."</pre>";
     }
 
     private function parseValues()
     {
-        $this->values[] = $this->trimAndMask(HornLocalizer::getLanguage());
-        $this->placeholder[] = 'language';
+        if (boolval($this->emptyToNull($this->applicant->getLanguage()))) {
+            $this->values[] = $this->trimAndMask($this->applicant->getLanguage());
+            $this->placeholder[] = 'language';
+        }
 
         if (boolval($this->emptyToNull($this->applicant->getWeek()))) {
             $this->values[] = $this->trimAndMask($this->applicant->getWeek());
