@@ -91,6 +91,7 @@ use hornherzogen\HornLocalizer;
             echo "<h2>List all applicants ....</h2>";
 
             $config = new ConfigurationWrapper();
+            $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
 
