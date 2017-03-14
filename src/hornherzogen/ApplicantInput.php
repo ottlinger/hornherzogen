@@ -61,7 +61,7 @@ final class ApplicantInput extends Applicant
         // reset internal state
         $this->errors = array();
         $this->success = array();
-        
+
         $this->setLanguage(HornLocalizer::getLanguage());
 
         if ($this->formHelper->isSetAndNotEmpty("week")) {

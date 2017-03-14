@@ -19,7 +19,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         $parser = new ApplicantDatabaseParser($applicantInput);
 
         // fake test mode
-        if(!isset($this->database)) {
+        if (!isset($this->database)) {
             return "4711";
         }
 
@@ -222,6 +222,14 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
         }
         return $results;
+    }
+
+    function removeById($id)
+    {
+        if (self::isHealthy() && isset($id) && strlen($id)) {
+            return $this->database->exec("DELETE from `applicants` WHERE id =" . trim($id));
+        }
+        return 0;
     }
 
 }

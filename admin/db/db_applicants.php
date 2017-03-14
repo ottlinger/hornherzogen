@@ -144,7 +144,7 @@ use hornherzogen\HornLocalizer;
                     <?php
                     // filter for week?
                     $formHelper = new FormHelper();
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
                         echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
                     }
@@ -170,14 +170,23 @@ use hornherzogen\HornLocalizer;
         </form>
 
         <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid'])) {
+            $remover = new ApplicantDatabaseWriter();
+            $id = $formHelper->filterUserInput($_POST['aid']);
+            echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
+            $_POST['aid'] = NULL;
+        }
+
         $statusReader = new StatusDatabaseReader();
 
         $writer = new ApplicantDatabaseWriter();
         $applicants = $writer->getAllByWeek($week);
+
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
         echo "<tr>";
         echo "<th>DB-Id</th>";
+        echo "<th>AKTIONEN</th>";
         echo "<th>Woche</th>";
         echo "<th>Sprache</th>";
         echo "<th>Anrede</th>";
@@ -204,6 +213,14 @@ use hornherzogen\HornLocalizer;
         foreach ($applicants as $applicant) {
             echo "<tr>";
             echo "<td>" . $applicant->getPersistenceId() . "</td>";
+
+            echo '<td>
+                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
+                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen</button>
+                    </form>
+                </td>';
+
             echo "<td>" . $applicant->getWeek() . "</td>";
             echo "<td>" . $applicant->getLanguage() . "</td>";
             echo "<td>" . $applicant->getGender() . "</td>";
