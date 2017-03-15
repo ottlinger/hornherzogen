@@ -9,8 +9,9 @@ $h_year = 2017;
 
 $GLOBALS['messages'] = array();
 
-// GERMAN
+// GERMAN with constants
 $GLOBALS['messages']['de'] = array(
+    'CONST.YEAR' => $h_year,
     'INDEX.TITLE' => 'Herzogenhorn '.$h_year.' - Startseite',
     'FORM.TITLE' => 'Herzogenhorn '.$h_year.' - Anmeldung',
     'FORM.MANDATORYFIELDS' => 'Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.',

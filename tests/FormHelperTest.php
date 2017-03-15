@@ -121,7 +121,7 @@ class FormHelperTest extends TestCase
 
         $this->assertEquals(4, sizeof($result));
         // should be the fallback language
-        $this->assertEquals("en", $result['LANG']);
+        $this->assertEquals("de", $result['LANG']);
         $this->assertEquals($browser, $result['BROWSER']);
         $this->assertEquals($host, $result['R_HOST']);
         $this->assertEquals($ip, $result['R_ADDR']);

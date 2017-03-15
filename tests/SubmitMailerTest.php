@@ -15,6 +15,10 @@ class SubmitMailerTest extends TestCase
      */
     public function setUp()
     {
+        // reset language to English
+        $_GET = array();
+        $_GET['lang'] = "en";
+
         $this->mailer = new SubmitMailer(self::createApplicantInput());
     }
 
