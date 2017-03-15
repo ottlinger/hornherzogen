@@ -20,6 +20,19 @@ class ApplicantDatabaseParserTest extends TestCase
         $applicantInput->setLastname("Balder");
         $applicantInput->setCurrentStatus(1); // APPLIED
         $applicantInput->setLanguage("ru");
+        $applicantInput->setGender("unknown");
+        $applicantInput->setEmail("foo@bar.com");
+        $applicantInput->setStreet("UpDeStraat");
+        $applicantInput->setHouseNumber("1");
+        $applicantInput->setZipCode("2");
+        $applicantInput->setGrading("shodan");
+        $applicantInput->setDateOfLastGrading("2017-01-01");
+        $applicantInput->setTwaNumber("DE1234");
+        $applicantInput->setRoom("1a");
+        $applicantInput->setPartnerOne("P1");
+        $applicantInput->setPartnerTwo("P2");
+        $applicantInput->setFoodCategory("hungry");
+        $applicantInput->setRemarks("Just a test");
         $this->writer = new ApplicantDatabaseParser($applicantInput);
     }
 
@@ -51,14 +64,22 @@ class ApplicantDatabaseParserTest extends TestCase
         $this->assertEquals("asd dsa", $this->writer->emptyToNull("  asd dsa "));
     }
 
-    public function testParsingIntoSqlString() {
+    public function testParsingIntoSqlString()
+    {
         $this->assertStringStartsWith("INSERT INTO applicants (", $this->writer->getInsertIntoSql());
-        $this->assertEquals("INSERT INTO applicants (language,week,city,country,vorname,nachname,combinedName,statusId) VALUES ('ru','1','Berlin','DE','Egon','Balder','Egon Balder',1)", $this->writer->getInsertIntoSql());
-        $this->assertEquals(8, sizeof($this->writer->getInsertIntoValues()));
+        $this->assertEquals("INSERT INTO applicants (language,week,gender,email,city,country,vorname,nachname,combinedName,street,houseno,plz,grad,gradsince,twano,room,together1,together2,essen,additionals,statusId) VALUES ('ru','1','unknown','foo@bar.com','Berlin','DE','Egon','Balder','Egon Balder','UpDeStraat','1','2','shodan','2017-01-01','DE1234','1a','P1','P2','hungry','Just a test',1)"
+            , $this->writer->getInsertIntoSql());
+        $this->assertEquals(21, sizeof($this->writer->getInsertIntoValues()));
     }
 
-    public function testParsingOfPotentiallyNullableStrings() {
+    public function testParsingOfPotentiallyNullableStrings()
+    {
         $this->assertFalse(boolval(NULL));
+    }
+
+    public function testTrimAndMaskNull()
+    {
+        $this->assertNull($this->writer->trimAndmask(NULL));
     }
 
 }
