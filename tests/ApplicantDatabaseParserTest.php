@@ -33,6 +33,7 @@ class ApplicantDatabaseParserTest extends TestCase
         $applicantInput->setPartnerTwo("P2");
         $applicantInput->setFoodCategory("hungry");
         $applicantInput->setRemarks("Just a test");
+        $applicantInput->setFlexible("yes");
         $this->writer = new ApplicantDatabaseParser($applicantInput);
     }
 
@@ -66,10 +67,10 @@ class ApplicantDatabaseParserTest extends TestCase
 
     public function testParsingIntoSqlString()
     {
+        $expected = "INSERT INTO applicants (language,week,gender,email,city,country,vorname,nachname,combinedName,street,houseno,plz,grad,gradsince,twano,room,together1,together2,essen,flexible,additionals,statusId) VALUES ('ru','1','unknown','foo@bar.com','Berlin','DE','Egon','Balder','Egon Balder','UpDeStraat','1','2','shodan','2017-01-01','DE1234','1a','P1','P2','hungry','1','Just a test',1)";
         $this->assertStringStartsWith("INSERT INTO applicants (", $this->writer->getInsertIntoSql());
-        $this->assertEquals("INSERT INTO applicants (language,week,gender,email,city,country,vorname,nachname,combinedName,street,houseno,plz,grad,gradsince,twano,room,together1,together2,essen,additionals,statusId) VALUES ('ru','1','unknown','foo@bar.com','Berlin','DE','Egon','Balder','Egon Balder','UpDeStraat','1','2','shodan','2017-01-01','DE1234','1a','P1','P2','hungry','Just a test',1)"
-            , $this->writer->getInsertIntoSql());
-        $this->assertEquals(21, sizeof($this->writer->getInsertIntoValues()));
+        $this->assertEquals($expected, $this->writer->getInsertIntoSql());
+        $this->assertEquals(22, sizeof($this->writer->getInsertIntoValues()));
     }
 
     public function testParsingOfPotentiallyNullableStrings()
