@@ -175,7 +175,7 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     public function testRemoveByIdWithoutDatabase() {
-        $this->assertEquals(8, $this->writer->removeById("wwewewe"));
+        $this->assertEquals(0, $this->writer->removeById("wwewewe"));
     }
 
     public function testPersistWithoutDatabaseYieldsDummyValue() {
