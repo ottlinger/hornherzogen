@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php';
+use hornherzogen\HornLocalizer;
 $config = new \hornherzogen\ConfigurationWrapper();
 ?>
 <html lang="en">
@@ -13,7 +14,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="favicon.ico">
 
-    <title>Herzogenhorn 2017 - Startseite</title>
+    <title><?php echo HornLocalizer::i18n('INDEX.TITLE'); ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">

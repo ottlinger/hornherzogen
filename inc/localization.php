@@ -11,7 +11,8 @@ $GLOBALS['messages'] = array();
 
 // GERMAN
 $GLOBALS['messages']['de'] = array(
-    'FORM.TITLE' => 'Herzogenhorn '.$h_year.' Anmeldung',
+    'INDEX.TITLE' => 'Herzogenhorn '.$h_year.' - Startseite',
+    'FORM.TITLE' => 'Herzogenhorn '.$h_year.' - Anmeldung',
     'FORM.MANDATORYFIELDS' => 'Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.',
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',
