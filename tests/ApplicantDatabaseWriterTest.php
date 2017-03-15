@@ -1,5 +1,6 @@
 <?php
 use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\ApplicantInput;
 
 // https://github.com/sebastianbergmann/dbunit/blob/2.0/samples/BankAccountDB/BankAccountDBTest.php
 
@@ -171,6 +172,15 @@ class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
 
         $applicant = $this->writer->fromDatabaseToObject(array());
         $this->assertNotNull($applicant);
+    }
+
+    public function testRemoveByIdWithoutDatabase() {
+        $this->assertEquals(8, $this->writer->removeById("wwewewe"));
+    }
+
+    public function testPersistWithoutDatabaseYieldsDummyValue() {
+        $applicant = new ApplicantInput();
+        $this->assertEquals(4711, $this->writer->persist($applicant));
     }
 
     /**
