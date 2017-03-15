@@ -12,7 +12,14 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => ''.$h_year,
+    'INDEX.EN_CONTINUE' => 'Go to the English version of the registration',
+    'INDEX.DE_CONTINUE' => 'Weiter zur Anmeldung',
+    'INDEX.LINE1' => 'Auf diesen Seiten kann man sich für den Herzogenhornlehrgang '.$h_year.' anmelden.',
+    'INDEX.LINE2' => 'Die Anmeldung läuft über die Berliner Aikidoka.',
+    'INDEX.TENDERLINK' => 'Die Ausschreibung findet sich <a href="{0}" target="_blank">hier</a>',
+    'NAV.TOGGLE' => 'Navigation ein/ausklappen',
     'INDEX.TITLE' => 'Herzogenhorn '.$h_year.' - Startseite',
+    'INDEX.WELCOME' => 'Herzlich Willkommen',
     'FORM.TITLE' => 'Herzogenhorn '.$h_year.' - Anmeldung',
     'FORM.MANDATORYFIELDS' => 'Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.',
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
@@ -25,6 +32,14 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'INDEX.EN_CONTINUE' => 'Go to the English version of the registration',
+    'INDEX.DE_CONTINUE' => 'Weiter zur Anmeldung',
+    'INDEX.LINE1' => 'These pages allow to register for '.$h_year.'\'s Herzogenhorn seminar',
+    'INDEX.LINE2' => 'This year\'s invitation is organized by the Aikidoka from Berlin (Germany).',
+    'INDEX.TENDERLINK' => 'The seminar invitation can be found <a href="{0}" target="_blank">here</a>',
+    'NAV.TOGGLE' => 'Toggle navigation',
+    'INDEX.TITLE' => 'Herzogenhorn '.$h_year.' - main page',
+    'INDEX.WELCOME' => 'Welcome',
     'FORM.TITLE' => 'Herzogenhorn '.$h_year.' registration',
     'FORM.MANDATORYFIELDS' => 'All fields marked with an asterisk (*) are mandatory.',
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
