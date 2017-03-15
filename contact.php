@@ -8,7 +8,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 Anmeldung">
+    <meta name="description" content="<?php echo HornLocalizer::i18n('FORM.TITLE'); ?>">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="favicon.ico">
