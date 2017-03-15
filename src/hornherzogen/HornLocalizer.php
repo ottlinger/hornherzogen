@@ -34,6 +34,11 @@ class HornLocalizer
         if (isset($GLOBALS['messages'][self::getLanguage()][trim($key)])) {
             return new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
         }
+
+        if (isset($GLOBALS['messages'][self::$fallbackLanguage][trim($key)])) {
+            return new MessageFormatter(self::$fallbackLanguage, $GLOBALS['messages'][self::$fallbackLanguage][$key]);
+        }
+
         return false;
     }
 

@@ -11,6 +11,7 @@ class HornLocalizerTest extends TestCase
      */
     public function setUp()
     {
+        $_GET['lang'] = "de"; // set to fallback language
         $this->language = new HornLocalizer();
     }
 
@@ -19,6 +20,7 @@ class HornLocalizerTest extends TestCase
      */
     public function tearDown()
     {
+        $_GET['lang'] = null;
         $this->language = null;
     }
 
@@ -175,14 +177,10 @@ class HornLocalizerTest extends TestCase
         self::assertEquals('Es ist just', $this->language->i18nParams('TIME', 'just', 'a', 'key'));
     }
 
-    /*
     public function testFallbackToGermanForUnknownRussianKey() {
-
-        $_GET = array();
+        // WHEN language is set to ru
         $_GET['lang'] = "ru";
-
+        // German key is returned for unknown Russian one
         self::assertEquals("Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.", $this->language->i18n("FORM.MANDATORYFIELDS"));
     }
-    */
-
 }
