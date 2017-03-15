@@ -5,8 +5,8 @@ use MessageFormatter;
 
 class HornLocalizer
 {
-    private static $fallbackLanguage = 'de';
-    private static $supportedLanguages = array('de', 'en', 'ru', 'jp');
+    public static $fallbackLanguage = 'de';
+    public static $supportedLanguages = array('de', 'en', 'ru', 'jp');
 
     public static function i18n($key)
     {

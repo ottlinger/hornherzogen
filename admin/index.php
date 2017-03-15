@@ -34,6 +34,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 </ul>
 <h2>One-time setup and verification actions</h2>
 <ul>
+    <li><a href="setup/i18ncheck.php">show <strong>localization</strong> statistics</a></li>
     <li><a href="setup/i18n.php">ensure <strong>localization</strong> is working smoothly</a></li>
     <li><a href="setup/path.php">show <strong>path to authentication setup</strong>, which needs to be changed manually after
             deployment to prod</a></li>
