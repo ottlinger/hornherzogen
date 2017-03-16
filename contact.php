@@ -82,12 +82,16 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
     <div class="starter-template">
         <h1><span class="glyphicon glyphicon-paperclip"></span> <?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION'); ?></h1>
-        <p class="lead">Sobald die Ausschreibungsfrist zum 2017-03-xx endet,<br>senden wir die Anmeldebestätigungen mit
-            Zahlungsaufforderung zu.</p>
+        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION.LINE1'); ?><br />
+            <?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION.LINE2'); ?>
+        </p>
     </div>
 
     <div class="starter-template">
         <h1><span class="glyphicon glyphicon-usd"></span> <?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT'); ?></h1>
+        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT.LINE1'); ?><br />
+            <?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT.LINE2'); ?>
+        </p>
         <p class="lead">Sobald die Zahlung der Lehrgangsgebühr eingegangen ist,<br>übersenden wir eine Rechnung und die
             finale Teilnahmebestätigung.</p>
     </div>
@@ -96,6 +100,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <h1><?php echo HornLocalizer::i18n('CONTACT.H.OTHER'); ?></h1>
         <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a
                     href="mailto:<?php echo $config->mail(); ?>">Mail</a> schreiben.</p>
+
+        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.OTHER.LINE1'); ?><br />
+            <?php echo HornLocalizer::i18nParams('CONTACT.H.OTHER.LINE2', $config->mail()); ?>
+        </p>
         <p><?php echo HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
