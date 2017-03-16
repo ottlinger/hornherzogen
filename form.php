@@ -433,10 +433,8 @@ $config = new \hornherzogen\ConfigurationWrapper();
          <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors() && !$applicantInput->isMailSent()) { ?>
             <p class="lead"><?php echo HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
-                </div>
             </div>
         </form>
          <?php } // buttonIf ?>
