@@ -132,7 +132,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 if (!$sender->existsInDatabase()) {
                     echo $sender->send();
                     echo $sender->sendInternally();
-                    echo "<p>Gespeichert als #" . $sender->saveInDatabase() . "</p>";
+                    echo "<p>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</p>";
                 }
             } // if showButtons
             ?>
