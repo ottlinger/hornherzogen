@@ -76,7 +76,7 @@ $GLOBALS['messages']['en'] = array(
     'MENU.ADMIN' => 'Admin area',
     'MAIL.SUBJECT' => 'Application 合気道 seminar Herzogenhorn 2017 - registered at {0}',
     'FORM.ERROR_MESSAGE' => 'There are {0} input fields with errors, please correct them and resubmit your application!',
-    'TIME' => 'Today is {0}');
+    'TIME' => 'Now it is {0}');
 
 // RUSSIAN (just for the sake of UTF-8)
 $GLOBALS['messages']['ru'] = array(
