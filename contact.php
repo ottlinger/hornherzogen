@@ -96,9 +96,6 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
     <div class="starter-template">
         <h1><?php echo HornLocalizer::i18n('CONTACT.H.OTHER'); ?></h1>
-        <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a
-                    href="mailto:<?php echo $config->mail(); ?>">Mail</a> schreiben.</p>
-
         <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.OTHER.LINE1'); ?><br />
             <?php echo HornLocalizer::i18nParams('CONTACT.H.OTHER.LINE2', $config->mail()); ?>
         </p>
