@@ -92,8 +92,6 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT.LINE1'); ?><br />
             <?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT.LINE2'); ?>
         </p>
-        <p class="lead">Sobald die Zahlung der Lehrgangsgebühr eingegangen ist,<br>übersenden wir eine Rechnung und die
-            finale Teilnahmebestätigung.</p>
     </div>
 
     <div class="starter-template">
