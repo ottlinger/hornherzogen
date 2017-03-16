@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php';
+use hornherzogen\HornLocalizer;
+use hornherzogen\SubmitMailer;
+use hornherzogen\FormHelper;
+use hornherzogen\ApplicantInput;
+
 $config = new \hornherzogen\ConfigurationWrapper();
 ?>
 <html lang="en">
@@ -8,12 +13,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 Anmeldung">
+    <meta name="description" content="<?php echo HornLocalizer::i18n('FORM.TITLE'); ?>">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="favicon.ico">
 
-    <title>Herzogenhorn Anmeldeformular</title>
+    <title><?php echo HornLocalizer::i18n('FORM.TITLE'); ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -48,19 +53,19 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"><?php echo HornLocalizer::i18n('NAV.TOGGLE'); ?></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="./index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                Herzogenhorn 2017</a>
+                <?php echo HornLocalizer::i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
-                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
-                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
+                <li class="active"><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
+                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
+                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
@@ -74,20 +79,20 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     alt="Fork me on GitHub"
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo \hornherzogen\HornLocalizer::i18n('FORM.TITLE'); ?>
+            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo HornLocalizer::i18n('FORM.TITLE'); ?>
         </h1>
 
         <?php
         // we always have an empty container for user input data
-        $applicantInput = new \hornherzogen\ApplicantInput();
-        $formHelper = new \hornherzogen\FormHelper();
+        $applicantInput = new ApplicantInput();
+        $formHelper = new FormHelper();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $applicantInput->parse();
 
             if ($config->debug()) {
-                echo '<h2>Language setting is: ' . \hornherzogen\HornLocalizer::getLanguage() . '</h2>';
+                echo '<h2>Language setting is: ' . HornLocalizer::getLanguage() . '</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
                 var_dump(file_get_contents('php://input'));
@@ -102,10 +107,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
         ?>
         <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
-        <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+        <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <?php if ($applicantInput->hasParseErrors()) {
-            echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . \hornherzogen\HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+            echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
         } // show error message ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -113,10 +118,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
          <?php } else { ?>
             <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
                 Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
-            <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+            <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
             <?php
             // send mail only if there are no error messages and nothing already exists in the database
-            $sender = new \hornherzogen\SubmitMailer($applicantInput);
+            $sender = new SubmitMailer($applicantInput);
 
             if(!$sender->existsInDatabase()) {
                 echo $sender->send();
@@ -231,7 +236,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
             <?php
             /**
-             * TODO:
+             * TODO: issue #38
              * http://bootstrapformhelpers.com/country/#jquery-plugins
              * Available languages
              *
@@ -249,7 +254,6 @@ $config = new \hornherzogen\ConfigurationWrapper();
              * de -> DE
              * en -> GB
              * jp -> JP
-             *
              */
             ?>
             <div class="form-group <?php echo $applicantInput->getUIResponse('country'); ?>">
@@ -427,12 +431,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
          <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors() && !$applicantInput->isMailSent()) { ?>
-            <p class="lead"><?php echo \hornherzogen\HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
+            <p class="lead"><?php echo HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular
-                        absenden
-                    </button>
+                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
                     <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
                 </div>
             </div>
