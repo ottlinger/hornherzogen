@@ -433,8 +433,8 @@ $config = new \hornherzogen\ConfigurationWrapper();
          <?php if ($applicantInput->showFormButtons()) { ?>
             <p class="lead"><?php echo HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
-                    <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
-                    <button type="reset" class="btn btn-danger">Alle Eingaben löschen</button>
+                    <button type="submit" class="btn btn-default btn-primary" title="<?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?>"><?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?></button>
+                    <button type="reset" class="btn btn-danger" title="<?php echo HornLocalizer::i18n('FORM.RESET'); ?>"><?php echo HornLocalizer::i18n('FORM.RESET'); ?></button>
             </div>
         </form>
          <?php } // buttonIf ?>
