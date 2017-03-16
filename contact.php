@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php';
+use hornherzogen\HornLocalizer;
 $config = new \hornherzogen\ConfigurationWrapper();
 ?>
 <html lang="en">
@@ -45,19 +46,19 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"><?php echo HornLocalizer::i18n('NAV.TOGGLE'); ?></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="./index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                Herzogenhorn 2017</a>
+                <?php echo HornLocalizer::i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
-                <li class="active"><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
-                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo \hornherzogen\HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
+                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
+                <li class="active"><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
+                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><span class="glyphicon glyphicon-education"></span><?php echo date('Y-m-d H:i:s'); ?></li>
@@ -94,7 +95,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <h1>Noch Fragen? Lob oder Kritik?</h1>
         <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a
                     href="mailto:<?php echo $config->mail(); ?>">Mail</a> schreiben.</p>
-        <p><?php echo \hornherzogen\HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
+        <p><?php echo HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
