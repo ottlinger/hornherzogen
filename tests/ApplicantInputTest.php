@@ -456,11 +456,13 @@ class ApplicantInputTest extends TestCase
         $this->applicantInput->setRoom("single");
         $this->applicantInput->setFoodCategory("none");
         $this->applicantInput->setWeek("week2");
+        $this->applicantInput->setMailSent(true);
         // make sure this test fails if any configuration of required fields changes
         $this->assertEquals(16, sizeof($this->applicantInput->getRequiredFields()));
 
         // since we did not extract the data from $_POST
         $this->assertFalse($this->applicantInput->hasParseErrors());
+        $this->assertFalse($this->applicantInput->showFormButtons());
 
         $this->assertFalse($this->applicantInput->hasErrors());
         $this->assertEmpty($this->applicantInput->showHasError("week"));
@@ -494,6 +496,7 @@ class ApplicantInputTest extends TestCase
 
         $this->assertEquals('', $this->applicantInput->showHasError("week"));
         $this->assertTrue($this->applicantInput->hasErrors());
+        $this->assertTrue($this->applicantInput->showFormButtons());
     }
 
     public function testFlexibilityParsing()

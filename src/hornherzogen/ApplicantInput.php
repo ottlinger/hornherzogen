@@ -27,11 +27,67 @@ final class ApplicantInput extends Applicant
     }
 
     /**
-     * @return bool true iff no parsing happened and neither errors nor successes are reported.
+     * Helper to ease interaction with the UI/form submission page.
+     *
+     * @return bool true iff the form contains errors and the submit/reset buttons need to be shown, false otherwise.
      */
-    public function hasParsingHappened()
+    public function showFormButtons()
     {
+        return ($this->hasParseErrors() || $this->hasErrors() && !$this->isMailSent());
+    }
+
+    /**
+     * @return bool true iff errors is empty and no required fields are missing.
+     */
+    public function hasParseErrors()
+    {
+        foreach ($this->errors as $value) {
+            if (in_array($value, self::getRequiredFields())) {
+                return true;
+            }
+        }
+
         return 0 != sizeof($this->errors) && 0 != sizeof($this->success);
+    }
+
+    static function getRequiredFields()
+    {
+        /**
+         * These fields are required from the UI perspective and need to be set.
+         * @var array
+         */
+        $required = array();
+        $required[] = "week";
+        $required[] = "flexible";
+        $required[] = "gender";
+        $required[] = "firstname";
+        $required[] = "lastname";
+        $required[] = "street";
+        $required[] = "houseno";
+        $required[] = "plz";
+        $required[] = "city";
+        $required[] = "country";
+        $required[] = "email";
+        $required[] = "dojo";
+        $required[] = "grad";
+        $required[] = "gsince";
+        $required[] = "room";
+        $required[] = "essen";
+        return $required;
+    }
+
+    /**
+     * @return bool true iff any required field is empty.
+     */
+    public function hasErrors()
+    {
+        // flexible is excluded since it may be false/empty
+        return empty($this->getWeek()) || empty($this->getGender()) //
+            || empty($this->getFirstname()) || empty($this->getLastname()) || empty($this->getStreet()) //
+            || empty($this->getHouseNumber()) || empty($this->getZipCode()) || empty($this->getCity()) //
+            || empty($this->getCountry()) || empty($this->getEmail()) || empty($this->getDojo()) //
+            || empty($this->getGrading()) || empty($this->getDateOfLastGrading()) //
+            || empty($this->getRoom()) || empty($this->getFoodCategory());
     }
 
     /**
@@ -50,6 +106,14 @@ final class ApplicantInput extends Applicant
     {
         $this->mailSent = $mailSent;
         return $this;
+    }
+
+    /**
+     * @return bool true iff no parsing happened and neither errors nor successes are reported.
+     */
+    public function hasParsingHappened()
+    {
+        return 0 != sizeof($this->errors) && 0 != sizeof($this->success);
     }
 
     /**
@@ -257,60 +321,6 @@ final class ApplicantInput extends Applicant
         $msg .= " hasParseErrors? " . boolval($this->hasParseErrors());
         $msg .= " hasErrors? " . boolval($this->hasErrors());
         return $msg;
-    }
-
-    /**
-     * @return bool true iff errors is empty and no required fields are missing.
-     */
-    public function hasParseErrors()
-    {
-        foreach ($this->errors as $value) {
-            if (in_array($value, self::getRequiredFields())) {
-                return true;
-            }
-        }
-
-        return 0 != sizeof($this->errors) && 0 != sizeof($this->success);
-    }
-
-    static function getRequiredFields()
-    {
-        /**
-         * These fields are required from the UI perspective and need to be set.
-         * @var array
-         */
-        $required = array();
-        $required[] = "week";
-        $required[] = "flexible";
-        $required[] = "gender";
-        $required[] = "firstname";
-        $required[] = "lastname";
-        $required[] = "street";
-        $required[] = "houseno";
-        $required[] = "plz";
-        $required[] = "city";
-        $required[] = "country";
-        $required[] = "email";
-        $required[] = "dojo";
-        $required[] = "grad";
-        $required[] = "gsince";
-        $required[] = "room";
-        $required[] = "essen";
-        return $required;
-    }
-
-    /**
-     * @return bool true iff any required field is empty.
-     */
-    public function hasErrors()
-    {
-        // flexible is excluded since it may be false/empty
-        return empty($this->getWeek()) || empty($this->getGender()) //
-            || empty($this->getFirstname()) || empty($this->getLastname()) || empty($this->getStreet()) //
-            || empty($this->getHouseNumber()) || empty($this->getZipCode()) || empty($this->getCity()) //
-            || empty($this->getCountry()) || empty($this->getEmail()) || empty($this->getDojo()) //
-            || empty($this->getGrading()) || empty($this->getDateOfLastGrading()) //
-            || empty($this->getRoom()) || empty($this->getFoodCategory());
     }
 
     public function getErrorCount()
