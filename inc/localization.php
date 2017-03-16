@@ -6,6 +6,8 @@
 
 /* Constants */
 $h_year = 2017;
+$h_applicationPublishedSince = "2017-03-20";
+$h_applicationEndDate = "2017-04-29"; // move into configuration! when working on #40
 
 $GLOBALS['messages'] = array();
 
@@ -17,6 +19,13 @@ $GLOBALS['messages']['de'] = array(
     'INDEX.LINE1' => 'Auf diesen Seiten kann man sich für den Herzogenhornlehrgang '.$h_year.' anmelden.',
     'INDEX.LINE2' => 'Die Anmeldung läuft über die Berliner Aikidoka.',
     'INDEX.TENDERLINK' => 'Die Ausschreibung findet sich <a href="{0}" target="_blank">hier</a>',
+    'CONTACT.HEADER' => 'Herzogenhorn '.$h_year.' - Fragen',
+    'CONTACT.H.APPLICATION' => 'Anmeldung',
+    'CONTACT.H.APPLICATION.LINE1' => 'Die Ausschreibung gibt es seit '.$h_applicationPublishedSince.',',
+    'CONTACT.H.APPLICATION.LINE2' => 'bitte für die jeweilige Lehrgangswoche <a href="{0}">elektronisch</a> anmelden und die E-Mail-Bestätigung abwarten.',
+    'CONTACT.H.CONFIRMATION' => 'Buchungsbestätigung',
+    'CONTACT.H.PAYMENT' => "Zahlungseingang",
+    'CONTACT.H.OTHER' => "Noch Fragen? Lob oder Kritik?",
     'NAV.TOGGLE' => 'Navigation ein/ausklappen',
     'INDEX.TITLE' => 'Herzogenhorn '.$h_year.' - Startseite',
     'INDEX.WELCOME' => 'Herzlich Willkommen',
@@ -37,6 +46,13 @@ $GLOBALS['messages']['en'] = array(
     'INDEX.LINE1' => 'These pages allow to register for '.$h_year.'\'s Herzogenhorn seminar',
     'INDEX.LINE2' => 'This year\'s invitation is organized by the Aikidoka from Berlin (Germany).',
     'INDEX.TENDERLINK' => 'The seminar invitation can be found <a href="{0}" target="_blank">here</a>',
+    'CONTACT.HEADER' => 'Herzogenhorn '.$h_year.' - Q&A',
+    'CONTACT.H.APPLICATION' => 'Application',
+    'CONTACT.H.APPLICATION.LINE1' => 'The official seminar invitation is available since '.$h_applicationPublishedSince.',',
+    'CONTACT.H.APPLICATION.LINE2' => 'please do register <a href="{0}">electronically</a> for the week you prefer and await the email confirmation.',
+    'CONTACT.H.CONFIRMATION' => 'Booking Confirmation',
+    'CONTACT.H.PAYMENT' => "Payment Receipt",
+    'CONTACT.H.OTHER' => "Any questions? Praise? Criticism?",
     'NAV.TOGGLE' => 'Toggle navigation',
     'INDEX.TITLE' => 'Herzogenhorn '.$h_year.' - main page',
     'INDEX.WELCOME' => 'Welcome',

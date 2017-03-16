@@ -9,12 +9,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="<?php echo HornLocalizer::i18n('FORM.TITLE'); ?>">
+    <meta name="description" content="<?php echo HornLocalizer::i18n('CONTACT.HEADER'); ?>">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="favicon.ico">
 
-    <title>Herzogenhorn 2017 - Fragen / Kontakt</title>
+    <title><?php echo HornLocalizer::i18n('CONTACT.HEADER'); ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -74,25 +74,26 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
                     alt="Fork me on GitHub"
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-        <h1><span class="glyphicon glyphicon-send"></span> Anmeldung</h1>
-        <p class="lead">Die Ausschreibung gibt es seit 2017-02-xx,<br>bitte für die jeweilige Lehrgangswoche <a
-                    href="form.php">elektronisch</a> anmelden und per E-Mail bestätigen.</p>
+        <h1><span class="glyphicon glyphicon-send"></span> <?php echo HornLocalizer::i18n('CONTACT.H.APPLICATION'); ?></h1>
+        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.APPLICATION.LINE1'); ?><br />
+            <?php echo HornLocalizer::i18nParams('CONTACT.H.APPLICATION.LINE2', "form.php" ); ?>
+        </p>
     </div>
 
     <div class="starter-template">
-        <h1><span class="glyphicon glyphicon-paperclip"></span> Buchungsbestätigung</h1>
+        <h1><span class="glyphicon glyphicon-paperclip"></span> <?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION'); ?></h1>
         <p class="lead">Sobald die Ausschreibungsfrist zum 2017-03-xx endet,<br>senden wir die Anmeldebestätigungen mit
             Zahlungsaufforderung zu.</p>
     </div>
 
     <div class="starter-template">
-        <h1><span class="glyphicon glyphicon-usd"></span> Zahlungseingang</h1>
+        <h1><span class="glyphicon glyphicon-usd"></span> <?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT'); ?></h1>
         <p class="lead">Sobald die Zahlung der Lehrgangsgebühr eingegangen ist,<br>übersenden wir eine Rechnung und die
             finale Teilnahmebestätigung.</p>
     </div>
 
     <div class="starter-template">
-        <h1>Noch Fragen? Lob oder Kritik?</h1>
+        <h1><?php echo HornLocalizer::i18n('CONTACT.H.OTHER'); ?></h1>
         <p class="lead">Um Benjamin oder Philipp zu kontaktieren<br>am einfachsten eine <a
                     href="mailto:<?php echo $config->mail(); ?>">Mail</a> schreiben.</p>
         <p><?php echo HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
