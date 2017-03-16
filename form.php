@@ -430,7 +430,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-         <?php if ($applicantInput->hasParseErrors() || $applicantInput->hasErrors() && !$applicantInput->isMailSent()) { ?>
+         <?php if ($applicantInput->showFormButtons()) { ?>
             <p class="lead"><?php echo HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                     <button type="submit" class="btn btn-default btn-primary" title="Formular abschicken">Formular absenden</button>
