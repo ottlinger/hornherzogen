@@ -115,11 +115,11 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
-    <?php if ($applicantInput->hasParseErrors()) {
-        echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
-    } // show error message ?>
-
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
+            <?php if ($applicantInput->hasParseErrors()) {
+                echo "<p class=\"lead \"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+            } // show error message ?>
 
             <?php } else { ?>
                 <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
