@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php';
+use hornherzogen\ApplicantInput;
+use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 use hornherzogen\SubmitMailer;
-use hornherzogen\FormHelper;
-use hornherzogen\ApplicantInput;
 
 $config = new \hornherzogen\ConfigurationWrapper();
 ?>
@@ -63,9 +63,15 @@ $config = new \hornherzogen\ConfigurationWrapper();
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
-                <li><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
-                <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
+                <li class="active"><a href="./form.php"><span
+                                class="glyphicon glyphicon-home"></span> <?php echo HornLocalizer::i18n('MENU.APPLY'); ?>
+                    </a></li>
+                <li><a href="./contact.php"><span
+                                class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?>
+                    </a></li>
+                <li><a href="./admin" target="_blank"><span
+                                class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
+                    </a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
@@ -109,35 +115,39 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
         <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
-        <?php if ($applicantInput->hasParseErrors()) {
-            echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
-        } // show error message ?>
+    <?php if ($applicantInput->hasParseErrors()) {
+        echo "<p class=\"lead\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+    } // show error message ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
-         <?php } else { ?>
-            <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
-                Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
-            <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
-            <?php
-            // send mail only if there are no error messages and nothing already exists in the database
-            $sender = new SubmitMailer($applicantInput);
+            <?php } else { ?>
+                <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
+                    Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
+                <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+                <?php
+                // send mail only if there are no error messages and nothing already exists in the database
+                $sender = new SubmitMailer($applicantInput);
 
-            if(!$sender->existsInDatabase()) {
-                echo $sender->send();
-                echo $sender->sendInternally();
-                echo "<p>Gespeichert als #".$sender->saveInDatabase()."</p>";
-            }
-        } // if showButtons
-        ?>
+                if (!$sender->existsInDatabase()) {
+                    echo $sender->send();
+                    echo $sender->sendInternally();
+                    echo "<p>Gespeichert als #" . $sender->saveInDatabase() . "</p>";
+                }
+            } // if showButtons
+            ?>
 
             <legend>Bitte die gewünschte Lehrgangswoche auswählen</legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
                 <label class="col-sm-2 control-label" for="week">Welche Woche (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week">
-                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>>1.Woche - ab Samstag, den 2017-06-18</option>
-                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>>2.Woche - ab Samstag, den 2017-06-25</option>
+                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>>1.Woche
+                            - ab Samstag, den 2017-06-18
+                        </option>
+                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>>2.Woche
+                            - ab Samstag, den 2017-06-25
+                        </option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
                 </div>
@@ -149,13 +159,15 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <div class="col-sm-10">
                     <div class="radio" id="flexible">
                         <label>
-                            <input type="radio" name="flexible" id="no" value="no" <?php if (!$applicantInput->getFlexible()) echo ' checked'; ?>>
+                            <input type="radio" name="flexible" id="no"
+                                   value="no" <?php if (!$applicantInput->getFlexible()) echo ' checked'; ?>>
                             Ich kann nur in dieser Woche am Lehrgang teilnehmen.
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="flexible" id="yes" value="yes" <?php if ($applicantInput->getFlexible()) echo ' checked'; ?>>
+                            <input type="radio" name="flexible" id="yes"
+                                   value="yes" <?php if ($applicantInput->getFlexible()) echo ' checked'; ?>>
                             Ich bin flexibel, <strong>falls</strong> diese Woche überbucht ist.
                         </label>
                     </div>
@@ -167,8 +179,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <label for="gender" class="col-sm-2 control-label">Anrede (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
-                        <option value="male" <?php if ('male' == $applicantInput->getGender()) echo ' selected'; ?>>Herr</option>
-                        <option value="female" <?php if ('female' == $applicantInput->getGender()) echo ' selected'; ?>>Frau</option>
+                        <option value="male" <?php if ('male' == $applicantInput->getGender()) echo ' selected'; ?>>
+                            Herr
+                        </option>
+                        <option value="female" <?php if ('female' == $applicantInput->getGender()) echo ' selected'; ?>>
+                            Frau
+                        </option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('gender'); ?>
                 </div>
@@ -317,7 +333,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
                         <option <?php if ('4.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>4.Dan</option>
                         <option <?php if ('3.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>3.Dan</option>
                         <option <?php if ('2.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>2.Dan</option>
-                        <option <?php if ('1.Dan' == $applicantInput->getGrading() || !strlen($applicantInput->getGrading())) echo ' selected'; ?>>1.Dan</option>
+                        <option <?php if ('1.Dan' == $applicantInput->getGrading() || !strlen($applicantInput->getGrading())) echo ' selected'; ?>>
+                            1.Dan
+                        </option>
                         <option> <?php if ('1.Kyu' == $applicantInput->getGrading()) echo ' selected'; ?>1.Kyu</option>
                         <option> <?php if ('2.Kyu' == $applicantInput->getGrading()) echo ' selected'; ?>2.Kyu</option>
                     </select>
@@ -372,9 +390,15 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     Zusammenlegungswünsche angeben (*)</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
-                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>>3-Bett Zimmer</option>
-                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>>2-Bett Zimmer</option>
-                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>>Einzelzimmer</option>
+                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>>3-Bett
+                            Zimmer
+                        </option>
+                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>>2-Bett
+                            Zimmer
+                        </option>
+                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>>
+                            Einzelzimmer
+                        </option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
@@ -408,11 +432,13 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <div class="col-sm-10">
                     <div class="radio" id="essen">
                         <label>
-                            <input type="radio" name="essen" id="meat" value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
+                            <input type="radio" name="essen" id="meat"
+                                   value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
                             normale Kost (mit Fleisch)
                         </label>
                         <label>
-                            <input type="radio" name="essen" id="veg" value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
+                            <input type="radio" name="essen" id="veg"
+                                   value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
                             vegetarische Kost (ohne Fleisch)
                         </label>
                     </div>
@@ -430,14 +456,16 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-         <?php if ($applicantInput->showFormButtons()) { ?>
+            <?php if ($applicantInput->showFormButtons()) { ?>
             <p class="lead"><?php echo HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
-                    <button type="submit" class="btn btn-default btn-primary" title="<?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?>"><?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?></button>
-                    <button type="reset" class="btn btn-danger" title="<?php echo HornLocalizer::i18n('FORM.RESET'); ?>"><?php echo HornLocalizer::i18n('FORM.RESET'); ?></button>
+                <button type="submit" class="btn btn-default btn-primary"
+                        title="<?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?>"><?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?></button>
+                <button type="reset" class="btn btn-danger"
+                        title="<?php echo HornLocalizer::i18n('FORM.RESET'); ?>"><?php echo HornLocalizer::i18n('FORM.RESET'); ?></button>
             </div>
         </form>
-         <?php } // buttonIf ?>
+    <?php } // buttonIf ?>
 
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
