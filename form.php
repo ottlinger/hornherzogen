@@ -387,19 +387,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
             <legend><?php echo HornLocalizer::i18n('FORM.ROOM.PL'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('room'); ?>">
-                <label class="col-sm-2 control-label" for="room"><?php echo HornLocalizer::i18n(''); ?>Bitte die Zimmerkategorie festlegen und
-                    Zusammenlegungswünsche angeben (*)</label>
+                <label class="col-sm-2 control-label" for="room"><?php echo HornLocalizer::i18n('FORM.ROOM'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
-                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n(''); ?>3-Bett
-                            Zimmer
-                        </option>
-                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n(''); ?>2-Bett
-                            Zimmer
-                        </option>
-                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n(''); ?>
-                            Einzelzimmer
-                        </option>
+                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.3'); ?></option>
+                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.2'); ?></option>
+                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.3'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
