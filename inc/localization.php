@@ -14,6 +14,8 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => ''.$h_year,
+    'MAIL.INTERNAL' => 'Interne Mail an das Organisationsteam abgeschickt um {0}',
+    'MAIL.APPLICANT' => 'Mail abgeschickt um {0}',
     'INDEX.EN_CONTINUE' => 'Go to the English version of the registration',
     'INDEX.DE_CONTINUE' => 'Weiter zur Anmeldung',
     'INDEX.LINE1' => 'Auf diesen Seiten kann man sich für den Herzogenhornlehrgang '.$h_year.' anmelden.',
@@ -53,6 +55,8 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'MAIL.INTERNAL' => 'Your data was properly sent to the organisation team (at {0})',
+    'MAIL.APPLICANT' => 'A confirmation mail has been sent to you at {0}',
     'INDEX.EN_CONTINUE' => 'Go to the English version of the registration',
     'INDEX.DE_CONTINUE' => 'Weiter zur Anmeldung',
     'INDEX.LINE1' => 'These pages allow to register for '.$h_year.'\'s Herzogenhorn seminar',
