@@ -429,18 +429,18 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('essen'); ?>">
-                <label class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Essenswunsch (*)</label>
+                <label class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.FOOD'); ?></label>
                 <div class="col-sm-10">
                     <div class="radio" id="essen">
                         <label>
                             <input type="radio" name="essen" id="meat"
                                    value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n(''); ?>normale Kost (mit Fleisch)
+                            <?php echo HornLocalizer::i18n('FORM.FOOD.MEAT'); ?>
                         </label>
                         <label>
                             <input type="radio" name="essen" id="veg"
                                    value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n(''); ?>vegetarische Kost (ohne Fleisch)
+                            <?php echo HornLocalizer::i18n('FORM.FOOD.VEG'); ?>
                         </label>
                     </div>
                 </div>

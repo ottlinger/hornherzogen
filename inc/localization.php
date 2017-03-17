@@ -48,6 +48,9 @@ $GLOBALS['messages']['de'] = array(
     'FORM.REMARK.PL' => 'Bitte gern optional Anmerkungen hinterlassen.',
     'FORM.REMARK' => 'Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):',
     'FORM.OTHER' => 'Sonstiges',
+    'FORM.FOOD' => 'Essenswunsch (*)',
+    'FORM.FOOD.MEAT' => 'normale Kost (mit Fleisch)',
+    'FORM.FOOD.VEG' => 'vegetarische Kost (ohne Fleisch)',
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',
