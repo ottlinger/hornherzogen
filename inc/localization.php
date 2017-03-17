@@ -60,6 +60,9 @@ $GLOBALS['messages']['de'] = array(
     'FORM.ROOM.3' => '3-Bett Zimmer',
     'FORM.ROOM.2' => '2-Bett Zimmer',
     'FORM.ROOM.1' => 'Einzelzimmer',
+    'FORM.GSINCE' => 'Bitte angeben, seit wann die aktuelle Graduierung besteht. (*)',
+    'FORM.GRADING' => 'Aktuelle Graduierung (*)',
+    'FORM.TWA.PL' => 'Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!',
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',

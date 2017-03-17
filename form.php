@@ -319,14 +319,14 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <label for="twano" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Mitgliedsnummer (twa)</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="twano" id="twano"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!"
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.TWA.PL'); ?>"
                            value="<?php echo $applicantInput->getTwaNumber(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('twano'); ?>
                 </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('grad'); ?>">
-                <label for="grad" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Aktuelle Graduierung (*)</label>
+                <label for="grad" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GRADING'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
                         <option <?php if ('6.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>6.Dan</option>
@@ -345,8 +345,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('gsince'); ?>">
-                <label for="gsince" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Bitte angeben, seit wann die aktuelle Graduierung
-                    besteht. (*)</label>
+                <label for="gsince" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GSINCE'); ?></label>
                 <div class="col-sm-10">
                     <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d"
                          data-date="<?php if (empty($applicantInput->getDateOfLastGrading())) {
@@ -392,7 +391,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     <select class="form-control" name="room" id="room">
                         <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.3'); ?></option>
                         <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.2'); ?></option>
-                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.3'); ?></option>
+                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.1'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
