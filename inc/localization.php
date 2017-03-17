@@ -51,6 +51,10 @@ $GLOBALS['messages']['de'] = array(
     'FORM.FOOD' => 'Essenswunsch (*)',
     'FORM.FOOD.MEAT' => 'normale Kost (mit Fleisch)',
     'FORM.FOOD.VEG' => 'vegetarische Kost (ohne Fleisch)',
+    'FORM.PARTNER.PL' => 'Bitte den kompletten Namen angeben.',
+    'FORM.PARTNER.P1' => 'Name Person 1',
+    'FORM.PARTNER.P2' => 'Name Person 2',
+    'FORM.PARTNER' => 'Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?',
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',

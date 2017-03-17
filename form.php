@@ -406,12 +406,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div id="together1-group">
-                <p><?php echo HornLocalizer::i18n(''); ?>Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?</p>
+                <p><?php echo HornLocalizer::i18n('FORM.PARTNER'); ?></p>
                 <div class="form-group <?php echo $applicantInput->getUIResponse('together1'); ?>">
-                    <label for="together1" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Name Person 1</label>
+                    <label for="together1" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.PARTNER.P1'); ?></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="together1" id="together1"
-                               placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte den kompletten Namen angeben."
+                               placeholder="<?php echo HornLocalizer::i18n('FORM.PARTNER.PL'); ?>"
                                value="<?php echo $applicantInput->getPartnerOne(); ?>"/>
                         <?php echo $applicantInput->showSymbolIfFeedback('together1'); ?>
                     </div>
@@ -419,10 +419,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('together2'); ?>" id="together2-group">
-                <label for="together2" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Name Person 2</label>
+                <label for="together2" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.PARTNER.P2'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="together2" id="together2"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte den kompletten Namen angeben."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.PARTNER.PL'); ?>"
                            value="<?php echo $applicantInput->getPartnerTwo(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('together2'); ?>
                 </div>
