@@ -144,6 +144,7 @@ class SubmitMailer
                 <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
                 <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
                 <li>Anmerkungen: ' . $remarks . '</li>
+                <li>Woche: '.$this->applicationInput->getWeek().'</li>
                 </ul>
                 </p>
                 <p>
@@ -232,7 +233,7 @@ class SubmitMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
+            <title>Anmeldung für Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
         </head>
         <body>
             <h1>Herzogenhorn 2017 - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
@@ -240,6 +241,7 @@ class SubmitMailer
                 <p>gegen ' . $this->formHelper->timestamp() . ' ging die folgende Anmeldung ein:</p>
                 <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
                 <ul>
+                <li>Woche: '.$this->applicationInput->getWeek().'</li>
                 <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
                 <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
