@@ -55,6 +55,7 @@ $GLOBALS['messages']['de'] = array(
     'FORM.PARTNER.P1' => 'Name Person 1',
     'FORM.PARTNER.P2' => 'Name Person 2',
     'FORM.PARTNER' => 'Bitte Zusammenlegungswünsche angeben (optional) - mit wem soll das Zimmer geteilt werden?',
+    'FORM.ROOM.PL' => 'Daten zur Unterkunft',
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',

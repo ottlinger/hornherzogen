@@ -385,7 +385,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n(''); ?>Daten zur Unterkunft</legend>
+            <legend><?php echo HornLocalizer::i18n('FORM.ROOM.PL'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('room'); ?>">
                 <label class="col-sm-2 control-label" for="room"><?php echo HornLocalizer::i18n(''); ?>Bitte die Zimmerkategorie festlegen und
                     Zusammenlegungswünsche angeben (*)</label>
