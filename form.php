@@ -303,20 +303,20 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n(''); ?>Aikidodaten</legend>
+            <legend><?php echo HornLocalizer::i18n('FORM.AIKIDO'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('dojo'); ?>">
-                <label for="dojo" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Dojo / Stadt (*)</label>
+                <label for="dojo" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.DOJO'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>In welchem Dojo trainierst Du bzw. in welcher Stadt?"
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.DOJO.PL'); ?>"
                            value="<?php echo $applicantInput->getDojo(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('dojo'); ?>
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n(''); ?>Ohne gültige twa-Mitgliedschaft erhöht sich der Preis des Lehrgangs um 50,00 €.</p>
+            <p><?php echo HornLocalizer::i18n('FORM.TWA.LABEL'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('twano'); ?>">
-                <label for="twano" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Mitgliedsnummer (twa)</label>
+                <label for="twano" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.TWA'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="twano" id="twano"
                            placeholder="<?php echo HornLocalizer::i18n('FORM.TWA.PL'); ?>"

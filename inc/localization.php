@@ -63,6 +63,12 @@ $GLOBALS['messages']['de'] = array(
     'FORM.GSINCE' => 'Bitte angeben, seit wann die aktuelle Graduierung besteht. (*)',
     'FORM.GRADING' => 'Aktuelle Graduierung (*)',
     'FORM.TWA.PL' => 'Bitte die komplette twa-Mitgliedsnummer angeben (z.B. DE-0815) insofern vorhanden. Hinweis: Nichtmitglieder zahlen mehr!',
+    'FORM.TWA' => 'Mitgliedsnummer (twa)',
+    'FORM.TWA.LABEL' => 'Ohne gültige twa-Mitgliedschaft erhöht sich der Preis des Lehrgangs um 50,00 €.',
+    'FORM.AIKIDO' => 'Aikidodaten',
+    'FORM.DOJO' => 'Dojo / Stadt (*)',
+    'FORM.DOJO.PL' => 'In welchem Dojo trainierst Du bzw. in welcher Stadt?',
+
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',
