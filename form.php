@@ -112,7 +112,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
         } // if POST
         ?>
         <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
-        <p class="lead">Bitte das Formular ausfüllen und absenden<br/>und die Bestätigungsmail abwarten.</p>
+        <p class="lead"><?php echo HornLocalizer::i18n('FORM.INTRO.LINE1'); ?><br/>
+            <?php echo HornLocalizer::i18n('FORM.INTRO.LINE2'); ?>
+        </p>
         <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -122,8 +124,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
             } // show error message ?>
 
             <?php } else { ?>
-                <p class="lead"><span class="glyphicon glyphicon-envelope"></span>
-                    Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.</p>
+                <p class="lead"><span class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('FORM.SUC.CHECK'); ?></p>
                 <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
                 <?php
                 // send mail only if there are no error messages and nothing already exists in the database
