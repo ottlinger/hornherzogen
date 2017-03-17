@@ -452,7 +452,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     Zeichen):</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"
-                              placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte gern optional Anmerkungen hinterlassen."><?php echo $applicantInput->getRemarks(); ?></textarea>
+                              placeholder="<?php echo HornLocalizer::i18n('FORM.REMARK.PL'); ?>"><?php echo $applicantInput->getRemarks(); ?></textarea>
                     <?php echo $applicantInput->showSymbolIfFeedback('additionals'); ?>
                 </div>
             </div>
