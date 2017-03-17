@@ -46,6 +46,9 @@ $GLOBALS['messages']['de'] = array(
     'FORM.INTRO.LINE2' => 'und die Bestätigungsmail abwarten.',
     'FORM.SUC.CHECK' => 'Bitte prüfe Dein Mailfach, die Bestätigungsmail wurde erfolgreich versendet.',
     'FORM.REMARK.PL' => 'Bitte gern optional Anmerkungen hinterlassen.',
+    'FORM.REMARK' => 'Anmerkungen / Wünsche / Besonderheiten (max. 400 Zeichen):',
+    'FORM.OTHER' => 'Sonstiges',
+
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',
     'MENU.FAQ' => 'Fragen',
@@ -88,6 +91,7 @@ $GLOBALS['messages']['en'] = array(
     'FORM.INTRO.LINE2' => 'After that a confirmation mail will be sent to you.',
     'FORM.SUC.CHECK' => 'Please check your mailbox, a confirmation has been sent to you.',
     'FORM.REMARK.PL' => 'You may add additional remarks here.',
+    // TODO add keys and translate from here
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Apply form',
     'MENU.FAQ' => 'Questions',

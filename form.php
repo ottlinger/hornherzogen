@@ -446,10 +446,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n(''); ?>Sonstiges</legend>
+            <legend><?php echo HornLocalizer::i18n('FORM.OTHER'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('additionals'); ?>">
-                <label for="additionals" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Anmerkungen / Wünsche / Besonderheiten (max. 400
-                    Zeichen):</label>
+                <label for="additionals" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.REMARK'); ?></label>
                 <div class="col-sm-10">
                     <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"
                               placeholder="<?php echo HornLocalizer::i18n('FORM.REMARK.PL'); ?>"><?php echo $applicantInput->getRemarks(); ?></textarea>
