@@ -144,10 +144,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week">
                         <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>>1.Woche
-                            - ab Samstag, den 2017-06-18
+                            - ab Sonntag, den 2017-06-18
                         </option>
                         <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>>2.Woche
-                            - ab Samstag, den 2017-06-25
+                            - ab Sonntag, den 2017-06-25
                         </option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
