@@ -17,7 +17,7 @@ class SubmitMailerTest extends TestCase
     {
         // reset language to English
         $_GET = array();
-        $_GET['lang'] = "en";
+        $_GET['lang'] = "de";
 
         $this->mailer = new SubmitMailer(self::createApplicantInput());
     }
@@ -26,6 +26,7 @@ class SubmitMailerTest extends TestCase
     {
         // TODO set all necessary attributes
         $applicantInput = new ApplicantInput();
+        $applicantInput->setWeek(1);
         $applicantInput->setFirstname(self::$firstname);
         $applicantInput->setLastname(self::$lastname);
         $applicantInput->setRemarks(self::$remarks);
@@ -168,7 +169,7 @@ class SubmitMailerTest extends TestCase
 
         $mailer = new SubmitMailer(self::createApplicantInput());
         $mailtext = $mailer->getMailtext();
-        $this->assertContains('"en"', $mailtext);
+        $this->assertContains('"de"', $mailtext);
         $this->assertContains($browser, $mailtext);
         $this->assertContains($host, $mailtext);
         $this->assertContains($ip, $mailtext);

@@ -81,26 +81,11 @@ class SubmitMailer
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            return "<p>".HornLocalizer::i18nParams('MAIL.APPLICANT', $appliedAt)."</p>";
+            return "<p>" . HornLocalizer::i18nParams('MAIL.APPLICANT', $appliedAt) . "</p>";
         }
         $this->applicationInput->setMailSent(true);
 
         return '';
-    }
-
-    private function setStatusAppliedIfPossible() {
-        $statusApplied = $this->statusReader->getByName('APPLIED');
-        if(isset($statusApplied)) {
-            $this->applicationInput->setCurrentStatus($statusApplied[0]['id']);
-        }
-    }
-
-    public function saveInDatabase() {
-        return $this->dbWriter->persist($this->applicationInput);
-    }
-
-    public function existsInDatabase() {
-        return boolval($this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail()));
     }
 
     public function isMailSent()
@@ -144,7 +129,7 @@ class SubmitMailer
                 <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
                 <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
                 <li>Anmerkungen: ' . $remarks . '</li>
-                <li>Woche: '.$this->applicationInput->getWeek().'</li>
+                <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
                 </ul>
                 </p>
                 <p>
@@ -178,6 +163,24 @@ class SubmitMailer
             $remarks = "n/a";
         }
         return $remarks;
+    }
+
+    private function setStatusAppliedIfPossible()
+    {
+        $statusApplied = $this->statusReader->getByName('APPLIED');
+        if (isset($statusApplied)) {
+            $this->applicationInput->setCurrentStatus($statusApplied[0]['id']);
+        }
+    }
+
+    public function saveInDatabase()
+    {
+        return $this->dbWriter->persist($this->applicationInput);
+    }
+
+    public function existsInDatabase()
+    {
+        return boolval($this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail()));
     }
 
     /**
@@ -217,7 +220,7 @@ class SubmitMailer
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
-            return "<p>".HornLocalizer::i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp())."</p>";
+            return "<p>" . HornLocalizer::i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</p>";
         }
         return '';
     }
@@ -241,7 +244,7 @@ class SubmitMailer
                 <p>gegen ' . $this->formHelper->timestamp() . ' ging die folgende Anmeldung ein:</p>
                 <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
                 <ul>
-                <li>Woche: '.$this->applicationInput->getWeek().'</li>
+                <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
                 <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
                 <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
