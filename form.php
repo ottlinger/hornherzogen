@@ -281,23 +281,22 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n(''); ?>Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur
-                Sicherheit doppelt ein:</p>
+            <p><?php echo HornLocalizer::i18n('FORM.EMAIL.LABEL'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('email'); ?>">
-                <label for="email" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>E-Mail (*)</label>
+                <label for="email" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.EMAIL'); ?></label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="email" id="email"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte Mailadresse eingeben."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.EMAIL.PL'); ?>"
                            value="<?php echo $applicantInput->getEmail(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('email'); ?>
                 </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('emailcheck'); ?>">
-                <label for="emailcheck" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>E-Mail-Bestätigung (*)</label>
+                <label for="emailcheck" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.EMAILCHECK'); ?></label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="emailcheck" id="emailcheck"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte gib die Mailadresse nochmals zur Bestätigung ein."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.EMAILCHECK.PL'); ?>"
                            value="<?php echo $applicantInput->getEmailcheck(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('emailcheck'); ?>
                 </div>

@@ -68,6 +68,12 @@ $GLOBALS['messages']['de'] = array(
     'FORM.AIKIDO' => 'Aikidodaten',
     'FORM.DOJO' => 'Dojo / Stadt (*)',
     'FORM.DOJO.PL' => 'In welchem Dojo trainierst Du bzw. in welcher Stadt?',
+    'FORM.EMAIL.LABEL' => 'Zur Zusendung der Anmeldebestätigung benötigen wir eine gültige Mailadresse, bitte gib diese zur Sicherheit doppelt ein:',
+    'FORM.EMAIL' => 'E-Mail (*)',
+    'FORM.EMAIL.PL' => 'Bitte Mailadresse eingeben.',
+    'FORM.EMAILCHECK' => 'E-Mail-Bestätigung (*)',
+    'FORM.EMAILCHECK.PL' => 'Bitte gib die Mailadresse nochmals zur Bestätigung ein.',
+
 
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
