@@ -95,6 +95,11 @@ class SubmitMailer
 
     public function getMailtext()
     {
+        // all non German customers will get an English confirmation mail
+        if($this->localizer->getLanguage() != 'de') {
+            return $this->getEnglishMailtext();
+        }
+
         $remarks = self::reformat($this->applicationInput->getRemarks());
 
         $metadata = $this->formHelper->extractMetadataForFormSubmission();
@@ -227,11 +232,6 @@ class SubmitMailer
 
     public function getInternalMailtext()
     {
-        // all non German customers will get an English confirmation mail
-        if($this->localizer->getLanguage() != 'de') {
-            return $this->getEnglishMailtext();
-        }
-
         $remarks = self::reformat($this->applicationInput->getRemarks());
 
         $metadata = $this->formHelper->extractMetadataForFormSubmission();
