@@ -242,7 +242,7 @@ class SubmitMailer
             <h1>Herzogenhorn 2017 - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>Anmeldungsdetails</h2>
                 <p>gegen ' . $this->formHelper->timestamp() . ' ging die folgende Anmeldung ein:</p>
-                <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
+                <p>Eckdaten:
                 <ul>
                 <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
                 <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
