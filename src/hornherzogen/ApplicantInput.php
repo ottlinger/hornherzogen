@@ -164,7 +164,7 @@ final class ApplicantInput extends Applicant
         }
 
         // is set when flushing into the database
-        $this->setFullName('');
+        // $this->setFullName('');
 
         if ($this->formHelper->isSetAndNotEmpty("street")) {
             $this->setStreet($this->formHelper->trimAndCutAfter($this->getFromPost("street"), 250));
