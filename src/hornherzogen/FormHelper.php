@@ -96,4 +96,10 @@ class FormHelper
         return $data;
     }
 
+    public function isSubmissionClosed()
+    {
+        // TODO implement me
+        return true;
+    }
+
 }

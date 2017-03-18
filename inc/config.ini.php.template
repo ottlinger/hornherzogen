@@ -9,7 +9,7 @@
 ;die(); // For further security
 ;/*
 [hornherzogen]
-;; Allows for debugging
+;; Allows debugging
 debug = true;
 ;;//Please rename this file to config.ini.php in your live setup and adapt all values properly
 ;;// contact mail
@@ -30,5 +30,7 @@ dbname = 'adbname';
 dbuser = 'pi2ieVid1234567';
 ;;// database password, e.g. 'AiCh3ieSbou5Gee2deadbeaf';
 dbpassword = 'anypassword';
+;;// date after which no more applications are allowed
+submissionend = '2017-04-29';
 ;*/
 ;?>
