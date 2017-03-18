@@ -87,6 +87,9 @@ $GLOBALS['messages']['de'] = array(
     'FORM.LASTNAME.PL' => 'Bitte Nachname eingeben.',
     'FORM.FIRSTNAME' => 'Vorname (*)',
     'FORM.FIRSTNAME.PL' => 'Bitte Vorname eingeben.',
+    'FORM.PERSONALDATA' => 'Persönliche Daten',
+    
+
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',

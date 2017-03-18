@@ -175,7 +175,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n(''); ?>Persönliche Daten</legend>
+            <legend><?php echo HornLocalizer::i18n('FORM.PERSONALDATA'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('gender'); ?>">
                 <label for="gender" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Anrede (*)</label>
                 <div class="col-sm-10">
