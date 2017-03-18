@@ -76,6 +76,8 @@ $GLOBALS['messages']['de'] = array(
     'FORM.COUNTRY' => 'Land (*)',
     'FORM.CITY' => 'Ort (*)',
     'FORM.CITY.PL' => 'Bitte den Wohnort eingeben.',
+    'FORM.ZIP' => 'PLZ (*)',
+    'FORM.ZIP.PL' => 'Bitte die PLZ eingeben.',
 
 
 

@@ -234,9 +234,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('plz'); ?>">
-                <label for="plz" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>PLZ (*)</label>
+                <label for="plz" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.ZIP'); ?></label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="plz" id="plz" placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte die PLZ eingeben."
+                    <input type="text" class="form-control" name="plz" id="plz" placeholder="<?php echo HornLocalizer::i18n('FORM.ZIP.PL'); ?>"
                            value="<?php echo $applicantInput->getZipCode(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('plz'); ?>
                 </div>
