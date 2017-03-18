@@ -74,6 +74,8 @@ $GLOBALS['messages']['de'] = array(
     'FORM.EMAILCHECK' => 'E-Mail-Bestätigung (*)',
     'FORM.EMAILCHECK.PL' => 'Bitte gib die Mailadresse nochmals zur Bestätigung ein.',
     'FORM.COUNTRY' => 'Land (*)',
+    'FORM.CITY' => 'Ort (*)',
+    'FORM.CITY.PL' => 'Bitte den Wohnort eingeben.',
 
 
 
