@@ -274,7 +274,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
              */
             ?>
             <div class="form-group <?php echo $applicantInput->getUIResponse('country'); ?>">
-                <label for="country" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Land (*)</label>
+                <label for="country" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.COUNTRY'); ?></label>
                 <div id="country" data-name="country" class="col-sm-10 bfh-selectbox bfh-countries"
                      data-country="<?php echo $applicantInput->getCountry(); ?>" data-flags="true">
                     <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
