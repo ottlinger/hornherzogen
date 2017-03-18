@@ -78,7 +78,8 @@ $GLOBALS['messages']['de'] = array(
     'FORM.CITY.PL' => 'Bitte den Wohnort eingeben.',
     'FORM.ZIP' => 'PLZ (*)',
     'FORM.ZIP.PL' => 'Bitte die PLZ eingeben.',
-
+    'FORM.HOUSENO' => 'Hausnummer (*)',
+    'FORM.HOUSENO.PL' => 'Bitte die komplette Hausnummer zur Postanschrift eingeben.',
 
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,

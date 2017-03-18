@@ -224,10 +224,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('houseno'); ?>">
-                <label for="houseno" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Hausnummer (*)</label>
+                <label for="houseno" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.HOUSENO'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="houseno" name="houseno"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte die komplette Hausnummer zur Postanschrift eingeben."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.HOUSENO.PL'); ?>"
                            value="<?php echo $applicantInput->getHouseNumber(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('houseno'); ?>
                 </div>
