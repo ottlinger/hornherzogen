@@ -214,10 +214,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
             <p><?php echo HornLocalizer::i18n(''); ?>Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:</p>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('street'); ?>">
-                <label for="street" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Straße (*)</label>
+                <label for="street" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.STREET'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="street" id="street"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte die Straße der Postanschrift ohne Hausnummer eingeben."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.STREET.PL'); ?>"
                            value="<?php echo $applicantInput->getStreet(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('street'); ?>
                 </div>
