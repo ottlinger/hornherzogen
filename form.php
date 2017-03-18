@@ -211,7 +211,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n(''); ?>Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:</p>
+            <p><?php echo HornLocalizer::i18n('FORM.ADDRESS'); ?></p>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('street'); ?>">
                 <label for="street" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.STREET'); ?></label>
