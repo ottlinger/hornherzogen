@@ -140,15 +140,11 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
             <legend><?php echo HornLocalizer::i18n('FORM.WEEK'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
-                <label class="col-sm-2 control-label" for="week"><?php echo HornLocalizer::i18n(''); ?>Welche Woche (*)</label>
+                <label class="col-sm-2 control-label" for="week"><?php echo HornLocalizer::i18n('FORM.WEEK.LABEL'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week">
-                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo HornLocalizer::i18n(''); ?>1.Woche
-                            - ab Sonntag, den 2017-06-18
-                        </option>
-                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?><?php echo HornLocalizer::i18n(''); ?>>2.Woche
-                            - ab Sonntag, den 2017-06-25
-                        </option>
+                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.WEEK.1'); ?></option>
+                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.WEEK.2'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
                 </div>
