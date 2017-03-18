@@ -83,6 +83,8 @@ $GLOBALS['messages']['de'] = array(
     'FORM.STREET' => 'Straße (*)',
     'FORM.STREET.PL' => 'Bitte die Straße der Postanschrift ohne Hausnummer eingeben.',
     'FORM.ADDRESS' => 'Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:',
+    'FORM.LASTNAME' => 'Nachname (*)',
+    'FORM.LASTNAME.PL' => 'Bitte Nachname eingeben.',
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',

@@ -202,10 +202,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('nachname'); ?>">
-                <label for="nachname" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Nachname (*)</label>
+                <label for="nachname" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.LASTNAME'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="nachname" id="nachname"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte Nachname eingeben."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.LASTNAME.PL'); ?>"
                            value="<?php echo $applicantInput->getLastname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('nachname'); ?>
                 </div>
