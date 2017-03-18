@@ -16,6 +16,7 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
+    'SUBMISSIONCLOSED' => 'Die Anmeldefrist für dieses Jahr ist abgelaufen, gern im nächsten Jahr wieder probieren :-)',
     'MAIL.INTERNAL' => 'Interne Mail an das Organisationsteam abgeschickt um {0}',
     'MAIL.APPLICANT' => 'Mail abgeschickt um {0}',
     'INDEX.EN_CONTINUE' => 'Go to the English version of the registration',
@@ -110,6 +111,7 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'SUBMISSIONCLOSED' => 'Sorry, try again next year. This year\'s submission period is over.',
     'MAIL.INTERNAL' => 'Your data was properly sent to the organisation team (at {0})',
     'MAIL.APPLICANT' => 'A confirmation mail has been sent to you at {0}',
     'INDEX.EN_CONTINUE' => 'Go to the English version of the registration',

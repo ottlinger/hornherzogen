@@ -94,7 +94,11 @@ $config = new ConfigurationWrapper();
         $applicantInput = new ApplicantInput();
         $formHelper = new FormHelper();
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && !$formHelper->isSubmissionClosed()) {
+        if ($formHelper->isSubmissionClosed()) {
+            echo "<p>" . HornLocalizer::i18n('SUBMISSIONCLOSED') . "</p>";
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $applicantInput->parse();
 
@@ -137,8 +141,6 @@ $config = new ConfigurationWrapper();
                     echo $sender->send();
                     echo $sender->sendInternally();
                     echo "<p>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</p>";
-                } else {
-                    echo "<p>" . HornLocalizer::i18n('SUBMISSIONCLOSED') . "</p>";
                 }
             } // if showButtons
             ?>

@@ -98,7 +98,9 @@ class FormHelper
 
     public function isSubmissionClosed()
     {
-        // TODO implement me
+        // TODO implement me #40! compare against new configuration field
+        // add docs for that field and methods and tests!
+        // integrate this date into the localization.php
         return true;
     }
 
