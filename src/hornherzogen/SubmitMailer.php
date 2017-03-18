@@ -81,7 +81,7 @@ class SubmitMailer
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            return "<p>" . HornLocalizer::i18nParams('MAIL.APPLICANT', $appliedAt) . "</p>";
+            return "<p>" . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</p>";
         }
         $this->applicationInput->setMailSent(true);
 
@@ -220,7 +220,7 @@ class SubmitMailer
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
-            return "<p>" . HornLocalizer::i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</p>";
+            return "<p>" . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</p>";
         }
         return '';
     }
