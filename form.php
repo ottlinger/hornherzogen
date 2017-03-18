@@ -192,10 +192,10 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('vorname'); ?>">
-                <label for="vorname" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Vorname (*)</label>
+                <label for="vorname" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.FIRSTNAME'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="vorname" id="vorname"
-                           placeholder="<?php echo HornLocalizer::i18n(''); ?>Bitte Vorname eingeben."
+                           placeholder="<?php echo HornLocalizer::i18n('FORM.FIRSTNAME.PL'); ?>"
                            value="<?php echo $applicantInput->getFirstname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>

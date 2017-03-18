@@ -85,6 +85,8 @@ $GLOBALS['messages']['de'] = array(
     'FORM.ADDRESS' => 'Die Adressdaten benötigen wir zur Ausstellung der Zahlungsaufforderung:',
     'FORM.LASTNAME' => 'Nachname (*)',
     'FORM.LASTNAME.PL' => 'Bitte Nachname eingeben.',
+    'FORM.FIRSTNAME' => 'Vorname (*)',
+    'FORM.FIRSTNAME.PL' => 'Bitte Vorname eingeben.',
 
     'MENU.MAIN' => 'Herzogenhorn '.$h_year,
     'MENU.APPLY' => 'Anmeldung',
