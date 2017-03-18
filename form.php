@@ -177,14 +177,14 @@ $config = new \hornherzogen\ConfigurationWrapper();
 
             <legend><?php echo HornLocalizer::i18n('FORM.PERSONALDATA'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('gender'); ?>">
-                <label for="gender" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>Anrede (*)</label>
+                <label for="gender" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GENDER'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
                         <option value="male" <?php if ('male' == $applicantInput->getGender()) echo ' selected'; ?>>
-                            <?php echo HornLocalizer::i18n(''); ?>Herr
+                            <?php echo HornLocalizer::i18n('FORM.GENDER.M'); ?>
                         </option>
                         <option value="female" <?php if ('female' == $applicantInput->getGender()) echo ' selected'; ?>>
-                            <?php echo HornLocalizer::i18n(''); ?>Frau
+                            <?php echo HornLocalizer::i18n('FORM.GENDER.F'); ?>
                         </option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('gender'); ?>
