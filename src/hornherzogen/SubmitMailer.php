@@ -96,7 +96,7 @@ class SubmitMailer
     public function getMailtext()
     {
         // all non German customers will get an English confirmation mail
-        if($this->localizer->getLanguage() != 'de') {
+        if ($this->localizer->getLanguage() != 'de') {
             return $this->getEnglishMailtext();
         }
 
@@ -152,6 +152,66 @@ class SubmitMailer
         }
 
         $mailtext .= ' das Formular versendet.
+            </p>
+        </body>
+    </html>';
+
+        return $mailtext;
+    }
+
+    private function getEnglishMailtext()
+    {
+        $remarks = self::reformat($this->applicationInput->getRemarks());
+
+        $metadata = $this->formHelper->extractMetadataForFormSubmission();
+
+        $mailtext =
+            '
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>You\'ve successfully applied for Herzogenhorn week ' . $this->applicationInput->getWeek() . '</title >
+        </head>
+        <body>
+            <h1>Herzogenhorn 2017 - application for week ' . $this->applicationInput->getWeek() . '</h1>
+            <h2>
+                Hi ' . $this->applicationInput->getFirstname() . ',</h2>
+                <p>we have received your application for Herzogenhorn week ' . $this->applicationInput->getWeek() . ' at ' . $this->formHelper->timestamp() . '. 
+                After the end of submission we\'ll get back to you.
+                </p>
+                <p>Your application contained the following data that were saved in our database:
+                <ul>
+                <li>Gender: ' . $this->applicationInput->getGender() . '</li>
+                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Flexible? ' . ($this->applicationInput->getFlexible() == 1 ? 'yes' : 'no') . '</li>
+                <li>Address: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
+                <li>City: ' . $this->applicationInput->getCity() . '</li>
+                <li>Country: ' . $this->applicationInput->getCountry() . '</li>
+                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
+                <li>TWA-number: ' . $this->applicationInput->getTwaNumber() . '</li>
+                <li>Grading: ' . $this->applicationInput->getGrading() . ' (since ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
+                <li>Room category: ' . $this->applicationInput->getRoom() . '</li>
+                <li>together with: ' . $this->applicationInput->getPartnerOne() . '</li>
+                <li>and: ' . $this->applicationInput->getPartnerTwo() . '</li>
+                <li>Food category: ' . $this->applicationInput->getFoodCategory() . '</li>
+                <li>Remarks: ' . $remarks . '</li>
+                </ul>
+                </p>
+                <p>
+                Thanks for your patience! We are looking forward to the training with you and Shimizu Sensei -<br />
+                </p>
+                <h3>
+                All the best from Berlin<br />
+                Benjamin und Philipp</h3>
+            </h2>
+            <p>
+            PS: Your selected language was "' . $metadata['LANG'] . '" with browser "' . $metadata['BROWSER'] . '".
+            Submission happened from address "' . $metadata['R_ADDR'] . '"';
+        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
+            $mailtext .= '(' . $metadata['R_HOST'] . ')';
+        }
+
+        $mailtext .= '
             </p>
         </body>
     </html>';
@@ -244,7 +304,7 @@ class SubmitMailer
             <title>Anmeldung für Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
         </head>
         <body>
-            <h1>Herzogenhorn 2017 - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>Anmeldungsdetails</h2>
                 <p>gegen ' . $this->formHelper->timestamp() . ' ging die folgende Anmeldung ein:</p>
                 <p>Eckdaten:
@@ -252,6 +312,7 @@ class SubmitMailer
                 <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
                 <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
                 <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>interner Name: ' . $this->applicationInput->getFullname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
                 <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
                 <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
@@ -275,66 +336,6 @@ class SubmitMailer
         }
 
         $mailtext .= ' das Formular versendet.
-            </p>
-        </body>
-    </html>';
-
-        return $mailtext;
-    }
-
-    private function getEnglishMailtext()
-    {
-        $remarks = self::reformat($this->applicationInput->getRemarks());
-
-        $metadata = $this->formHelper->extractMetadataForFormSubmission();
-
-        $mailtext =
-            '
-    <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>You\'ve successfully applied for Herzogenhorn week ' . $this->applicationInput->getWeek() . '</title >
-        </head>
-        <body>
-            <h1>Herzogenhorn 2017 - application for week ' . $this->applicationInput->getWeek() . '</h1>
-            <h2>
-                Hi ' . $this->applicationInput->getFirstname() . ',</h2>
-                <p>we have received your application for Herzogenhorn week ' . $this->applicationInput->getWeek() . ' at ' . $this->formHelper->timestamp() . '. 
-                After the end of submission we\'ll get back to you.
-                </p>
-                <p>Your application contained the following data that were saved in our database:
-                <ul>
-                <li>Gender: ' . $this->applicationInput->getGender() . '</li>
-                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
-                <li>Flexible? ' . ($this->applicationInput->getFlexible() == 1 ? 'yes' : 'no') . '</li>
-                <li>Address: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
-                <li>City: ' . $this->applicationInput->getCity() . '</li>
-                <li>Country: ' . $this->applicationInput->getCountry() . '</li>
-                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
-                <li>TWA-number: ' . $this->applicationInput->getTwaNumber() . '</li>
-                <li>Grading: ' . $this->applicationInput->getGrading() . ' (since ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
-                <li>Room category: ' . $this->applicationInput->getRoom() . '</li>
-                <li>together with: ' . $this->applicationInput->getPartnerOne() . '</li>
-                <li>and: ' . $this->applicationInput->getPartnerTwo() . '</li>
-                <li>Food category: ' . $this->applicationInput->getFoodCategory() . '</li>
-                <li>Remarks: ' . $remarks . '</li>
-                </ul>
-                </p>
-                <p>
-                Thanks for your patience! We are looking forward to the training with you and Shimizu Sensei -<br />
-                </p>
-                <h3>
-                All the best from Berlin<br />
-                Benjamin und Philipp</h3>
-            </h2>
-            <p>
-            PS: Your selected language was "' . $metadata['LANG'] . '" with browser "' . $metadata['BROWSER'] . '".
-            Submission happened from address "' . $metadata['R_ADDR'] . '"';
-        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
-            $mailtext .= '(' . $metadata['R_HOST'] . ')';
-        }
-
-        $mailtext .= '
             </p>
         </body>
     </html>';
