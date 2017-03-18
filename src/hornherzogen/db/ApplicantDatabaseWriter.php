@@ -61,6 +61,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         while ($row = $dbResult->fetch()) {
             $results[] = $this->fromDatabaseToObject($row);
         }
+
         return $results;
     }
 
