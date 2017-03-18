@@ -4,8 +4,9 @@ use hornherzogen\ApplicantInput;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 use hornherzogen\SubmitMailer;
+use hornherzogen\ConfigurationWrapper;
 
-$config = new \hornherzogen\ConfigurationWrapper();
+$config = new ConfigurationWrapper();
 ?>
 <html lang="en">
 <head>
