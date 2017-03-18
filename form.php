@@ -138,7 +138,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
             } // if showButtons
             ?>
 
-            <legend><?php echo HornLocalizer::i18n(''); ?>Bitte die gewünschte Lehrgangswoche auswählen</legend>
+            <legend><?php echo HornLocalizer::i18n('FORM.WEEK'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
                 <label class="col-sm-2 control-label" for="week"><?php echo HornLocalizer::i18n(''); ?>Welche Woche (*)</label>
                 <div class="col-sm-10">
@@ -155,21 +155,20 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('flexible'); ?>">
-                <label class="col-sm-2 control-label"><?php echo HornLocalizer::i18n(''); ?>
-                    Kann ich im Fall einer Überbuchung in die andere Woche ausweichen? (*)</label>
+                <label class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.FLEXIBLE'); ?></label>
                 <div class="col-sm-10">
                     <div class="radio" id="flexible">
                         <label>
                             <input type="radio" name="flexible" id="no"
                                    value="no" <?php if (!$applicantInput->getFlexible()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n(''); ?>Ich kann nur in dieser Woche am Lehrgang teilnehmen.
+                            <?php echo HornLocalizer::i18n('FORM.FLEXIBLE.NO'); ?>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="flexible" id="yes"
                                    value="yes" <?php if ($applicantInput->getFlexible()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n(''); ?>Ich bin flexibel, <strong>falls</strong> diese Woche überbucht ist.
+                            <?php echo HornLocalizer::i18n('FORM.FLEXIBLE.YES'); ?>
                         </label>
                     </div>
                 </div>

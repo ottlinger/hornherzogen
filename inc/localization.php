@@ -91,6 +91,12 @@ $GLOBALS['messages']['de'] = array(
     'FORM.GENDER' => 'Anrede (*)',
     'FORM.GENDER.M' => 'Herr',
     'FORM.GENDER.F' => 'Frau',
+    'FORM.FLEXIBLE' => 'Kann ich im Fall einer Überbuchung in die andere Woche ausweichen? (*)',
+    'FORM.FLEXIBLE.NO' => 'Ich kann nur in dieser Woche am Lehrgang teilnehmen.',
+    'FORM.FLEXIBLE.YES' => 'Ich bin flexibel, <strong>falls</strong> diese Woche überbucht ist.',
+    'FORM.WEEK' => 'Bitte die gewünschte Lehrgangswoche auswählen',
+
+
 
 
 
