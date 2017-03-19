@@ -8,16 +8,16 @@ use hornherzogen\db\StatusDatabaseReader;
 class SubmitMailer
 {
     // internal members
+    public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
     private $applicationInput;
     private $revision;
     private $localizer;
     private $config;
     private $dbWriter;
-    private $statusReader;
 
     // defines how the success messages are being shown in the UI
-    public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
+    private $statusReader;
 
     function __construct($applicationInput)
     {
@@ -246,11 +246,21 @@ class SubmitMailer
         return $this->dbWriter->persist($this->applicationInput);
     }
 
-
-    // #57: if not used . resubmit triggers a resend and so on....
     public function existsInDatabase()
     {
-        return boolval($this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail()));
+        $existingRows = $this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail());
+
+        // case1: database contains someone with the same name and mail address - treat as resubmit and do not persist
+        if (sizeof($existingRows) == 1 && $existingRows[0]->getFullName() === ($existingRows[0]->getFirstname() . ' ' . $existingRows[0]->getLastname())) {
+            return true;
+        }
+
+        // case2: there are already more than one entries in the database, persist will correct the current one
+        if (sizeof($existingRows) >= 1) {
+            return false; // persist is going to correct the doublette by adding a salt to the fullname
+        }
+
+        return boolval($existingRows);
     }
 
     /**
