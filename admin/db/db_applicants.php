@@ -83,12 +83,12 @@ use hornherzogen\HornLocalizer;
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo HornLocalizer::i18n('FORM.TITLE'); ?>
+            <span class="glyphicon glyphicon-sunglasses"></span> eingegangene Anmeldungen
         </h1>
 
         <p>
             <?php
-            echo "<h2>List all applicants ....</h2>";
+            echo "<h2>nach Status sortiert</h2>";
 
             $config = new ConfigurationWrapper();
             $week = NULL;
@@ -100,17 +100,28 @@ use hornherzogen\HornLocalizer;
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 // STATS
-                echo "<p>Applicants by week and status</p>";
                 $q = $db->query("SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week");
                 if (false === $q) {
                     $error = $db->errorInfo();
                     print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
                 }
-                $rowNum = 0;
+
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>Week</th>";
+                echo "<th>Current Status</th>";
+                echo "<th>#applicants</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+
                 while ($row = $q->fetch()) {
-                    $rowNum++;
-                    print "<h2>($rowNum) '$row[name]' in week $row[week] for $row[howmany] applicants</h2>\n";
+                    print "<tr><td>$row[week]</td><td>$row[name]</td><td>$row[howmany]</td></tr>";
                 }
+                echo "</tbody>";
+                echo "</table>";
+                echo "</div>";
 
                 /*
                         // ALL with status
@@ -134,9 +145,7 @@ use hornherzogen\HornLocalizer;
                 print "Unable to connect to db:" . $e->getMessage();
             }
 
-            // retrieve via helper
-            print "<h1>So wird es zukünftig mal aussehen</h1>";
-
+            echo "<h2>Als Gesamtliste</h2>";
             ?>
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
