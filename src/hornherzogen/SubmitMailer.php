@@ -308,8 +308,7 @@ class SubmitMailer
         <body>
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>Anmeldungsdetails</h2>
-                <p>gegen ' . $this->formHelper->timestamp() . ' ging die folgende Anmeldung ein:</p>
-                <p>Eckdaten:
+                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die folgende Anmeldung ein:</p>
                 <ul>
                 <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
                 <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
@@ -322,13 +321,12 @@ class SubmitMailer
                 <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
                 <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
                 <li>Graduierung: ' . $this->applicationInput->getGrading() . ' (seit ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
-                <li>Zimmer: ' . $this->applicationInput->getRoom() . '</li>
-                <li>Person1: ' . $this->applicationInput->getPartnerOne() . '</li>
-                <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
+                <li>Zimmerkategorie: ' . $this->applicationInput->getRoom() . '</li>
+                <li>Person 1: ' . $this->applicationInput->getPartnerOne() . '</li>
+                <li>Person 2: ' . $this->applicationInput->getPartnerTwo() . '</li>
                 <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
                 <li>Anmerkungen: ' . $remarks . '</li>
                 </ul>
-                </p>
             </h2>
             <p>
             PS: Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
