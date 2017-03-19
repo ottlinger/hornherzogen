@@ -138,7 +138,7 @@ class SubmitMailer
                 </ul>
                 </p>
                 <p>
-                Danke für Deine Geduld und wir freuen uns auf das gemeinsame Training mit Dir - <br />
+                Danke für Deine Geduld und wir freuen uns Dich zu sehen - <br />
                 </p>
                 <h3>
                 Bis dahin sonnige Grüße aus Berlin<br />
@@ -198,7 +198,7 @@ class SubmitMailer
                 </ul>
                 </p>
                 <p>
-                Thanks for your patience! We are looking forward to seeing you on the tatami -<br />
+                Thanks for your patience! We are looking forward to seeing you -<br />
                 </p>
                 <h3>
                 All the best from Berlin<br />
