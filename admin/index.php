@@ -68,9 +68,11 @@ use hornherzogen\HornLocalizer;
                     <ul class="dropdown-menu">
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li class="dropdown-header">Verwaltung</li>
+                        <li><a href="#">Status ändern</a></li>
+                        <li><a href="#">Raumplan pro Woche</a></li>
+                        <li><a href="#">Wünsche der Teilnehmer</a></li>
+                        <li><a href="#">Buchungen der Zimmer</a></li>
                     </ul>
                 </li>
             </ul>
