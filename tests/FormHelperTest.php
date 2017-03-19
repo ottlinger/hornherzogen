@@ -150,4 +150,8 @@ class FormHelperTest extends TestCase
     {
         $this->assertNull($this->formHelper->trimAndCutAfter(NULL, NULL));
     }
+
+    public function testSubmissionIsClosedWithoutConfigurationYieldsFalse() {
+        $this->assertFalse($this->formHelper->isSubmissionClosed(NULL));
+    }
 }

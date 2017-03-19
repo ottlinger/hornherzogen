@@ -97,11 +97,15 @@ class FormHelper
         return $data;
     }
 
-    public function isSubmissionClosed()
+    public function isSubmissionClosed($config)
     {
         // TODO implement me #40! compare against new configuration field
         // add docs for that field and methods and tests!
         // integrate this date into the localization.php
+        if(isset($config)) {
+
+
+        }
         return false;
     }
 

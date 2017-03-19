@@ -94,7 +94,7 @@ $config = new ConfigurationWrapper();
         $applicantInput = new ApplicantInput();
         $formHelper = new FormHelper();
 
-        if ($formHelper->isSubmissionClosed()) {
+        if ($formHelper->isSubmissionClosed($config)) {
             echo "<p>" . HornLocalizer::i18n('SUBMISSIONCLOSED') . "</p>";
         }
 
@@ -137,7 +137,7 @@ $config = new ConfigurationWrapper();
                 // send mail only if there are no error messages and nothing already exists in the database
                 $sender = new SubmitMailer($applicantInput);
 
-                if (!$formHelper->isSubmissionClosed() && !$sender->existsInDatabase()) {
+                if (!$formHelper->isSubmissionClosed($config) && !$sender->existsInDatabase()) {
                     echo $sender->send();
                     echo $sender->sendInternally();
                     echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
