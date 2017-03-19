@@ -99,9 +99,6 @@ class FormHelper
 
     public function isSubmissionClosed($config)
     {
-        // TODO implement me #40! compare against new configuration field
-        // add docs for that field and methods and tests!
-        // integrate this date into the localization.php
         if(isset($config)) {
             $today = strtotime($this->timestamp());
             $expiration_date = strtotime($config->submissionend());

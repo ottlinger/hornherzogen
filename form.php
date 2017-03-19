@@ -95,7 +95,7 @@ $config = new ConfigurationWrapper();
         $formHelper = new FormHelper();
 
         if ($formHelper->isSubmissionClosed($config)) {
-            echo "<p>" . HornLocalizer::i18n('SUBMISSIONCLOSED') . "</p>";
+            echo "<h1 style=\"color: red; font-weight: bold;\">" . HornLocalizer::i18n('SUBMISSIONCLOSED') . "</h1>";
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
