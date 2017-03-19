@@ -15,6 +15,7 @@ class FormHelper
         if (isset($input) && isset($length)) {
             return mb_substr(trim($input), 0, $length, 'UTF-8');
         }
+        return NULL;
     }
 
     /**

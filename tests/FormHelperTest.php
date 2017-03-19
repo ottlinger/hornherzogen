@@ -146,4 +146,8 @@ class FormHelperTest extends TestCase
         $this->assertNull($this->formHelper->filterUserInput(NULL));
     }
 
+    public function testTrimAndCutIsNullsafe()
+    {
+        $this->assertNull($this->formHelper->trimAndCutAfter(NULL, NULL));
+    }
 }
