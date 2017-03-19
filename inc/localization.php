@@ -1,16 +1,25 @@
 <?php
 
-/**
- * Add l10n keys here per language ....
- */
+use hornherzogen\ConfigurationWrapper;
+
+$config = new ConfigurationWrapper();
 
 /* Constants */
 $h_year = 2017;
 $h_applicationPublishedSince = $h_year . "-03-20"; // since when is the registration online/possible?
-$h_applicationEndDate = $h_year . "-04-29"; // move into configuration! when working on #40
 $h_week1_start = $h_year . "-06-18";
 $h_week2_start = $h_year . "-06-25";
 
+// fallback to tomorrow if not set
+if (NULL != $config->submissionend()) {
+    $h_applicationEndDate = $config->submissionend();
+} else {
+    $h_applicationEndDate = $h_year . "-04-29";
+}
+
+/**
+ * Add l10n keys here per language ....
+ */
 $GLOBALS['messages'] = array();
 
 // GERMAN with constants
