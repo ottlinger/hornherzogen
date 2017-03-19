@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
 use hornherzogen\FormHelper;
+use hornherzogen\ConfigurationWrapper;
 use PHPUnit\Framework\TestCase;
 
 class FormHelperTest extends TestCase
@@ -154,4 +155,24 @@ class FormHelperTest extends TestCase
     public function testSubmissionIsClosedWithoutConfigurationYieldsFalse() {
         $this->assertFalse($this->formHelper->isSubmissionClosed(NULL));
     }
+
+    public function testSubmissionIsClosedWithDateInPastYieldsTrue() {
+
+        $GLOBALS['horncfg']['submissionend'] = '2014-01-01';
+
+        $this->assertTrue($this->formHelper->isSubmissionClosed(new ConfigurationWrapper()));
+    }
+
+    public function testSubmissionIsClosedWithDateTomorrowYieldsFalse() {
+
+        $datetime = new DateTime('tomorrow');
+        $GLOBALS['horncfg']['submissionend'] = $datetime->format('Y-m-d');
+
+        $this->assertFalse($this->formHelper->isSubmissionClosed(new ConfigurationWrapper()));
+    }
+
+
+
+
+
 }

@@ -103,8 +103,10 @@ class FormHelper
         // add docs for that field and methods and tests!
         // integrate this date into the localization.php
         if(isset($config)) {
+            $today = strtotime($this->timestamp());
+            $expiration_date = strtotime($config->submissionend());
 
-
+            return boolval($expiration_date < $today);
         }
         return false;
     }
