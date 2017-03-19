@@ -137,7 +137,7 @@ $config = new ConfigurationWrapper();
                 // send mail only if there are no error messages and nothing already exists in the database
                 $sender = new SubmitMailer($applicantInput);
 
-                if (!$formHelper->isSubmissionClosed()) {
+                if (!$formHelper->isSubmissionClosed() && !$sender->existsInDatabase()) {
                     echo $sender->send();
                     echo $sender->sendInternally();
                     echo "<p>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</p>";

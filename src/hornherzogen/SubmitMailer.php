@@ -243,6 +243,8 @@ class SubmitMailer
         return $this->dbWriter->persist($this->applicationInput);
     }
 
+
+    // #57: if not used . resubmit triggers a resend and so on....
     public function existsInDatabase()
     {
         return boolval($this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail()));
