@@ -1,4 +1,5 @@
 <?php
+use hornherzogen\ConfigurationWrapper;
 use PHPUnit\Framework\TestCase;
 
 class ConfigurationWrapperTest extends TestCase
@@ -10,7 +11,7 @@ class ConfigurationWrapperTest extends TestCase
      */
     public function setUp()
     {
-        $this->configuration = new hornherzogen\ConfigurationWrapper;
+        $this->configuration = new ConfigurationWrapper;
     }
 
     /**
@@ -172,6 +173,11 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertTrue($this->configuration->sendinternalregistrationmails());
     }
 
+    public function testConfigurationAttributeSubmissionEndIsSet()
+    {
+        $GLOBALS["horncfg"]["submissionend"] = '2017-01-01';
+        $this->assertEquals("2017-01-01", $this->configuration->submissionend());
+    }
 
     public function testMaskWithAsteriskShitInShitOut()
     {
@@ -199,6 +205,5 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertStringStartsWith("<pre>Current configuration is: ", $this->configuration->__toString());
         $this->assertNotContains("pi2ieVid1234567", $this->configuration->__toString());
         $this->assertNotContains("pi2************", $this->configuration->__toString());
-
     }
 }

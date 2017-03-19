@@ -109,6 +109,10 @@ class ConfigurationWrapper
         return self::getFromHornConfiguration('pdf');
     }
 
+    public function submissionend() {
+        return self::getFromHornConfiguration('submissionend');
+    }
+
     /**
      * @return bool TRUE if database configuration is complete
      */

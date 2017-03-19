@@ -31,6 +31,6 @@ dbuser = 'pi2ieVid1234567';
 ;;// database password, e.g. 'AiCh3ieSbou5Gee2deadbeaf';
 dbpassword = 'anypassword';
 ;;// date after which no more applications are allowed
-submissionend = '2017-04-29';
+submissionend = '2017-01-01';
 ;*/
 ;?>
