@@ -27,6 +27,7 @@ class ConfigurationWrapper
         $status .= "DB-Name: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->dbname()), 3) . self::LINEBREAK;
         $status .= "DB-User: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->dbuser()), 3) . self::LINEBREAK;
         $status .= "DB-PW: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->dbpassword()), 1) . self::LINEBREAK;
+        $status .= "Submission End: " . $this->formHelper->filterUserInput($this->submissionend()) . self::LINEBREAK;
         $status .= "Application PDF: " . $this->formHelper->filterUserInput($this->pdf()) . self::LINEBREAK;
         $status .= "</pre>";
 
@@ -104,13 +105,14 @@ class ConfigurationWrapper
         return self::getFromHornConfiguration('dbpassword');
     }
 
+    public function submissionend()
+    {
+        return self::getFromHornConfiguration('submissionend');
+    }
+
     public function pdf()
     {
         return self::getFromHornConfiguration('pdf');
-    }
-
-    public function submissionend() {
-        return self::getFromHornConfiguration('submissionend');
     }
 
     /**

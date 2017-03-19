@@ -176,6 +176,7 @@ The configuration file needs to be created in order to set certain application p
 | registrationmail | email address that all registrations are send to |
 | sendregistrationmails | boolean, whether to send registration mails to customers |
 | sendinternalregistrationmails | boolean, whether to send mails internally upon registration via web form |
+| submissionend | date string after which the application is not possible anymore, format: YYYY-mm-dd |
 | dbhost | database hostname with port if necessary |
 | dbname | database name |
 | dbuser | database username |
