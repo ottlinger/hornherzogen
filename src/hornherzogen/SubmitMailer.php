@@ -16,6 +16,9 @@ class SubmitMailer
     private $dbWriter;
     private $statusReader;
 
+    // defines how the success messages are being shown in the UI
+    public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
+
     function __construct($applicationInput)
     {
         $this->applicationInput = $applicationInput;
@@ -81,7 +84,7 @@ class SubmitMailer
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            return "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
         }
         $this->applicationInput->setMailSent(true);
 
@@ -287,7 +290,7 @@ class SubmitMailer
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
-            return "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
         }
         return '';
     }

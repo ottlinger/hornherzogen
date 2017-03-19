@@ -64,7 +64,7 @@ class SubmitMailerTest extends TestCase
         $_SERVER["SERVER_NAME"] = 'justATest.local';
         $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
         $GLOBALS["horncfg"]["registrationmail"] = 'me@example.com';
-        $this->assertStringStartsWith("<p>Interne Mail an das Organisationsteam abgeschickt um ", $this->mailer->sendInternally());
+        $this->assertStringStartsWith($this->mailer->uiPrefix . "Interne Mail an das Organisationsteam abgeschickt um ", $this->mailer->sendInternally());
     }
 
     /**
@@ -131,8 +131,8 @@ class SubmitMailerTest extends TestCase
         $_SERVER["REMOTE_ADDR"] = '127.0.0.1';
         $_SERVER["SERVER_NAME"] = 'justATest.local';
 
-        $this->assertStringStartsWith('<p>Mail abgeschickt um', $this->mailer->send());
-        $this->assertStringStartsWith('<p>Interne Mail an das', $this->mailer->sendInternally());
+        $this->assertStringStartsWith($this->mailer->uiPrefix .'Mail abgeschickt um', $this->mailer->send());
+        $this->assertStringStartsWith($this->mailer->uiPrefix .'Interne Mail an das', $this->mailer->sendInternally());
     }
 
     public function testMailTextContainsRelevantFields()
