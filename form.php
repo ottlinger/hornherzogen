@@ -125,11 +125,11 @@ $config = new ConfigurationWrapper();
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
             <?php if ($applicantInput->hasParseErrors()) {
-                echo "<p class=\"lead \"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+                echo "<p class=\"lead\" style=\"color: red; font-weight: bold;\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
             } // show error message ?>
 
             <?php } else { ?>
-                <p class="lead"><span
+                <p class="lead" style="color: darkgreen; font-weight: bold;"><span
                             class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('FORM.SUC.CHECK'); ?>
                 </p>
                 <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
@@ -140,7 +140,7 @@ $config = new ConfigurationWrapper();
                 if (!$formHelper->isSubmissionClosed() && !$sender->existsInDatabase()) {
                     echo $sender->send();
                     echo $sender->sendInternally();
-                    echo "<p>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</p>";
+                    echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
                 }
             } // if showButtons
             ?>

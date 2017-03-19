@@ -81,7 +81,7 @@ class SubmitMailer
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            return "<p>" . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</p>";
+            return "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
         }
         $this->applicationInput->setMailSent(true);
 
@@ -287,7 +287,7 @@ class SubmitMailer
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
-            return "<p>" . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</p>";
+            return "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
         }
         return '';
     }
