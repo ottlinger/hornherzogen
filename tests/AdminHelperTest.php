@@ -54,4 +54,16 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("none", $this->adminHelper->getUserName());
     }
 
+    public function testShowUserLoggedInNoSuperUser() {
+        $_SERVER['PHP_AUTH_USER'] = NULL;
+        $this->assertEquals("<span class=\"glyphicon glyphicon-user\"></span> none</a>", $this->adminHelper->showUserLoggedIn());
+    }
+
+    public function testShowUserLoggedInSuperUser() {
+        $user = "womanchu";
+        $GLOBALS["horncfg"]["superuser"] = $user;
+        $_SERVER['PHP_AUTH_USER'] = $user;
+        $this->assertEquals("<span class=\"glyphicon glyphicon-user style: 'color: red;'\"></span> womanchu</a>", $this->adminHelper->showUserLoggedIn());
+    }
+
 }
