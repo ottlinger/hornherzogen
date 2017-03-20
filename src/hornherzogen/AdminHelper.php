@@ -26,5 +26,9 @@ class AdminHelper
         return "none";
     }
 
+    public function showUserLoggedIn() {
+        return $this->getUserName();
+    }
+
 
 }

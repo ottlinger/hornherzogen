@@ -73,11 +73,14 @@ use hornherzogen\AdminHelper;
                         <li><a href="#">Raumplan pro Woche</a></li>
                         <li><a href="#">Wünsche der Teilnehmer</a></li>
                         <li><a href="#">Buchungen der Zimmer</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Listen</li>
+                        <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
+                        <li><a href="#">Essensliste pro Woche</a></li>
                     </ul>
                 </li>
             </ul>
 
-            <!-- FIXME not shown at all.... -->
             <ul class="nav navbar-nav navbar-right">
                 <li><span class="glyphicon glyphicon-tree-conifer"></span> asdasd<?php echo "{$_SERVER['PHP_AUTH_USER']}"; ?></li>
             </ul>

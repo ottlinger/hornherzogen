@@ -195,6 +195,7 @@ This a collection of related links that helped working on and with this applicat
   * [download with examples v3.3.7](https://github.com/twbs/bootstrap/archive/v3.3.7.zip)
   * [additional snippets for Bootstrap projects](http://bootsnipp.com/)
   * [additional form helpers](http://bootstrapformhelpers.com/) such as language list or datepicker
+  * [icon overview](http://glyphicons.bootstrapcheatsheets.com/)
 * PHP  
   * [PHPUnit](https://phpunit.de/manual/current/en/writing-tests-for-phpunit.html)
   * [PHPUnit - database tests](https://phpunit.de/manual/current/en/database.html)
