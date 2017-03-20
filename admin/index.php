@@ -2,8 +2,11 @@
 <?php
 require '../vendor/autoload.php';
 
-use hornherzogen\HornLocalizer;
 use hornherzogen\AdminHelper;
+use hornherzogen\HornLocalizer;
+
+$adminHelper = new AdminHelper();
+
 ?>
 <html lang="en">
 <head>
@@ -62,7 +65,8 @@ use hornherzogen\AdminHelper;
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><span
                                 class="glyphicon glyphicon-briefcase"></span>
                         <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -81,13 +85,11 @@ use hornherzogen\AdminHelper;
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-tree-conifer"></span> asdasd</a></li>
+                <li><a href="#"><?php echo $adminHelper->showUserLoggedIn(); ?></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
 </nav>
-
-
 
 
 <div class="container theme-showcase">
@@ -101,21 +103,8 @@ use hornherzogen\AdminHelper;
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> Willkommen auf den Startseiten für die
             Herzogenhornanmeldungen des Jahres <?php echo HornLocalizer::i18n('CONST.YEAR'); ?>
-
-
-            <h2 class="lead">Anmeldedetails
-            <?php
-            if (!isset($_SERVER['PHP_AUTH_USER'])) {
-                echo "<p>Hi unknown :-(. This is okay if working locally since HttpBasicAuth is not enabled for localhost.</p>";
-            } else {
-                echo "<p>Hello, your username is '{$_SERVER['PHP_AUTH_USER']}'.</p>";
-            }
-            ?>
-            </h2>
-
+            <h2 class="lead">Oben auswählen, was man machen will. </h2>
         </h1>
-
-        <p>
 
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

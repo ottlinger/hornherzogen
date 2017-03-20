@@ -27,7 +27,12 @@ class AdminHelper
     }
 
     public function showUserLoggedIn() {
-        return $this->getUserName();
+        $user = $this->getUserName();
+
+        if($this->isAdmin()) {
+            return '<span class="glyphicon glyphicon-tree-conifer style: \'color: red;\'"></span> '.$user.'</a>';
+        }
+        return '<span class="glyphicon glyphicon-tree-conifer"></span> '.$user.'</a>';
     }
 
 
