@@ -10,8 +10,6 @@
 -- Datenbank: `herzogenhorn`
 --
 -- --------------------------------------------------------
-
-
 --
 -- Tabellenstruktur für Tabelle `status`
 --
