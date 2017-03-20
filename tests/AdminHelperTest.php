@@ -35,7 +35,17 @@ class AdminHelperTest extends TestCase
 
     public function testIsAdminWithoutConfigurationKey()
     {
+        $GLOBALS["horncfg"]["superuser"] = NULL;
+        $_SERVER['PHP_AUTH_USER'] = NULL;
         $this->assertFalse($this->adminHelper->isAdmin());
+    }
+
+    public function testIsAdminWithConfigurationKeyAndConfiguredUser()
+    {
+        $user = "womanchu";
+        $GLOBALS["horncfg"]["superuser"] = $user;
+        $_SERVER['PHP_AUTH_USER'] = $user;
+        $this->assertTrue($this->adminHelper->isAdmin());
     }
 
 }

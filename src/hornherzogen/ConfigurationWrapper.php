@@ -116,6 +116,7 @@ class ConfigurationWrapper
         return self::getFromHornConfiguration('pdf');
     }
 
+    // CSV only!
     public function superuser()
     {
         return self::getFromHornConfiguration('superuser');
