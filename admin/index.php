@@ -6,6 +6,7 @@ use hornherzogen\AdminHelper;
 use hornherzogen\HornLocalizer;
 
 $adminHelper = new AdminHelper();
+$localizer = new HornLocalizer();
 
 ?>
 <html lang="en">
@@ -60,7 +61,7 @@ $adminHelper = new AdminHelper();
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                <?php echo HornLocalizer::i18n('MENU.MAIN'); ?></a>
+                <?php echo $localizer->i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -68,7 +69,7 @@ $adminHelper = new AdminHelper();
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false"><span
                                 class="glyphicon glyphicon-briefcase"></span>
-                        <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?> <span class="caret"></span></a>
+                        <?php echo $localizer->i18n('MENU.ADMIN'); ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
                         <li role="separator" class="divider"></li>
