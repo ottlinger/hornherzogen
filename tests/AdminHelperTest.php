@@ -48,4 +48,10 @@ class AdminHelperTest extends TestCase
         $this->assertTrue($this->adminHelper->isAdmin());
     }
 
+    public function testUsernameIsNoneIfNotLoggedIn()
+    {
+        $_SERVER['PHP_AUTH_USER'] = NULL;
+        $this->assertEquals("none", $this->adminHelper->getUserName());
+    }
+
 }
