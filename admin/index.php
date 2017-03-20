@@ -59,7 +59,7 @@ use hornherzogen\AdminHelper;
             <a class="navbar-brand" href="../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
                 <?php echo HornLocalizer::i18n('MENU.MAIN'); ?></a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span
@@ -80,13 +80,15 @@ use hornherzogen\AdminHelper;
                     </ul>
                 </li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="glyphicon glyphicon-tree-conifer"></span> asdasd<?php echo "{$_SERVER['PHP_AUTH_USER']}"; ?></li>
+                <li><a href="#"><span class="glyphicon glyphicon-tree-conifer"></span> asdasd</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
 </nav>
+
+
+
 
 <div class="container theme-showcase">
     <div class="starter-template">

@@ -74,6 +74,9 @@ $config = new ConfigurationWrapper();
                                 class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
                     </a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?></a></li>
+            </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
 </nav>

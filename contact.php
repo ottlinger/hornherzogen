@@ -61,7 +61,7 @@ $config = new \hornherzogen\ConfigurationWrapper();
                 <li><a href="./admin" target="_blank"><span class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="glyphicon glyphicon-education"></span><?php echo date('Y-m-d H:i:s'); ?></li>
+                <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -99,7 +99,6 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.OTHER.LINE1'); ?><br />
             <?php echo HornLocalizer::i18nParams('CONTACT.H.OTHER.LINE2', $config->mail()); ?>
         </p>
-        <p><?php echo HornLocalizer::i18nParams('TIME', date('Y-m-d H:i:s')); ?></p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
