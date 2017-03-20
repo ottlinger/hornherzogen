@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 
 use hornherzogen\HornLocalizer;
-
+use hornherzogen\AdminHelper;
 ?>
 <html lang="en">
 <head>
