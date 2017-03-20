@@ -29,6 +29,7 @@ class ConfigurationWrapper
         $status .= "DB-PW: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->dbpassword()), 1) . self::LINEBREAK;
         $status .= "Submission End: " . $this->formHelper->filterUserInput($this->submissionend()) . self::LINEBREAK;
         $status .= "Application PDF: " . $this->formHelper->filterUserInput($this->pdf()) . self::LINEBREAK;
+        $status .= "Superuser list: " . $this->formHelper->filterUserInput($this->superuser()) . self::LINEBREAK;
         $status .= "</pre>";
 
         return $status;
@@ -113,6 +114,11 @@ class ConfigurationWrapper
     public function pdf()
     {
         return self::getFromHornConfiguration('pdf');
+    }
+
+    public function superuser()
+    {
+        return self::getFromHornConfiguration('superuser');
     }
 
     /**
