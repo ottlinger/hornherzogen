@@ -179,6 +179,12 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertEquals("2017-01-01", $this->configuration->submissionend());
     }
 
+    public function testConfigurationAttributeSuperuserIsSet()
+    {
+        $GLOBALS["horncfg"]["superuser"] = "womanchu, chumanwo";
+        $this->assertEquals("womanchu, chumanwo", $this->configuration->superuser());
+    }
+
     public function testMaskWithAsteriskShitInShitOut()
     {
         $this->assertNull($this->configuration->maskWithAsterisk(NULL));
