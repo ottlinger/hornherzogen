@@ -104,7 +104,7 @@ $localizer = new HornLocalizer();
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> Willkommen auf den Startseiten für die
             Herzogenhornanmeldungen des Jahres <?php echo HornLocalizer::i18n('CONST.YEAR'); ?>
-            <h2 class="lead">Oben auswählen, was man machen will. </h2>
+            <h2 class="lead">Oben auswählen, was man machen will.</h2>
         </h1>
 
     </div><!-- /.starter-template -->
