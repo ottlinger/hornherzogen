@@ -50,7 +50,9 @@ class AdminHelper
 
     public function showSuperUserMenu()
     {
-        return "";
+        // TODO add submenu from index_old.php with paragraphs
+        // see example at http://getbootstrap.com/examples/navbar/
+        return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>";
     }
 
     /**
