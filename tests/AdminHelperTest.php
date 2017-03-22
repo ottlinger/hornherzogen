@@ -63,7 +63,7 @@ class AdminHelperTest extends TestCase
         $user = "womanchu";
         $GLOBALS["horncfg"]["superuser"] = $user;
         $_SERVER['PHP_AUTH_USER'] = $user;
-        $this->assertEquals("<span class=\"glyphicon glyphicon-user style: 'color: red;'\"></span> womanchu</a>", $this->adminHelper->showUserLoggedIn());
+        $this->assertEquals("<span class=\"glyphicon glyphicon-user\" style=\"color: red;\"></span> womanchu</a>", $this->adminHelper->showUserLoggedIn());
     }
 
 }

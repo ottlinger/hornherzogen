@@ -29,8 +29,8 @@ class AdminHelper
     public function showUserLoggedIn() {
         $user = $this->getUserName();
 
-        if($this->isAdmin()) {
-            return '<span class="glyphicon glyphicon-user style: \'color: red;\'"></span> '.$user.'</a>';
+        if(boolval($this->isAdmin())) {
+            return '<span class="glyphicon glyphicon-user" style="color: red;"></span> '.$user.'</a>';
         }
         return '<span class="glyphicon glyphicon-user"></span> '.$user.'</a>';
     }
