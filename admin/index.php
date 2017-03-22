@@ -84,6 +84,7 @@ $localizer = new HornLocalizer();
                         <li><a href="#">Essensliste pro Woche</a></li>
                     </ul>
                 </li>
+                <?php $adminHelper->showSuperUserMenu(); ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><?php echo $adminHelper->showUserLoggedIn(); ?></li>

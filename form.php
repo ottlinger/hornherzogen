@@ -70,7 +70,7 @@ $config = new ConfigurationWrapper();
                 <li><a href="./contact.php"><span
                                 class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?>
                     </a></li>
-                <li><a href="./admin" target="_blank"><span
+                <li><a href="./admin"><span
                                 class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
                     </a></li>
             </ul>

@@ -10,7 +10,7 @@ use hornherzogen\HornLocalizer;
 use hornherzogen\AdminHelper;
 
 $adminHelper = new AdminHelper();
-
+$localizer = new HornLocalizer();
 ?>
 <html lang="en">
 <head>
@@ -64,13 +64,14 @@ $adminHelper = new AdminHelper();
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                Adminbereich Herzogenhorn 2017 - Liste der Anmeldungen</a>
+                <?php echo $localizer->i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="../"><span
-                                class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
-                    </a></li>
+                                class="glyphicon glyphicon-briefcase"></span> <?php echo $localizer->i18n('MENU.ADMIN'); ?></a>
+                </li>
+                <?php $adminHelper->showSuperUserMenu(); ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><?php echo $adminHelper->showUserLoggedIn(); ?></li>
