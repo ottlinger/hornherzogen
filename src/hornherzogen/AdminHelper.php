@@ -43,7 +43,7 @@ class AdminHelper
     public function showLogoutMenu()
     {
         if (self::FALLBACK_USER != $this->getUserName()) {
-            return '<li><a href="#"><span class="glyphicon glyphicon-erase"></span> Logout</a></li>';
+            return '<li><a href="./logout.php"><span class="glyphicon glyphicon-erase"></span> Logout</a></li>';
         }
         return '<li><a href="#"><span class="glyphicon glyphicon-lamp"></span> Not logged in</a></li>';
     }
