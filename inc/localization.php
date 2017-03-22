@@ -25,6 +25,7 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
+    'FORM.GSINCE.CHANGE' => 'Bitte das Symbol links oder das Textfeld anklicken, um das Datum einzustellen.',
     'SUBMISSIONCLOSED' => 'Die Anmeldefrist für dieses Jahr ist abgelaufen, gern im nächsten Jahr wieder probieren :-)',
     'MAIL.INTERNAL' => 'Interne Mail an das Organisationsteam abgeschickt um {0}',
     'MAIL.APPLICANT' => 'Mail abgeschickt um {0}',
@@ -120,6 +121,7 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'FORM.GSINCE.CHANGE' => 'In order to change the date, please click the symbol or the whole textfield.',
     'SUBMISSIONCLOSED' => 'Sorry, try again next year. This year\'s submission period is over.',
     'MAIL.INTERNAL' => 'Your data was properly sent to the organisation team (at {0})',
     'MAIL.APPLICANT' => 'A confirmation mail has been sent to you at {0}',

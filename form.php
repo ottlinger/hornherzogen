@@ -360,6 +360,7 @@ $config = new ConfigurationWrapper();
                 </div>
             </div>
 
+            <p><?php echo HornLocalizer::i18n('FORM.GSINCE.CHANGE'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('gsince'); ?>">
                 <label for="gsince"
                        class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GSINCE'); ?></label>
