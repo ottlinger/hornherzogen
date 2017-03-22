@@ -7,6 +7,9 @@ use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
+use hornherzogen\AdminHelper;
+
+$adminHelper = new AdminHelper();
 
 ?>
 <html lang="en">
@@ -61,14 +64,17 @@ use hornherzogen\HornLocalizer;
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="../index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                Adminbereich Herzogenhorn 2017 - Anmeldungen</a>
+                Adminbereich Herzogenhorn 2017 - Liste der Anmeldungen</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <!-- TODO FIXME menu structure -->
                 <li class="active"><a href="../"><span
                                 class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
                     </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><?php echo $adminHelper->showUserLoggedIn(); ?></li>
+                <?php echo $adminHelper->showLogoutMenu(); ?>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
@@ -180,7 +186,7 @@ use hornherzogen\HornLocalizer;
         </form>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && $adminHelper->isAdmin()) {
             $remover = new ApplicantDatabaseWriter();
             $id = $formHelper->filterUserInput($_POST['aid']);
             echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
@@ -196,7 +202,9 @@ use hornherzogen\HornLocalizer;
         echo "<thead>";
         echo "<tr>";
         echo "<th>DB-Id</th>";
-        echo "<th>AKTIONEN</th>";
+            if($adminHelper->isAdmin()) {
+                echo "<th>AKTIONEN</th>";
+            }
         echo "<th>Woche</th>";
         echo "<th>Sprache</th>";
         echo "<th>Anrede</th>";
@@ -224,12 +232,14 @@ use hornherzogen\HornLocalizer;
             echo "<tr>";
             echo "<td>" . $applicant->getPersistenceId() . "</td>";
 
-            echo '<td>
+            if($adminHelper->isAdmin()) {
+                echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen</button>
                     </form>
                 </td>';
+            }
 
             echo "<td>" . $applicant->getWeek() . "</td>";
             echo "<td>" . $applicant->getLanguage() . "</td>";
