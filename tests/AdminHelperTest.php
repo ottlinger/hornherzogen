@@ -71,4 +71,8 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("", $this->adminHelper->showSuperUserMenu());
     }
 
+    public function testExtractPageUri() {
+        $this->assertEquals("asdasd", $this->adminHelper->thisPageUrl());
+    }
+
 }

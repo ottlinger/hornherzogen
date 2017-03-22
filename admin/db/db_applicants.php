@@ -75,7 +75,6 @@ $localizer = new HornLocalizer();
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><?php echo $adminHelper->showUserLoggedIn(); ?></li>
-                <?php echo $adminHelper->showLogoutMenu(); ?>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
