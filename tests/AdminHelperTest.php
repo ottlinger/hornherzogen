@@ -71,8 +71,19 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("", $this->adminHelper->showSuperUserMenu());
     }
 
-    public function testExtractPageUri() {
-        $this->assertEquals("asdasd", $this->adminHelper->thisPageUrl());
+    public function testExtractPageUri_http() {
+        $_SERVER['SERVER_NAME'] = "myhorst";
+        $_SERVER['REQUEST_URI'] = "myreq";
+
+        $this->assertEquals("http://myhorstmyreq", $this->adminHelper->thisPageUrl());
+    }
+
+    public function testExtractPageUri_https() {
+        $_SERVER['HTTPS'] = "on";
+        $_SERVER['SERVER_NAME'] = "myhorst";
+        $_SERVER['REQUEST_URI'] = "myreq";
+
+        $this->assertEquals("https://myhorstmyreq", $this->adminHelper->thisPageUrl());
     }
 
 }
