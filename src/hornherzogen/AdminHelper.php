@@ -52,6 +52,7 @@ class AdminHelper
     {
         // TODO add submenu from index_old.php with paragraphs
         // see example at http://getbootstrap.com/examples/navbar/
+        // TODO add check for isAdmin()
         return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>";
     }
 
