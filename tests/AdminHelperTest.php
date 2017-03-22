@@ -67,4 +67,8 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("<span class=\"glyphicon glyphicon-user\" style=\"color: red;\"></span> womanchu</a>", $this->adminHelper->showUserLoggedIn());
     }
 
+    public function testShowSuperUserMenuNotYetImplemented() {
+        $this->assertEquals("", $this->adminHelper->showSuperUserMenu());
+    }
+
 }

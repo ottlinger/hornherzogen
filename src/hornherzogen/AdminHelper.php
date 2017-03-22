@@ -43,4 +43,8 @@ class AdminHelper
         return '<li><a href="#"><span class="glyphicon glyphicon-lamp"></span> Not logged in</a></li>';
     }
 
+    public function showSuperUserMenu() {
+        return "";
+    }
+
 }
