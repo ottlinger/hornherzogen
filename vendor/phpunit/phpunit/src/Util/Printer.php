@@ -7,11 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace PHPUnit\Util;
+
+use PHPUnit\Framework\Exception;
 
 /**
  * Utility class that can print to STDOUT or write to a file.
  */
-class PHPUnit_Util_Printer
+class Printer
 {
     /**
      * If true, flush output after every write.
@@ -35,7 +38,7 @@ class PHPUnit_Util_Printer
      *
      * @param mixed $out
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     public function __construct($out = null)
     {
@@ -45,13 +48,14 @@ class PHPUnit_Util_Printer
                     $out = explode(':', str_replace('socket://', '', $out));
 
                     if (count($out) != 2) {
-                        throw new PHPUnit_Framework_Exception;
+                        throw new Exception;
                     }
 
                     $this->out = fsockopen($out[0], $out[1]);
                 } else {
                     if (strpos($out, 'php://') === false &&
-                        !is_dir(dirname($out))) {
+                        !is_dir(dirname($out))
+                    ) {
                         mkdir(dirname($out), 0777, true);
                     }
 
@@ -138,7 +142,7 @@ class PHPUnit_Util_Printer
         if (is_bool($autoFlush)) {
             $this->autoFlush = $autoFlush;
         } else {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'boolean');
+            throw InvalidArgumentHelper::factory(1, 'boolean');
         }
     }
 }

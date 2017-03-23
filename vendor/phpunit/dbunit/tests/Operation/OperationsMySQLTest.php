@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DBUnit.
+ * This file is part of DbUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,13 +8,18 @@
  * file that was distributed with this source code.
  */
 
+use PHPUnit\DbUnit\Database\DefaultConnection;
+use PHPUnit\DbUnit\DataSet\CompositeDataSet;
+use PHPUnit\DbUnit\DataSet\DefaultDataSet;
+use PHPUnit\DbUnit\DataSet\DefaultTable;
+use PHPUnit\DbUnit\DataSet\DefaultTableMetadata;
+use PHPUnit\DbUnit\DataSet\FlatXmlDataSet;
+use PHPUnit\DbUnit\Operation\Truncate;
+use PHPUnit\DbUnit\TestCase;
+
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'DatabaseTestUtility.php';
 
-/**
- * @version    SVN: $Id$
- * @since      File available since Release 1.0.0
- */
-class Extensions_Database_Operation_OperationsMySQLTest extends PHPUnit_Extensions_Database_TestCase
+class Extensions_Database_Operation_OperationsMySQLTest extends TestCase
 {
     protected function setUp()
     {
@@ -31,33 +36,33 @@ class Extensions_Database_Operation_OperationsMySQLTest extends PHPUnit_Extensio
 
     public function getConnection()
     {
-        return new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection(DBUnitTestUtility::getMySQLDB(), 'mysql');
+        return new DefaultConnection(DBUnitTestUtility::getMySQLDB(), 'mysql');
     }
 
     public function getDataSet()
     {
-        return new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(dirname(__FILE__) . '/../_files/XmlDataSets/OperationsMySQLTestFixture.xml');
+        return new FlatXmlDataSet(dirname(__FILE__) . '/../_files/XmlDataSets/OperationsMySQLTestFixture.xml');
     }
 
     /**
-     * @covers PHPUnit_Extensions_Database_Operation_Truncate::execute
+     * @covers Truncate::execute
      */
     public function testTruncate()
     {
-        $truncateOperation = new PHPUnit_Extensions_Database_Operation_Truncate();
+        $truncateOperation = new Truncate();
         $truncateOperation->execute($this->getConnection(), $this->getDataSet());
 
-        $expectedDataSet = new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([
-            new PHPUnit_Extensions_Database_DataSet_DefaultTable(
-                new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('table1',
+        $expectedDataSet = new DefaultDataSet([
+            new DefaultTable(
+                new DefaultTableMetadata('table1',
                     ['table1_id', 'column1', 'column2', 'column3', 'column4'])
             ),
-            new PHPUnit_Extensions_Database_DataSet_DefaultTable(
-                new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('table2',
+            new DefaultTable(
+                new DefaultTableMetadata('table2',
                     ['table2_id', 'table1_id', 'column5', 'column6', 'column7', 'column8'])
             ),
-            new PHPUnit_Extensions_Database_DataSet_DefaultTable(
-                new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('table3',
+            new DefaultTable(
+                new DefaultTableMetadata('table3',
                     ['table3_id', 'table2_id', 'column9', 'column10', 'column11', 'column12'])
             ),
         ]);
@@ -67,7 +72,7 @@ class Extensions_Database_Operation_OperationsMySQLTest extends PHPUnit_Extensio
 
     public function getCompositeDataSet()
     {
-        $compositeDataset = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet();
+        $compositeDataset = new CompositeDataSet();
 
         $dataset = $this->createXMLDataSet(dirname(__FILE__) . '/../_files/XmlDataSets/TruncateCompositeTest.xml');
         $compositeDataset->addDataSet($dataset);
@@ -77,20 +82,20 @@ class Extensions_Database_Operation_OperationsMySQLTest extends PHPUnit_Extensio
 
     public function testTruncateComposite()
     {
-        $truncateOperation = new PHPUnit_Extensions_Database_Operation_Truncate();
+        $truncateOperation = new Truncate();
         $truncateOperation->execute($this->getConnection(), $this->getCompositeDataSet());
 
-        $expectedDataSet = new PHPUnit_Extensions_Database_DataSet_DefaultDataSet([
-            new PHPUnit_Extensions_Database_DataSet_DefaultTable(
-                new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('table1',
+        $expectedDataSet = new DefaultDataSet([
+            new DefaultTable(
+                new DefaultTableMetadata('table1',
                     ['table1_id', 'column1', 'column2', 'column3', 'column4'])
             ),
-            new PHPUnit_Extensions_Database_DataSet_DefaultTable(
-                new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('table2',
+            new DefaultTable(
+                new DefaultTableMetadata('table2',
                     ['table2_id', 'table1_id', 'column5', 'column6', 'column7', 'column8'])
             ),
-            new PHPUnit_Extensions_Database_DataSet_DefaultTable(
-                new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData('table3',
+            new DefaultTable(
+                new DefaultTableMetadata('table3',
                     ['table3_id', 'table2_id', 'column9', 'column10', 'column11', 'column12'])
             ),
         ]);

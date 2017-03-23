@@ -7,6 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace PHPUnit\Framework\Constraint;
+
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Constraint that asserts that the object it is evaluated for is an instance
@@ -14,7 +18,7 @@
  *
  * The expected class name is passed in the constructor.
  */
-class PHPUnit_Framework_Constraint_IsInstanceOf extends PHPUnit_Framework_Constraint
+class IsInstanceOf extends Constraint
 {
     /**
      * @var string

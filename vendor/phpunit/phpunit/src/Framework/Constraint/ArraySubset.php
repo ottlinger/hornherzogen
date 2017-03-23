@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace PHPUnit\Framework\Constraint;
+
+use ArrayAccess;
 
 /**
  * Constraint that asserts that the array it is evaluated for has a specified subset.
@@ -14,10 +17,10 @@
  * Uses array_replace_recursive() to check if a key value subset is part of the
  * subject array.
  */
-class PHPUnit_Framework_Constraint_ArraySubset extends PHPUnit_Framework_Constraint
+class ArraySubset extends Constraint
 {
     /**
-     * @var array|Traversable
+     * @var array|\Traversable
      */
     protected $subset;
 
@@ -27,8 +30,8 @@ class PHPUnit_Framework_Constraint_ArraySubset extends PHPUnit_Framework_Constra
     protected $strict;
 
     /**
-     * @param array|Traversable $subset
-     * @param bool              $strict Check for object identity
+     * @param array|\Traversable $subset
+     * @param bool               $strict Check for object identity
      */
     public function __construct($subset, $strict = false)
     {
@@ -41,7 +44,7 @@ class PHPUnit_Framework_Constraint_ArraySubset extends PHPUnit_Framework_Constra
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param array|Traversable $other Array or Traversable object to evaluate.
+     * @param array|\Traversable $other Array or Traversable object to evaluate.
      *
      * @return bool
      */
@@ -87,7 +90,7 @@ class PHPUnit_Framework_Constraint_ArraySubset extends PHPUnit_Framework_Constra
     }
 
     /**
-     * @param array|Traversable $other
+     * @param array|\Traversable $other
      *
      * @return array
      */
@@ -95,9 +98,9 @@ class PHPUnit_Framework_Constraint_ArraySubset extends PHPUnit_Framework_Constra
     {
         if (is_array($other)) {
             return $other;
-        } elseif ($other instanceof ArrayObject) {
+        } elseif ($other instanceof \ArrayObject) {
             return $other->getArrayCopy();
-        } elseif ($other instanceof Traversable) {
+        } elseif ($other instanceof \Traversable) {
             return iterator_to_array($other);
         }
 

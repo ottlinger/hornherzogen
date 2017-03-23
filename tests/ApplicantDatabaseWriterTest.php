@@ -1,11 +1,14 @@
 <?php
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\ApplicantInput;
-
+use PHPUnit\Framework\TestCase;
+use PHPUnit\DbUnit\TestCaseTrait;
 // https://github.com/sebastianbergmann/dbunit/blob/2.0/samples/BankAccountDB/BankAccountDBTest.php
 
-class ApplicantDatabaseWriterTest extends PHPUnit_Extensions_Database_TestCase
+class ApplicantDatabaseWriterTest extends TestCase
 {
+    use TestCaseTrait;
+    
     private $writer = null;
     private $pdo = null;
 

@@ -7,11 +7,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace PHPUnit\Util;
+
+use Iterator;
+use PHPUnit\Framework\CodeCoverageException;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\InvalidCoversTargetException;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\SelfDescribing;
+use PHPUnit\Framework\SkippedTestError;
+use PHPUnit\Runner\Version;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionFunction;
+use ReflectionMethod;
 
 /**
  * Test helpers.
  */
-class PHPUnit_Util_Test
+class Test
 {
     const REGEX_DATA_PROVIDER      = '/@dataProvider\s+([a-zA-Z0-9._:-\\\\x7f-\xff]+)/';
     const REGEX_TEST_WITH          = '/@testWith\s+/';
@@ -30,25 +44,25 @@ class PHPUnit_Util_Test
     private static $hookMethods = [];
 
     /**
-     * @param PHPUnit_Framework_Test $test
-     * @param bool                   $asString
+     * @param \PHPUnit\Framework\Test $test
+     * @param bool                    $asString
      *
      * @return mixed
      */
-    public static function describe(PHPUnit_Framework_Test $test, $asString = true)
+    public static function describe(\PHPUnit\Framework\Test $test, $asString = true)
     {
         if ($asString) {
-            if ($test instanceof PHPUnit_Framework_SelfDescribing) {
+            if ($test instanceof SelfDescribing) {
                 return $test->toString();
             } else {
                 return get_class($test);
             }
         } else {
-            if ($test instanceof PHPUnit_Framework_TestCase) {
+            if ($test instanceof TestCase) {
                 return [
-                  get_class($test), $test->getName()
+                    get_class($test), $test->getName()
                 ];
-            } elseif ($test instanceof PHPUnit_Framework_SelfDescribing) {
+            } elseif ($test instanceof SelfDescribing) {
                 return ['', $test->toString()];
             } else {
                 return ['', get_class($test)];
@@ -62,7 +76,7 @@ class PHPUnit_Util_Test
      *
      * @return array|bool
      *
-     * @throws PHPUnit_Framework_CodeCoverageException
+     * @throws CodeCoverageException
      */
     public static function getLinesToBeCovered($className, $methodName)
     {
@@ -98,7 +112,7 @@ class PHPUnit_Util_Test
      *
      * @return array
      *
-     * @throws PHPUnit_Framework_CodeCoverageException
+     * @throws CodeCoverageException
      */
     private static function getLinesToBeCoveredOrUsed($className, $methodName, $mode)
     {
@@ -111,7 +125,7 @@ class PHPUnit_Util_Test
 
         if (!empty($annotations['class'][$mode . 'DefaultClass'])) {
             if (count($annotations['class'][$mode . 'DefaultClass']) > 1) {
-                throw new PHPUnit_Framework_CodeCoverageException(
+                throw new CodeCoverageException(
                     sprintf(
                         'More than one @%sClass annotation in class or interface "%s".',
                         $mode,
@@ -167,7 +181,7 @@ class PHPUnit_Util_Test
         $docComment = $reflector->getDocComment();
         $reflector  = new ReflectionMethod($className, $methodName);
         $docComment .= "\n" . $reflector->getDocComment();
-        $requires   = [];
+        $requires = [];
 
         if ($count = preg_match_all(self::REGEX_REQUIRES_OS, $docComment, $matches)) {
             $requires['OS'] = sprintf(
@@ -175,6 +189,7 @@ class PHPUnit_Util_Test
                 addcslashes($matches['value'][$count - 1], '/')
             );
         }
+
         if ($count = preg_match_all(self::REGEX_REQUIRES_VERSION, $docComment, $matches)) {
             for ($i = 0; $i < $count; $i++) {
                 $requires[$matches['name'][$i]] = [
@@ -184,19 +199,20 @@ class PHPUnit_Util_Test
             }
         }
 
-        // https://bugs.php.net/bug.php?id=63055
-        $matches = [];
-
         if ($count = preg_match_all(self::REGEX_REQUIRES, $docComment, $matches)) {
             for ($i = 0; $i < $count; $i++) {
                 $name = $matches['name'][$i] . 's';
+
                 if (!isset($requires[$name])) {
                     $requires[$name] = [];
                 }
+
                 $requires[$name][] = $matches['value'][$i];
+
                 if (empty($matches['version'][$i]) || $name != 'extensions') {
                     continue;
                 }
+
                 $requires['extension_versions'][$matches['value'][$i]] = [
                     'version'  => $matches['version'][$i],
                     'operator' => $matches['operator'][$i]
@@ -221,14 +237,16 @@ class PHPUnit_Util_Test
         $missing  = [];
 
         $operator = empty($required['PHP']['operator']) ? '>=' : $required['PHP']['operator'];
+
         if (!empty($required['PHP']) && !version_compare(PHP_VERSION, $required['PHP']['version'], $operator)) {
             $missing[] = sprintf('PHP %s %s is required.', $operator, $required['PHP']['version']);
         }
 
         if (!empty($required['PHPUnit'])) {
-            $phpunitVersion = PHPUnit_Runner_Version::id();
+            $phpunitVersion = Version::id();
 
             $operator = empty($required['PHPUnit']['operator']) ? '>=' : $required['PHPUnit']['operator'];
+
             if (!version_compare($phpunitVersion, $required['PHPUnit']['version'], $operator)) {
                 $missing[] = sprintf('PHPUnit %s %s is required.', $operator, $required['PHPUnit']['version']);
             }
@@ -241,12 +259,15 @@ class PHPUnit_Util_Test
         if (!empty($required['functions'])) {
             foreach ($required['functions'] as $function) {
                 $pieces = explode('::', $function);
+
                 if (2 === count($pieces) && method_exists($pieces[0], $pieces[1])) {
                     continue;
                 }
+
                 if (function_exists($function)) {
                     continue;
                 }
+
                 $missing[] = sprintf('Function %s is required.', $function);
             }
         }
@@ -256,6 +277,7 @@ class PHPUnit_Util_Test
                 if (isset($required['extension_versions'][$extension])) {
                     continue;
                 }
+
                 if (!extension_loaded($extension)) {
                     $missing[] = sprintf('Extension %s is required.', $extension);
                 }
@@ -267,6 +289,7 @@ class PHPUnit_Util_Test
                 $actualVersion = phpversion($extension);
 
                 $operator = empty($required['operator']) ? '>=' : $required['operator'];
+
                 if (false === $actualVersion || !version_compare($actualVersion, $required['version'], $operator)) {
                     $missing[] = sprintf('Extension %s %s %s is required.', $extension, $operator, $required['version']);
                 }
@@ -330,7 +353,7 @@ class PHPUnit_Util_Test
             }
 
             return [
-              'class' => $class, 'code' => $code, 'message' => $message, 'message_regex' => $messageRegExp
+                'class' => $class, 'code' => $code, 'message' => $message, 'message_regex' => $messageRegExp
             ];
         }
 
@@ -368,7 +391,7 @@ class PHPUnit_Util_Test
      * @return array When a data provider is specified and exists
      *         null  When no data provider is specified
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     public static function getProvidedData($className, $methodName)
     {
@@ -382,13 +405,13 @@ class PHPUnit_Util_Test
         }
 
         if (is_array($data) && empty($data)) {
-            throw new PHPUnit_Framework_SkippedTestError;
+            throw new SkippedTestError;
         }
 
         if ($data !== null) {
             foreach ($data as $key => $value) {
                 if (!is_array($value)) {
-                    throw new PHPUnit_Framework_Exception(
+                    throw new Exception(
                         sprintf(
                             'Data set %s is invalid.',
                             is_int($key) ? '#' . $key : '"' . $key . '"'
@@ -411,7 +434,7 @@ class PHPUnit_Util_Test
      * @return array|Iterator when a data provider is specified and exists
      *                        null           when no data provider is specified
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     private static function getDataFromDataProviderAnnotation($docComment, $className, $methodName)
     {
@@ -471,7 +494,7 @@ class PHPUnit_Util_Test
      * @return array when @testWith annotation is defined
      *               null  when @testWith annotation is omitted
      *
-     * @throws PHPUnit_Framework_Exception when @testWith annotation is defined but cannot be parsed
+     * @throws Exception when @testWith annotation is defined but cannot be parsed
      */
     public static function getDataFromTestWithAnnotation($docComment)
     {
@@ -492,7 +515,7 @@ class PHPUnit_Util_Test
                 $dataSet = json_decode($candidateRow, true);
 
                 if (json_last_error() != JSON_ERROR_NONE) {
-                    throw new PHPUnit_Framework_Exception(
+                    throw new Exception(
                         'The dataset for the @testWith annotation cannot be parsed: ' . json_last_error_msg()
                     );
                 }
@@ -501,7 +524,7 @@ class PHPUnit_Util_Test
             }
 
             if (!$data) {
-                throw new PHPUnit_Framework_Exception('The dataset for the @testWith annotation cannot be parsed.');
+                throw new Exception('The dataset for the @testWith annotation cannot be parsed.');
             }
 
             return $data;
@@ -530,8 +553,21 @@ class PHPUnit_Util_Test
     public static function parseTestMethodAnnotations($className, $methodName = '')
     {
         if (!isset(self::$annotationCache[$className])) {
-            $class                             = new ReflectionClass($className);
-            self::$annotationCache[$className] = self::parseAnnotations($class->getDocComment());
+            $class       = new ReflectionClass($className);
+            $traits      = $class->getTraits();
+            $annotations = [];
+
+            foreach ($traits as $trait) {
+                $annotations = array_merge(
+                    $annotations,
+                    self::parseAnnotations($trait->getDocComment())
+                );
+            }
+
+            self::$annotationCache[$className] = array_merge(
+                $annotations,
+                self::parseAnnotations($class->getDocComment())
+            );
         }
 
         if (!empty($methodName) && !isset(self::$annotationCache[$className . '::' . $methodName])) {
@@ -541,12 +577,13 @@ class PHPUnit_Util_Test
             } catch (ReflectionException $e) {
                 $annotations = [];
             }
+
             self::$annotationCache[$className . '::' . $methodName] = $annotations;
         }
 
         return [
-          'class'  => self::$annotationCache[$className],
-          'method' => !empty($methodName) ? self::$annotationCache[$className . '::' . $methodName] : []
+            'class'  => self::$annotationCache[$className],
+            'method' => !empty($methodName) ? self::$annotationCache[$className . '::' . $methodName] : []
         ];
     }
 
@@ -613,16 +650,16 @@ class PHPUnit_Util_Test
     public static function getBackupSettings($className, $methodName)
     {
         return [
-          'backupGlobals' => self::getBooleanAnnotationSetting(
-              $className,
-              $methodName,
-              'backupGlobals'
-          ),
-          'backupStaticAttributes' => self::getBooleanAnnotationSetting(
-              $className,
-              $methodName,
-              'backupStaticAttributes'
-          )
+            'backupGlobals' => self::getBooleanAnnotationSetting(
+                $className,
+                $methodName,
+                'backupGlobals'
+            ),
+            'backupStaticAttributes' => self::getBooleanAnnotationSetting(
+                $className,
+                $methodName,
+                'backupStaticAttributes'
+            )
         ];
     }
 
@@ -740,8 +777,9 @@ class PHPUnit_Util_Test
         $class  = new ReflectionClass($className);
 
         if (isset($groups['large']) ||
-            (class_exists('PHPUnit_Extensions_Database_TestCase', false) &&
-             $class->isSubclassOf('PHPUnit_Extensions_Database_TestCase'))) {
+            (class_exists('PHPUnit\DbUnit\TestCase', false) &&
+                $class->isSubclassOf('PHPUnit\DbUnit\TestCase'))
+        ) {
             $size = self::LARGE;
         } elseif (isset($groups['medium'])) {
             $size = self::MEDIUM;
@@ -750,34 +788,6 @@ class PHPUnit_Util_Test
         }
 
         return $size;
-    }
-
-    /**
-     * Returns the tickets for a test class or method.
-     *
-     * @param string $className
-     * @param string $methodName
-     *
-     * @return array
-     */
-    public static function getTickets($className, $methodName)
-    {
-        $annotations = self::parseTestMethodAnnotations(
-            $className,
-            $methodName
-        );
-
-        $tickets = [];
-
-        if (isset($annotations['class']['ticket'])) {
-            $tickets = $annotations['class']['ticket'];
-        }
-
-        if (isset($annotations['method']['ticket'])) {
-            $tickets = array_merge($tickets, $annotations['method']['ticket']);
-        }
-
-        return array_unique($tickets);
     }
 
     /**
@@ -796,7 +806,8 @@ class PHPUnit_Util_Test
         );
 
         if (isset($annotations['class']['runTestsInSeparateProcesses']) ||
-            isset($annotations['method']['runInSeparateProcess'])) {
+            isset($annotations['method']['runInSeparateProcess'])
+        ) {
             return true;
         } else {
             return false;
@@ -839,11 +850,17 @@ class PHPUnit_Util_Test
 
                 foreach ($class->getMethods() as $method) {
                     if (self::isBeforeClassMethod($method)) {
-                        self::$hookMethods[$className]['beforeClass'][] = $method->getName();
+                        array_unshift(
+                            self::$hookMethods[$className]['beforeClass'],
+                            $method->getName()
+                        );
                     }
 
                     if (self::isBeforeMethod($method)) {
-                        self::$hookMethods[$className]['before'][] = $method->getName();
+                        array_unshift(
+                            self::$hookMethods[$className]['before'],
+                            $method->getName()
+                        );
                     }
 
                     if (self::isAfterMethod($method)) {
@@ -914,7 +931,7 @@ class PHPUnit_Util_Test
      *
      * @return array
      *
-     * @throws PHPUnit_Framework_InvalidCoversTargetException
+     * @throws InvalidCoversTargetException
      */
     private static function resolveElementToReflectionObjects($element)
     {
@@ -931,8 +948,9 @@ class PHPUnit_Util_Test
                 foreach ($classes as $className) {
                     if (!class_exists($className) &&
                         !interface_exists($className) &&
-                        !trait_exists($className)) {
-                        throw new PHPUnit_Framework_InvalidCoversTargetException(
+                        !trait_exists($className)
+                    ) {
+                        throw new InvalidCoversTargetException(
                             sprintf(
                                 'Trying to @cover or @use not existing class or ' .
                                 'interface "%s".',
@@ -971,10 +989,11 @@ class PHPUnit_Util_Test
                         );
                     } else {
                         if (!((class_exists($className) ||
-                               interface_exists($className) ||
-                               trait_exists($className)) &&
-                              method_exists($className, $methodName))) {
-                            throw new PHPUnit_Framework_InvalidCoversTargetException(
+                                interface_exists($className) ||
+                                trait_exists($className)) &&
+                            method_exists($className, $methodName))
+                        ) {
+                            throw new InvalidCoversTargetException(
                                 sprintf(
                                     'Trying to @cover or @use not existing method "%s::%s".',
                                     $className,
@@ -1011,8 +1030,9 @@ class PHPUnit_Util_Test
             foreach ($classes as $className) {
                 if (!class_exists($className) &&
                     !interface_exists($className) &&
-                    !trait_exists($className)) {
-                    throw new PHPUnit_Framework_InvalidCoversTargetException(
+                    !trait_exists($className)
+                ) {
+                    throw new InvalidCoversTargetException(
                         sprintf(
                             'Trying to @cover or @use not existing class or ' .
                             'interface "%s".',

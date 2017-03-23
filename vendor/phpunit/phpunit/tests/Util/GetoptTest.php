@@ -8,7 +8,11 @@
  * file that was distributed with this source code.
  */
 
-class Util_GetoptTest extends PHPUnit_Framework_TestCase
+namespace PHPUnit\Util;
+
+use PHPUnit\Framework\TestCase;
+
+class GetoptTest extends TestCase
 {
     public function testItIncludeTheLongOptionsAfterTheArgument()
     {
@@ -17,7 +21,7 @@ class Util_GetoptTest extends PHPUnit_Framework_TestCase
             'myArgument',
             '--colors',
         ];
-        $actual = PHPUnit_Util_Getopt::getopt($args, '', ['colors==']);
+        $actual = Getopt::getopt($args, '', ['colors==']);
 
         $expected = [
             [
@@ -41,7 +45,7 @@ class Util_GetoptTest extends PHPUnit_Framework_TestCase
             'myArgument',
             '-v',
         ];
-        $actual = PHPUnit_Util_Getopt::getopt($args, 'v');
+        $actual = Getopt::getopt($args, 'v');
 
         $expected = [
             [

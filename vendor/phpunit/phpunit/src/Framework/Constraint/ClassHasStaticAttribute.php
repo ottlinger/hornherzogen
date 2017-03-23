@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace PHPUnit\Framework\Constraint;
+
+use ReflectionClass;
 
 /**
  * Constraint that asserts that the class it is evaluated for has a given
@@ -14,7 +17,7 @@
  *
  * The attribute name is passed in the constructor.
  */
-class PHPUnit_Framework_Constraint_ClassHasStaticAttribute extends PHPUnit_Framework_Constraint_ClassHasAttribute
+class ClassHasStaticAttribute extends ClassHasAttribute
 {
     /**
      * Evaluates the constraint for parameter $other. Returns true if the

@@ -1,5 +1,16 @@
 <?php
-class DefaultDatabaseConnectionTest extends PHPUnit_Framework_TestCase
+/*
+ * This file is part of DbUnit.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+use PHPUnit\DbUnit\Database\DefaultConnection;
+use PHPUnit\Framework\TestCase;
+
+class DefaultDatabaseConnectionTest extends TestCase
 {
     protected $db;
 
@@ -12,7 +23,7 @@ class DefaultDatabaseConnectionTest extends PHPUnit_Framework_TestCase
 
     public function testRowCountForEmptyTableReturnsZero()
     {
-        $conn = new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection($this->db);
+        $conn = new DefaultConnection($this->db);
         $this->assertEquals(0, $conn->getRowCount('test'));
     }
 
@@ -21,7 +32,7 @@ class DefaultDatabaseConnectionTest extends PHPUnit_Framework_TestCase
         $this->db->exec('INSERT INTO test (field1) VALUES (\'foobar\')');
         $this->db->exec('INSERT INTO test (field1) VALUES (\'foobarbaz\')');
 
-        $conn = new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection($this->db);
+        $conn = new DefaultConnection($this->db);
         $this->assertEquals(2, $conn->getRowCount('test'));
     }
 }

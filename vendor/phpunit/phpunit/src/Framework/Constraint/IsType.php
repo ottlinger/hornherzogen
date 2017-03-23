@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace PHPUnit\Framework\Constraint;
 
 /**
  * Constraint that asserts that the value it is evaluated for is of a
@@ -14,7 +15,7 @@
  *
  * The expected value is passed in the constructor.
  */
-class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
+class IsType extends Constraint
 {
     const TYPE_ARRAY    = 'array';
     const TYPE_BOOL     = 'bool';
@@ -57,16 +58,16 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
     /**
      * @param string $type
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws \PHPUnit\Framework\Exception
      */
     public function __construct($type)
     {
         parent::__construct();
 
         if (!isset($this->types[$type])) {
-            throw new PHPUnit_Framework_Exception(
+            throw new \PHPUnit\Framework\Exception(
                 sprintf(
-                    'Type specified for PHPUnit_Framework_Constraint_IsType <%s> ' .
+                    'Type specified for PHPUnit\Framework\Constraint\IsType <%s> ' .
                     'is not a valid type.',
                     $type
                 )

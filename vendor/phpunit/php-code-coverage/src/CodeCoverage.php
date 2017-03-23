@@ -10,6 +10,8 @@
 
 namespace SebastianBergmann\CodeCoverage;
 
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\PhptTestCase;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Driver\Xdebug;
 use SebastianBergmann\CodeCoverage\Driver\HHVM;
@@ -340,20 +342,20 @@ class CodeCoverage
         $size   = 'unknown';
         $status = null;
 
-        if ($id instanceof \PHPUnit_Framework_TestCase) {
+        if ($id instanceof TestCase) {
             $_size = $id->getSize();
 
-            if ($_size == \PHPUnit_Util_Test::SMALL) {
+            if ($_size == \PHPUnit\Util\Test::SMALL) {
                 $size = 'small';
-            } elseif ($_size == \PHPUnit_Util_Test::MEDIUM) {
+            } elseif ($_size == \PHPUnit\Util\Test::MEDIUM) {
                 $size = 'medium';
-            } elseif ($_size == \PHPUnit_Util_Test::LARGE) {
+            } elseif ($_size == \PHPUnit\Util\Test::LARGE) {
                 $size = 'large';
             }
 
             $status = $id->getStatus();
             $id     = get_class($id) . '::' . $id->getName();
-        } elseif ($id instanceof \PHPUnit_Extensions_PhptTestCase) {
+        } elseif ($id instanceof PhptTestCase) {
             $size = 'large';
             $id   = $id->getName();
         }
@@ -619,7 +621,7 @@ class CodeCoverage
         }
 
         if ($this->checkForUnintentionallyCoveredCode &&
-            (!$this->currentId instanceof \PHPUnit_Framework_TestCase ||
+            (!$this->currentId instanceof TestCase ||
             (!$this->currentId->isMedium() && !$this->currentId->isLarge()))) {
             $this->performUnintentionallyCoveredCodeCheck(
                 $data,
@@ -769,8 +771,8 @@ class CodeCoverage
 
             foreach ($tokens as $token) {
                 switch (get_class($token)) {
-                    case 'PHP_Token_COMMENT':
-                    case 'PHP_Token_DOC_COMMENT':
+                    case \PHP_Token_COMMENT::class:
+                    case \PHP_Token_DOC_COMMENT::class:
                         $_token = trim($token);
                         $_line  = trim($lines[$token->getLine() - 1]);
 
@@ -808,10 +810,10 @@ class CodeCoverage
                         }
                         break;
 
-                    case 'PHP_Token_INTERFACE':
-                    case 'PHP_Token_TRAIT':
-                    case 'PHP_Token_CLASS':
-                    case 'PHP_Token_FUNCTION':
+                    case \PHP_Token_INTERFACE::class:
+                    case \PHP_Token_TRAIT::class:
+                    case \PHP_Token_CLASS::class:
+                    case \PHP_Token_FUNCTION::class:
                         /* @var \PHP_Token_Interface $token */
 
                         $docblock = $token->getDocblock();
@@ -864,14 +866,18 @@ class CodeCoverage
                         }
                         break;
 
-                    case 'PHP_Token_NAMESPACE':
+                    case \PHP_Token_ENUM::class:
+                        $this->ignoredLines[$filename][] = $token->getLine();
+                        break;
+
+                    case \PHP_Token_NAMESPACE::class:
                         $this->ignoredLines[$filename][] = $token->getEndLine();
 
                     // Intentional fallthrough
-                    case 'PHP_Token_DECLARE':
-                    case 'PHP_Token_OPEN_TAG':
-                    case 'PHP_Token_CLOSE_TAG':
-                    case 'PHP_Token_USE':
+                    case \PHP_Token_DECLARE::class:
+                    case \PHP_Token_OPEN_TAG::class:
+                    case \PHP_Token_CLOSE_TAG::class:
+                    case \PHP_Token_USE::class:
                         $this->ignoredLines[$filename][] = $token->getLine();
                         break;
                 }

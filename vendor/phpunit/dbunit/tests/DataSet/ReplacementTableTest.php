@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of DBUnit.
+ * This file is part of DbUnit.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,44 +8,48 @@
  * file that was distributed with this source code.
  */
 
-/**
- * @since      File available since Release 1.0.0
- */
-class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework_TestCase
+use PHPUnit\DbUnit\DataSet\DefaultTable;
+use PHPUnit\DbUnit\DataSet\DefaultTableMetadata;
+use PHPUnit\DbUnit\DataSet\ITable;
+use PHPUnit\DbUnit\DataSet\ITableMetadata;
+use PHPUnit\DbUnit\DataSet\ReplacementTable;
+use PHPUnit\DbUnit\TestCase;
+
+class Extensions_Database_DataSet_ReplacementTableTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var PHPUnit_Extensions_Database_DataSet_DefaultTable
+     * @var DefaultTable
      */
     protected $startingTable;
 
     public function setUp()
     {
-        $tableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
+        $tableMetaData = new DefaultTableMetadata(
             'table1', ['table1_id', 'column1', 'column2', 'column3', 'column4']
         );
 
-        $table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($tableMetaData);
+        $table = new DefaultTable($tableMetaData);
 
         $table->addRow([
             'table1_id' => 1,
-            'column1'   => 'My name is %%%name%%%',
-            'column2'   => 200,
-            'column3'   => 34.64,
-            'column4'   => 'yghkf;a  hahfg8ja h;'
+            'column1' => 'My name is %%%name%%%',
+            'column2' => 200,
+            'column3' => 34.64,
+            'column4' => 'yghkf;a  hahfg8ja h;'
         ]);
         $table->addRow([
             'table1_id' => 2,
-            'column1'   => 'hk;afg',
-            'column2'   => 654,
-            'column3'   => 46.54,
-            'column4'   => '24rwehhads'
+            'column1' => 'hk;afg',
+            'column2' => 654,
+            'column3' => 46.54,
+            'column4' => '24rwehhads'
         ]);
         $table->addRow([
             'table1_id' => 3,
-            'column1'   => 'ha;gyt',
-            'column2'   => 462,
-            'column3'   => '[NULL] not really',
-            'column4'   => '[NULL]'
+            'column1' => 'ha;gyt',
+            'column2' => 462,
+            'column3' => '[NULL] not really',
+            'column4' => '[NULL]'
         ]);
 
         $this->startingTable = $table;
@@ -53,138 +57,138 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
 
     public function testNoReplacement()
     {
-        PHPUnit_Extensions_Database_TestCase::assertTablesEqual(
+        TestCase::assertTablesEqual(
             $this->startingTable,
-            new PHPUnit_Extensions_Database_DataSet_ReplacementTable($this->startingTable)
+            new ReplacementTable($this->startingTable)
         );
     }
 
     public function testFullReplacement()
     {
-        $tableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
+        $tableMetaData = new DefaultTableMetadata(
             'table1', ['table1_id', 'column1', 'column2', 'column3', 'column4']
         );
 
-        $table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($tableMetaData);
+        $table = new DefaultTable($tableMetaData);
 
         $table->addRow([
             'table1_id' => 1,
-            'column1'   => 'My name is %%%name%%%',
-            'column2'   => 200,
-            'column3'   => 34.64,
-            'column4'   => 'yghkf;a  hahfg8ja h;'
+            'column1' => 'My name is %%%name%%%',
+            'column2' => 200,
+            'column3' => 34.64,
+            'column4' => 'yghkf;a  hahfg8ja h;'
         ]);
         $table->addRow([
             'table1_id' => 2,
-            'column1'   => 'hk;afg',
-            'column2'   => 654,
-            'column3'   => 46.54,
-            'column4'   => '24rwehhads'
+            'column1' => 'hk;afg',
+            'column2' => 654,
+            'column3' => 46.54,
+            'column4' => '24rwehhads'
         ]);
         $table->addRow([
             'table1_id' => 3,
-            'column1'   => 'ha;gyt',
-            'column2'   => 462,
-            'column3'   => '[NULL] not really',
-            'column4'   => NULL
+            'column1' => 'ha;gyt',
+            'column2' => 462,
+            'column3' => '[NULL] not really',
+            'column4' => null
         ]);
 
-        $actual = new PHPUnit_Extensions_Database_DataSet_ReplacementTable($this->startingTable);
-        $actual->addFullReplacement('[NULL]', NULL);
+        $actual = new ReplacementTable($this->startingTable);
+        $actual->addFullReplacement('[NULL]', null);
 
-        PHPUnit_Extensions_Database_TestCase::assertTablesEqual($table, $actual);
+        TestCase::assertTablesEqual($table, $actual);
     }
 
     public function testSubStrReplacement()
     {
-        $tableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
+        $tableMetaData = new DefaultTableMetadata(
             'table1', ['table1_id', 'column1', 'column2', 'column3', 'column4']
         );
 
-        $table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($tableMetaData);
+        $table = new DefaultTable($tableMetaData);
 
         $table->addRow([
             'table1_id' => 1,
-            'column1'   => 'My name is Mike Lively',
-            'column2'   => 200,
-            'column3'   => 34.64,
-            'column4'   => 'yghkf;a  hahfg8ja h;'
+            'column1' => 'My name is Mike Lively',
+            'column2' => 200,
+            'column3' => 34.64,
+            'column4' => 'yghkf;a  hahfg8ja h;'
         ]);
         $table->addRow([
             'table1_id' => 2,
-            'column1'   => 'hk;afg',
-            'column2'   => 654,
-            'column3'   => 46.54,
-            'column4'   => '24rwehhads'
+            'column1' => 'hk;afg',
+            'column2' => 654,
+            'column3' => 46.54,
+            'column4' => '24rwehhads'
         ]);
         $table->addRow([
             'table1_id' => 3,
-            'column1'   => 'ha;gyt',
-            'column2'   => 462,
-            'column3'   => '[NULL] not really',
-            'column4'   => '[NULL]'
+            'column1' => 'ha;gyt',
+            'column2' => 462,
+            'column3' => '[NULL] not really',
+            'column4' => '[NULL]'
         ]);
 
-        $actual = new PHPUnit_Extensions_Database_DataSet_ReplacementTable($this->startingTable);
+        $actual = new ReplacementTable($this->startingTable);
         $actual->addSubStrReplacement('%%%name%%%', 'Mike Lively');
 
-        PHPUnit_Extensions_Database_TestCase::assertTablesEqual($table, $actual);
+        TestCase::assertTablesEqual($table, $actual);
     }
 
     public function testConstructorReplacements()
     {
-        $tableMetaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData(
+        $tableMetaData = new DefaultTableMetadata(
             'table1', ['table1_id', 'column1', 'column2', 'column3', 'column4']
         );
 
-        $table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($tableMetaData);
+        $table = new DefaultTable($tableMetaData);
 
         $table->addRow([
             'table1_id' => 1,
-            'column1'   => 'My name is Mike Lively',
-            'column2'   => 200,
-            'column3'   => 34.64,
-            'column4'   => 'yghkf;a  hahfg8ja h;'
+            'column1' => 'My name is Mike Lively',
+            'column2' => 200,
+            'column3' => 34.64,
+            'column4' => 'yghkf;a  hahfg8ja h;'
         ]);
         $table->addRow([
             'table1_id' => 2,
-            'column1'   => 'hk;afg',
-            'column2'   => 654,
-            'column3'   => 46.54,
-            'column4'   => '24rwehhads'
+            'column1' => 'hk;afg',
+            'column2' => 654,
+            'column3' => 46.54,
+            'column4' => '24rwehhads'
         ]);
         $table->addRow([
             'table1_id' => 3,
-            'column1'   => 'ha;gyt',
-            'column2'   => 462,
-            'column3'   => '[NULL] not really',
-            'column4'   => NULL
+            'column1' => 'ha;gyt',
+            'column2' => 462,
+            'column3' => '[NULL] not really',
+            'column4' => null
         ]);
 
-        $actual = new PHPUnit_Extensions_Database_DataSet_ReplacementTable(
+        $actual = new ReplacementTable(
             $this->startingTable,
-            ['[NULL]'     => NULL],
+            ['[NULL]' => null],
             ['%%%name%%%' => 'Mike Lively']
         );
 
-        PHPUnit_Extensions_Database_TestCase::assertTablesEqual($table, $actual);
+        TestCase::assertTablesEqual($table, $actual);
     }
 
     public function testGetRow()
     {
-        $actual = new PHPUnit_Extensions_Database_DataSet_ReplacementTable(
+        $actual = new ReplacementTable(
             $this->startingTable,
-            ['[NULL]'     => NULL],
+            ['[NULL]' => null],
             ['%%%name%%%' => 'Mike Lively']
         );
 
         $this->assertEquals(
             [
                 'table1_id' => 1,
-                'column1'   => 'My name is Mike Lively',
-                'column2'   => 200,
-                'column3'   => 34.64,
-                'column4'   => 'yghkf;a  hahfg8ja h;'
+                'column1' => 'My name is Mike Lively',
+                'column2' => 200,
+                'column3' => 34.64,
+                'column4' => 'yghkf;a  hahfg8ja h;'
             ],
             $actual->getRow(0)
         );
@@ -192,10 +196,10 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
         $this->assertEquals(
             [
                 'table1_id' => 3,
-                'column1'   => 'ha;gyt',
-                'column2'   => 462,
-                'column3'   => '[NULL] not really',
-                'column4'   => NULL
+                'column1' => 'ha;gyt',
+                'column2' => 462,
+                'column3' => '[NULL] not really',
+                'column4' => null
             ],
             $actual->getRow(2)
         );
@@ -203,9 +207,9 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
 
     public function testGetValue()
     {
-        $actual = new PHPUnit_Extensions_Database_DataSet_ReplacementTable(
+        $actual = new ReplacementTable(
             $this->startingTable,
-            ['[NULL]'     => NULL],
+            ['[NULL]' => null],
             ['%%%name%%%' => 'Mike Lively']
         );
 
@@ -215,15 +219,15 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
 
     public function testMatchesWithNonMatchingMetaData()
     {
-        $tableMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
-        $otherMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
+        $tableMetaData = $this->createMock(ITableMetadata::class);
+        $otherMetaData = $this->createMock(ITableMetadata::class);
+        $table = $this->createMock(ITable::class);
+        $otherTable = $this->createMock(ITable::class);
 
-        $table = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $table->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($tableMetaData));
 
-        $otherTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $otherTable->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($otherMetaData));
@@ -233,21 +237,26 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
             ->with($otherMetaData)
             ->will($this->returnValue(false));
 
-        $replacementTable = new PHPUnit_Extensions_Database_DataSet_ReplacementTable($table);
+        $replacementTable = new ReplacementTable($table);
         $this->assertFalse($replacementTable->matches($otherTable));
     }
 
     public function testMatchesWithNonMatchingRowCount()
     {
-        $tableMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
-        $otherMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
+        $tableMetaData = $this->createMock(ITableMetadata::class);
+        $otherMetaData = $this->createMock(ITableMetadata::class);
+        $table = $this->createMock(ITable::class);
+        $otherTable = $this->createMock(ITable::class);
 
-        $table = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
+        $replacementTable = $this->getMockBuilder(ReplacementTable::class)
+                                 ->setConstructorArgs([$table])
+                                 ->setMethods(['getRowCount'])
+                                 ->getMock();
+
         $table->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($tableMetaData));
 
-        $otherTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $otherTable->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($otherMetaData));
@@ -260,7 +269,6 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
             ->with($otherMetaData)
             ->will($this->returnValue(true));
 
-        $replacementTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ReplacementTable', ['getRowCount'], [$table]);
         $replacementTable->expects($this->once())
             ->method('getRowCount')
             ->will($this->returnValue(1));
@@ -275,15 +283,15 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
      */
     public function testMatchesWithColumnValueComparisons($tableColumnValues, $otherColumnValues, $matches)
     {
-        $tableMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
-        $otherMetaData = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITableMetaData');
+        $tableMetaData = $this->createMock(ITableMetadata::class);
+        $otherMetaData = $this->createMock(ITableMetadata::class);
+        $table = $this->createMock(ITable::class);
+        $otherTable = $this->createMock(ITable::class);
 
-        $table = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $table->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($tableMetaData));
 
-        $otherTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ITable');
         $otherTable->expects($this->once())
             ->method('getTableMetaData')
             ->will($this->returnValue($otherMetaData));
@@ -299,7 +307,11 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
             ->with($otherMetaData)
             ->will($this->returnValue(true));
 
-        $replacementTable = $this->getMock('PHPUnit_Extensions_Database_DataSet_ReplacementTable', ['getRowCount', 'getValue'], [$table]);
+        $replacementTable = $this->getMockBuilder(ReplacementTable::class)
+                                 ->setConstructorArgs([$table])
+                                 ->setMethods(['getRowCount', 'getValue'])
+                                 ->getMock();
+
         $replacementTable->expects($this->any())
             ->method('getRowCount')
             ->will($this->returnValue(count($tableColumnValues)));
@@ -467,5 +479,4 @@ class Extensions_Database_DataSet_ReplacementTableTest extends PHPUnit_Framework
             ],
         ];
     }
-
 }
