@@ -1,9 +1,17 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace hornherzogen;
 
 class FormHelper
 {
+    private $localizer;
+
+    function __construct()
+    {
+        $this->localizer = new HornLocalizer();
+    }
+
     /**
      * Trims the given String after the given length while keeping it in UTF-8 encoding.
      * @param $input
@@ -77,7 +85,7 @@ class FormHelper
             }
         }
 
-        $result['LANG'] = HornLocalizer::getLanguage();
+        $result['LANG'] = $this->localizer->getLanguage();
 
         return $result;
     }
@@ -99,7 +107,7 @@ class FormHelper
 
     public function isSubmissionClosed($config)
     {
-        if(isset($config)) {
+        if (isset($config)) {
             $today = strtotime($this->timestamp());
             $expiration_date = strtotime($config->submissionend());
 
