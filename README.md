@@ -1,6 +1,12 @@
 # Project hornherzogen
 Pet project to manage seminar registration for Herzogenhorn 2017
 
+## Release 1.0
+
+Live as of 2017-03-20.
+
+## Current version
+
 Status: Work in progress :-) since 2017-01-07
 
 [![Stories in Backlog](https://badge.waffle.io/ottlinger/hornherzogen.png?label=backlog&title=Backlog)](https://waffle.io/ottlinger/hornherzogen)
