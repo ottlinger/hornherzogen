@@ -53,6 +53,7 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
+    // TODO extract to DatabaseHelper
     public function makeSQLCapable($input)
     {
         if (isset($input)) {
