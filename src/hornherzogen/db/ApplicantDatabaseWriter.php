@@ -221,10 +221,10 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         return $results;
     }
 
-    function removeById($id)
+    function removeById($applicantId)
     {
-        if (self::isHealthy() && isset($id) && strlen($id)) {
-            return $this->database->exec("DELETE from `applicants` WHERE id =" . trim($id));
+        if (self::isHealthy() && isset($applicantId) && strlen($applicantId)) {
+            return $this->database->exec("DELETE from `applicants` WHERE id =" . trim($applicantId));
         }
         return 0;
     }

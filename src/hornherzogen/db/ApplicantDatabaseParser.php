@@ -159,6 +159,7 @@ class ApplicantDatabaseParser
      * @param $input
      * @return null|string
      */
+    // TODO extract to DatabaseHelper
     public function trimAndMask($input)
     {
         $trimmed = $this->emptyToNull($input);
@@ -168,6 +169,7 @@ class ApplicantDatabaseParser
         return NULL;
     }
 
+    // TODO extract to DatabaseHelper
     public function emptyToNull($input)
     {
         if (isset($input) && strlen(trim($input))) {
