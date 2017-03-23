@@ -33,7 +33,7 @@ In order to just play around with it I've integrated a CI run:
 
 ### Prerequisites
 
-* PHP >=5.6
+* PHP >=7.0
   * with XML module installed
   * with MBString extension installed
   * with MySQL extension installed
