@@ -66,7 +66,7 @@ class AdminHelper
             $pageURL .= "s";
         }
         $pageURL .= "://";
-        
+
         if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, "SERVER_PORT") && $_SERVER["SERVER_PORT"] != "80") {
             $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
             return $pageURL;

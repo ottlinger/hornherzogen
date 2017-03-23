@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace hornherzogen;
 
 /**
@@ -13,6 +14,7 @@ final class ApplicantInput extends Applicant
     private $success = array();
     // To prevent double click attacks we only send out mails if not sent before
     private $mailSent;
+    private $localizer;
 
     // this field is only visible in the form and is not persisted anywhere
     private $emailcheck;
@@ -21,6 +23,7 @@ final class ApplicantInput extends Applicant
     {
         parent::__construct();
         $this->formHelper = new FormHelper();
+        $this->localizer = new HornLocalizer();
         $this->mailSent = false;
         // set default country to Germany
         $this->setCountry('DE');
@@ -126,7 +129,7 @@ final class ApplicantInput extends Applicant
         $this->errors = array();
         $this->success = array();
 
-        $this->setLanguage(HornLocalizer::getLanguage());
+        $this->setLanguage($this->localizer->getLanguage());
 
         if ($this->formHelper->isSetAndNotEmpty("week")) {
             $this->setWeek($this->getFromPost("week"));
