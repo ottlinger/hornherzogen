@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace hornherzogen;
 
 use hornherzogen\db\ApplicantDatabaseWriter;
@@ -274,7 +275,7 @@ class SubmitMailer
             $importance = 1;
 
             // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
-            $encoded_subject = "=?UTF-8?B?" . base64_encode("Anmeldung Herzogenhorn eingegangen - Woche ". $this->applicationInput->getWeek()) . "?=";
+            $encoded_subject = "=?UTF-8?B?" . base64_encode("Anmeldung Herzogenhorn eingegangen - Woche " . $this->applicationInput->getWeek()) . "?=";
 
             // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
             $headers = array();
@@ -339,6 +340,7 @@ class SubmitMailer
                 <li>Person 2: ' . $this->applicationInput->getPartnerTwo() . '</li>
                 <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
                 <li>Anmerkungen: ' . $remarks . '</li>
+                <li>Anmerkungen: ' . $this->applicationInput->getEmail() . '</li>
                 </ul>
             </h2>
             <p>
