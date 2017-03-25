@@ -27,6 +27,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <link href="./css/starter-template.css" rel="stylesheet">
     <link href="./css/theme.css" rel="stylesheet">
 
+    <!-- Calendar-related stuff -->
+    <link href="./css/bootstrap-formhelpers.min.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="./assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -75,6 +78,20 @@ $config = new \hornherzogen\ConfigurationWrapper();
             <?php echo HornLocalizer::i18n('INDEX.LINE2'); ?><br/><br/>
             <?php echo HornLocalizer::i18nParams('INDEX.TENDERLINK', $config->pdf()); ?>
         </p>
+
+<!-- if russian is available add flags
+        <p>
+            <span class="bfh-languages" data-language="" data-flags="true">
+                <i class="glyphicon bfh-flag-DE"></i>
+            </span>
+            <span class="bfh-languages" data-language="" data-flags="true">
+                <i class="glyphicon bfh-flag-RU"></i>
+            </span>
+            <span class="bfh-languages" data-language="" data-flags="true">
+                <i class="glyphicon bfh-flag-GB"></i>
+            </span>
+        </p>
+-->
         <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.EN_CONTINUE'); ?></a>
         <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.DE_CONTINUE'); ?></a>
         </p>
@@ -87,7 +104,9 @@ $config = new \hornherzogen\ConfigurationWrapper();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="./js/bootstrap.min.js"></script>
+
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="./js/bootstrap-formhelpers.min.js"></script>
 </body>
 </html>
