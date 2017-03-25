@@ -75,8 +75,8 @@ $config = new \hornherzogen\ConfigurationWrapper();
             <?php echo HornLocalizer::i18n('INDEX.LINE2'); ?><br/><br/>
             <?php echo HornLocalizer::i18nParams('INDEX.TENDERLINK', $config->pdf()); ?>
         </p>
-        <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.DE_CONTINUE'); ?></a>
         <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.EN_CONTINUE'); ?></a>
+        <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.DE_CONTINUE'); ?></a>
         </p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
