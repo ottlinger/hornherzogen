@@ -74,6 +74,14 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>", $this->adminHelper->showSuperUserMenu());
     }
 
+    public function testNoShowSuperUserMenu()
+    {
+        $GLOBALS["horncfg"]["superuser"] = "";
+        $_SERVER['PHP_AUTH_USER'] = "noAdminUser";
+
+        $this->assertEquals("<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span>No Superadmin-Menu</a></li>", $this->adminHelper->showSuperUserMenu());
+    }
+
     public function testExtractPageUri_http()
     {
         $_SERVER['SERVER_NAME'] = "myhorst";
