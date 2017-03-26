@@ -67,6 +67,7 @@ class AdminHelperTest extends TestCase
         $GLOBALS["horncfg"]["superuser"] = $user;
         $_SERVER['PHP_AUTH_USER'] = $user;
         $this->assertEquals("<span class=\"glyphicon glyphicon-user\" style=\"color: red;\"></span> womanchu</a>", $this->adminHelper->showUserLoggedIn());
+        $this->assertEquals("<li><a href=\"./logout.php\"><span class=\"glyphicon glyphicon-erase\"></span> Logout</a></li>", $this->adminHelper->showLogoutMenu());
     }
 
     public function testShowSuperUserMenuNotYet()
