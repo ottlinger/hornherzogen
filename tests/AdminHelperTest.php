@@ -72,7 +72,7 @@ class AdminHelperTest extends TestCase
 
     public function testShowSuperUserMenuNotYet()
     {
-        $this->assertEquals("<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>", $this->adminHelper->showSuperUserMenu());
+        $this->assertContains("<span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a>", $this->adminHelper->showSuperUserMenu());
     }
 
     public function testNoShowSuperUserMenu()
