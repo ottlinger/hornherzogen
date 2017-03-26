@@ -53,7 +53,7 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    // TODO extract to DatabaseHelper
+    // TODO #65: extract to DatabaseHelper, what is the sense of that method again?
     public function makeSQLCapable($input)
     {
         if (isset($input)) {
