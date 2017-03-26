@@ -100,6 +100,16 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("https://myhorstmyreq", $this->adminHelper->thisPageUrl());
     }
 
+    public function testExtractPageUri_differentPort()
+    {
+        $_SERVER['HTTPS'] = "on";
+        $_SERVER['SERVER_NAME'] = "myhorst";
+        $_SERVER['REQUEST_URI'] = "/myreq";
+        $_SERVER['SERVER_PORT'] = "4711";
+
+        $this->assertEquals("https://myhorst:4711/myreq", $this->adminHelper->thisPageUrl());
+    }
+
     public function testGetHostFallbackToNull()
     {
         $_SERVER['SERVER_NAME'] = NULL;
