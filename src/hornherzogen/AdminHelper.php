@@ -50,20 +50,30 @@ class AdminHelper
 
     public function showSuperUserMenu()
     {
-        // TODO add submenu from index_old.php with paragraphs
-        // see example at http://getbootstrap.com/examples/navbar/
         if ($this->isAdmin() || $this->getHost() == 'localhost') {
             return "
                 <li class=\"dropdown\">
                 <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu<span class=\"caret\"></span></a>
                 <ul class=\"dropdown-menu\">
-                  <li><a href=\"#\">Action</a></li>
-                  <li><a href=\"#\">Another action</a></li>
-                  <li><a href=\"#\">Something else here</a></li>
+                  <li><a href=\"./setup/i18ncheck.php\">L10n-Statistik</a></li>
+                  <li><a href=\"./db/db_stats.php\" target=\"_blank\">DB-Tabellen-Statistik</a></li>
                   <li role=\"separator\" class=\"divider\"></li>
-                  <li class=\"dropdown-header\">Nav header</li>
-                  <li><a href=\"#\">Separated link</a></li>
-                  <li><a href=\"#\">One more separated link</a></li>
+                  <li><a href=\"./db/db_statuses.php\" target=\"_blank\">Status-Werte</a></li>
+                  <li><a href=\"./db/db_bookings.php\" target=\"_blank\">Buchungs-Werte</a></li>
+                  <li><a href=\"./db/db_rooms.php\" target=\"_blank\">Räume-Werte</a></li>
+                  <li role=\"separator\" class=\"divider\"></li>
+                  <li class=\"dropdown-header\">KONFIGURATION</li>
+                  <li><a href=\"./setup/php.php\" target=\"_blank\">PHP-Versionen und Module</a></li>
+                  <li><a href=\"./setup/i18n.php\" target=\"_blank\">Geht i10n?</a></li>
+                  <li><a href=\"./db/db_connect.php\" target=\"_blank\">Geht DB-Verbindung?</a></li>
+                  <li><a href=\"./setup/showconfig.php\" target=\"_blank\">aktuelle Anwendungskonfiguration</a></li>
+                  <li role=\"separator\" class=\"divider\"></li>
+                  <li class=\"dropdown-header\">ZUGRIFFSSCHUTZ</li>
+                  <li><a href=\"./setup/path.php\" target=\"_blank\">Pfad .htaccess</a></li>
+                  <li><a href=\"./setup/htaccessgen.php\" target=\"_blank\">.htpasswd - neuer Nutzer</a></li>
+                  <li role=\"separator\" class=\"divider\"></li>
+                  <li class=\"dropdown-header\">GEFÄHRLICH</li>
+                  <li><a href=\"./db/dbtest.php\" target=\"_blank\">Roundtrip - geht nur 1x</a></li>
                 </ul>
               </li>
 ";
