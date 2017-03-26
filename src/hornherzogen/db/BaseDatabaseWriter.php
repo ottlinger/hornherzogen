@@ -55,7 +55,7 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    // TODO #65: extract to DatabaseHelper, what is the sense of that method again?
+    // TODO #65: extract to DatabaseHelper, what is the sense of that method again? Make database a parameter and move to DatabaseHelper
     public function makeSQLCapable($input)
     {
         if (isset($input)) {

@@ -224,9 +224,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
     function removeById($applicantId)
     {
         if ($this->isHealthy() && isset($applicantId) && strlen($applicantId)) {
-
-            echo "<pre>".$this->makeSQLCapable($applicantId)."</pre>";
-            return $this->database->exec("DELETE from `applicants` WHERE id = " . trim($applicantId));
+            return $this->database->exec("DELETE from `applicants` WHERE id = " . $this->makeSQLCapable($applicantId));
         }
         return 0;
     }
