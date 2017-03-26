@@ -92,9 +92,8 @@ $config = new \hornherzogen\ConfigurationWrapper();
             </span>
         </p>
 -->
-        <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.EN_CONTINUE'); ?></a>
-        <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.DE_CONTINUE'); ?></a>
-        </p>
+        <p class="lead"><a href="form.php?lang=en"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.EN_CONTINUE'); ?></a></p>
+        <p class="lead"><a href="form.php?lang=de"><span class="glyphicon glyphicon-hand-right"></span> <?php echo HornLocalizer::i18n('INDEX.DE_CONTINUE'); ?></a></p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
