@@ -12,7 +12,6 @@ class ApplicantDatabaseWriterTest extends TestCase
     private $writer = null;
     private $pdo = null;
 
-
     /**
      * Setup the test environment.
      */
