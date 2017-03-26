@@ -40,15 +40,6 @@ class AdminHelper
         return false;
     }
 
-    public function getHost()
-    {
-        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
-            return trim($_SERVER['SERVER_NAME']);
-        }
-        // to avoid DNS manipulation to get superadmin access
-        return NULL;
-    }
-
     public function showLogoutMenu()
     {
         if (self::FALLBACK_USER != $this->getUserName()) {
@@ -77,12 +68,21 @@ class AdminHelper
         $pageURL .= "://";
 
         if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, "SERVER_PORT") && $_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+            $pageURL .= $this->getHost() . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
             return $pageURL;
         }
 
-        $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $pageURL .= $this->getHost() . $_SERVER["REQUEST_URI"];
         return $pageURL;
+    }
+
+    public function getHost()
+    {
+        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
+            return trim($_SERVER['SERVER_NAME']);
+        }
+        // to avoid DNS manipulation to get superadmin access
+        return NULL;
     }
 
 }
