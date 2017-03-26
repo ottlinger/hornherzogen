@@ -52,8 +52,19 @@ class AdminHelper
     {
         // TODO add submenu from index_old.php with paragraphs
         // see example at http://getbootstrap.com/examples/navbar/
-        // TODO add check for isAdmin()
-        return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>";
+        if ($this->isAdmin() || $this->getHost() == 'localhost') {
+            return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>";
+        }
+        return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span>No Superadmin-Menu</a></li>";
+    }
+
+    public function getHost()
+    {
+        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
+            return trim($_SERVER['SERVER_NAME']);
+        }
+        // to avoid DNS manipulation to get superadmin access
+        return NULL;
     }
 
     /**
@@ -74,15 +85,6 @@ class AdminHelper
 
         $pageURL .= $this->getHost() . $_SERVER["REQUEST_URI"];
         return $pageURL;
-    }
-
-    public function getHost()
-    {
-        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
-            return trim($_SERVER['SERVER_NAME']);
-        }
-        // to avoid DNS manipulation to get superadmin access
-        return NULL;
     }
 
 }
