@@ -1,6 +1,7 @@
 <?php
-namespace hornherzogen\db;
+declare(strict_types=1);
 
+namespace hornherzogen\db;
 
 class StatusDatabaseReader extends BaseDatabaseWriter
 {

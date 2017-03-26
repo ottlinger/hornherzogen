@@ -2,12 +2,12 @@
 <?php
 require '../../vendor/autoload.php';
 
+use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
-use hornherzogen\AdminHelper;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
@@ -69,7 +69,8 @@ $localizer = new HornLocalizer();
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="../"><span
-                                class="glyphicon glyphicon-briefcase"></span> <?php echo $localizer->i18n('MENU.ADMIN'); ?></a>
+                                class="glyphicon glyphicon-briefcase"></span> <?php echo $localizer->i18n('MENU.ADMIN'); ?>
+                    </a>
                 </li>
                 <?php $adminHelper->showSuperUserMenu(); ?>
             </ul>
@@ -202,9 +203,9 @@ $localizer = new HornLocalizer();
         echo "<thead>";
         echo "<tr>";
         echo "<th>DB-Id</th>";
-            if($adminHelper->isAdmin()) {
-                echo "<th>AKTIONEN</th>";
-            }
+        if ($adminHelper->isAdmin()) {
+            echo "<th>AKTIONEN</th>";
+        }
         echo "<th>Woche</th>";
         echo "<th>Sprache</th>";
         echo "<th>Anrede</th>";
@@ -232,11 +233,11 @@ $localizer = new HornLocalizer();
             echo "<tr>";
             echo "<td>" . $applicant->getPersistenceId() . "</td>";
 
-            if($adminHelper->isAdmin()) {
+            if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                 echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen</button>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen (' . $applicant->getPersistenceId() . ')</button>
                     </form>
                 </td>';
             }
