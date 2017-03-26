@@ -187,7 +187,7 @@ $localizer = new HornLocalizer();
         </form>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && $adminHelper->isAdmin()) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
             $remover = new ApplicantDatabaseWriter();
             $id = $formHelper->filterUserInput($_POST['aid']);
             echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
