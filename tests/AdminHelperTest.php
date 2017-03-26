@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 use hornherzogen\AdminHelper;
 use PHPUnit\Framework\TestCase;
 
@@ -54,36 +54,50 @@ class AdminHelperTest extends TestCase
         $this->assertEquals("none", $this->adminHelper->getUserName());
     }
 
-    public function testShowUserLoggedInNoSuperUser() {
+    public function testShowUserLoggedInNoSuperUser()
+    {
         $_SERVER['PHP_AUTH_USER'] = NULL;
         $this->assertEquals("<span class=\"glyphicon glyphicon-user\"></span> none</a>", $this->adminHelper->showUserLoggedIn());
         $this->assertEquals("<li><a href=\"#\"><span class=\"glyphicon glyphicon-lamp\"></span> Not logged in</a></li>", $this->adminHelper->showLogoutMenu());
     }
 
-    public function testShowUserLoggedInSuperUser() {
+    public function testShowUserLoggedInSuperUser()
+    {
         $user = "womanchu";
         $GLOBALS["horncfg"]["superuser"] = $user;
         $_SERVER['PHP_AUTH_USER'] = $user;
         $this->assertEquals("<span class=\"glyphicon glyphicon-user\" style=\"color: red;\"></span> womanchu</a>", $this->adminHelper->showUserLoggedIn());
     }
 
-    public function testShowSuperUserMenuNotYet() {
+    public function testShowSuperUserMenuNotYet()
+    {
         $this->assertEquals("<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span> Superadmin-Menu</a></li>", $this->adminHelper->showSuperUserMenu());
     }
 
-    public function testExtractPageUri_http() {
+    public function testExtractPageUri_http()
+    {
         $_SERVER['SERVER_NAME'] = "myhorst";
         $_SERVER['REQUEST_URI'] = "myreq";
 
         $this->assertEquals("http://myhorstmyreq", $this->adminHelper->thisPageUrl());
     }
 
-    public function testExtractPageUri_https() {
+    public function testExtractPageUri_https()
+    {
         $_SERVER['HTTPS'] = "on";
         $_SERVER['SERVER_NAME'] = "myhorst";
         $_SERVER['REQUEST_URI'] = "myreq";
 
         $this->assertEquals("https://myhorstmyreq", $this->adminHelper->thisPageUrl());
+    }
+
+    public function testGetHostFallbackToNull()
+    {
+        $_SERVER['SERVER_NAME'] = NULL;
+        $this->assertNull($this->adminHelper->getHost());
+
+        $_SERVER['SERVER_NAME'] = '';
+        $this->assertNull($this->adminHelper->getHost());
     }
 
 }

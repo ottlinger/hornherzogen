@@ -40,6 +40,15 @@ class AdminHelper
         return false;
     }
 
+    public function getHost()
+    {
+        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
+            return trim($_SERVER['SERVER_NAME']);
+        }
+        // to avoid DNS manipulation to get superadmin access
+        return NULL;
+    }
+
     public function showLogoutMenu()
     {
         if (self::FALLBACK_USER != $this->getUserName()) {
