@@ -33,5 +33,15 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\ApplicantDatabaseReader', $this->reader);
     }
 
+    public function testRoomWishesResultStructure()
+    {
+        $this->assertEquals(4, sizeof($this->reader->listByRoomCategoryPerWeek(NULL)));
+    }
+
+    public function testFoodReservations()
+    {
+        $this->assertNull($this->reader->listByFoodCategoryPerWeek(NULL));
+    }
+
 
 }

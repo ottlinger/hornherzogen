@@ -24,4 +24,5 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             '4' => array(),
         );
     }
+
 }
