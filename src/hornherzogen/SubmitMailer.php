@@ -325,7 +325,7 @@ class SubmitMailer
                 <p>es ging gegen ' . $this->formHelper->timestamp() . ' die folgende Anmeldung ein:</p>
                 <ul>
                 <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
-                <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
+                <li>Anrede: ' . ($this->applicationInput->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
                 <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
                 <li>interner Name: ' . $this->applicationInput->getFullname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
