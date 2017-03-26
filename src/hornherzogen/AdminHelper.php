@@ -76,7 +76,7 @@ class AdminHelper
                   <li><a href=\"./db/dbtest.php\" target=\"_blank\">Roundtrip - geht nur 1x</a></li>
                 </ul>
               </li>
-";
+            ";
         }
         return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span>No Superadmin-Menu</a></li>";
     }
