@@ -131,8 +131,8 @@ class SubmitMailerTest extends TestCase
         $_SERVER["REMOTE_ADDR"] = '127.0.0.1';
         $_SERVER["SERVER_NAME"] = 'justATest.local';
 
-        $this->assertStringStartsWith($this->mailer->uiPrefix .'Mail abgeschickt um', $this->mailer->send());
-        $this->assertStringStartsWith($this->mailer->uiPrefix .'Interne Mail an das', $this->mailer->sendInternally());
+        $this->assertStringStartsWith($this->mailer->uiPrefix . 'Mail abgeschickt um', $this->mailer->send());
+        $this->assertStringStartsWith($this->mailer->uiPrefix . 'Interne Mail an das', $this->mailer->sendInternally());
     }
 
     public function testMailTextContainsRelevantFields()
@@ -187,6 +187,17 @@ class SubmitMailerTest extends TestCase
         $this->mailer->send();
 
         $this->assertTrue($this->mailer->isMailSent());
+    }
+
+    public function testEnglishMailTextContainsRelevantFieldsAndIsTriggeredByNonGermanLanguageSetting()
+    {
+        // SET to non-German to trigger English mailtext
+        $_GET['lang'] = 'en';
+
+        $mailtext = $this->mailer->getMailtext();
+        $this->assertContains(self::$firstname, $mailtext);
+        $this->assertContains(self::$lastname, $mailtext);
+        $this->assertContains("You've successfully applied for Herzogenhorn week", $mailtext);
     }
 
 }
