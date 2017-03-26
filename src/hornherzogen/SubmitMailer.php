@@ -116,7 +116,7 @@ class SubmitMailer
             <title>Anmeldebestätigung Herzogenhorn Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
         </head>
         <body>
-            <h1>Herzogenhorn 2017 - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>
                 Hallo ' . $this->applicationInput->getFirstname() . ',</h2>
                 <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . $this->formHelper->timestamp() . '
@@ -124,7 +124,7 @@ class SubmitMailer
                 </p>
                 <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
                 <ul>
-                <li>Anrede: ' . $this->applicationInput->getGender() . '</li>
+                <li>Anrede: ' . ($this->applicationInput->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
                 <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
                 <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
@@ -177,7 +177,7 @@ class SubmitMailer
             <title>You\'ve successfully applied for Herzogenhorn week ' . $this->applicationInput->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn 2017 - application for week ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - application for week ' . $this->applicationInput->getWeek() . '</h1>
             <h2>
                 Hi ' . $this->applicationInput->getFirstname() . ',</h2>
                 <p>we have received your application for Herzogenhorn week ' . $this->applicationInput->getWeek() . ' at ' . $this->formHelper->timestamp() . '. 
@@ -185,7 +185,7 @@ class SubmitMailer
                 </p>
                 <p>Your application contained the following data that were saved in our database:
                 <ul>
-                <li>Gender: ' . $this->applicationInput->getGender() . '</li>
+                <li>Gender: ' . ($this->applicationInput->getGender() === 'male' ? 'Mr.' : 'Mrs.') . '</li>
                 <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
                 <li>Flexible? ' . ($this->applicationInput->getFlexible() == 1 ? 'yes' : 'no') . '</li>
                 <li>Address: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
