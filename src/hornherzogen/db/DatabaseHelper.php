@@ -21,8 +21,8 @@ class DatabaseHelper
 
     public function emptyToNull($input)
     {
-        if (isset($input) && strlen(trim($input))) {
-            return trim($input);
+        if (isset($input) && strlen(trim('' . $input))) {
+            return trim('' . $input);
         }
         return NULL;
     }
