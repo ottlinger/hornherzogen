@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // https://github.com/ottlinger/hornherzogen/issues/19
 function test_input($data) {
-    $data = trim($data);
+    $data = trim(''.$data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
 

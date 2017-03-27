@@ -33,11 +33,11 @@ class HornLocalizer
      */
     private static function getMessageFormatterForKeyWithLanguageFallback($key)
     {
-        if (isset($GLOBALS['messages'][self::getLanguage()][trim($key)])) {
+        if (isset($GLOBALS['messages'][self::getLanguage()][trim('' . $key)])) {
             return new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
         }
 
-        if (isset($GLOBALS['messages'][self::$fallbackLanguage][trim($key)])) {
+        if (isset($GLOBALS['messages'][self::$fallbackLanguage][trim('' . $key)])) {
             return new MessageFormatter(self::$fallbackLanguage, $GLOBALS['messages'][self::$fallbackLanguage][$key]);
         }
 
@@ -63,7 +63,7 @@ class HornLocalizer
             $lang = $sessionLanguage;
         }
 
-        $lang = trim(strtolower($lang));
+        $lang = trim('' . strtolower($lang));
 
         if (in_array($lang, self::$supportedLanguages)) {
             return self::storeInSession($lang);
@@ -77,7 +77,7 @@ class HornLocalizer
      */
     static function getLanguageFromSession()
     {
-        return (isset($_SESSION) && isset($_SESSION['language'])) ? trim(filter_var($_SESSION['language'], FILTER_SANITIZE_STRING)) : NULL;
+        return (isset($_SESSION) && isset($_SESSION['language'])) ? trim('' . filter_var($_SESSION['language'], FILTER_SANITIZE_STRING)) : NULL;
     }
 
     /**
@@ -86,8 +86,8 @@ class HornLocalizer
     static function getLanguageFromUrlParameter()
     {
         // HINT: not working in tests:
-        //  return (isset($_GET) && isset($_GET['lang'])) ? trim(filter_input(INPUT_GET, "lang", FILTER_SANITIZE_STRING)) : NULL;
-        return (isset($_GET) && isset($_GET['lang'])) ? trim(filter_var($_GET['lang'], FILTER_SANITIZE_STRING)) : NULL;
+        //  return (isset($_GET) && isset($_GET['lang'])) ? trim('' . filter_input(INPUT_GET, "lang", FILTER_SANITIZE_STRING)) : NULL;
+        return (isset($_GET) && isset($_GET['lang'])) ? trim('' . filter_var($_GET['lang'], FILTER_SANITIZE_STRING)) : NULL;
     }
 
     /**

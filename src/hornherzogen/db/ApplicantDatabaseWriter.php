@@ -1,4 +1,5 @@
 <?php
+
 namespace hornherzogen\db;
 
 use hornherzogen\Applicant;
@@ -206,7 +207,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             $query = "SELECT * from `applicants` a";
             // if week == null - return all, else for the given week
             if (isset($week) && strlen($week)) {
-                $query .= " WHERE a.week LIKE '%" . trim($week) . "%'";
+                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
             }
 
             $dbResult = $this->database->query($query);

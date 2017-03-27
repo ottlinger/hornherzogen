@@ -21,18 +21,9 @@ class FormHelper
     public function trimAndCutAfter($input, $length)
     {
         if (isset($input) && isset($length)) {
-            return mb_substr(trim($input), 0, $length, 'UTF-8');
+            return mb_substr(trim('' . $input), 0, $length, 'UTF-8');
         }
         return NULL;
-    }
-
-    /**
-     * Yields the current timestamp to be shown in the UI.
-     * @return false|string
-     */
-    public function timestamp()
-    {
-        return date('Y-m-d H:i:s');
     }
 
     /**
@@ -98,7 +89,7 @@ class FormHelper
     public function filterUserInput($data)
     {
         if (isset($data)) {
-            $data = trim($data);
+            $data = trim('' . $data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
         }
@@ -114,6 +105,15 @@ class FormHelper
             return boolval($expiration_date < $today);
         }
         return false;
+    }
+
+    /**
+     * Yields the current timestamp to be shown in the UI.
+     * @return false|string
+     */
+    public function timestamp()
+    {
+        return date('Y-m-d H:i:s');
     }
 
 }

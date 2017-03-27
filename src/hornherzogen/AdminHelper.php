@@ -29,7 +29,7 @@ class AdminHelper
     public function getUserName()
     {
         if (isset($_SERVER['PHP_AUTH_USER'])) {
-            return trim($_SERVER['PHP_AUTH_USER']);
+            return trim('' . $_SERVER['PHP_AUTH_USER']);
         }
         return self::FALLBACK_USER;
     }
@@ -45,7 +45,7 @@ class AdminHelper
     public function getHost()
     {
         if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
-            return trim($_SERVER['SERVER_NAME']);
+            return trim('' . $_SERVER['SERVER_NAME']);
         }
         // to avoid DNS manipulation to get superadmin access
         return self::FALLBACK_HOST;

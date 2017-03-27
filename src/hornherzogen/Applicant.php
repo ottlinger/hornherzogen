@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace hornherzogen;
 
@@ -13,11 +13,12 @@ class Applicant
 {
     // set mailed = when the mail was send
     // start of form data
+    protected $formHelper;
     private $week;
     private $gender;
     private $firstname;
-    private $lastname;
-    private $fullName; // combinedName to avoid double registrations
+        private $lastname; // combinedName to avoid double registrations
+private $fullName;
     private $street;
     private $houseNumber;
     private $zipCode;
@@ -27,47 +28,35 @@ class Applicant
     private $dojo;
     private $grading;
     private $dateOfLastGrading;
-    private $twaNumber;
-    private $language; // language used when submitting the form
-
-    private $room; // which kind of room
+        private $twaNumber; // language used when submitting the form
+private $language; // which kind of room
+private $room;
     private $partnerOne;
     private $partnerTwo;
-
     private $foodCategory;
     private $flexible;
-
-    private $remarks;
     // end of form data
 
     // DB-specific stuff
-    private $persistenceId;
+    private $remarks;
 
     // Admin-related stuff
-    private $createdAt; // date when status was set to APPLIED
-    private $confirmedAt; // date when status was set to CONFIRMED
-    private $finalRoom; // reference to other table, final room at Herzogenhorn
-    private $currentStatus; // name in other table
-    private $mailedAt; // when the mail was sent and status changed to REGISTERED
-    private $paymentRequestedAt; // when the mail to pay was sent and status changed to WAITING_FOR_PAYMENT
-    private $paymentReceivedAt; // when the payment was received successfully and status changed to PAID
-    private $bookedAt;// final confirmation is sent out and status changed to BOOKED
-    private $cancelledAt; // data at which an applicant cancelled his/her booking
+        private $persistenceId; // date when status was set to APPLIED
+    private $createdAt; // date when status was set to CONFIRMED
+    private $confirmedAt; // reference to other table, final room at Herzogenhorn
+    private $finalRoom; // name in other table
+    private $currentStatus; // when the mail was sent and status changed to REGISTERED
+    private $mailedAt; // when the mail to pay was sent and status changed to WAITING_FOR_PAYMENT
+    private $paymentRequestedAt; // when the payment was received successfully and status changed to PAID
+    private $paymentReceivedAt;// final confirmation is sent out and status changed to BOOKED
+    private $bookedAt; // data at which an applicant cancelled his/her booking
 
     // TECHNICAL attributes
-    protected $formHelper;
+private $cancelledAt;
 
     function __construct()
     {
         $this->formHelper = new FormHelper();
-    }
-
-    /**
-     * @param mixed $language
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
     }
 
     /**
@@ -76,6 +65,14 @@ class Applicant
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
     }
 
     /**
@@ -180,7 +177,7 @@ class Applicant
      */
     public function setFullName($salt)
     {
-        $this->fullName = trim($this->getFirstname() . ' ' . $this->getLastname() . ' ' . $salt);
+        $this->fullName = trim('' . $this->getFirstname() . ' ' . $this->getLastname() . ' ' . $salt);
         return $this;
     }
 
