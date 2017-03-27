@@ -45,7 +45,7 @@ class ConfigurationWrapper
     private static function getFromHornConfiguration($key)
     {
         if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg'][$key])) {
-            return trim($GLOBALS['horncfg'][$key]);
+            return trim('' . $GLOBALS['horncfg'][$key]);
         }
         return NULL;
     }
