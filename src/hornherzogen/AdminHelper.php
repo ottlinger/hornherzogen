@@ -21,9 +21,9 @@ class AdminHelper
         $user = $this->getUserName();
 
         if (boolval($this->isAdmin())) {
-            return '<span class="glyphicon glyphicon-user" style="color: red;"></span> ' . $user . '</a>';
+            return '<span class="glyphicon glyphicon-user" style="color: red;"></span> ' . $user . '@' . $this->getHost() . '</a>';
         }
-        return '<span class="glyphicon glyphicon-user"></span> ' . $user . '</a>';
+        return '<span class="glyphicon glyphicon-user"></span> ' . $user . '@' . $this->getHost() . '</a>';
     }
 
     public function getUserName()
@@ -40,6 +40,15 @@ class AdminHelper
             return true;
         }
         return false;
+    }
+
+    public function getHost()
+    {
+        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
+            return trim($_SERVER['SERVER_NAME']);
+        }
+        // to avoid DNS manipulation to get superadmin access
+        return self::FALLBACK_HOST;
     }
 
     public function showLogoutMenu()
@@ -81,15 +90,6 @@ class AdminHelper
             ";
         }
         return "<li><a href=\"#\"><span class=\"glyphicon glyphicon-road\"></span>No Superadmin-Menu</a></li>";
-    }
-
-    public function getHost()
-    {
-        if ($this->formHelper->isSetAndNotEmptyInArray($_SERVER, 'SERVER_NAME')) {
-            return trim($_SERVER['SERVER_NAME']);
-        }
-        // to avoid DNS manipulation to get superadmin access
-        return self::FALLBACK_HOST;
     }
 
     /**
