@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace hornherzogen\db;
 
-use hornherzogen\db\DatabaseHelper;
-
 /**
  * Class ApplicantDatabaseParser encapsulates an INSERT INTO-sql String from a given applicant.
  * @package hornherzogen\db

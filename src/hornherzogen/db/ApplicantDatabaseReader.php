@@ -5,6 +5,7 @@ namespace hornherzogen\db;
 
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
+    // implemented by #66
     public function listByFoodCategoryPerWeek($week)
     {
         return NULL;
