@@ -5,6 +5,8 @@ use \hornherzogen\ConfigurationWrapper;
 
 echo "<h1>Retrieving bookings from DB ....</h1>";
 
+echo "<p>If you do not see anything, there are no room bookings yet.</p>";
+
 $config = new ConfigurationWrapper();
 
 if ($config->isValidDatabaseConfig()) {
