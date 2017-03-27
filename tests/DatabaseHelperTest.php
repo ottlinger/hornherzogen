@@ -52,7 +52,7 @@ class DatabaseHelperTest extends TestCase
 
     public function testPreventSQLInjectionWithParameterNull()
     {
-        $this->assertNull($this->helper->makeSQLCapable(NULL));
+        $this->assertNull($this->helper->makeSQLCapable(NULL, NULL));
     }
 
     public function testPreventSQLInjectionWithParameterGiven()
