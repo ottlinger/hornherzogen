@@ -1,18 +1,19 @@
 $(function () {
         $("#room").change(
             function () {
-                $("#together1-group").show();
-                $("#together2-group").show();
+                var hh_firstPersonSelector = $("#together1-group");
+                var hh_secondPersonSelector = $("#together2-group");
+
+                hh_firstPersonSelector.show();
+                hh_secondPersonSelector.show();
 
                 if (this.selectedIndex === 2) {
-                    $("#together1-group").hide();
-                    $("#together2-group").hide();
-                    return;
+                    hh_firstPersonSelector.hide();
+                    hh_secondPersonSelector.hide();
                 }
 
                 if (this.selectedIndex === 1) {
-                    $("#together2-group").hide();
-                    return;
+                    hh_secondPersonSelector.hide();
                 }
 
             });
