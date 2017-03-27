@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 class DatabaseHelperTest extends TestCase
 {
     private $helper = null;
+    private $pdo = null;
 
     /**
      * Setup the test environment.
@@ -12,6 +13,7 @@ class DatabaseHelperTest extends TestCase
     public function setUp()
     {
         $this->helper = new DatabaseHelper();
+        $this->pdo = new PDO('sqlite::memory:');
     }
 
     /**
@@ -20,6 +22,7 @@ class DatabaseHelperTest extends TestCase
     public function tearDown()
     {
         $this->helper = null;
+        $this->pdo = null;
     }
 
     /**
@@ -44,6 +47,32 @@ class DatabaseHelperTest extends TestCase
 
     public function testTrimAndMaskNull()
     {
-        $this->assertNull($this->helper->trimAndmask(NULL));
+        $this->assertNull($this->helper->trimAndMask(NULL));
     }
+
+    public function testPreventSQLInjectionWithParameterNull()
+    {
+        $this->assertNull($this->helper->makeSQLCapable(NULL));
+    }
+
+    public function testPreventSQLInjectionWithParameterGiven()
+    {
+        $this->assertEquals("'no change needed'", $this->helper->makeSQLCapable("no change needed", $this->pdo));
+    }
+
+    public function testPreventSQLInjectionWithSqlInParameterGiven()
+    {
+        $this->assertEquals("' \%sdasd \_ff\_'", $this->helper->makeSQLCapable(" %sdasd _ff_", $this->pdo));
+    }
+
+    public function testPreventSQLInjectionWithParameterGivenWithoutDatabaseConnection()
+    {
+        $this->assertEquals("'no change needed'", $this->helper->makeSQLCapable("no change needed", NULL));
+    }
+
+    public function testPreventSQLInjectionWithSqlInParameterGivenWithoutDatabaseConnection()
+    {
+        $this->assertEquals("' \%sdasd \_ff\_'", $this->helper->makeSQLCapable(" %sdasd _ff_", NULL));
+    }
+
 }

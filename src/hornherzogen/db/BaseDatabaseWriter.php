@@ -55,19 +55,4 @@ class BaseDatabaseWriter
         return boolval($this->healthy);
     }
 
-    // TODO #65: extract to DatabaseHelper, what is the sense of that method again? Make database a parameter and move to DatabaseHelper
-    public function makeSQLCapable($input)
-    {
-        if (isset($input)) {
-            if (isset($this->database)) {
-                $mask = $this->database->quote($input);
-            } else {
-                $mask = "'" . $input . "'";
-            }
-            $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
-            return $mask;
-        }
-        return $input;
-    }
-
 }
