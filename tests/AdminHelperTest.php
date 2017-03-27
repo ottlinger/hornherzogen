@@ -113,10 +113,10 @@ class AdminHelperTest extends TestCase
     public function testGetHostFallbackToNull()
     {
         $_SERVER['SERVER_NAME'] = NULL;
-        $this->assertNull($this->adminHelper->getHost());
+        $this->assertEquals("nohost", $this->adminHelper->getHost());
 
         $_SERVER['SERVER_NAME'] = '';
-        $this->assertNull($this->adminHelper->getHost());
+        $this->assertEquals("nohost", $this->adminHelper->getHost());
     }
 
 }

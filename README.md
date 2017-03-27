@@ -187,6 +187,7 @@ The configuration file needs to be created in order to set certain application p
 | dbname | database name |
 | dbuser | database username |
 | dbpassword | database password |
+| superuser | database password |
 
 See example configurations in
 [configuration example of this project](inc/config.ini.php.template)

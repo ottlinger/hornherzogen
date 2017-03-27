@@ -6,6 +6,7 @@ namespace hornherzogen;
 class AdminHelper
 {
     const FALLBACK_USER = "none";
+    const FALLBACK_HOST = "nohost";
     private $config;
     private $formHelper;
 
@@ -88,7 +89,7 @@ class AdminHelper
             return trim($_SERVER['SERVER_NAME']);
         }
         // to avoid DNS manipulation to get superadmin access
-        return NULL;
+        return self::FALLBACK_HOST;
     }
 
     /**
