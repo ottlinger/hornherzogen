@@ -12,6 +12,7 @@ class BaseDatabaseWriter
 {
     protected $database;
     protected $formHelper;
+    protected $databaseHelper;
     private $config;
     private $healthy = NULL;
 
@@ -19,6 +20,7 @@ class BaseDatabaseWriter
     {
         $this->config = new ConfigurationWrapper();
         $this->formHelper = new FormHelper();
+        $this->databaseHelper = new DatabaseHelper();
 
         if (isset($databaseConnection)) {
             $this->database = $databaseConnection;
