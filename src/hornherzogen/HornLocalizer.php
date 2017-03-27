@@ -91,7 +91,9 @@ class HornLocalizer
     }
 
     /**
-     * Store given language in session.
+     * Store given language in session and return the saved language.
+     * @param $language current language string/ISO-2
+     * @return mixed given language stored in session.
      */
     private static function storeInSession($language)
     {
