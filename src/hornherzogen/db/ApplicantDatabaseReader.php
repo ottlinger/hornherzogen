@@ -9,7 +9,24 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     public function listByFoodCategoryPerWeek($week)
     {
         if ($this->isHealthy()) {
+            $results = array();
+            if (self::isHealthy()) {
+                $query = "SELECT * from `applicants` a";
+                // if week == null - return all, else for the given week
+                if (isset($week) && strlen($week)) {
+                    $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+                }
 
+                $dbResult = $this->database->query($query);
+                if (false === $dbResult) {
+                    $error = $this->database->errorInfo();
+                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+                }
+                while ($row = $dbResult->fetch()) {
+                    // TBD $results[] = $this->fromDatabaseToObject($row);
+                }
+            }
+            return $results;
         }
         return array();
     }
