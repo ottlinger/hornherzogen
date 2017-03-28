@@ -23,7 +23,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
                     print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
                 }
                 while ($row = $dbResult->fetch()) {
-                    // TBD $results[] = $this->fromDatabaseToObject($row);
+                    $results[] = $this->databaseHelper->fromDatabaseToObject($row);
                 }
             }
             return $results;
