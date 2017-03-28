@@ -16,6 +16,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
                 if (isset($week) && strlen($week)) {
                     $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
                 }
+                $query .= " ORDER by a.week, a.essen";
 
                 $dbResult = $this->database->query($query);
                 if (false === $dbResult) {
