@@ -13,8 +13,8 @@ class BaseDatabaseWriter
     protected $database;
     protected $formHelper;
     protected $databaseHelper;
+    protected $healthy = NULL;
     private $config;
-    private $healthy = NULL;
 
     function __construct($databaseConnection = NULL)
     {

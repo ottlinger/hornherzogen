@@ -40,7 +40,7 @@ class ApplicantDatabaseReaderTest extends TestCase
 
     public function testFoodReservations()
     {
-        $this->assertNull($this->reader->listByFoodCategoryPerWeek(NULL));
+        $this->assertEmpty($this->reader->listByFoodCategoryPerWeek(NULL));
     }
 
 

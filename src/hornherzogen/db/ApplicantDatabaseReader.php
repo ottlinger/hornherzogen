@@ -8,7 +8,10 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     // implemented by #66
     public function listByFoodCategoryPerWeek($week)
     {
-        return NULL;
+        if ($this->isHealthy()) {
+
+        }
+        return array();
     }
 
     public function listByRoomCategoryPerWeek($week)
@@ -18,12 +21,18 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         // 2 -> all double rooms
         // 3 -> all triple rooms
         // 4 -> all other rooms
-        return array(
+        $results = array(
             '1' => array(),
             '2' => array(),
             '3' => array(),
             '4' => array(),
         );
+
+        if ($this->isHealthy()) {
+
+        }
+
+        return $results;
     }
 
 }
