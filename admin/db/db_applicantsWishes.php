@@ -171,8 +171,6 @@ $statusReader = new StatusDatabaseReader();
 
             echo "<h2>Kategorie " . $category . "</h2>";
 
-            var_dump($applicants);
-
             if (!isset($applicants) || !boolval($applicants)) {
                 continue;
             }
@@ -184,24 +182,15 @@ $statusReader = new StatusDatabaseReader();
             if ($adminHelper->isAdmin()) {
                 echo "<th>AKTIONEN</th>";
             }
-            echo "<th>Woche</th>";
             echo "<th>Sprache</th>";
             echo "<th>Anrede</th>";
             echo "<th>Vorname</th>";
             echo "<th>Nachname</th>";
             echo "<th>Gesamtname</th>";
-            echo "<th>Adresse</th>";
-            echo "<th>PLZ/Stadt</th>";
-            echo "<th>Land</th>";
-            echo "<th>E-Mail</th>";
             echo "<th>Dojo</th>";
-            echo "<th>Graduierung</th>";
-            echo "<th>twa?</th>";
             echo "<th>Zimmer</th>";
             echo "<th>Zusammenlegungswunsch</th>";
-            echo "<th>Essen</th>";
             echo "<th>Umbuchbar?</th>";
-            echo "<th>Anmerkungen</th>";
             echo "<th>aktueller Status</th>";
             echo "<th>Statusübersicht</th>";
             echo "</tr>";
@@ -221,24 +210,14 @@ $statusReader = new StatusDatabaseReader();
                 </td>';
                 }
 
-                echo "<td>" . $applicant->getWeek() . "</td>";
                 echo "<td>" . $applicant->getLanguage() . "</td>";
                 echo "<td>" . $applicant->getGender() . "</td>";
                 echo "<td>" . $applicant->getFirstname() . "</td>";
                 echo "<td>" . $applicant->getLastname() . "</td>";
-                echo "<td>" . $applicant->getFullName() . "</td>";
-                echo "<td>" . $applicant->getStreet() . " " . $applicant->getHouseNumber() . "</td>";
-                echo "<td>" . $applicant->getZipCode() . " " . $applicant->getCity() . "</td>";
-                echo "<td>" . $applicant->getCountry() . "</td>";
-                echo "<td>" . $applicant->getEmail() . "</td>";
                 echo "<td>" . $applicant->getDojo() . "</td>";
-                echo "<td>" . $applicant->getGrading() . " seit " . $applicant->getDateOfLastGrading() . "</td>";
-                echo "<td>" . (strlen($applicant->getTwaNumber()) ? " ja,  " . $applicant->getTwaNumber() : "nein") . "</td>";
                 echo "<td>" . $applicant->getRoom() . "</td>";
                 echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-                echo "<td>" . $applicant->getFoodCategory() . "</td>";
                 echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-                echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
 
                 $statId = $statusReader->getById($applicant->getCurrentStatus());
                 if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
