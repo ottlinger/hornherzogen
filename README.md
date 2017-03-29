@@ -1,7 +1,7 @@
 # Project hornherzogen
 Pet project to manage seminar registration for Herzogenhorn 2017
 
-## Release 1.0
+## Release v1.0.0
 
 Live as of 2017-03-20.
 
