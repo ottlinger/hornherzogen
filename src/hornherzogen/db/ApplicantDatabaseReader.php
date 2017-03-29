@@ -5,7 +5,12 @@ namespace hornherzogen\db;
 
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
-    // implemented by #66
+    /**
+     * Retrieve all applicants per week, sort the resulting list by week and food category.
+     *
+     * @param $week week choice, null for both weeks.
+     * @return array a simple list of applicants to show in the UI
+     */
     public function listByFoodCategoryPerWeek($week)
     {
         if ($this->isHealthy()) {
@@ -32,13 +37,18 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return array();
     }
 
+    /**
+     * Get a list of applicants per week and sort them into an array by room category:
+     * array of array
+     * 1 -> all single rooms
+     * 2 -> all double rooms
+     * 3 -> all triple rooms
+     * 4 -> all other rooms
+     * @param $week week choice, null for both weeks.
+     * @return array a simple list of applicants to show in the UI
+     */
     public function listByRoomCategoryPerWeek($week)
     {
-        // array of array
-        // 1 -> all single rooms
-        // 2 -> all double rooms
-        // 3 -> all triple rooms
-        // 4 -> all other rooms
         $results = array(
             '1' => array(),
             '2' => array(),
