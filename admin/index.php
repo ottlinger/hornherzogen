@@ -76,7 +76,7 @@ $localizer = new HornLocalizer();
                         <li class="dropdown-header">Verwaltung</li>
                         <li><a href="#">Status ändern</a></li>
                         <li><a href="#">Raumplan pro Woche</a></li>
-                        <li><a href="#">Wünsche der Teilnehmer</a></li>
+                        <li><a href="db/db_applicantsWishes.php">Wünsche der Teilnehmer</a></li>
                         <li><a href="#">Buchungen der Zimmer</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
