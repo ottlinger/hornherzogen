@@ -166,14 +166,15 @@ $statusReader = new StatusDatabaseReader();
                     break;
 
                 default:
-                    $category = " ohne Wünsche";
+                    $category = " ohne Wünsche (sollte leer sein im Produktbetrieb)";
             }
 
-            echo "<h2>Kategorie " . $category . "</h2>";
 
             if (!isset($applicants) || !boolval($applicants)) {
+                echo "<h2>Kategorie " . $category . "</h2>";
                 continue;
             }
+            echo "<h2>Kategorie " . $category . " (" . sizeof($applicants) . ")</h2>";
 
             echo '<div class="table-responsive"><table class="table table-striped">';
             echo "<thead>";
