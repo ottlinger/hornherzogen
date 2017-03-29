@@ -96,7 +96,7 @@ $statusReader = new StatusDatabaseReader();
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> eingegangene Anmeldungen
+            <span class="glyphicon glyphicon-sunglasses"></span> Anmeldungen nach Essenswunsch
         </h1>
 
         <p>
@@ -147,8 +147,6 @@ $statusReader = new StatusDatabaseReader();
         }
 
         $applicants = $applicantReader->listByFoodCategoryPerWeek($week);
-
-        var_dump($applicants);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
