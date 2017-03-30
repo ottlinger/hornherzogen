@@ -29,7 +29,8 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
                     print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
                 }
                 while ($row = $dbResult->fetch()) {
-                    $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+                    //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
+                    $results[] = $row();
                 }
             }
             return $results;
