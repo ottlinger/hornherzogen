@@ -72,9 +72,9 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             $query .= " FROM `applicants` a WHERE  ";
             // if week == null - return all, else for the given week
             if (isset($week) && strlen($week)) {
-                $query .= " a.week LIKE '%" . trim('' . $week) . "%'";
+                $query .= " a.week LIKE '%" . trim('' . $week) . "%' AND ";
             }
-            $query .= " AND a.id not in (select applicantId from `roombooking`)";
+            $query .= " a.id not in (select applicantId from `roombooking`)";
             $query .= " ORDER BY a.combinedName";
 
             $dbResult = $this->database->query($query);
@@ -83,8 +83,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
             while ($row = $dbResult->fetch()) {
-                //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
-                $results[] = $row;
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
         return $results;
