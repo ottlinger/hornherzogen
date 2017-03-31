@@ -136,7 +136,7 @@ $roomReader = new RoomDatabaseReader();
         </form>
 
         <?php
-        $rooms = $roomReader->listRooms($week);
+        $rooms = $roomReader->listRoomBookings($week);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
