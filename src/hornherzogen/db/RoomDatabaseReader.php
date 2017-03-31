@@ -13,7 +13,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
     {
         $results = array();
         if (self::isHealthy()) {
-            $dbResult = $this->database->query("SELECT r.name, r.capacity from `rooms` r ORDER BY r.name");
+            $dbResult = $this->database->query("SELECT r.id, r.name, r.capacity from `rooms` r ORDER BY r.name");
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
@@ -56,6 +56,16 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             }
         }
         return $results;
+    }
+
+    // b) get rooms that have capacity
+    public function listRoomsWithCapacityInWeek($week) {
+        return $this->listRooms();
+    }
+
+    // a) get list of all applicants that are not booked per week
+    public function listApplicantsWithoutBookingsInWeek($week) {
+        return array();
     }
 
 }

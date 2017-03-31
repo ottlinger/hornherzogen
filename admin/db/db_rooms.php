@@ -109,6 +109,7 @@ $roomReader = new RoomDatabaseReader();
                 echo "<tr>";
                 echo "<th>Name</th>";
                 echo "<th>Kapazität</th>";
+                echo "<th>Aktionen</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
@@ -118,6 +119,7 @@ $roomReader = new RoomDatabaseReader();
                     echo "<td>" . $room[name] . "</td>";
                     $roomCount += $room[capacity];
                     echo "<td>" . $room[capacity] . "</td>";
+                    echo "<td>Starte <a href='db_book.php?id=".$room[id]."'>Buchen</a> für Raum " . $room[name] . "</td>";
                     echo "</tr>";
                 }
                 // stats
