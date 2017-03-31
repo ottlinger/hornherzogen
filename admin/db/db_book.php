@@ -164,11 +164,12 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
         echo "<h3>verfügbare Räume: ".sizeof($rooms)."</h3>";
         echo "<h3>noch zu buchende Bewerber: ".sizeof($applicants)."</h3>";
 
+        echo "<h2>Bewerberlist für Dropdown</h2>";
 
         echo '<div class="table-responsive"><table class="table table-striped">';
             echo "<thead>";
             echo "<tr>";
-            echo "<th>DB-Id</th>";
+            echo "<th>Nummer</th>";
             if ($adminHelper->isAdmin()) {
                 echo "<th>AKTIONEN</th>";
             }
@@ -181,15 +182,14 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
             echo "<th>Zimmer</th>";
             echo "<th>Zusammenlegungswunsch</th>";
             echo "<th>Umbuchbar?</th>";
-            echo "<th>aktueller Status</th>";
-            echo "<th>Statusübersicht</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
 
+            $number = 0;
             foreach ($applicants as $applicant) {
                 echo "<tr>";
-                echo "<td>" . $applicant->getPersistenceId() . "</td>";
+                echo "<td>" . ++$number. "</td>";
 
                 if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                     echo '<td>
@@ -208,27 +208,17 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
                 echo "<td>" . $applicant->getRoom() . "</td>";
                 echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
                 echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-
-                $statId = $statusReader->getById($applicant->getCurrentStatus());
-                if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-                    echo "<td>" . $statId[0]['name'] . "</td>";
-                } else {
-                    echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-                }
-
-                echo "<td>";
-                echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-                echo "MAILED: " . $applicant->getMailedAt() . "</br>";
-                echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
-                echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
-                echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
-                echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
-                echo "CANCELLED: " . $applicant->getCancelledAt();
-                echo "</td>";
                 echo "</tr>";
             }
             echo "</tbody>";
             echo "</table></div>";
+
+
+        echo "<h2>verfügbare Räume: TBD</h2>";
+
+        echo "<h2>existierende Buchungen für aktuellen Raum $id</h2>";
+        $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id,$week);
+        var_dump($roomBookings);
 
         } else {
             echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
