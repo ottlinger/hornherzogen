@@ -82,6 +82,7 @@ $localizer = new HornLocalizer();
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
+                        <li><a href="db/db_roomsByWeek.php">Raumverfügbarkeit pro Woche</a></li>
                     </ul>
                 </li>
                 <?php echo $adminHelper->showSuperUserMenu(); ?>
