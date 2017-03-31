@@ -156,10 +156,16 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
 
         // TODO
         // a) get list of all applicants that are not booked per week
-        // b) get rooms that have capacity
         $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
 
-            echo '<div class="table-responsive"><table class="table table-striped">';
+        // b) get rooms that have capacity
+        $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
+
+        echo "<h3>verfügbare Räume: ".sizeof($rooms)."</h3>";
+        echo "<h3>noch zu buchende Bewerber: ".sizeof($applicants)."</h3>";
+
+
+        echo '<div class="table-responsive"><table class="table table-striped">';
             echo "<thead>";
             echo "<tr>";
             echo "<th>DB-Id</th>";
