@@ -100,6 +100,8 @@ $roomReader = new RoomDatabaseReader();
             <?php
             if ($config->isValidDatabaseConfig()) {
 
+
+                $roomCount = 0;
                 $rooms = $roomReader->listRooms();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
@@ -114,9 +116,14 @@ $roomReader = new RoomDatabaseReader();
                 foreach ($rooms as $room) {
                     echo "<tr>";
                     echo "<td>" . $room[name] . "</td>";
+                    $roomCount += $room[capacity];
                     echo "<td>" . $room[capacity] . "</td>";
                     echo "</tr>";
                 }
+                // stats
+                echo "<tr><td><strong>SUMME</strong></td><td><strong>" . $roomCount . "</strong></td></tr>";
+
+
                 echo "</tbody>";
                 echo "</table></div>";
 
