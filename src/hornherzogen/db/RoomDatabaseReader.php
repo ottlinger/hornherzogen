@@ -34,7 +34,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             }
             while ($row = $dbResult->fetch()) {
                 //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
-                $results[] = $row();
+                $results[] = $row;
             }
         }
         return $results;

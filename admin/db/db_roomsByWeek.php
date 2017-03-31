@@ -138,29 +138,21 @@ $roomReader = new RoomDatabaseReader();
         <?php
         $rooms = $roomReader->listRooms($week);
 
-        echo "<pre>" . var_dump($rooms) . "</pre>";
-
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
         echo "<tr>";
-        echo "<th>DB-Id</th>";
-        echo "<th>Woche</th>";
-        echo "<th>Anrede</th>";
-        echo "<th>Vorname</th>";
-        echo "<th>Nachname</th>";
-        echo "<th>Essen</th>";
-        echo "<th>aktueller Status</th>";
-        echo "<th>Statusübersicht</th>";
+        echo "<th>Name</th>";
+        echo "<th>Kapazität</th>";
+        echo "<th>gebucht</th>";
+        echo "<th>verfügbar</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 
         foreach ($rooms as $room) {
             echo "<tr>";
-            var_dump($row);
-//            echo "<td>" . $row[name] . "</td>";
-
-
+            echo "<td>" . $room[name] . "</td>";
+            echo "<td>" . $room[capacity] . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
