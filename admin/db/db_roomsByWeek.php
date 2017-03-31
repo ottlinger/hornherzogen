@@ -4,8 +4,7 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
-use hornherzogen\db\ApplicantDatabaseReader;
-use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\db\RoomDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
@@ -13,9 +12,9 @@ use hornherzogen\HornLocalizer;
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $formHelper = new FormHelper();
-$applicantReader = new ApplicantDatabaseReader();
 $config = new ConfigurationWrapper();
 $statusReader = new StatusDatabaseReader();
+$roomReader = new RoomDatabaseReader();
 
 ?>
 <html lang="en">
@@ -139,23 +138,12 @@ $statusReader = new StatusDatabaseReader();
         </form>
 
         <?php
-        // TODO remove?!
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
-            $remover = new ApplicantDatabaseWriter();
-            $id = $formHelper->filterUserInput($_POST['aid']);
-            echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-            $_POST['aid'] = NULL;
-        }
-
-        $applicants = $applicantReader->listByFoodCategoryPerWeek($week);
+        $rooms = $roomReader->listRooms($week);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
         echo "<tr>";
         echo "<th>DB-Id</th>";
-        if ($adminHelper->isAdmin()) {
-            echo "<th>AKTIONEN</th>";
-        }
         echo "<th>Woche</th>";
         echo "<th>Anrede</th>";
         echo "<th>Vorname</th>";
@@ -170,53 +158,13 @@ $statusReader = new StatusDatabaseReader();
         $veg = 0;
         $meat = 0;
 
-        foreach ($applicants as $applicant) {
+        foreach ($rooms as $room) {
             echo "<tr>";
-            echo "<td>" . $applicant->getPersistenceId() . "</td>";
-
-            if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
-                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
-                    </form>
-                </td>';
-            }
-
-            echo "<td>" . $applicant->getWeek() . "</td>";
-            echo "<td>" . $applicant->getGender() . "</td>";
-            echo "<td>" . $applicant->getFirstname() . "</td>";
-            echo "<td>" . $applicant->getLastname() . "</td>";
-            echo "<td>" . $applicant->getFoodCategory() . "</td>";
-            // parse food category and count
-            if ('veg' == $applicant->getFoodCategory()) {
-                $veg++;
-            } else {
-                $meat++;
-            }
-
-            $statId = $statusReader->getById($applicant->getCurrentStatus());
-            if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-                echo "<td>" . $statId[0]['name'] . "</td>";
-            } else {
-                echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-            }
-
-            echo "<td>";
-            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-            echo "MAILED: " . $applicant->getMailedAt() . "</br>";
-            echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
-            echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
-            echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
-            echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
-            echo "CANCELLED: " . $applicant->getCancelledAt();
-            echo "</td>";
+            echo "<td>" . $row['name'] . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
         echo "</table></div>";
-
-        echo "<h2>Zusammenfassung</h2><p>vegetarisch: " . $veg . " / nicht explizit vegetarisch: " . $meat . "</p>";
 
         } else {
             echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
