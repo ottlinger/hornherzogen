@@ -5,7 +5,6 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\RoomDatabaseReader;
-use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
@@ -13,7 +12,6 @@ $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $formHelper = new FormHelper();
 $config = new ConfigurationWrapper();
-$statusReader = new StatusDatabaseReader();
 $roomReader = new RoomDatabaseReader();
 
 ?>
@@ -140,6 +138,8 @@ $roomReader = new RoomDatabaseReader();
         <?php
         $rooms = $roomReader->listRooms($week);
 
+        echo "<pre>" . var_dump($rooms) . "</pre>";
+
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
         echo "<tr>";
@@ -155,12 +155,12 @@ $roomReader = new RoomDatabaseReader();
         echo "</thead>";
         echo "<tbody>";
 
-        $veg = 0;
-        $meat = 0;
-
         foreach ($rooms as $room) {
             echo "<tr>";
-            echo "<td>" . $row['name'] . "</td>";
+            var_dump($row);
+//            echo "<td>" . $row[name] . "</td>";
+
+
             echo "</tr>";
         }
         echo "</tbody>";

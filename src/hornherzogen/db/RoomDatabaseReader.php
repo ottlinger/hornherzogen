@@ -13,28 +13,31 @@ class RoomDatabaseReader extends BaseDatabaseWriter
      */
     public function listRooms($week)
     {
-        if ($this->isHealthy()) {
-            $results = array();
-            if (self::isHealthy()) {
-                $query = "SELECT r.name, r.capacity, b.* from `rooms` r, `booking` b";
-                // if week == null - return all, else for the given week
-                if (isset($week) && strlen($week)) {
-                    $query .= " WHERE b.week LIKE '%" . trim('' . $week) . "%'";
-                }
-                $query .= " ORDER by b.week, r.name";
-                $dbResult = $this->database->query($query);
-                if (false === $dbResult) {
-                    $error = $this->database->errorInfo();
-                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                }
-                while ($row = $dbResult->fetch()) {
-                    //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
-                    $results[] = $row();
-                }
+        echo "<h4>healthy</h4>";
+
+        $results = array();
+        if (self::isHealthy()) {
+
+            $query = "SELECT r.name, r.capacity from `rooms` r ORDER BY r.name";
+
+//                $query = "SELECT r.name, r.capacity, b.* from `rooms` r, `roombooking` b";
+            // if week == null - return all, else for the given week
+//                if (isset($week) && strlen($week)) {
+//                    $query .= " WHERE b.week LIKE '%" . trim('' . $week) . "%'";
+//                }
+//                $query .= " ORDER by b.week, r.name";
+
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
-            return $results;
+            while ($row = $dbResult->fetch()) {
+                //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
+                $results[] = $row();
+            }
         }
-        return array();
+        return $results;
     }
 
 }
