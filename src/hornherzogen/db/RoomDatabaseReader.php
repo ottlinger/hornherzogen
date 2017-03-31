@@ -37,14 +37,13 @@ class RoomDatabaseReader extends BaseDatabaseWriter
         $results = array();
         if (self::isHealthy()) {
 
-            $query = "SELECT r.name, r.capacity from `rooms` r ORDER BY r.name";
-
-//                $query = "SELECT r.name, r.capacity, b.* from `rooms` r, `roombooking` b";
+            $query = "select r.name as roomname, r.capacity, a.combinedName, a.week";
+            $query .= " from roombooking b, applicants a, rooms r where a.id=b.applicantId and r.id=b.roomId";
             // if week == null - return all, else for the given week
-//                if (isset($week) && strlen($week)) {
-//                    $query .= " WHERE b.week LIKE '%" . trim('' . $week) . "%'";
-//                }
-//                $query .= " ORDER by b.week, r.name";
+            if (isset($week) && strlen($week)) {
+                $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+            }
+            $query .= " order by a.combinedName";
 
             $dbResult = $this->database->query($query);
             if (false === $dbResult) {

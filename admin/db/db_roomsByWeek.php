@@ -93,7 +93,7 @@ $roomReader = new RoomDatabaseReader();
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> Anmeldungen nach Essenswunsch
+            <span class="glyphicon glyphicon-sunglasses"></span> Raumliste mit Anmeldungen pro Lehrgangswoche
         </h1>
 
         <p>
@@ -141,18 +141,20 @@ $roomReader = new RoomDatabaseReader();
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
         echo "<tr>";
-        echo "<th>Name</th>";
+        echo "<th>Raumname</th>";
         echo "<th>Kapazität</th>";
-        echo "<th>gebucht</th>";
-        echo "<th>verfügbar</th>";
+        echo "<th>belegt mit</th>";
+        echo "<th>in Woche</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 
         foreach ($rooms as $room) {
             echo "<tr>";
-            echo "<td>" . $room[name] . "</td>";
+            echo "<td>" . $room[roomname] . "</td>";
             echo "<td>" . $room[capacity] . "</td>";
+            echo "<td>" . $room[combinedName] . "</td>";
+            echo "<td>" . $room[week] . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
