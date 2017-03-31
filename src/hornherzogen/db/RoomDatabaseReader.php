@@ -65,7 +65,29 @@ class RoomDatabaseReader extends BaseDatabaseWriter
 
     // a) get list of all applicants that are not booked per week
     public function listApplicantsWithoutBookingsInWeek($week) {
-        return array();
+        $results = array();
+        if (self::isHealthy()) {
+
+            $query = "SELECT a.* ";
+            $query .= " FROM `applicants` a WHERE  ";
+            // if week == null - return all, else for the given week
+            if (isset($week) && strlen($week)) {
+                $query .= " a.week LIKE '%" . trim('' . $week) . "%'";
+            }
+            $query .= " AND a.id not in (select applicantId from `roombooking`)";
+            $query .= " ORDER BY a.combinedName";
+
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
+                $results[] = $row;
+            }
+        }
+        return $results;
     }
 
 }
