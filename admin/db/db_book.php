@@ -110,9 +110,10 @@ if (!isset($id)) {
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-bed"></span> Buchungen für Zimmer
+            <span class="glyphicon glyphicon-bed"></span>
             <?php
-            echo $id;
+            $room = $roomReader->getRoomById($id)[0];
+            echo "Buchungen für $room[capacity]er '$room[name]' (DB#$room[id])";
             ?>
         </h1>
 
@@ -149,6 +150,7 @@ if (!isset($id)) {
                     </select>
                 </div>
             </div>
+
             <noscript>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">

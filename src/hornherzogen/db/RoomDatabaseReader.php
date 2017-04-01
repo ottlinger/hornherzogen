@@ -65,6 +65,26 @@ class RoomDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
+    /**
+     * Retrieve room by id.
+     * @return array a simple list of rooms to show in the UI
+     */
+    public function getRoomById($roomId)
+    {
+        $results = array();
+        if (self::isHealthy() && is_numeric($roomId) && isset($roomId)) {
+            $dbResult = $this->database->query("SELECT * from `rooms` WHERE id = " . $this->databaseHelper->makeSQLCapable($roomId));
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $results[] = $row;
+            }
+        }
+        return $results;
+    }
+
     // a) get list of all applicants that are not booked per week
 
     public function listApplicantsWithoutBookingsInWeek($week)
