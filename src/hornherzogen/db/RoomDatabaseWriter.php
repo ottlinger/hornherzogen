@@ -98,4 +98,17 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         return $results;
     }
 
+    public function performBooking($roomId, $applicantId)
+    {
+        if (isset($roomId) && isset($applicantId) && is_numeric($roomId) && is_numeric($applicantId)) {
+            $result = $this->database->exec("INSERT INTO `roombooking` (roomId, applicantId) VALUES (" . $this->databaseHelper->trimAndMask($roomId) . "," . $this->databaseHelper->trimAndMask($applicantId) . ")");
+            if (false === $result) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            return $this->database->lastInsertId();
+        }
+        return NULL;
+    }
+
 }
