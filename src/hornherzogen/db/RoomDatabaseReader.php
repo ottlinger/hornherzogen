@@ -73,7 +73,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
     {
         $results = array();
         if (self::isHealthy() && is_numeric($roomId) && isset($roomId)) {
-            $dbResult = $this->database->query("SELECT * from `rooms` WHERE id = " . $this->databaseHelper->makeSQLCapable($roomId, $this->database));
+            $dbResult = $this->database->query("SELECT * from `rooms` WHERE id = " . $this->databaseHelper->trimAndMask($roomId));
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
@@ -125,7 +125,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
                 $query .= " a.week LIKE '%" . trim('' . $week) . "%' AND ";
             }
             $query .= " b.applicantId = a.id AND ";
-            $query .= " b.id = " . $this->databaseHelper->makeSQLCapable($roomNumber, $this->database);
+            $query .= " b.id = " . $this->databaseHelper->trimAndMask($roomNumber);
             $query .= " ORDER BY a.combinedName";
 
             $dbResult = $this->database->query($query);
