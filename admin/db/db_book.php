@@ -112,7 +112,7 @@ if (!isset($id)) {
             <span class="glyphicon glyphicon-bed"></span>
             <?php
             $room = $roomReader->getRoomById($id)[0];
-            echo "Buchungen für $room[capacity]er '$room[name]' (DB#$room[id])";
+            echo "Buchungen für $room[capacity]er $room[name] (DB#$room[id])";
             ?>
         </h1>
 
