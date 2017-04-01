@@ -157,7 +157,7 @@ if (!isset($id)) {
             ?>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="week">Welchen Raum bebuchen?</label>
+                <label class="col-sm-2 control-label" for="id">Welchen Raum bebuchen?</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="id" name="id" onchange="this.form.submit()">
                         <?php
