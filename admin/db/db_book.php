@@ -5,8 +5,8 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
-use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\RoomDatabaseReader;
+use hornherzogen\db\RoomDatabaseWriter;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
@@ -16,6 +16,7 @@ $formHelper = new FormHelper();
 $applicantReader = new ApplicantDatabaseReader();
 $config = new ConfigurationWrapper();
 $roomReader = new RoomDatabaseReader();
+$roomWriter = new RoomDatabaseWriter();
 
 // depending on the way we are called we decide which id to use
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
@@ -163,7 +164,7 @@ if (!isset($id)) {
                             $roomId = $oneRoom['id'];
                             $selected = ($id == $roomId) ? ' selected' : '';
 
-                            echo '<option value="' . $roomId . '"' . $selected . '>' . $oneRoom['name'] . ' (' . $oneRoom['capacity'] . 'er)</option>';
+                            echo '<option value="' . $roomId . '" ' . $selected . '>' . $oneRoom['name'] . ' (' . $oneRoom['capacity'] . 'er)</option>';
                         }
                         ?>
                     </select>
@@ -180,12 +181,11 @@ if (!isset($id)) {
         </form>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
-            // TODO perform booking!
-            $remover = new ApplicantDatabaseWriter();
-            $id = $formHelper->filterUserInput($_POST['aid']);
-            echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-            $_POST['aid'] = NULL;
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])  && isset($_POST['week'])  && isset($_POST['applicantId']) ) {
+
+            $persistId = $roomWriter->performBooking($_POST['id'],$_POST['applicantId'])->removeById($id);
+            echo  "<p>Buchung angelegt mit id #" . $persistId . "</p>";
+            $_POST['applicantId'] = NULL;
         }
 
         // TODO
