@@ -17,7 +17,19 @@ $applicantReader = new ApplicantDatabaseReader();
 $config = new ConfigurationWrapper();
 $roomReader = new RoomDatabaseReader();
 
-$id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput($_POST['id']);
+// depending on the way we are called we decide which id to use
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
+    $id = $formHelper->filterUserInput($_POST['id']);
+}
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+    $id = $formHelper->filterUserInput($_GET['id']);
+}
+
+// die if we are called with crapy parameters
+if (!isset($id)) {
+    die();
+}
 
 ?>
 <html lang="en">
@@ -26,7 +38,7 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 Anmeldung Zimmerliste">
+    <meta name="description" content="Herzogenhorn 2017 Anmeldung Raumbuchungen">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
@@ -112,7 +124,8 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
 
             ?>
 
-        <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']).'?id='.$id; ?>">
+        <form class="form-horizontal" method="post"
+              action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?id=' . $id; ?>">
 
             <input type="hidden" value="<?php echo $id; ?>" name="id"/>
 
@@ -161,63 +174,63 @@ $id = $formHelper->filterUserInput($_GET['id']) || $formHelper->filterUserInput(
         // b) get rooms that have capacity
         $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
 
-        echo "<h3>verfügbare Räume: ".sizeof($rooms)."</h3>";
-        echo "<h3>noch zu buchende Bewerber: ".sizeof($applicants)."</h3>";
+        echo "<h3>verfügbare Räume: " . sizeof($rooms) . "</h3>";
+        echo "<h3>noch zu buchende Bewerber: " . sizeof($applicants) . "</h3>";
 
         echo "<h2>Bewerberlist für Dropdown</h2>";
 
         echo '<div class="table-responsive"><table class="table table-striped">';
-            echo "<thead>";
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>Nummer</th>";
+        if ($adminHelper->isAdmin()) {
+            echo "<th>AKTIONEN</th>";
+        }
+        echo "<th>Sprache</th>";
+        echo "<th>Anrede</th>";
+        echo "<th>Vorname</th>";
+        echo "<th>Nachname</th>";
+        echo "<th>Gesamtname</th>";
+        echo "<th>Dojo</th>";
+        echo "<th>Zimmer</th>";
+        echo "<th>Zusammenlegungswunsch</th>";
+        echo "<th>Umbuchbar?</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+
+        $number = 0;
+        foreach ($applicants as $applicant) {
             echo "<tr>";
-            echo "<th>Nummer</th>";
-            if ($adminHelper->isAdmin()) {
-                echo "<th>AKTIONEN</th>";
-            }
-            echo "<th>Sprache</th>";
-            echo "<th>Anrede</th>";
-            echo "<th>Vorname</th>";
-            echo "<th>Nachname</th>";
-            echo "<th>Gesamtname</th>";
-            echo "<th>Dojo</th>";
-            echo "<th>Zimmer</th>";
-            echo "<th>Zusammenlegungswunsch</th>";
-            echo "<th>Umbuchbar?</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
+            echo "<td>" . ++$number . "</td>";
 
-            $number = 0;
-            foreach ($applicants as $applicant) {
-                echo "<tr>";
-                echo "<td>" . ++$number. "</td>";
-
-                if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                    echo '<td>
+            if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
-                }
-
-                echo "<td>" . $applicant->getLanguage() . "</td>";
-                echo "<td>" . $applicant->getGender() . "</td>";
-                echo "<td>" . $applicant->getFirstname() . "</td>";
-                echo "<td>" . $applicant->getLastname() . "</td>";
-                echo "<td>" . $applicant->getDojo() . "</td>";
-                echo "<td>" . $applicant->getRoom() . "</td>";
-                echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-                echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-                echo "</tr>";
             }
-            echo "</tbody>";
-            echo "</table></div>";
+
+            echo "<td>" . $applicant->getLanguage() . "</td>";
+            echo "<td>" . $applicant->getGender() . "</td>";
+            echo "<td>" . $applicant->getFirstname() . "</td>";
+            echo "<td>" . $applicant->getLastname() . "</td>";
+            echo "<td>" . $applicant->getDojo() . "</td>";
+            echo "<td>" . $applicant->getRoom() . "</td>";
+            echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
+            echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table></div>";
 
 
         echo "<h2>verfügbare Räume: TBD</h2>";
 
         echo "<h2>existierende Buchungen für aktuellen Raum $id</h2>";
-        $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id,$week);
+        $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
         var_dump($roomBookings);
 
         } else {

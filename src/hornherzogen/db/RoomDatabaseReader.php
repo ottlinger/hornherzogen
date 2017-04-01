@@ -95,7 +95,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
 
     public function listBookingsByRoomNumberAndWeek($roomNumber, $week)
     {
-// TODO select * from applicant a, roombooking b where week = $week and $roomNumber = b.id;
+        // TODO select * from applicant a, roombooking b where week = $week and $roomNumber = b.id;
         return array();
     }
 
