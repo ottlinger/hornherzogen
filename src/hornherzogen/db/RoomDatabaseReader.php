@@ -134,6 +134,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
             while ($row = $dbResult->fetch()) {
+                // misses attribute bookingId from above SQL :-D
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }

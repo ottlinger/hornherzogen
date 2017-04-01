@@ -112,8 +112,12 @@ if (!isset($id)) {
         <h1>
             <span class="glyphicon glyphicon-bed"></span>
             <?php
-            $room = $roomReader->getRoomById($id)[0];
-            echo "Buchungen für $room[capacity]er $room[name] (DB#$room[id])";
+            $roomsRead = $roomReader->getRoomById($id);
+
+            if (isset($roomsRead)) {
+                $room = $roomReader->getRoomById($id)[0];
+                echo "Buchungen für $room[capacity]er $room[name] (DB#$room[id])";
+            }
             ?>
         </h1>
 
@@ -187,18 +191,23 @@ if (!isset($id)) {
             for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
                 ?>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="applicantId"><?php echo $personNumber; ?>.Person zu Raum hinzufügen</label>
+                    <label class="col-sm-2 control-label" for="applicantId"><?php echo $personNumber; ?>.Person zu Raum
+                        hinzufügen</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="applicantId[<?php echo $personNumber; ?>]" name="applicantId[<?php echo $personNumber; ?>]">
+                        <select class="form-control" id="applicantId[<?php echo $personNumber; ?>]"
+                                name="applicantId[<?php echo $personNumber; ?>]">
                             <option value="(none)" selected>(bitte auswählen)</option>
                             <?php
-                            $applicantId = $formHelper->filterUserInput($_POST['applicantId'][$personNumber]);
+                            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'applicantId')) {
 
-                            foreach ($applicants as $applicant) {
-                                $appId = $applicant->getPersistenceId();
-                                $selected = ($applicantId == $appId) ? ' selected' : '';
+                                $applicantId = $formHelper->filterUserInput($_POST['applicantId'][$personNumber]);
 
-                                echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
+                                foreach ($applicants as $applicant) {
+                                    $appId = $applicant->getPersistenceId();
+                                    $selected = ($applicantId == $appId) ? ' selected' : '';
+
+                                    echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
+                                }
                             }
                             ?>
                         </select>
@@ -226,26 +235,29 @@ if (!isset($id)) {
         </form>
 
         <?php
+        // PERFORM BOOKING
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
 
-            foreach($_POST['applicantId'] as $submittedApplicantId) {
-
-            $persistId = $roomWriter->performBooking($_POST['id'], $submittedApplicantId);
-            if (NULL == $persistId) {
-                echo "<p>Keine Buchung für den Raum angelegt.</p>";
-            } else {
-                echo "<p>Buchung angelegt mit id #" . $persistId . " für Person mit Id #".$submittedApplicantId."</p>";
-                $_POST['applicantId'] = NULL;
-            }
+            foreach ($_POST['applicantId'] as $submittedApplicantId) {
+                $persistId = $roomWriter->performBooking($_POST['id'], $submittedApplicantId);
+                if (NULL != $persistId) {
+                    echo "<p>Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
+                    $_POST['applicantId'] = NULL;
+                }
             } // end of for
         }
 
-        // TODO
+        // REMOVE BOOKING
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+            $aid = $formHelper->filterUserInput($_POST['aid']);
+            echo $roomWriter->deleteForApplicantId($aid) . " Zeilen für Applicant mit id #" . $id . " gelöscht";
+            $_POST['aid'] = NULL;
+        }
+
         echo "<h3>noch zu buchende Bewerber: " . sizeof($applicants) . "</h3>";
 
-        /*
-
-        echo "<h2>Bewerberlist für Dropdown</h2>";
+        echo "<h2>existierende Buchungen für aktuellen Raum#$id</h2>";
+        $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
@@ -268,7 +280,7 @@ if (!isset($id)) {
         echo "<tbody>";
 
         $number = 0;
-        foreach ($applicants as $applicant) {
+        foreach ($roomBookings as $applicant) {
             echo "<tr>";
             echo "<td>" . ++$number . "</td>";
 
@@ -276,7 +288,9 @@ if (!isset($id)) {
                 echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
+                        <input type="hidden" name="id" value="' . $week . '"/>
+                        <input type="hidden" name="id" value="' . $id . '"/>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen von #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
             }
@@ -293,12 +307,7 @@ if (!isset($id)) {
         }
         echo "</tbody>";
         echo "</table></div>";
-*/
 
-
-        echo "<h2>existierende Buchungen für aktuellen Raum $id</h2>";
-        $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
-        var_dump($roomBookings);
 
         } else {
             echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";

@@ -111,4 +111,9 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         return NULL;
     }
 
+    public function deleteForApplicantId($applicantId) {
+        // TODO remove all bookings for the given applicantId
+        return NULL;
+    }
+
 }
