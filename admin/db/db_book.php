@@ -121,7 +121,6 @@ if (!isset($id)) {
             $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
-
             ?>
 
         <form class="form-horizontal" method="post"
@@ -151,7 +150,6 @@ if (!isset($id)) {
             </div>
 
             <?php
-            // b) get rooms that have capacity
             $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
             echo "<h3>verfügbare Räume: " . sizeof($rooms) . "</h3>";
             ?>
@@ -163,9 +161,9 @@ if (!isset($id)) {
                         <?php
                         foreach ($rooms as $oneRoom) {
                             $roomId = $oneRoom['id'];
-                            $selected = ($id == $roomId) ? ' selected':'';
+                            $selected = ($id == $roomId) ? ' selected' : '';
 
-                            echo '<option value="'.$roomId.'"'.$selected.'>'.$oneRoom['name'].' ('.$oneRoom['capacity'].'er)</option>';
+                            echo '<option value="' . $roomId . '"' . $selected . '>' . $oneRoom['name'] . ' (' . $oneRoom['capacity'] . 'er)</option>';
                         }
                         ?>
                     </select>

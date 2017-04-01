@@ -115,8 +115,29 @@ class RoomDatabaseReader extends BaseDatabaseWriter
 
     public function listBookingsByRoomNumberAndWeek($roomNumber, $week)
     {
-        // TODO select * from applicant a, roombooking b where week = $week and $roomNumber = b.id;
-        return array();
+        $results = array();
+        if (self::isHealthy()) {
+
+            $query = "SELECT a.*, b.id as bookingId ";
+            $query .= " FROM `applicants` a, `roombooking` b WHERE  ";
+            // if week == null - return all, else for the given week
+            if (isset($week) && strlen($week)) {
+                $query .= " a.week LIKE '%" . trim('' . $week) . "%' AND ";
+            }
+            $query .= " b.applicantId = a.id AND ";
+            $query .= " b.id = " . $this->databaseHelper->makeSQLCapable($roomNumber, $this->database);
+            $query .= " ORDER BY a.combinedName";
+
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+        }
+        return $results;
     }
 
 }
