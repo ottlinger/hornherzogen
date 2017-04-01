@@ -171,28 +171,39 @@ if (!isset($id)) {
                 </div>
             </div>
 
-            <h3>TODO: add block per available capacity</h3>
+            <hr/>
+
+            <h3>TODO: add person block per available capacity</h3>
             <?php
             // a) get list of all applicants that are not booked per week
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
-
-            var_dump($applicants[0]->getPersistenceId());
             ?>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="applicantId">Person zu Raum hinzufügen</label>
                 <div class="col-sm-10">
-                    <select class="form-control" id="applicantId" name="applicantId" onchange="this.form.submit()">
+                    <select class="form-control" id="applicantId" name="applicantId">
+                        <option value="(none)" selected>(bitte auswählen)</option>
                         <?php
+                        $applicantId = $formHelper->filterUserInput($_POST['applicantId']);
+
                         foreach ($applicants as $applicant) {
                             $appId = $applicant->getPersistenceId();
-                            $selected = ($id == $appId) ? ' selected' : '';
+                            $selected = ($applicantId == $appId) ? ' selected' : '';
 
-                            echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . '</option>';
+                            echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
                         }
                         ?>
                     </select>
                 </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default btn-primary"
+                        title="<?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?>"> Personen in Raum einbuchen
+                </button>
             </div>
 
             <noscript>
@@ -207,12 +218,18 @@ if (!isset($id)) {
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
             $persistId = $roomWriter->performBooking($_POST['id'], $_POST['applicantId']);
-            echo "<p>Buchung angelegt mit id #" . $persistId . "</p>";
-            $_POST['applicantId'] = NULL;
+            if (NULL == $persistId) {
+                echo "<p>Keine Buchung für den Raum angelegt.</p>";
+            } else {
+                echo "<p>Buchung angelegt mit id #" . $persistId . "</p>";
+                $_POST['applicantId'] = NULL;
+            }
         }
 
         // TODO
         echo "<h3>noch zu buchende Bewerber: " . sizeof($applicants) . "</h3>";
+
+        /*
 
         echo "<h2>Bewerberlist für Dropdown</h2>";
 
@@ -262,6 +279,8 @@ if (!isset($id)) {
         }
         echo "</tbody>";
         echo "</table></div>";
+*/
+
 
         echo "<h2>existierende Buchungen für aktuellen Raum $id</h2>";
         $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
