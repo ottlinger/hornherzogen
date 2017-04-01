@@ -164,6 +164,10 @@ if (!isset($id)) {
                             $roomId = $oneRoom['id'];
                             $selected = ($id == $roomId) ? ' selected' : '';
 
+                            // in order to control the bookable persons save currently available capacity
+                            if (boolval($selected)) {
+                                $capacityOfSelectedRoom = $oneRoom['capacity'];
+                            }
                             echo '<option value="' . $roomId . '" ' . $selected . '>' . $oneRoom['name'] . ' (' . $oneRoom['capacity'] . 'er)</option>';
                         }
                         ?>
@@ -173,7 +177,7 @@ if (!isset($id)) {
 
             <hr/>
 
-            <h3>TODO: add person block per available capacity</h3>
+            <h3>Es sind maximal <?php echo $capacityOfSelectedRoom; ?> Buchungen möglich</h3>
             <?php
             // a) get list of all applicants that are not booked per week
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
