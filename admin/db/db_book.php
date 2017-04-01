@@ -171,6 +171,30 @@ if (!isset($id)) {
                 </div>
             </div>
 
+            <h3>TODO: add block per available capacity</h3>
+            <?php
+            // a) get list of all applicants that are not booked per week
+            $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
+
+            var_dump($applicants[0]->getPersistenceId());
+            ?>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="applicantId">Person zu Raum hinzufügen</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="applicantId" name="applicantId" onchange="this.form.submit()">
+                        <?php
+                        foreach ($applicants as $applicant) {
+                            $appId = $applicant->getPersistenceId();
+                            $selected = ($id == $appId) ? ' selected' : '';
+
+                            echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
             <noscript>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -181,17 +205,13 @@ if (!isset($id)) {
         </form>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])  && isset($_POST['week'])  && isset($_POST['applicantId']) ) {
-
-            $persistId = $roomWriter->performBooking($_POST['id'],$_POST['applicantId'])->removeById($id);
-            echo  "<p>Buchung angelegt mit id #" . $persistId . "</p>";
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
+            $persistId = $roomWriter->performBooking($_POST['id'], $_POST['applicantId']);
+            echo "<p>Buchung angelegt mit id #" . $persistId . "</p>";
             $_POST['applicantId'] = NULL;
         }
 
         // TODO
-        // a) get list of all applicants that are not booked per week
-        $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
-
         echo "<h3>noch zu buchende Bewerber: " . sizeof($applicants) . "</h3>";
 
         echo "<h2>Bewerberlist für Dropdown</h2>";
