@@ -18,7 +18,6 @@ $config = new ConfigurationWrapper();
 $roomReader = new RoomDatabaseReader();
 
 // depending on the way we are called we decide which id to use
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     $id = $formHelper->filterUserInput($_POST['id']);
 }
@@ -126,7 +125,7 @@ if (!isset($id)) {
             ?>
 
         <form class="form-horizontal" method="post"
-              action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?id=' . $id; ?>">
+              action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
             <input type="hidden" value="<?php echo $id; ?>" name="id"/>
 
@@ -147,6 +146,28 @@ if (!isset($id)) {
                         </option>
                         <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
                         </option>
+                    </select>
+                </div>
+            </div>
+
+            <?php
+            // b) get rooms that have capacity
+            $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
+            echo "<h3>verfügbare Räume: " . sizeof($rooms) . "</h3>";
+            ?>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="week">Welchen Raum bebuchen?</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="id" name="id" onchange="this.form.submit()">
+                        <?php
+                        foreach ($rooms as $oneRoom) {
+                            $roomId = $oneRoom['id'];
+                            $selected = ($id == $roomId) ? ' selected':'';
+
+                            echo '<option value="'.$roomId.'"'.$selected.'>'.$oneRoom['name'].' ('.$oneRoom['capacity'].'er)</option>';
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -173,10 +194,6 @@ if (!isset($id)) {
         // a) get list of all applicants that are not booked per week
         $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
 
-        // b) get rooms that have capacity
-        $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
-
-        echo "<h3>verfügbare Räume: " . sizeof($rooms) . "</h3>";
         echo "<h3>noch zu buchende Bewerber: " . sizeof($applicants) . "</h3>";
 
         echo "<h2>Bewerberlist für Dropdown</h2>";
@@ -227,9 +244,6 @@ if (!isset($id)) {
         }
         echo "</tbody>";
         echo "</table></div>";
-
-
-        echo "<h2>verfügbare Räume: TBD</h2>";
 
         echo "<h2>existierende Buchungen für aktuellen Raum $id</h2>";
         $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);

@@ -73,7 +73,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
     {
         $results = array();
         if (self::isHealthy() && is_numeric($roomId) && isset($roomId)) {
-            $dbResult = $this->database->query("SELECT * from `rooms` WHERE id = " . $this->databaseHelper->makeSQLCapable($roomId));
+            $dbResult = $this->database->query("SELECT * from `rooms` WHERE id = " . $this->databaseHelper->makeSQLCapable($roomId, $this->database));
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
