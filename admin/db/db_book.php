@@ -151,6 +151,7 @@ if (!isset($id)) {
             </div>
 
             <?php
+            $capacityOfSelectedRoom = 0;
             $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
             echo "<h3>verfügbare Räume: " . sizeof($rooms) . "</h3>";
             ?>
@@ -181,26 +182,31 @@ if (!isset($id)) {
             <?php
             // a) get list of all applicants that are not booked per week
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
-            ?>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="applicantId">Person zu Raum hinzufügen</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="applicantId" name="applicantId">
-                        <option value="(none)" selected>(bitte auswählen)</option>
-                        <?php
-                        $applicantId = $formHelper->filterUserInput($_POST['applicantId']);
 
-                        foreach ($applicants as $applicant) {
-                            $appId = $applicant->getPersistenceId();
-                            $selected = ($applicantId == $appId) ? ' selected' : '';
+            for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
+                ?>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="applicantId"><?php echo $personNumber; ?>.Person zu Raum hinzufügen</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="applicantId[<?php echo $personNumber; ?>]" name="applicantId[<?php echo $personNumber; ?>]">
+                            <option value="(none)" selected>(bitte auswählen)</option>
+                            <?php
+                            $applicantId = $formHelper->filterUserInput($_POST['applicantId'][$personNumber]);
 
-                            echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
-                        }
-                        ?>
-                    </select>
+                            foreach ($applicants as $applicant) {
+                                $appId = $applicant->getPersistenceId();
+                                $selected = ($applicantId == $appId) ? ' selected' : '';
+
+                                echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
+                <?php
+            } // end of personSelectBox for
+            ?>
 
             <hr/>
 
@@ -221,13 +227,17 @@ if (!isset($id)) {
 
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
-            $persistId = $roomWriter->performBooking($_POST['id'], $_POST['applicantId']);
+
+            foreach($_POST['applicantId'] as $submittedApplicantId) {
+
+            $persistId = $roomWriter->performBooking($_POST['id'], $submittedApplicantId);
             if (NULL == $persistId) {
                 echo "<p>Keine Buchung für den Raum angelegt.</p>";
             } else {
-                echo "<p>Buchung angelegt mit id #" . $persistId . "</p>";
+                echo "<p>Buchung angelegt mit id #" . $persistId . " für Person mit Id #".$submittedApplicantId."</p>";
                 $_POST['applicantId'] = NULL;
             }
+            } // end of for
         }
 
         // TODO
