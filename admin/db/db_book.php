@@ -295,11 +295,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen von #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
-
-                var_dump($id);
-                var_dump($week);
-                var_dump($applicant->getPersistenceId());
-
             }
 
             echo "<td>" . $applicant->getLanguage() . "</td>";
