@@ -284,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         $number = 0;
         foreach ($roomBookings as $applicant) {
             echo "<tr>";
-            echo "<td>" . ++$number . "</td>";
+            echo "<td>#" . ++$number . "</td>";
 
             if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                 echo '<td>
