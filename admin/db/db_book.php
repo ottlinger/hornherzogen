@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
 // die if we are called with crapy parameters
 if (!isset($id)) {
+    echo "Invalid params - try again";
     die();
 }
 
@@ -144,7 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                     <?php
                     // filter for week?
                     if (strlen($week)) {
-                        $week = $formHelper->filterUserInput($_POST['week']);
                         echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
                     }
                     ?>
@@ -152,10 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
-                        </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
-                        </option>
+                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche</option>
+                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche</option>
                     </select>
                 </div>
             </div>
@@ -273,13 +271,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         }
         echo "<th>Sprache</th>";
         echo "<th>Anrede</th>";
-        echo "<th>Vorname</th>";
-        echo "<th>Nachname</th>";
-        echo "<th>Gesamtname</th>";
+        echo "<th>Name</th>";
         echo "<th>Dojo</th>";
-        echo "<th>Zimmer</th>";
+        echo "<th>Zimmerkategorie</th>";
         echo "<th>Zusammenlegungswunsch</th>";
         echo "<th>Umbuchbar?</th>";
+        echo "<th>Anmerkungen</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -298,16 +295,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen von #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
+
+                var_dump($id);
+                var_dump($week);
+                var_dump($applicant->getPersistenceId());
+
             }
 
             echo "<td>" . $applicant->getLanguage() . "</td>";
             echo "<td>" . $applicant->getGender() . "</td>";
-            echo "<td>" . $applicant->getFirstname() . "</td>";
-            echo "<td>" . $applicant->getLastname() . "</td>";
+            echo "<td>" . $applicant->getFullName() . "</td>";
             echo "<td>" . $applicant->getDojo() . "</td>";
             echo "<td>" . $applicant->getRoom() . "</td>";
-            echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
+            echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " / " . $applicant->getPartnerTwo() : "keiner") . "</td>";
             echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
+            echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
