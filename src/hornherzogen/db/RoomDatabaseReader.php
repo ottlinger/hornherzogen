@@ -131,7 +131,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
                 $query .= " a.week LIKE '%" . trim('' . $week) . "%' AND ";
             }
             $query .= " b.roomId = " . $this->databaseHelper->trimAndMask($roomId);
-            $query .= " b.applicantId = a.id AND ";
+            $query .= " AND b.applicantId = a.id ";
             $query .= " ORDER BY a.combinedName";
 
             $dbResult = $this->database->query($query);
