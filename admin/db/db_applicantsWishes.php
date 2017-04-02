@@ -137,7 +137,7 @@ $statusReader = new StatusDatabaseReader();
                 </div>
             </noscript>
         </form>
-
+        <hr/>
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
             $remover = new ApplicantDatabaseWriter();
@@ -180,14 +180,12 @@ $statusReader = new StatusDatabaseReader();
             echo "<thead>";
             echo "<tr>";
             echo "<th>DB-Id</th>";
-            if ($adminHelper->isAdmin()) {
+            if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                 echo "<th>AKTIONEN</th>";
             }
             echo "<th>Sprache</th>";
             echo "<th>Anrede</th>";
-            echo "<th>Vorname</th>";
-            echo "<th>Nachname</th>";
-            echo "<th>Gesamtname</th>";
+            echo "<th>Name</th>";
             echo "<th>Dojo</th>";
             echo "<th>Zimmer</th>";
             echo "<th>Zusammenlegungswunsch</th>";
@@ -206,15 +204,14 @@ $statusReader = new StatusDatabaseReader();
                     echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Anmeldung #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
                 }
 
                 echo "<td>" . $applicant->getLanguage() . "</td>";
                 echo "<td>" . $applicant->getGender() . "</td>";
-                echo "<td>" . $applicant->getFirstname() . "</td>";
-                echo "<td>" . $applicant->getLastname() . "</td>";
+                echo "<td>" . $applicant->getFullName() . "</td>";
                 echo "<td>" . $applicant->getDojo() . "</td>";
                 echo "<td>" . $applicant->getRoom() . "</td>";
                 echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
