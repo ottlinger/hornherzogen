@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
 // die if we are called with crapy parameters
 if (!isset($id)) {
-    echo "Invalid params - try again";
+    echo "Page called with invalid params - try again from the admin area!";
     die();
 }
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 Anmeldung Raumbuchungen">
+    <meta name="description" content="Herzogenhorn 2017 Anmeldung Raumbuchungsmaske">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
@@ -161,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             <?php
             $capacityOfSelectedRoom = 0;
             $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
-            echo "<h3>verfügbare Räume: " . sizeof($rooms) . "</h3>";
+            echo "<h3><span class=\"glyphicon glyphicon-dashboard\"></span> verfügbare Räume in der Woche: " . sizeof($rooms) . "</h3>";
             ?>
 
             <div class="form-group">
@@ -187,9 +187,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             <hr/>
             <?php
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
-            echo "<h3>Insgesamt zu buchende Bewerber für die gewählte Woche: " . sizeof($applicants) . "</h3>";
+            echo "<h3><span class=\"glyphicon glyphicon-briefcase\"></span> Insgesamt noch zu buchende Bewerber für die gewählte Woche: " . sizeof($applicants) . "</h3><hr />";
 
-            echo "<h3>Für den ausgewählten Raum sind maximal " . $capacityOfSelectedRoom . " Buchungen zulässig.</h3>";
+            echo "<h3><span class=\"glyphicon glyphicon-bullhorn\"></span> Für den gewählten Raum sind maximal " . $capacityOfSelectedRoom . " Buchungen zulässig.</h3>";
 
             for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
                 ?>
@@ -248,11 +248,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                 if ($roomWriter->canRoomBeBooked($iid)) {
                     $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
                     if (NULL != $persistId) {
-                        echo "<p>Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
+                        echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
                         $_POST['applicantId'] = NULL;
                     }
                 } else {
-                    echo "<p>Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
+                    echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
                 }
             } // end of for
             $_POST['applicantId'] = NULL;
@@ -265,7 +265,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             $_POST['aid'] = NULL;
         }
 
-        echo "<hr/><h3>Für den Raum#$id sind bisher gebucht:</h3>";
+        echo "<hr/><h3><span class=\"glyphicon glyphicon-wrench\"></span> Für den Raum#$id sind bisher gebucht:</h3>";
         $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
