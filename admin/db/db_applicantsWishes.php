@@ -58,7 +58,7 @@ $statusReader = new StatusDatabaseReader();
 </head>
 
 <body>
-
+<a name="top"></a>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -94,7 +94,6 @@ $statusReader = new StatusDatabaseReader();
                     src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
                     alt="Fork me on GitHub"
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> eingegangene Anmeldungen
         </h1>
@@ -138,6 +137,14 @@ $statusReader = new StatusDatabaseReader();
             </noscript>
         </form>
         <hr/>
+        <h3><span class="glyphicon glyphicon-indent-left"></span> Springe in Kategorie</h3>
+
+        <a href="#anchor1bed">Einzelzimmer</a>
+        <a href="#anchor2bed">Doppelzimmer</a>
+        <a href="#anchor3bed">Dreierzimmer</a>
+        <a href="#anchornobed">Ohne Zimmer</a>
+
+        <hr/>
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
             $remover = new ApplicantDatabaseWriter();
@@ -148,30 +155,33 @@ $statusReader = new StatusDatabaseReader();
 
         $allApplicants = $applicantReader->listByRoomCategoryPerWeek($week);
 
-
         $catNumeric = 0;
-
         foreach ($allApplicants as $applicants) {
             $catNumeric++;
 
             switch ($catNumeric) {
                 case 1:
+                    echo "<a name=\"anchor1bed\"></a>";
                     $category = "Einzelzimmer";
                     break;
                 case 2:
+                    echo "<a name=\"anchor2bed\"></a>";
                     $category = "Doppelzimmer";
                     break;
                 case 3:
+                    echo "<a name=\"anchor3bed\"></a>";
                     $category = "Dreierzimmer";
                     break;
 
                 default:
+                    echo "<a name=\"anchornobed\"></a>";
                     $category = " ohne Wünsche (sollte leer sein im Produktbetrieb)";
             }
 
 
             if (!isset($applicants) || !boolval($applicants)) {
-                echo "<h2>Kategorie " . $category . "</h2>";
+                echo "<h2>Keine Anmeldungen für " . $category . "</h2>";
+                echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
                 continue;
             }
             echo "<h2>Kategorie " . $category . " (" . sizeof($applicants) . ")</h2>";
@@ -237,6 +247,7 @@ $statusReader = new StatusDatabaseReader();
             }
             echo "</tbody>";
             echo "</table></div>";
+            echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
         }
 
         } else {
