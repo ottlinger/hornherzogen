@@ -22,7 +22,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             if (isset($week) && strlen($week)) {
                 $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
             }
-            $query .= " order by a.combinedName";
+            $query .= " order by r.name";
 
             $dbResult = $this->database->query($query);
             if (false === $dbResult) {
