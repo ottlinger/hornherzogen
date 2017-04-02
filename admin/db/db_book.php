@@ -266,7 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         echo "<thead>";
         echo "<tr>";
         echo "<th>Nummer</th>";
-        if ($adminHelper->isAdmin()) {
+        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
             echo "<th>AKTIONEN</th>";
         }
         echo "<th>Sprache</th>";
