@@ -98,6 +98,12 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         return $results;
     }
 
+    /**
+     * Book the given roomId for the applicantId.
+     * @param $roomId database roomId
+     * @param $applicantId database applicantId
+     * @return null or the id of the inserted booking.
+     */
     public function performBooking($roomId, $applicantId)
     {
         if ($this->isHealthy() && isset($roomId) && isset($applicantId) && is_numeric($roomId) && is_numeric($applicantId)) {
@@ -111,6 +117,11 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         return NULL;
     }
 
+    /**
+     * Remove *all* room bookings for the given applicantId.
+     * @param $applicantId databaseId of the applicant.
+     * @return null or the number of affected rows.
+     */
     public function deleteForApplicantId($applicantId)
     {
         if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
@@ -123,6 +134,11 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         return NULL;
     }
 
+    /**
+     * Retrieve if the given roomId can be booked. Returns false in case no database initialized!
+     * @param $roomId
+     * @return bool true iff the given roomId has less bookings than capacity, false otherwise.
+     */
     public function canRoomBeBooked($roomId)
     {
         if ($this->isHealthy()) {

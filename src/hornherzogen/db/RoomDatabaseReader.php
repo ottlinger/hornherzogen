@@ -113,10 +113,16 @@ class RoomDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
-    public function listBookingsByRoomNumberAndWeek($roomNumber, $week)
+    /**
+     * Returns list of applicants (as ApplicantInput) that have bookings for the given room
+     * @param $roomId room database id
+     * @param $week week id
+     * @return array of ApplicantInputs (may be empty)
+     */
+    public function listBookingsByRoomNumberAndWeek($roomId, $week)
     {
         $results = array();
-        if (self::isHealthy()) {
+        if (self::isHealthy() && is_numeric($roomId) && isset($roomId) && isset($week) && is_numeric($week)) {
 
             $query = "SELECT a.*, b.id as bookingId ";
             $query .= " FROM `applicants` a, `roombooking` b WHERE  ";
@@ -124,8 +130,8 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             if (isset($week) && strlen($week)) {
                 $query .= " a.week LIKE '%" . trim('' . $week) . "%' AND ";
             }
+            $query .= " b.roomId = " . $this->databaseHelper->trimAndMask($roomId);
             $query .= " b.applicantId = a.id AND ";
-            $query .= " b.id = " . $this->databaseHelper->trimAndMask($roomNumber);
             $query .= " ORDER BY a.combinedName";
 
             $dbResult = $this->database->query($query);
@@ -134,7 +140,7 @@ class RoomDatabaseReader extends BaseDatabaseWriter
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
             while ($row = $dbResult->fetch()) {
-                // misses attribute bookingId from above SQL :-D
+                // we silently ignore attribute bookingId from above SQL :-D while converting into ApplicantInput elements
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
