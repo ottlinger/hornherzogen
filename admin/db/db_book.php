@@ -185,11 +185,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             </div>
 
             <hr/>
-
-            <h3>Es sind maximal <?php echo $capacityOfSelectedRoom; ?> Buchungen möglich</h3>
             <?php
-            // a) get list of all applicants that are not booked per week
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
+            echo "<h3>Insgesamt zu buchende Bewerber für die gewählte Woche: " . sizeof($applicants) . "</h3>";
+
+            echo "<h3>Für den ausgewählten Raum sind maximal " . $capacityOfSelectedRoom . " Buchungen zulässig.</h3>";
 
             for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
                 ?>
@@ -265,19 +265,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             $_POST['aid'] = NULL;
         }
 
-        echo "<h3>noch zu buchende Bewerber: " . sizeof($applicants) . "</h3>";
-
-        echo "<h2>existierende Buchungen für aktuellen Raum#$id</h2>";
+        echo "<hr/><h3>Für den Raum#$id sind bisher gebucht:</h3>";
         $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo "<thead>";
         echo "<tr>";
-        echo "<th>Nummer</th>";
         if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
             echo "<th>AKTIONEN</th>";
         }
-        echo "<th>Sprache</th>";
         echo "<th>Anrede</th>";
         echo "<th>Name</th>";
         echo "<th>Dojo</th>";
@@ -285,14 +281,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         echo "<th>Zusammenlegungswunsch</th>";
         echo "<th>Umbuchbar?</th>";
         echo "<th>Anmerkungen</th>";
+        echo "<th>Sprache</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 
-        $number = 0;
         foreach ($roomBookings as $applicant) {
             echo "<tr>";
-            echo "<td>#" . ++$number . "</td>";
 
             if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                 echo '<td>
@@ -300,12 +295,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
                         <input type="hidden" name="week" value="' . $week . '"/>
                         <input type="hidden" name="id" value="' . $id . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen für Person #' . $applicant->getPersistenceId() . '</button>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entferne Person #' . $applicant->getPersistenceId() . ' aus Raum</button>
                     </form>
                 </td>';
             }
 
-            echo "<td>" . $applicant->getLanguage() . "</td>";
             echo "<td>" . $applicant->getGender() . "</td>";
             echo "<td>" . $applicant->getFullName() . "</td>";
             echo "<td>" . $applicant->getDojo() . "</td>";
@@ -313,11 +307,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " / " . $applicant->getPartnerTwo() : "keiner") . "</td>";
             echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
             echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+            echo "<td>" . $applicant->getLanguage() . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
         echo "</table></div>";
-
 
         } else {
             echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
