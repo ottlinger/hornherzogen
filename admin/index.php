@@ -74,15 +74,18 @@ $localizer = new HornLocalizer();
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Verwaltung</li>
-                        <li><a href="#">Status ändern</a></li>
-                        <li><a href="#">Raumplan pro Woche</a></li>
                         <li><a href="db/db_applicantsWishes.php">Zimmerwünsche der Teilnehmer</a></li>
                         <li><a href="db/db_book.php?id=1&week=1">Buchungen der Zimmer vornehmen</a></li>
+                        <li><a href="#">TODO Raumplan pro Woche</a></li>
+                        <li><a href="#">TODO Bewerbungsstatus ändern</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
-                        <li><a href="db/db_roomsByWeek.php">Raumverfügbarkeit pro Woche</a></li>
+                        <li><a href="db/db_roomsByWeek.php">Raumverteilung pro Woche</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Prüfung</li>
+                        <li><a href="#">Fehlerübersicht Raumbuchungen</a></li>
                     </ul>
                 </li>
                 <?php echo $adminHelper->showSuperUserMenu(); ?>
@@ -94,7 +97,6 @@ $localizer = new HornLocalizer();
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
 </nav>
-
 
 <div class="container theme-showcase">
     <div class="starter-template">
