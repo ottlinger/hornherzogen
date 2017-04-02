@@ -111,8 +111,15 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         return NULL;
     }
 
-    public function deleteForApplicantId($applicantId) {
-        // TODO remove all bookings for the given applicantId
+    public function deleteForApplicantId($applicantId)
+    {
+        if (isset($applicantId) && is_numeric($applicantId)) {
+            $result = $this->database->exec("DELETE FROM `roombooking` WHERE applicantId=" . $this->databaseHelper->trimAndMask($applicantId));
+            if (false === $result) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+        }
         return NULL;
     }
 
