@@ -180,11 +180,11 @@ $statusReader = new StatusDatabaseReader();
 
 
             if (!isset($applicants) || !boolval($applicants)) {
-                echo "<h2>Keine Anmeldungen für " . $category . "</h2>";
+                echo "<h2><span class=\"glyphicon glyphicon-lamp\"></span> Keine Anmeldungen für " . $category . "</h2>";
                 echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
                 continue;
             }
-            echo "<h2>Kategorie " . $category . " (" . sizeof($applicants) . ")</h2>";
+            echo "<h2><span class=\"glyphicon glyphicon-lamp\"></span> Kategorie " . $category . " (" . sizeof($applicants) . ")</h2>";
 
             echo '<div class="table-responsive"><table class="table table-striped">';
             echo "<thead>";
