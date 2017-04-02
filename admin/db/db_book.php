@@ -31,6 +31,14 @@ if (!isset($id)) {
     die();
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
+    $week = $formHelper->filterUserInput($_GET['week']);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+    $week = $formHelper->filterUserInput($_POST['week']);
+}
+
 ?>
 <html lang="en">
 <head>
@@ -123,13 +131,6 @@ if (!isset($id)) {
 
         <p>
             <?php
-            $week = NULL;
-
-            // if called from the admin menu itself
-            if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
-                $week = $formHelper->filterUserInput($_GET['week']);
-            }
-
             if ($config->isValidDatabaseConfig()) {
             ?>
 
@@ -142,7 +143,7 @@ if (!isset($id)) {
                 <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
                     <?php
                     // filter for week?
-                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                    if (strlen($week)) {
                         $week = $formHelper->filterUserInput($_POST['week']);
                         echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
                     }
@@ -191,7 +192,6 @@ if (!isset($id)) {
             <?php
             // a) get list of all applicants that are not booked per week
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
-
 
             for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
                 ?>
@@ -293,7 +293,7 @@ if (!isset($id)) {
                 echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <input type="hidden" name="id" value="' . $week . '"/>
+                        <input type="hidden" name="week" value="' . $week . '"/>
                         <input type="hidden" name="id" value="' . $id . '"/>
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen von #' . $applicant->getPersistenceId() . '</button>
                     </form>
