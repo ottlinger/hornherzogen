@@ -125,6 +125,11 @@ if (!isset($id)) {
             <?php
             $week = NULL;
 
+            // if called from the admin menu itself
+            if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
+                $week = $formHelper->filterUserInput($_GET['week']);
+            }
+
             if ($config->isValidDatabaseConfig()) {
             ?>
 
