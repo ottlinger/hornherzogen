@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             $roomsRead = $roomReader->getRoomById($id);
 
             if (isset($roomsRead) && sizeof($roomsRead) > 0) {
-                $room = $roomReader->getRoomById($id)[0];
+                $room = $roomsRead[0];
                 echo "Buchungen für $room[capacity]er $room[name] (DB#$room[id])";
             } else {
                 echo "Bitte Auswahlboxen bedienen";
