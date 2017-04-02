@@ -199,18 +199,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                     <div class="col-sm-10">
                         <select class="form-control" id="applicantId[<?php echo $personNumber; ?>]"
                                 name="applicantId[<?php echo $personNumber; ?>]">
-                            <option value="(none)" selected>(bitte auswählen)</option>
                             <?php
                             if ($formHelper->isSetAndNotEmptyInArray($_POST, 'applicantId')) {
-
                                 $applicantId = $formHelper->filterUserInput($_POST['applicantId'][$personNumber]);
+                            } else {
+                                $applicantId = "(none)";
+                            }
 
-                                foreach ($applicants as $applicant) {
-                                    $appId = $applicant->getPersistenceId();
-                                    $selected = ($applicantId == $appId) ? ' selected' : '';
+                            echo "<option value=\"(none)\" " . ("(none)" == $applicantId ? " selected" : "") . ">(bitte auswählen)</option>";
+                            foreach ($applicants as $applicant) {
+                                $appId = $applicant->getPersistenceId();
+                                $selected = ($applicantId == $appId) ? ' selected' : '';
 
-                                    echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
-                                }
+                                echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
                             }
                             ?>
                         </select>
@@ -242,12 +243,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
 
             foreach ($_POST['applicantId'] as $submittedApplicantId) {
-                $persistId = $roomWriter->performBooking($_POST['id'], $submittedApplicantId);
-                if (NULL != $persistId) {
-                    echo "<p>Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
-                    $_POST['applicantId'] = NULL;
+                $iid = $formHelper->filterUserInput($_POST['id']);
+
+                if ($roomWriter->canRoomBeBooked($iid)) {
+                    $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
+                    if (NULL != $persistId) {
+                        echo "<p>Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
+                        $_POST['applicantId'] = NULL;
+                    }
+                } else {
+                    echo "<p>Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
                 }
             } // end of for
+            $_POST['applicantId'] = NULL;
         }
 
         // REMOVE BOOKING
@@ -288,11 +296,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
             if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                 echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
+                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?aid=' . $applicant->getPersistenceId() . '&week=' . $week . '&id=' . $id . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
                         <input type="hidden" name="week" value="' . $week . '"/>
                         <input type="hidden" name="id" value="' . $id . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen von #' . $applicant->getPersistenceId() . '</button>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Buchungen für Person #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
             }

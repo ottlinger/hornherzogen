@@ -100,7 +100,7 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
 
     public function performBooking($roomId, $applicantId)
     {
-        if (isset($roomId) && isset($applicantId) && is_numeric($roomId) && is_numeric($applicantId)) {
+        if ($this->isHealthy() && isset($roomId) && isset($applicantId) && is_numeric($roomId) && is_numeric($applicantId)) {
             $result = $this->database->exec("INSERT INTO `roombooking` (roomId, applicantId) VALUES (" . $this->databaseHelper->trimAndMask($roomId) . "," . $this->databaseHelper->trimAndMask($applicantId) . ")");
             if (false === $result) {
                 $error = $this->database->errorInfo();
@@ -113,7 +113,7 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
 
     public function deleteForApplicantId($applicantId)
     {
-        if (isset($applicantId) && is_numeric($applicantId)) {
+        if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
             $result = $this->database->exec("DELETE FROM `roombooking` WHERE applicantId=" . $this->databaseHelper->trimAndMask($applicantId));
             if (false === $result) {
                 $error = $this->database->errorInfo();
@@ -121,6 +121,22 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
             }
         }
         return NULL;
+    }
+
+    public function canRoomBeBooked($roomId)
+    {
+        if ($this->isHealthy()) {
+            $result = $this->database->query("select r.id as roomId, r.capacity, count(b.roomId) as bookings from rooms r, roombooking b where b.roomId = r.id and b.roomId=" . $this->databaseHelper->trimAndMask($roomId));
+            if (false === $result) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+                return FALSE;
+            }
+            while ($row = $result->fetch()) {
+                return $row['capacity'] > $row['bookings'];
+            }
+        }
+        return FALSE;
     }
 
 }
