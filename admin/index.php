@@ -85,7 +85,7 @@ $localizer = new HornLocalizer();
                         <li><a href="db/db_roomsByWeek.php">Raumverteilung pro Woche</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Prüfung</li>
-                        <li><a href="#">Fehlerübersicht Raumbuchungen</a></li>
+                        <li><a href="db/db_booking_errors.php">Fehlerübersicht Raumbuchungen</a></li>
                     </ul>
                 </li>
                 <?php echo $adminHelper->showSuperUserMenu(); ?>
