@@ -4,12 +4,15 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
-use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
+use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
+$formHelper = new FormHelper();
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
+$reader = new ApplicantDatabaseReader();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $id = $formHelper->filterUserInput($_GET['id']);
@@ -102,10 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
             if ($config->isValidDatabaseConfig()) {
 
+                $applicants = $reader->getById($id);
                 $statusReader = new StatusDatabaseReader();
-
-                $writer = new ApplicantDatabaseWriter();
-                $applicants = $writer->getAllByWeek($week);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
                 echo "<thead>";

@@ -6,6 +6,32 @@ namespace hornherzogen\db;
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
     /**
+     * Retrieve all applicants with the given id, should be one.
+     *
+     * @param $applicantId
+     * @return array a simple list of applicants to show in the UI
+     */
+    public function getById($applicantId)
+    {
+        $results = array();
+        if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
+
+            $query = "SELECT * from `applicants` a";
+            $query .= " WHERE a.id =" . $this->databaseHelper->trimAndMask($applicantId);
+
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+        }
+        return $results;
+    }
+
+    /**
      * Retrieve all applicants per week, sort the resulting list by week and food category.
      *
      * @param $week week choice, null for both weeks.
@@ -13,28 +39,25 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      */
     public function listByFoodCategoryPerWeek($week)
     {
+        $results = array();
         if ($this->isHealthy()) {
-            $results = array();
-            if (self::isHealthy()) {
-                $query = "SELECT * from `applicants` a";
-                // if week == null - return all, else for the given week
-                if (isset($week) && strlen($week)) {
-                    $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-                }
-                $query .= " ORDER by a.week, a.essen";
-
-                $dbResult = $this->database->query($query);
-                if (false === $dbResult) {
-                    $error = $this->database->errorInfo();
-                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                }
-                while ($row = $dbResult->fetch()) {
-                    $results[] = $this->databaseHelper->fromDatabaseToObject($row);
-                }
+            $query = "SELECT * from `applicants` a";
+            // if week == null - return all, else for the given week
+            if (isset($week) && strlen($week)) {
+                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
             }
-            return $results;
+            $query .= " ORDER by a.week, a.essen";
+
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
         }
-        return array();
+        return $results;
     }
 
     /**
@@ -47,7 +70,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      * @param $week week choice, null for both weeks.
      * @return array a simple list of applicants to show in the UI
      */
-    public function listByRoomCategoryPerWeek($week)
+    public
+    function listByRoomCategoryPerWeek($week)
     {
         $results = array(
             '1' => array(),
@@ -57,39 +81,37 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         );
 
         if ($this->isHealthy()) {
-            if (self::isHealthy()) {
-                $query = "SELECT * from `applicants` a";
-                // if week == null - return all, else for the given week
-                if (isset($week) && strlen($week)) {
-                    $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-                }
-                $query .= " ORDER by a.week, a.room";
+            $query = "SELECT * from `applicants` a";
+            // if week == null - return all, else for the given week
+            if (isset($week) && strlen($week)) {
+                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+            }
+            $query .= " ORDER by a.week, a.room";
 
-                $dbResult = $this->database->query($query);
-                if (false === $dbResult) {
-                    $error = $this->database->errorInfo();
-                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                }
-                while ($row = $dbResult->fetch()) {
-                    $applicant = $this->databaseHelper->fromDatabaseToObject($row);
+            $dbResult = $this->database->query($query);
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
-                    switch ($applicant->getRoom()) {
-                        case "1bed":
-                            $results['1'][] = $applicant;
-                            break;
+                switch ($applicant->getRoom()) {
+                    case "1bed":
+                        $results['1'][] = $applicant;
+                        break;
 
-                        case "2bed":
-                            $results['2'][] = $applicant;
-                            break;
+                    case "2bed":
+                        $results['2'][] = $applicant;
+                        break;
 
-                        case "3bed":
-                            $results['3'][] = $applicant;
-                            break;
+                    case "3bed":
+                        $results['3'][] = $applicant;
+                        break;
 
-                        default:
-                            $results['4'][] = $applicant;
-                            break;
-                    }
+                    default:
+                        $results['4'][] = $applicant;
+                        break;
                 }
             }
         }
