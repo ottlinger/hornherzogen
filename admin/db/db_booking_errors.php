@@ -102,6 +102,8 @@ $localizer = new HornLocalizer();
                 echo "<h2>Doppelte Buchungen pro Person</h2>";
 
                 // TODO link to db_applicant?id=applicantId
+                // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1;
+                // TODO extract in separate Class Error Helper
 
                 $statusReader = new StatusDatabaseReader();
 
