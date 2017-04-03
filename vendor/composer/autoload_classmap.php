@@ -494,6 +494,7 @@ return array(
     'SebastianBergmann\\CodeCoverage\\RuntimeException' => $vendorDir . '/phpunit/php-code-coverage/src/Exception/RuntimeException.php',
     'SebastianBergmann\\CodeCoverage\\UnintentionallyCoveredCodeException' => $vendorDir . '/phpunit/php-code-coverage/src/Exception/UnintentionallyCoveredCodeException.php',
     'SebastianBergmann\\CodeCoverage\\Util' => $vendorDir . '/phpunit/php-code-coverage/src/Util.php',
+    'SebastianBergmann\\CodeCoverage\\Version' => $vendorDir . '/phpunit/php-code-coverage/src/Version.php',
     'SebastianBergmann\\CodeUnitReverseLookup\\Wizard' => $vendorDir . '/sebastian/code-unit-reverse-lookup/src/Wizard.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',

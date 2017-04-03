@@ -2,6 +2,20 @@
 
 All notable changes of the PHPUnit 6.0 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [6.0.13] - 2017-04-03
+
+### Fixed
+
+* Fixed [#2638](https://github.com/sebastianbergmann/phpunit/pull/2638): Regression in `PHPUnit\Framework\TestCase:registerMockObjectsFromTestArguments()`
+
+## [6.0.12] - 2017-04-02
+
+### Fixed
+
+* Fixed [#2145](https://github.com/sebastianbergmann/phpunit/issues/2145): `--stop-on-failure` fails to stop on PHP 7
+* Fixed [#2448](https://github.com/sebastianbergmann/phpunit/issues/2448): Weird error when trying to run `Test` from `Test.php` but `Test.php` does not exist
+* Fixed [#2572](https://github.com/sebastianbergmann/phpunit/issues/2572): `PHPUnit\Framework\TestCase:.registerMockObjectsFromTestArguments()` does not correctly handle arrays that reference themselves
+
 ## [6.0.11] - 2017-03-29
 
 ### Fixed
@@ -137,6 +151,8 @@ All notable changes of the PHPUnit 6.0 release series are documented in this fil
 * DbUnit is no longer bundled in the PHAR distribution of PHPUnit
 * PHPUnit is no longer supported on PHP 5.6
 
+[6.0.13]: https://github.com/sebastianbergmann/phpunit/compare/6.0.12...6.0.13
+[6.0.12]: https://github.com/sebastianbergmann/phpunit/compare/6.0.11...6.0.12
 [6.0.11]: https://github.com/sebastianbergmann/phpunit/compare/6.0.10...6.0.11
 [6.0.10]: https://github.com/sebastianbergmann/phpunit/compare/6.0.9...6.0.10
 [6.0.9]: https://github.com/sebastianbergmann/phpunit/compare/6.0.8...6.0.9

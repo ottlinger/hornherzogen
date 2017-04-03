@@ -393,7 +393,7 @@ class TestCaseTest extends TestCase
     public function testStaticAttributesBackupPre()
     {
         $GLOBALS['singleton'] = \Singleton::getInstance();
-        self::$testStatic    = 123;
+        self::$testStatic     = 123;
     }
 
     /**
@@ -660,5 +660,45 @@ class TestCaseTest extends TestCase
 
         $this->assertFalse($mock->foo());
         $this->assertNull($mock->bar());
+    }
+
+    public function testProvidingOfAutoreferencedArray()
+    {
+        $test = new \TestAutoreferenced('testJsonEncodeException', $this->getAutoreferencedArray());
+        $test->runBare();
+
+        $this->assertInternalType('array', $test->myTestData);
+        $this->assertArrayHasKey('data', $test->myTestData);
+        $this->assertEquals($test->myTestData['data'][0], $test->myTestData['data']);
+    }
+
+    /**
+     * @return array
+     */
+    private function getAutoreferencedArray()
+    {
+        $recursionData   = [];
+        $recursionData[] = &$recursionData;
+
+        return [
+            'RECURSION' => [
+                'data' => $recursionData
+            ]
+        ];
+    }
+
+    public function testProvidingArrayThatMixesObjectsAndScalars()
+    {
+        $data = [
+            [123],
+            ['foo'],
+            [$this->createMock(\Mockable::class)],
+        ];
+
+        $test = new \TestAutoreferenced('testJsonEncodeException', [$data]);
+        $test->runBare();
+
+        $this->assertInternalType('array', $test->myTestData);
+        $this->assertSame($data, $test->myTestData);
     }
 }
