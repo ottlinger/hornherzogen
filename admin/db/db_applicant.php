@@ -10,6 +10,10 @@ use hornherzogen\HornLocalizer;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
+
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+    $id = $formHelper->filterUserInput($_GET['id']);
+}
 ?>
 <html lang="en">
 <head>
@@ -17,12 +21,12 @@ $localizer = new HornLocalizer();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 - Fehler bei Raumbuchungen ermitteln">
+    <meta name="description" content="Herzogenhorn 2017 Anmeldungsdetails">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Herzogenhorn Adminbereich - Fehler bei Raumbuchungen</title>
+    <title>Herzogenhorn Adminbereich - Anmeldung #<?php echo $id; ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -89,19 +93,14 @@ $localizer = new HornLocalizer();
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> Prüfungen der Raumbuchungen
+            <span class="glyphicon glyphicon-sunglasses"></span> Zeige Anmeldung mit der DatenbankId #<?php echo $id; ?>
         </h1>
 
         <p>
             <?php
             $config = new ConfigurationWrapper();
-            $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
-
-                echo "<h2>Doppelte Buchungen pro Person</h2>";
-
-                // TODO link to db_applicant?id=applicantId
 
                 $statusReader = new StatusDatabaseReader();
 
@@ -138,10 +137,54 @@ $localizer = new HornLocalizer();
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
-
                 foreach ($applicants as $applicant) {
                     echo "<tr>";
                     echo "<td>" . $applicant->getPersistenceId() . "</td>";
+
+                    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                        echo '<td>
+                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
+                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
+                    </form>
+                </td>';
+                    }
+
+                    echo "<td>" . $applicant->getWeek() . "</td>";
+                    echo "<td>" . $applicant->getLanguage() . "</td>";
+                    echo "<td>" . $applicant->getGender() . "</td>";
+                    echo "<td>" . $applicant->getFirstname() . "</td>";
+                    echo "<td>" . $applicant->getLastname() . "</td>";
+                    echo "<td>" . $applicant->getFullName() . "</td>";
+                    echo "<td>" . $applicant->getStreet() . " " . $applicant->getHouseNumber() . "</td>";
+                    echo "<td>" . $applicant->getZipCode() . " " . $applicant->getCity() . "</td>";
+                    echo "<td>" . $applicant->getCountry() . "</td>";
+                    echo "<td>" . $applicant->getEmail() . "</td>";
+                    echo "<td>" . $applicant->getDojo() . "</td>";
+                    echo "<td>" . $applicant->getGrading() . " seit " . $applicant->getDateOfLastGrading() . "</td>";
+                    echo "<td>" . (strlen($applicant->getTwaNumber()) ? " ja,  " . $applicant->getTwaNumber() : "nein") . "</td>";
+                    echo "<td>" . $applicant->getRoom() . "</td>";
+                    echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
+                    echo "<td>" . $applicant->getFoodCategory() . "</td>";
+                    echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
+                    echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+
+                    $statId = $statusReader->getById($applicant->getCurrentStatus());
+                    if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
+                        echo "<td>" . $statId[0]['name'] . "</td>";
+                    } else {
+                        echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
+                    }
+
+                    echo "<td>";
+                    echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
+                    echo "MAILED: " . $applicant->getMailedAt() . "</br>";
+                    echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
+                    echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
+                    echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
+                    echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
+                    echo "CANCELLED: " . $applicant->getCancelledAt();
+                    echo "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";
