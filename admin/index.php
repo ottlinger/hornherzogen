@@ -81,6 +81,7 @@ $localizer = new HornLocalizer();
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
+                        <li><a href="db/db_applicants.php">TODO eingegangene Anmeldungen nach Flexibilität #77</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
                         <li><a href="db/db_roomsByWeek.php">Raumverteilung pro Woche</a></li>
                         <li role="separator" class="divider"></li>
