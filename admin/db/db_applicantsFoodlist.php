@@ -152,7 +152,7 @@ $statusReader = new StatusDatabaseReader();
         echo "<thead>";
         echo "<tr>";
         echo "<th>DB-Id</th>";
-        if ($adminHelper->isAdmin()) {
+        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
             echo "<th>AKTIONEN</th>";
         }
         echo "<th>Woche</th>";
