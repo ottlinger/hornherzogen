@@ -32,16 +32,19 @@ class ChartHelperTest extends TestCase
         $this->assertInstanceOf('hornherzogen\chart\ChartHelper', $this->chartHelper);
     }
 
-    public function testGetDataRetrievalByGender()
+    public function testGetDataRetrievalByCountry()
     {
-        $this->assertNotNull($this->chartHelper->getByGender());
+        $week = "My Week";
+        $json = $this->chartHelper->getByCountry($week);
+        $this->assertNotNull($json);
+        $this->assertContains($week, $json);
     }
 
     public function testGetDataRetrievalByWeek()
     {
         $week = "My Week";
         $json = $this->chartHelper->getByWeek($week);
-        $this->assertNotNull($this->chartHelper->getByWeek($week));
+        $this->assertNotNull($json);
         $this->assertContains($week, $json);
     }
 
