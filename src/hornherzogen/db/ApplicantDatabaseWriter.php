@@ -68,7 +68,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
 
     // add logics to create a new combined Name
     // add helper method to transform a given Object into an INSERT INTO
-
+    // TODO extract to reader?!
     function getAllByWeek($week = NULL)
     {
         $results = array();
