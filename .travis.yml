@@ -1,5 +1,6 @@
 language: php
-
+env:
+  - CODACY_PROJECT_TOKEN=85e416a8fa6a4712b6d04faccff679fd
 php:
   - '7.0.17'
   - '7.0'
@@ -19,7 +20,7 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - php vendor/bin/codacycoverage clover coverage.xml
+  - php bin/codacycoverage clover coverage.xml
 
 # Not working with PHP :-(
 # https://github.com/ottlinger/hornherzogen/issues/12
