@@ -1,6 +1,4 @@
 language: php
-env:
-  - CODACY_PROJECT_TOKEN=85e416a8fa6a4712b6d04faccff679fd
 php:
   - '7.0.17'
   - '7.0'
