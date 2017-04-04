@@ -113,9 +113,9 @@ $localizer = new HornLocalizer();
         </h1>
         <hr />
         <h2>Woche 1</h2>
-        <div id="piechart_week1" style="width: 600px; height: 500px;"></div>
+        <div id="piechart_week1"></div>
         <h2>Woche 2</h2>
-        <div id="piechart_week2" style="width: 600px; height: 500px;"></div>
+        <div id="piechart_week2"></div>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
@@ -145,13 +145,15 @@ $localizer = new HornLocalizer();
         var options = {
             title: 'My Daily Activities',
             is3D: true,
+            width: 600,
+            height: 500
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_week1'));
-        chart.draw(data, options);
+        var chart1 = new google.visualization.PieChart(document.getElementById('piechart_week1'));
+        chart1.draw(data, options);
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_week2'));
-        chart.draw(data, options);
+        var chart2 = new google.visualization.PieChart(document.getElementById('piechart_week2'));
+        chart2.draw(data, options);
     }
 </script>
 </body>
