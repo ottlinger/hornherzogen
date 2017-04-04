@@ -11,47 +11,54 @@ class ChartHelper
 
     function __construct()
     {
-        $applicants = new ApplicantDatabaseWriter();
+        $this->applicants = new ApplicantDatabaseWriter();
     }
 
-    public function getByGender()
+    public function getByGender($week = NULL)
     {
+        $applicants = $this->splitByGender($this->applicants->getAllByWeek($week));
+
+        return "{
+          \"cols\": [
+                {\"id\":\"\",\"label\":\"Gender \",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"Slices \",\"pattern\":\"\",\"type\":\"number\"}
+              ],
+          \"rows\": [
+                {\"c\":[{\"v\":\"Male in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['male']).",\"f\":null}]},
+                {\"c\":[{\"v\":\"Female in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['female']).",\"f\":null}]},
+                {\"c\":[{\"v\":\"Others in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['other']).",\"f\":null}]},
+              ]
+        }";
+    }
+
+
+    /*
+                {\"c\":[{\"v\":\"Male in week ".$week."\",\"f\":null},{\"v\":3,\"f\":null}]},
+                {\"c\":[{\"v\":\"Female in week ".$week."\",\"f\":null},{\"v\":4,\"f\":null}]},
+                {\"c\":[{\"v\":\"Others in week ".$week."\",\"f\":null},{\"v\":17,\"f\":null}]}
+     */
+
+    public function getByCountry($week = NULL)
+    {
+        // TODO write backend function to group by country
+        // each entry will generate a row
+        //$applicants = $this->applicants->getAllByWeek($week);
+
         return "{
           \"cols\": [
                 {\"id\":\"\",\"label\":\"Topping\",\"pattern\":\"\",\"type\":\"string\"},
                 {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [
-                {\"c\":[{\"v\":\"Mushrooms\",\"f\":null},{\"v\":3,\"f\":null}]},
-                {\"c\":[{\"v\":\"Onions\",\"f\":null},{\"v\":1,\"f\":null}]},
-                {\"c\":[{\"v\":\"Olives\",\"f\":null},{\"v\":1,\"f\":null}]},
-                {\"c\":[{\"v\":\"Zucchini\",\"f\":null},{\"v\":1,\"f\":null}]},
-                {\"c\":[{\"v\":\"Pepperoni\",\"f\":null},{\"v\":2,\"f\":null}]}
+                {\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},
+                {\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},
+                {\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}
               ]
         }";
     }
 
-    public function getByWeek($week)
-    {
-
-//        $applicants = $this->applicants->getAllByWeek(NULL);
-
-        return "{
-          \"cols\": [
-                {\"id\":\"\",\"label\":\"Topping " . $week . "\",\"pattern\":\"\",\"type\":\"string\"},
-                {\"id\":\"\",\"label\":\"Slices " . $week . "\",\"pattern\":\"\",\"type\":\"number\"}
-              ],
-          \"rows\": [
-                {\"c\":[{\"v\":\"Mushrooms\",\"f\":null},{\"v\":3,\"f\":null}]},
-                {\"c\":[{\"v\":\"Onions\",\"f\":null},{\"v\":1,\"f\":null}]},
-                {\"c\":[{\"v\":\"Olives\",\"f\":null},{\"v\":1,\"f\":null}]},
-                {\"c\":[{\"v\":\"Zucchini\",\"f\":null},{\"v\":1,\"f\":null}]},
-                {\"c\":[{\"v\":\"Pepperoni\",\"f\":null},{\"v\":2,\"f\":null}]}
-              ]
-        }";
-    }
-
-    public function splitByGender($applicantList)
+    // TODO extract into ApplicantDataSplitter class
+    public static function splitByGender($applicantList)
     {
         $results = array(
             'other' => array(),
@@ -61,6 +68,7 @@ class ChartHelper
 
         foreach ($applicantList as $applicant)
             switch ($applicant->getGender()) {
+
                 case "female":
                     $results['female'][] = $applicant;
                     break;

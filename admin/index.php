@@ -146,20 +146,20 @@ $localizer = new HornLocalizer();
         */
 
         var jsonData = $.ajax({
-            url: "../chart/getByWeek.php?week=week1",
+            url: "../chart/getByGender.php?week=1",
             dataType: "json",
             async: false
         }).responseText;
 
         var jsonDataCountry = $.ajax({
-            url: "../chart/getByCountry.php?week=week1",
+            url: "../chart/getByCountry.php?week=1",
             dataType: "json",
             async: false
         }).responseText;
 
         // Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable(jsonData);
-        var dataCountry = new google.visualization.DataTable(jsonDataCountr);
+        var dataCountry = new google.visualization.DataTable(jsonDataCountry);
 
         var options = {
             title: 'Applicant distribution',
