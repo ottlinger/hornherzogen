@@ -43,5 +43,10 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->listByFoodCategoryPerWeek(NULL));
     }
 
+    public function testGetById() {
+        $this->assertEmpty($this->reader->getById(NULL));
+        $this->assertEmpty($this->reader->getById(4711));
+    }
+
 
 }
