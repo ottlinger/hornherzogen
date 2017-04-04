@@ -41,14 +41,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     {
         $results = array();
         if ($this->isHealthy()) {
-            $query = "SELECT * from `applicants` a";
-            // if week == null - return all, else for the given week
-            if (isset($week) && strlen($week)) {
-                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-            }
-            $query .= " ORDER by a.week, a.essen";
-
-            $dbResult = $this->database->query($query);
+            $dbResult = $this->database->query($this->buildQuery($week));
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
@@ -81,14 +74,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         );
 
         if ($this->isHealthy()) {
-            $query = "SELECT * from `applicants` a";
-            // if week == null - return all, else for the given week
-            if (isset($week) && strlen($week)) {
-                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-            }
-            $query .= " ORDER by a.week, a.room";
-
-            $dbResult = $this->database->query($query);
+            $dbResult = $this->database->query($this->buildQuery($week));
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
@@ -117,6 +103,17 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         }
 
         return $results;
+    }
+
+    private function buildQuery($week) {
+        $query = "SELECT * from `applicants` a";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " ORDER by a.week, a.room";
+
+        return $query;
     }
 
 }
