@@ -50,7 +50,7 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
-            
+
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
