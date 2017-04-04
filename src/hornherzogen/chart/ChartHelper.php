@@ -26,17 +26,10 @@ class ChartHelper
           \"rows\": [
                 {\"c\":[{\"v\":\"Male in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['male']).",\"f\":null}]},
                 {\"c\":[{\"v\":\"Female in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['female']).",\"f\":null}]},
-                {\"c\":[{\"v\":\"Others in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['other']).",\"f\":null}]},
+                {\"c\":[{\"v\":\"Others in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['other']).",\"f\":null}]}
               ]
         }";
     }
-
-
-    /*
-                {\"c\":[{\"v\":\"Male in week ".$week."\",\"f\":null},{\"v\":3,\"f\":null}]},
-                {\"c\":[{\"v\":\"Female in week ".$week."\",\"f\":null},{\"v\":4,\"f\":null}]},
-                {\"c\":[{\"v\":\"Others in week ".$week."\",\"f\":null},{\"v\":17,\"f\":null}]}
-     */
 
     public function getByCountry($week = NULL)
     {
