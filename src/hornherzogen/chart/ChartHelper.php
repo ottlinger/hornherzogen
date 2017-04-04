@@ -35,11 +35,11 @@ class ChartHelper
     {
         // TODO write backend function to group by country
         // each entry will generate a row
-        //$applicants = $this->applicants->getAllByWeek($week);
+        //$applicants = $this->applicants->getAllByCountry($week);
 
         return "{
           \"cols\": [
-                {\"id\":\"\",\"label\":\"Topping\",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"Countries\",\"pattern\":\"\",\"type\":\"string\"},
                 {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [
