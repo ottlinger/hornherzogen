@@ -1,5 +1,4 @@
 <?php
-
 namespace hornherzogen\chart;
 
 

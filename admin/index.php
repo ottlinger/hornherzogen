@@ -133,6 +133,7 @@ $localizer = new HornLocalizer();
     google.charts.load("current", {packages: ["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
+        /*
         var data = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
             ['Work', 11],
@@ -141,9 +142,19 @@ $localizer = new HornLocalizer();
             ['Watch TV', 2],
             ['Sleep', 7]
         ]);
+        */
+
+        var jsonData = $.ajax({
+            url: "../chart/getByWeek.php?week=JustATest",
+            dataType: "json",
+            async: false
+        }).responseText;
+
+        // Create our data table out of JSON data loaded from server.
+        var data = new google.visualization.DataTable(jsonData);
 
         var options = {
-            title: 'My Daily Activities',
+            title: 'Applicant distribution',
             is3D: true,
             width: 600,
             height: 500

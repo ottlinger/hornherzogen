@@ -4,14 +4,14 @@ use PHPUnit\Framework\TestCase;
 
 class ChartHelperTest extends TestCase
 {
-    private $reader = null;
+    private $chartHelper = null;
 
     /**
      * Setup the test environment.
      */
     public function setUp()
     {
-        $this->reader = new ChartHelper();
+        $this->chartHelper = new ChartHelper();
     }
 
     /**
@@ -19,7 +19,7 @@ class ChartHelperTest extends TestCase
      */
     public function tearDown()
     {
-        $this->reader = null;
+        $this->chartHelper = null;
     }
 
     /**
@@ -29,19 +29,19 @@ class ChartHelperTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\chart\ChartHelper', $this->reader);
+        $this->assertInstanceOf('hornherzogen\chart\ChartHelper', $this->chartHelper);
     }
 
     public function testGetDataRetrievalByGender()
     {
-        $this->assertNotNull($this->reader->getByGender());
+        $this->assertNotNull($this->chartHelper->getByGender());
     }
 
     public function testGetDataRetrievalByWeek()
     {
         $week = "My Week";
-        $json = $this->reader->getByWeek($week);
-        $this->assertNotNull($this->reader->getByWeek($week));
+        $json = $this->chartHelper->getByWeek($week);
+        $this->assertNotNull($this->chartHelper->getByWeek($week));
         $this->assertContains($week, $json);
     }
 
