@@ -39,7 +39,7 @@ class ChartHelper
 
         return "{
           \"cols\": [
-                {\"id\":\"\",\"label\":\"Countries\",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"Countries in week ".$week."\",\"pattern\":\"\",\"type\":\"string\"},
                 {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [
