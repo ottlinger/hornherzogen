@@ -7,7 +7,7 @@ Live as of 2017-03-20.
 
 ## Current version
 
-Status: Work in progress :-) since 2017-01-07
+Status: Work in progress since 2017-01-07 :-)
 
 [![Stories in Backlog](https://badge.waffle.io/ottlinger/hornherzogen.png?label=backlog&title=Backlog)](https://waffle.io/ottlinger/hornherzogen)
 [![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
