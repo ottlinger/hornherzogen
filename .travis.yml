@@ -19,7 +19,6 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - php vendor/bin/codacycoverage clover coverage.xml
 
 # Not working with PHP :-(
 # https://github.com/ottlinger/hornherzogen/issues/12
