@@ -48,4 +48,11 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->getById(4711));
     }
 
+    public function testSortedByFlexibility() {
+        $filteredByFlexibility = $this->reader->listByFlexibilityPerWeek(NULL);
+        $this->assertEquals(2, sizeof($filteredByFlexibility));
+        $this->assertEmpty($filteredByFlexibility['flexible']);
+        $this->assertEmpty($filteredByFlexibility['static']);
+    }
+
 }

@@ -53,6 +53,18 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
+    private function buildQuery($week)
+    {
+        $query = "SELECT * from `applicants` a";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " ORDER by a.week, a.room";
+
+        return $query;
+    }
+
     /**
      * Get a list of applicants per week and sort them into an array by room category:
      * array of array
@@ -63,8 +75,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      * @param $week week choice, null for both weeks.
      * @return array a simple list of applicants to show in the UI
      */
-    public
-    function listByRoomCategoryPerWeek($week)
+    public function listByRoomCategoryPerWeek($week)
     {
         $results = array(
             '1' => array(),
@@ -105,15 +116,42 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
-    private function buildQuery($week) {
-        $query = "SELECT * from `applicants` a";
-        // if week == null - return all, else for the given week
-        if (isset($week) && strlen($week)) {
-            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-        }
-        $query .= " ORDER by a.week, a.room";
+    /**
+     * Get a list of applicants per week and sort them into an array indicating whether they are flexible to switch weeks or not:
+     * 'flexible' -> all people willing to switch weeks
+     * 'static' -> all people unable to switch
+     * @param $week week choice, null for both weeks.
+     * @return array a simple list of applicants to show in the UI
+     */
+    public function listByFlexibilityPerWeek($week)
+    {
+        $results = array(
+            'flexible' => array(),
+            'static' => array(),
+        );
 
-        return $query;
+        if ($this->isHealthy()) {
+            $dbResult = $this->database->query($this->buildQuery($week));
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
+
+                switch ($applicant->getFlexible()) {
+                    case true:
+                        $results['flexible'][] = $applicant;
+                        break;
+
+                    default:
+                        $results['static'][] = $applicant;
+                        break;
+                }
+            }
+        }
+
+        return $results;
     }
 
 }
