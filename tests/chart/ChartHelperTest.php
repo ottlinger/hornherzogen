@@ -40,10 +40,10 @@ class ChartHelperTest extends TestCase
         $this->assertContains($week, $json);
     }
 
-    public function testGetDataRetrievalByWeek()
+    public function testGetDataRetrievalByGender()
     {
         $week = "My Week";
-        $json = $this->chartHelper->getByWeek($week);
+        $json = $this->chartHelper->getByGender($week);
         $this->assertNotNull($json);
         $this->assertContains($week, $json);
     }
