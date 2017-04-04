@@ -48,5 +48,4 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->getById(4711));
     }
 
-
 }
