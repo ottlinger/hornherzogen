@@ -66,7 +66,6 @@ class SubmitMailer
         $headers[] = 'Reply-To: ' . $replyto;
         // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
         $headers[] = 'From: ' . $replyto;
-        $headers[] = 'Sender: ' . $replyto;
         $headers[] = 'Return-Path: ' . $replyto;
         $headers[] = 'Errors-To: ' . $replyto;
 
@@ -288,7 +287,6 @@ class SubmitMailer
             $headers[] = 'Reply-To: ' . $replyto;
             // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
             $headers[] = 'From: ' . $replyto;
-            $headers[] = 'Sender: ' . $replyto;
             $headers[] = 'Return-Path: ' . $replyto;
             $headers[] = 'Errors-To: ' . $replyto;
 
