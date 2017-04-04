@@ -5,3 +5,4 @@ inc/config.ini.php
 coverage.xml
 testdox.html
 testdox.txt
+vendor
