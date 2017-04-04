@@ -224,13 +224,10 @@ class SubmitMailer
 
     private static function reformat($input)
     {
-        $remarks = $input;
-        if (!empty($remarks)) {
-            $remarks = nl2br($remarks);
-        } else {
-            $remarks = "n/a";
+        if (!empty($input)) {
+            return nl2br($input);
         }
-        return $remarks;
+        return "n/a";
     }
 
     private function setStatusAppliedIfPossible()
