@@ -146,13 +146,20 @@ $localizer = new HornLocalizer();
         */
 
         var jsonData = $.ajax({
-            url: "../chart/getByWeek.php?week=JustATest",
+            url: "../chart/getByWeek.php?week=week1",
+            dataType: "json",
+            async: false
+        }).responseText;
+
+        var jsonDataCountry = $.ajax({
+            url: "../chart/getByCountry.php?week=week1",
             dataType: "json",
             async: false
         }).responseText;
 
         // Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable(jsonData);
+        var dataCountry = new google.visualization.DataTable(jsonDataCountr);
 
         var options = {
             title: 'Applicant distribution',
@@ -165,7 +172,7 @@ $localizer = new HornLocalizer();
         chart1.draw(data, options);
 
         var chart2 = new google.visualization.PieChart(document.getElementById('piechart_week2'));
-        chart2.draw(data, options);
+        chart2.draw(dataCountry, options);
     }
 </script>
 </body>
