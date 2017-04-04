@@ -13,29 +13,20 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
      */
     public function listByFoodCategoryPerWeek($week)
     {
+        $results = array();
         if ($this->isHealthy()) {
-            $results = array();
-            if (self::isHealthy()) {
-                $query = "SELECT * from `applicants` a";
-                // if week == null - return all, else for the given week
-                if (isset($week) && strlen($week)) {
-                    $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-                }
-                $query .= " ORDER by a.week, a.essen";
+            $dbResult = $this->database->query($this->buildQuery($week));
 
-                $dbResult = $this->database->query($query);
-                if (false === $dbResult) {
-                    $error = $this->database->errorInfo();
-                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                }
-                while ($row = $dbResult->fetch()) {
-                    //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
-                    $results[] = $row();
-                }
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
-            return $results;
+            while ($row = $dbResult->fetch()) {
+                //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
+                $results[] = $row();
+            }
         }
-        return array();
+        return $results;
     }
 
     /**
@@ -58,39 +49,31 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         );
 
         if ($this->isHealthy()) {
-            if (self::isHealthy()) {
-                $query = "SELECT * from `applicants` a";
-                // if week == null - return all, else for the given week
-                if (isset($week) && strlen($week)) {
-                    $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-                }
-                $query .= " ORDER by a.week, a.room";
+            $dbResult = $this->database->query($this->buildQuery($week));
+            
+            if (false === $dbResult) {
+                $error = $this->database->errorInfo();
+                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            }
+            while ($row = $dbResult->fetch()) {
+                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
-                $dbResult = $this->database->query($query);
-                if (false === $dbResult) {
-                    $error = $this->database->errorInfo();
-                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                }
-                while ($row = $dbResult->fetch()) {
-                    $applicant = $this->databaseHelper->fromDatabaseToObject($row);
+                switch ($applicant->getRoom()) {
+                    case "1bed":
+                        $results['1'][] = $applicant;
+                        break;
 
-                    switch ($applicant->getRoom()) {
-                        case "1bed":
-                            $results['1'][] = $applicant;
-                            break;
+                    case "2bed":
+                        $results['2'][] = $applicant;
+                        break;
 
-                        case "2bed":
-                            $results['2'][] = $applicant;
-                            break;
+                    case "3bed":
+                        $results['3'][] = $applicant;
+                        break;
 
-                        case "3bed":
-                            $results['3'][] = $applicant;
-                            break;
-
-                        default:
-                            $results['4'][] = $applicant;
-                            break;
-                    }
+                    default:
+                        $results['4'][] = $applicant;
+                        break;
                 }
             }
         }
@@ -153,6 +136,18 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
             }
         }
         return FALSE;
+    }
+
+    private function buildQuery($week)
+    {
+        $query = "SELECT * from `applicants` a";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " ORDER by a.week, a.room";
+
+        return $query;
     }
 
 }
