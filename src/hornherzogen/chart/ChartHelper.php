@@ -1,9 +1,19 @@
 <?php
+declare(strict_types=1);
+
 namespace hornherzogen\chart;
 
+use hornherzogen\db\ApplicantDatabaseWriter;
 
 class ChartHelper
 {
+    private $applicants;
+
+    function __construct()
+    {
+        $applicants = new ApplicantDatabaseWriter();
+    }
+
     public function getByGender()
     {
         return "{
@@ -23,6 +33,9 @@ class ChartHelper
 
     public function getByWeek($week)
     {
+
+//        $applicants = $this->applicants->getAllByWeek(NULL);
+
         return "{
           \"cols\": [
                 {\"id\":\"\",\"label\":\"Topping " . $week . "\",\"pattern\":\"\",\"type\":\"string\"},
@@ -38,5 +51,28 @@ class ChartHelper
         }";
     }
 
+    public function splitByGender($applicantList)
+    {
+        $results = array(
+            'other' => array(),
+            'male' => array(),
+            'female' => array(),
+        );
+
+        foreach ($applicantList as $applicant)
+            switch ($applicant->getGender()) {
+                case "female":
+                    $results['female'][] = $applicant;
+                    break;
+                case "male":
+                    $results['male'][] = $applicant;
+                    break;
+
+                default:
+                    $results['other'][] = $applicant;
+                    break;
+            }
+        return $results;
+    }
 
 }
