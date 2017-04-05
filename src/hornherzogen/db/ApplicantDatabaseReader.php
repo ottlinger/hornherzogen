@@ -159,23 +159,14 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $results = array();
 
         if ($this->isHealthy()) {
-            $dbResult = $this->database->query($this->buildQuery($week));
+            $dbResult = $this->database->query($this->buildGroupByCountryQuery($week));
+
             if (false === $dbResult) {
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
             while ($row = $dbResult->fetch()) {
-                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
-
-                switch ($applicant->getFlexible()) {
-                    case true:
-                        $results['flexible'][] = $applicant;
-                        break;
-
-                    default:
-                        $results['static'][] = $applicant;
-                        break;
-                }
+                $results[] = array($row[country] -> $row[count]);
             }
         }
 
@@ -184,12 +175,12 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function buildGroupByCountryQuery($week)
     {
-        $query = "SELECT * from `applicants` a";
+        $query = "SELECT a.country, count(*) as count FROM `applicants` a";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
         }
-        $query .= " ORDER by a.week, a.room";
+        $query .= " GROUP BY a.country";
 
         return $query;
     }

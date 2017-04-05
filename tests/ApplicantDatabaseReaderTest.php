@@ -68,4 +68,8 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.room", $sql);
     }
 
+    public function testGetGroupByCountryWithoutWeek() {
+        $this->assertEmpty($this->reader->groupByOriginByWeek(NULL));
+    }
+
 }
