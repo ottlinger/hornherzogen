@@ -113,10 +113,10 @@ $localizer = new HornLocalizer();
             <h2 class="lead">Oben auswählen, was man machen will.</h2>
         </h1>
         <hr />
-        <h2>Woche 1</h2>
-        <div id="piechart_week1"></div>
-        <h2>Woche 2</h2>
-        <div id="piechart_week2"></div>
+        <h2>Aufteilung nach Herkunftsländern</h2>
+        <div id="piechart_country"></div>
+        <h2>Aufteilung nach Geschlecht</h2>
+        <div id="piechart_gender"></div>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
@@ -168,10 +168,10 @@ $localizer = new HornLocalizer();
             height: 500
         };
 
-        var chart1 = new google.visualization.PieChart(document.getElementById('piechart_week1'));
+        var chart1 = new google.visualization.PieChart(document.getElementById('piechart_gender'));
         chart1.draw(data, options);
 
-        var chart2 = new google.visualization.PieChart(document.getElementById('piechart_week2'));
+        var chart2 = new google.visualization.PieChart(document.getElementById('piechart_country'));
         chart2.draw(dataCountry, options);
     }
 </script>
