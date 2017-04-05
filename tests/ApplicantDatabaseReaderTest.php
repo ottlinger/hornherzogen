@@ -55,4 +55,17 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($filteredByFlexibility['static']);
     }
 
+    public function testBuildQueryWithoutWeekParameter() {
+        $sql = $this->reader->buildQuery(NULL);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("", $sql);
+    }
+
+    public function testBuildQueryWithWeekParameter() {
+        $week = "MyWeek";
+        $sql = $this->reader->buildQuery($week);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("", $sql);
+    }
+
 }

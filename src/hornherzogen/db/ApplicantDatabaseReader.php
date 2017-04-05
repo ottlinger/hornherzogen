@@ -53,7 +53,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
-    private function buildQuery($week)
+    function buildQuery($week)
     {
         $query = "SELECT * from `applicants` a";
         // if week == null - return all, else for the given week
