@@ -58,14 +58,14 @@ class ApplicantDatabaseReaderTest extends TestCase
     public function testBuildQueryWithoutWeekParameter() {
         $sql = $this->reader->buildQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("", $sql);
+        $this->assertEquals("SELECT * from `applicants` a ORDER by a.week, a.room", $sql);
     }
 
     public function testBuildQueryWithWeekParameter() {
         $week = "MyWeek";
         $sql = $this->reader->buildQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("", $sql);
+        $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.room", $sql);
     }
 
 }
