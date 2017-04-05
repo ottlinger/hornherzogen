@@ -3,15 +3,18 @@ declare(strict_types=1);
 
 namespace hornherzogen\chart;
 
+use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\ApplicantDatabaseWriter;
 
 class ChartHelper
 {
     private $applicants;
+    private $reader;
 
     function __construct()
     {
         $this->applicants = new ApplicantDatabaseWriter();
+        $this->reader = new ApplicantDatabaseReader();
     }
 
     public function getByGender($week = NULL)
@@ -24,35 +27,16 @@ class ChartHelper
                 {\"id\":\"\",\"label\":\"Slices \",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [
-                {\"c\":[{\"v\":\"Male in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['male']).",\"f\":null}]},
-                {\"c\":[{\"v\":\"Female in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['female']).",\"f\":null}]},
-                {\"c\":[{\"v\":\"Others in week ".$week."\",\"f\":null},{\"v\":".sizeof($applicants['other']).",\"f\":null}]}
+                {\"c\":[{\"v\":\"Male in week " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['male']) . ",\"f\":null}]},
+                {\"c\":[{\"v\":\"Female in week " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['female']) . ",\"f\":null}]},
+                {\"c\":[{\"v\":\"Others in week " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['other']) . ",\"f\":null}]}
               ]
         }";
     }
 
-    public function getByCountry($week = NULL)
-    {
-        // TODO write backend function to group by country
-        // each entry will generate a row
-        //$applicants = $this->applicants->getAllByCountry($week);
-
-        return "{
-          \"cols\": [
-                {\"id\":\"\",\"label\":\"Countries in week ".$week."\",\"pattern\":\"\",\"type\":\"string\"},
-                {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
-              ],
-          \"rows\": [
-                {\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},
-                {\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},
-                {\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}
-              ]
-        }";
-    }
-
-    // TODO extract into ApplicantDataSplitter class
     public static function splitByGender($applicantList)
     {
+        // TODO extract into ApplicantDataSplitter class
         $results = array(
             'other' => array(),
             'male' => array(),
@@ -74,6 +58,39 @@ class ChartHelper
                     break;
             }
         return $results;
+    }
+
+    public function getByCountry($week = NULL)
+    {
+        $bycountry = $this->reader->groupByOriginByWeek($week);
+
+        return "{
+          \"cols\": [
+                {\"id\":\"\",\"label\":\"Countries in week " . $week . "\",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
+              ],
+          \"rows\": [" . $this->toJSON($bycountry) . "]
+        }";
+    }
+
+    public static function toJSON($countryEntries)
+    {
+        if (!isset($countryEntries)) {
+            return "
+                {\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},
+                {\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},
+                {\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}
+            ";
+        }
+
+        $json = "";
+
+        foreach ($countryEntries as $country) {
+            $json .= "{\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},";
+        }
+
+        return rtrim($json, ",");
+
     }
 
 }

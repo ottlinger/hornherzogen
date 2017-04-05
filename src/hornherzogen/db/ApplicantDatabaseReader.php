@@ -165,8 +165,10 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
                 $error = $this->database->errorInfo();
                 print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
             }
+
             while ($row = $dbResult->fetch()) {
-                $results[] = array($row[country] -> $row[count]);
+//                $results[] = array($row[country] -> $row[ccount]);
+                $results[] = $row;
             }
         }
 
@@ -175,7 +177,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function buildGroupByCountryQuery($week)
     {
-        $query = "SELECT a.country, count(*) as count FROM `applicants` a";
+        $query = "SELECT a.country, count(*) as ccount FROM `applicants` a";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
