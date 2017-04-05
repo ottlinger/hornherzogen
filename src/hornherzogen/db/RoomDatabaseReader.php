@@ -37,13 +37,6 @@ class RoomDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
-    public function listRoomsWithCapacityInWeek($week)
-    {
-        return $this->listRooms();
-    }
-
-    // b) get rooms that have capacity
-
     /**
      * Retrieve all rooms with their capacity.
      * @return array a simple list of rooms to show in the UI

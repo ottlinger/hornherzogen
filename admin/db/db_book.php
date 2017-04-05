@@ -162,7 +162,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
             <?php
             $capacityOfSelectedRoom = 0;
-            $rooms = $roomReader->listRoomsWithCapacityInWeek($week);
+            // we do not take any capacity into account since bookings cannot be persisted if a room is overbooked
+            $rooms = $roomReader->listRooms();
             echo "<h3><span class=\"glyphicon glyphicon-dashboard\"></span> verfügbare Räume in der Woche: " . sizeof($rooms) . "</h3>";
             ?>
 
