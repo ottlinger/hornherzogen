@@ -167,7 +167,6 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             }
 
             while ($row = $dbResult->fetch()) {
-//                $results[] = array($row[country] -> $row[ccount]);
                 $results[] = $row;
             }
         }

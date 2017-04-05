@@ -86,7 +86,7 @@ class ChartHelper
         $json = "";
 
         foreach ($countryEntries as $country) {
-            $json .= "{\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},";
+            $json .= "{\"c\":[{\"v\":\"" . $country['country'] . "\",\"f\":null},{\"v\":" . $country['ccount'] . ",\"f\":null}]},";
         }
 
         return rtrim($json, ",");
