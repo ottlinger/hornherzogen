@@ -123,7 +123,7 @@ $roomReader = new RoomDatabaseReader();
                     echo "</tr>";
                 }
                 // stats
-                echo "<tr><td><strong>SUMME</strong></td><td><strong>" . $roomCount . "</strong></td></tr>";
+                echo "<tr><td><strong>SUMME</strong></td><td><strong>" . $roomCount . "</strong></td><td></td></tr>";
 
 
                 echo "</tbody>";
