@@ -4,10 +4,19 @@ require '../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
 use hornherzogen\HornLocalizer;
+use hornherzogen\FormHelper;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
+$formHelper = new FormHelper();
 
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
+    $week = $formHelper->filterUserInput($_GET['week']);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+    $week = $formHelper->filterUserInput($_POST['week']);
+}
 ?>
 <html lang="en">
 <head>
@@ -113,6 +122,36 @@ $localizer = new HornLocalizer();
             <h2 class="lead">Oben auswählen, was man machen will.</h2>
         </h1>
         <hr/>
+
+        <form class="form-horizontal" method="post"
+              action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
+                    <?php
+                    // filter for week?
+                    if (strlen($week)) {
+                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
+                    }
+                    ?>
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="week" name="week" onchange="this.form.submit()">
+                        <option value="">beide</option>
+                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche</option>
+                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche</option>
+                    </select>
+                </div>
+            </div>
+            <noscript>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default btn-primary" title="Submit">Submit</button>
+                    </div>
+                </div>
+            </noscript>
+        </form>
+
         <h2>Aufteilung nach Herkunftsländern</h2>
         <div id="piechart_country"></div>
         <h2>Aufteilung nach Geschlecht</h2>
@@ -136,13 +175,13 @@ $localizer = new HornLocalizer();
     function drawChart() {
 
         var jsonData = $.ajax({
-            url: "../chart/getByGender.php?week=1",
+            url: "../chart/getByGender.php?week="<?php echo $formHelper->filterUserInput($week); ?>,
             dataType: "json",
             async: false
         }).responseText;
 
         var jsonDataCountry = $.ajax({
-            url: "../chart/getByCountry.php?week=1",
+            url: "../chart/getByCountry.php?week="<?php echo $formHelper->filterUserInput($week); ?>,
             dataType: "json",
             async: false
         }).responseText;
