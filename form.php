@@ -99,7 +99,7 @@ $hornlocalizer = new HornLocalizer();
         $formHelper = new FormHelper();
 
         if ($formHelper->isSubmissionClosed($config)) {
-            echo "<h1 style=\"color: red; font-weight: bold;\">" . HornLocalizer::i18n('SUBMISSIONCLOSED') . "</h1>";
+            echo "<h1 style=\"color: red; font-weight: bold;\">" . $hornlocalizer->i18n('SUBMISSIONCLOSED') . "</h1>";
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -107,7 +107,7 @@ $hornlocalizer = new HornLocalizer();
             $applicantInput->parse();
 
             if ($config->debug()) {
-                echo '<h2>Language setting is: ' . HornLocalizer::getLanguage() . '</h2>';
+                echo '<h2>Language setting is: ' . $hornlocalizer->getLanguage() . '</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
                 var_dump(file_get_contents('php://input'));
@@ -129,7 +129,7 @@ $hornlocalizer = new HornLocalizer();
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
             <?php if ($applicantInput->hasParseErrors()) {
-                echo "<p class=\"lead\" style=\"color: red; font-weight: bold;\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . HornLocalizer::i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
+                echo "<p class=\"lead\" style=\"color: red; font-weight: bold;\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . $hornlocalizer->i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
             } // show error message ?>
 
             <?php } else { ?>
@@ -144,7 +144,7 @@ $hornlocalizer = new HornLocalizer();
                 if (!$formHelper->isSubmissionClosed($config) && !$sender->existsInDatabase()) {
                     echo $sender->send();
                     echo $sender->sendInternally();
-                    echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . HornLocalizer::i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
+                    echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $hornlocalizer->i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
                 }
             } // if showButtons
             ?>

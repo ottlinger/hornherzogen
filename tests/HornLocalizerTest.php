@@ -134,27 +134,27 @@ class HornLocalizerTest extends TestCase
     public function testSessionDataRetrieval()
     {
         $_SESSION = null;
-        self::assertEmpty(HornLocalizer::getLanguageFromSession());
+        self::assertEmpty($this->language->getLanguageFromSession());
 
         $_SESSION = array();
         $_SESSION['language'] = null;
-        self::assertEmpty(HornLocalizer::getLanguageFromSession());
+        self::assertEmpty($this->language->getLanguageFromSession());
 
         $_SESSION['language'] = ' дняtrimMeProper今日lyC         ';
-        self::assertEquals('дняtrimMeProper今日lyC', HornLocalizer::getLanguageFromSession());
+        self::assertEquals('дняtrimMeProper今日lyC', $this->language->getLanguageFromSession());
     }
 
     public function testUrlParameterDataRetrieval()
     {
         $_GET = null;
-        self::assertEmpty(HornLocalizer::getLanguageFromUrlParameter());
+        self::assertEmpty($this->language->getLanguageFromUrlParameter());
 
         $_GET = array();
         $_GET['lang'] = null;
-        self::assertEmpty(HornLocalizer::getLanguageFromUrlParameter());
+        self::assertEmpty($this->language->getLanguageFromUrlParameter());
 
         $_GET['lang'] = ' дняtrimMeProper今日lyC         ';
-        self::assertEquals('дняtrimMeProper今日lyC', HornLocalizer::getLanguageFromUrlParameter());
+        self::assertEquals('дняtrimMeProper今日lyC', $this->language->getLanguageFromUrlParameter());
     }
 
     public function testLocalizationKeyRetrievalWithUnknownKeyAndNoParams()
@@ -169,7 +169,7 @@ class HornLocalizerTest extends TestCase
 
     public function testLocalizationKeyRetrievalWithKnownKeyAndNoParams()
     {
-        self::assertEquals('Herzogenhorn '.$this->language->i18n('CONST.YEAR').' - Anmeldung', $this->language->i18n('FORM.TITLE'));
+        self::assertEquals('Herzogenhorn ' . $this->language->i18n('CONST.YEAR') . ' - Anmeldung', $this->language->i18n('FORM.TITLE'));
     }
 
     public function testLocalizationKeyRetrievalWithKnownKeyAndParams()
@@ -177,7 +177,8 @@ class HornLocalizerTest extends TestCase
         self::assertEquals('Es ist just', $this->language->i18nParams('TIME', 'just', 'a', 'key'));
     }
 
-    public function testFallbackToGermanForUnknownRussianKey() {
+    public function testFallbackToGermanForUnknownRussianKey()
+    {
         // WHEN language is set to ru
         $_GET['lang'] = "ru";
         // German key is returned for unknown Russian one
