@@ -42,7 +42,7 @@ class HornLocalizerTest extends TestCase
     public function testFallbackToGermanAndStateIsStoredInSessionIfNoUrlParameterIsGiven()
     {
         $_GET['lang'] = null;
-        $this->assertEquals('de', HornLocalizer::getLanguage());
+        $this->assertEquals('de', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('de', $_SESSION['language']);
@@ -57,7 +57,7 @@ class HornLocalizerTest extends TestCase
     {
         $_GET['lang'] = null;
         $_SESSION['language'] = 'bogusNotSupportedHere';
-        $this->assertEquals('de', HornLocalizer::getLanguage());
+        $this->assertEquals('de', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('de', $_SESSION['language']);
@@ -72,7 +72,7 @@ class HornLocalizerTest extends TestCase
     {
         $_GET['lang'] = 'bogusNotSupportedHere';
         $_SESSION['language'] = null;
-        $this->assertEquals('de', HornLocalizer::getLanguage());
+        $this->assertEquals('de', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('de', $_SESSION['language']);
@@ -87,7 +87,7 @@ class HornLocalizerTest extends TestCase
     {
         $_GET['lang'] = 'bogusNotSupportedHere';
         $_SESSION['language'] = 'bogusNotSupportedHere';
-        $this->assertEquals('de', HornLocalizer::getLanguage());
+        $this->assertEquals('de', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('de', $_SESSION['language']);
@@ -102,7 +102,7 @@ class HornLocalizerTest extends TestCase
     {
         $_GET['lang'] = null;
         $_SESSION['language'] = 'ru';
-        $this->assertEquals('ru', HornLocalizer::getLanguage());
+        $this->assertEquals('ru', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('ru', $_SESSION['language']);
@@ -118,14 +118,14 @@ class HornLocalizerTest extends TestCase
         // case: url param given with preset state in session
         $_GET['lang'] = 'en';
         $_SESSION['language'] = 'ru';
-        $this->assertEquals('en', HornLocalizer::getLanguage());
+        $this->assertEquals('en', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('en', $_SESSION['language']);
 
         // link is clicked without session, thus fallback to session
         $_SESSION['language'] = 'en';
-        $this->assertEquals('en', HornLocalizer::getLanguage());
+        $this->assertEquals('en', $this->language->getLanguage());
         self::assertTrue(isset($_SESSION));
         self::assertTrue(isset($_SESSION['language']));
         $this->assertEquals('en', $_SESSION['language']);
