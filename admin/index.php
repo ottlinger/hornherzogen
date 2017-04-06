@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
     $week = $formHelper->filterUserInput($_POST['week']);
 }
+
+echo $week;
 ?>
 <html lang="en">
 <head>
@@ -175,13 +177,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
     function drawChart() {
 
         var jsonData = $.ajax({
-            url: "../chart/getByGender.php?week="<?php echo $formHelper->filterUserInput($week); ?>,
+            url: "../chart/getByGender.php?week=<?php echo $formHelper->filterUserInput($week); ?>",
             dataType: "json",
             async: false
         }).responseText;
 
         var jsonDataCountry = $.ajax({
-            url: "../chart/getByCountry.php?week="<?php echo $formHelper->filterUserInput($week); ?>,
+            url: "../chart/getByCountry.php?week=<?php echo $formHelper->filterUserInput($week); ?>",
             dataType: "json",
             async: false
         }).responseText;
