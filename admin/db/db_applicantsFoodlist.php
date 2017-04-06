@@ -161,6 +161,7 @@ $statusReader = new StatusDatabaseReader();
         echo "<th>Nachname</th>";
         echo "<th>Essen</th>";
         echo "<th>aktueller Status</th>";
+        echo "<th>Anmerkungen</th>";
         echo "<th>Statusübersicht</th>";
         echo "</tr>";
         echo "</thead>";
@@ -193,6 +194,7 @@ $statusReader = new StatusDatabaseReader();
             } else {
                 $meat++;
             }
+            echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
 
             $statId = $statusReader->getById($applicant->getCurrentStatus());
             if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
