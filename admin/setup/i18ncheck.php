@@ -96,7 +96,7 @@ $hornlocalizer = new HornLocalizer();
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
-            foreach ($hornlocalizer->$supportedLanguages as $language) {
+            foreach (HornLocalizer::$supportedLanguages as $language) {
                 echo "<tr>";
                 echo "<td>" . $language . "</td>";
                 echo "<td>" . sizeof(array_keys($GLOBALS['messages'][$language])) . "</td>";
