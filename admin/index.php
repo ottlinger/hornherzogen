@@ -10,6 +10,7 @@ $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $formHelper = new FormHelper();
 
+$week = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
     $week = $formHelper->filterUserInput($_GET['week']);
 }
