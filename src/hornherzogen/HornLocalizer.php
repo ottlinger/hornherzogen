@@ -12,12 +12,12 @@ class HornLocalizer
 
     public function i18n($key)
     {
-        return self::i18nParams($key, []);
+        return $this->i18nParams($key, []);
     }
 
     public function i18nParams($key, $params)
     {
-        $messageFormatter = self::getMessageFormatterForKeyWithLanguageFallback($key);
+        $messageFormatter = $this->getMessageFormatterForKeyWithLanguageFallback($key);
         if ($messageFormatter) {
             if (isset($params) && !empty($params)) {
                 return $messageFormatter->format(array($params));
@@ -33,8 +33,8 @@ class HornLocalizer
      */
     private function getMessageFormatterForKeyWithLanguageFallback($key)
     {
-        if (isset($GLOBALS['messages'][self::getLanguage()][trim('' . $key)])) {
-            return new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
+        if (isset($GLOBALS['messages'][$this->getLanguage()][trim('' . $key)])) {
+            return new MessageFormatter($this->getLanguage(), $GLOBALS['messages'][$this->getLanguage()][$key]);
         }
 
         if (isset($GLOBALS['messages'][self::$fallbackLanguage][trim('' . $key)])) {
@@ -51,11 +51,11 @@ class HornLocalizer
     public function getLanguage()
     {
         $sessionLanguage = self::getLanguageFromSession();
-        $lang = self::getLanguageFromUrlParameter();
+        $lang = $this->getLanguageFromUrlParameter();
 
         // no URL parameter given
         if (empty($lang) && empty($sessionLanguage)) {
-            return self::storeInSession(self::$fallbackLanguage);
+            return $this->storeInSession(self::$fallbackLanguage);
         }
 
         // fallback from session
@@ -66,10 +66,10 @@ class HornLocalizer
         $lang = trim('' . strtolower($lang));
 
         if (in_array($lang, self::$supportedLanguages)) {
-            return self::storeInSession($lang);
+            return $this->storeInSession($lang);
         }
 
-        return self::storeInSession(self::$fallbackLanguage);
+        return $this->storeInSession(self::$fallbackLanguage);
     }
 
     /**
@@ -95,7 +95,7 @@ class HornLocalizer
      * @param $language current language string/ISO-2
      * @return mixed given language stored in session.
      */
-    private static function storeInSession($language)
+    private function storeInSession($language)
     {
         $_SESSION['language'] = $language;
         return $language;
