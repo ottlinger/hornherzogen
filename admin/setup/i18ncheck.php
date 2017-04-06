@@ -4,6 +4,8 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\HornLocalizer;
 
+$hornlocalizer = new HornLocalizer();
+
 ?>
 <html lang="en">
 <head>
@@ -63,7 +65,7 @@ use hornherzogen\HornLocalizer;
             <ul class="nav navbar-nav">
                 <!-- TODO FIXME menu structure -->
                 <li class="active"><a href="../"><span
-                                class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
+                                class="glyphicon glyphicon-briefcase"></span> <?php $hornlocalizer->i18n('MENU.ADMIN'); ?>
                     </a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -79,14 +81,12 @@ use hornherzogen\HornLocalizer;
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo HornLocalizer::i18n('FORM.TITLE'); ?>
+            <span class="glyphicon glyphicon-sunglasses"></span> <?php $hornlocalizer->i18n('FORM.TITLE'); ?>
         </h1>
 
         <p>
             <?php
             echo "<h2>List all languages and their l10n values ....</h2>";
-
-            $l10n = new HornLocalizer();
 
             echo '<div class="table-responsive"><table class="table table-striped">';
             echo "<thead>";
@@ -96,7 +96,7 @@ use hornherzogen\HornLocalizer;
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
-            foreach ($l10n::$supportedLanguages as $language) {
+            foreach ($hornlocalizer->$supportedLanguages as $language) {
                 echo "<tr>";
                 echo "<td>" . $language . "</td>";
                 echo "<td>" . sizeof(array_keys($GLOBALS['messages'][$language])) . "</td>";
