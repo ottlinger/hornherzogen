@@ -7,6 +7,7 @@ use hornherzogen\HornLocalizer;
 use hornherzogen\SubmitMailer;
 
 $config = new ConfigurationWrapper();
+$hornlocalizer = new HornLocalizer();
 ?>
 <html lang="en">
 <head>
@@ -14,12 +15,12 @@ $config = new ConfigurationWrapper();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="<?php echo HornLocalizer::i18n('FORM.TITLE'); ?>">
+    <meta name="description" content="<?php echo $hornlocalizer->i18n('FORM.TITLE'); ?>">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="favicon.ico">
 
-    <title><?php echo HornLocalizer::i18n('FORM.TITLE'); ?></title>
+    <title><?php echo $hornlocalizer->i18n('FORM.TITLE'); ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -54,24 +55,24 @@ $config = new ConfigurationWrapper();
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only"><?php echo HornLocalizer::i18n('NAV.TOGGLE'); ?></span>
+                <span class="sr-only"><?php echo $hornlocalizer->i18n('NAV.TOGGLE'); ?></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="./index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                <?php echo HornLocalizer::i18n('MENU.MAIN'); ?></a>
+                <?php echo $hornlocalizer->i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="./form.php"><span
-                                class="glyphicon glyphicon-home"></span> <?php echo HornLocalizer::i18n('MENU.APPLY'); ?>
+                                class="glyphicon glyphicon-home"></span> <?php echo $hornlocalizer->i18n('MENU.APPLY'); ?>
                     </a></li>
                 <li><a href="./contact.php"><span
-                                class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?>
+                                class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('MENU.FAQ'); ?>
                     </a></li>
                 <li><a href="./admin"><span
-                                class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?>
+                                class="glyphicon glyphicon-briefcase"></span> <?php echo $hornlocalizer->i18n('MENU.ADMIN'); ?>
                     </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -89,7 +90,7 @@ $config = new ConfigurationWrapper();
                     alt="Fork me on GitHub"
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo HornLocalizer::i18n('FORM.TITLE'); ?>
+            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo $hornlocalizer->i18n('FORM.TITLE'); ?>
         </h1>
 
         <?php
@@ -120,10 +121,10 @@ $config = new ConfigurationWrapper();
         } // if POST
         ?>
         <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
-        <p class="lead"><?php echo HornLocalizer::i18n('FORM.INTRO.LINE1'); ?><br/>
-            <?php echo HornLocalizer::i18n('FORM.INTRO.LINE2'); ?>
+        <p class="lead"><?php echo $hornlocalizer->i18n('FORM.INTRO.LINE1'); ?><br/>
+            <?php echo $hornlocalizer->i18n('FORM.INTRO.LINE2'); ?>
         </p>
-        <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+        <p><?php echo $hornlocalizer->i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -133,9 +134,9 @@ $config = new ConfigurationWrapper();
 
             <?php } else { ?>
                 <p class="lead" style="color: darkgreen; font-weight: bold;"><span
-                            class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('FORM.SUC.CHECK'); ?>
+                            class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('FORM.SUC.CHECK'); ?>
                 </p>
-                <p><?php echo HornLocalizer::i18nParams('TIME', $formHelper->timestamp()); ?></p>
+                <p><?php echo $hornlocalizer->i18nParams('TIME', $formHelper->timestamp()); ?></p>
                 <?php
                 // send mail only if there are no error messages and nothing already exists in the database
                 $sender = new SubmitMailer($applicantInput);
@@ -148,50 +149,50 @@ $config = new ConfigurationWrapper();
             } // if showButtons
             ?>
 
-            <legend><?php echo HornLocalizer::i18n('FORM.WEEK'); ?></legend>
+            <legend><?php echo $hornlocalizer->i18n('FORM.WEEK'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
                 <label class="col-sm-2 control-label"
-                       for="week"><?php echo HornLocalizer::i18n('FORM.WEEK.LABEL'); ?></label>
+                       for="week"><?php echo $hornlocalizer->i18n('FORM.WEEK.LABEL'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week">
-                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.WEEK.1'); ?></option>
-                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.WEEK.2'); ?></option>
+                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.WEEK.1'); ?></option>
+                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.WEEK.2'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
                 </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('flexible'); ?>">
-                <label class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.FLEXIBLE'); ?></label>
+                <label class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.FLEXIBLE'); ?></label>
                 <div class="col-sm-10">
                     <div class="radio" id="flexible">
                         <label>
                             <input type="radio" name="flexible" id="no"
                                    value="no" <?php if (!$applicantInput->getFlexible()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n('FORM.FLEXIBLE.NO'); ?>
+                            <?php echo $hornlocalizer->i18n('FORM.FLEXIBLE.NO'); ?>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="flexible" id="yes"
                                    value="yes" <?php if ($applicantInput->getFlexible()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n('FORM.FLEXIBLE.YES'); ?>
+                            <?php echo $hornlocalizer->i18n('FORM.FLEXIBLE.YES'); ?>
                         </label>
                     </div>
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n('FORM.PERSONALDATA'); ?></legend>
+            <legend><?php echo $hornlocalizer->i18n('FORM.PERSONALDATA'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('gender'); ?>">
                 <label for="gender"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GENDER'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.GENDER'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
                         <option value="male" <?php if ('male' == $applicantInput->getGender()) echo ' selected'; ?>>
-                            <?php echo HornLocalizer::i18n('FORM.GENDER.M'); ?>
+                            <?php echo $hornlocalizer->i18n('FORM.GENDER.M'); ?>
                         </option>
                         <option value="female" <?php if ('female' == $applicantInput->getGender()) echo ' selected'; ?>>
-                            <?php echo HornLocalizer::i18n('FORM.GENDER.F'); ?>
+                            <?php echo $hornlocalizer->i18n('FORM.GENDER.F'); ?>
                         </option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('gender'); ?>
@@ -200,10 +201,10 @@ $config = new ConfigurationWrapper();
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('vorname'); ?>">
                 <label for="vorname"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.FIRSTNAME'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.FIRSTNAME'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="vorname" id="vorname"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.FIRSTNAME.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.FIRSTNAME.PL'); ?>"
                            value="<?php echo $applicantInput->getFirstname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('vorname'); ?>
                 </div>
@@ -211,23 +212,23 @@ $config = new ConfigurationWrapper();
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('nachname'); ?>">
                 <label for="nachname"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.LASTNAME'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.LASTNAME'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="nachname" id="nachname"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.LASTNAME.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.LASTNAME.PL'); ?>"
                            value="<?php echo $applicantInput->getLastname(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('nachname'); ?>
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n('FORM.ADDRESS'); ?></p>
+            <p><?php echo $hornlocalizer->i18n('FORM.ADDRESS'); ?></p>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('street'); ?>">
                 <label for="street"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.STREET'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.STREET'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="street" id="street"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.STREET.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.STREET.PL'); ?>"
                            value="<?php echo $applicantInput->getStreet(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('street'); ?>
                 </div>
@@ -235,30 +236,30 @@ $config = new ConfigurationWrapper();
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('houseno'); ?>">
                 <label for="houseno"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.HOUSENO'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.HOUSENO'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="houseno" name="houseno"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.HOUSENO.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.HOUSENO.PL'); ?>"
                            value="<?php echo $applicantInput->getHouseNumber(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('houseno'); ?>
                 </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('plz'); ?>">
-                <label for="plz" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.ZIP'); ?></label>
+                <label for="plz" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.ZIP'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="plz" id="plz"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.ZIP.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.ZIP.PL'); ?>"
                            value="<?php echo $applicantInput->getZipCode(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('plz'); ?>
                 </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('city'); ?>">
-                <label for="city" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.CITY'); ?></label>
+                <label for="city" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.CITY'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="city" id="city"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.CITY.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.CITY.PL'); ?>"
                            value="<?php echo $applicantInput->getCity(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('city'); ?>
                 </div>
@@ -288,20 +289,20 @@ $config = new ConfigurationWrapper();
             ?>
             <div class="form-group <?php echo $applicantInput->getUIResponse('country'); ?>">
                 <label for="country"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.COUNTRY'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.COUNTRY'); ?></label>
                 <div id="country" data-name="country" class="col-sm-10 bfh-selectbox bfh-countries"
                      data-country="<?php echo $applicantInput->getCountry(); ?>" data-flags="true">
                     <?php echo $applicantInput->showSymbolIfFeedback('country'); ?>
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n('FORM.EMAIL.LABEL'); ?></p>
+            <p><?php echo $hornlocalizer->i18n('FORM.EMAIL.LABEL'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('email'); ?>">
                 <label for="email"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.EMAIL'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.EMAIL'); ?></label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="email" id="email"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.EMAIL.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.EMAIL.PL'); ?>"
                            value="<?php echo $applicantInput->getEmail(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('email'); ?>
                 </div>
@@ -309,32 +310,32 @@ $config = new ConfigurationWrapper();
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('emailcheck'); ?>">
                 <label for="emailcheck"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.EMAILCHECK'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.EMAILCHECK'); ?></label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" name="emailcheck" id="emailcheck"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.EMAILCHECK.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.EMAILCHECK.PL'); ?>"
                            value="<?php echo $applicantInput->getEmailcheck(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('emailcheck'); ?>
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n('FORM.AIKIDO'); ?></legend>
+            <legend><?php echo $hornlocalizer->i18n('FORM.AIKIDO'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('dojo'); ?>">
-                <label for="dojo" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.DOJO'); ?></label>
+                <label for="dojo" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.DOJO'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.DOJO.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.DOJO.PL'); ?>"
                            value="<?php echo $applicantInput->getDojo(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('dojo'); ?>
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n('FORM.TWA.LABEL'); ?></p>
+            <p><?php echo $hornlocalizer->i18n('FORM.TWA.LABEL'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('twano'); ?>">
-                <label for="twano" class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.TWA'); ?></label>
+                <label for="twano" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.TWA'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="twano" id="twano"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.TWA.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.TWA.PL'); ?>"
                            value="<?php echo $applicantInput->getTwaNumber(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('twano'); ?>
                 </div>
@@ -342,7 +343,7 @@ $config = new ConfigurationWrapper();
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('grad'); ?>">
                 <label for="grad"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GRADING'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.GRADING'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
                         <option <?php if ('6.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>6.Dan</option>
@@ -360,10 +361,10 @@ $config = new ConfigurationWrapper();
                 </div>
             </div>
 
-            <p><?php echo HornLocalizer::i18n('FORM.GSINCE.CHANGE'); ?></p>
+            <p><?php echo $hornlocalizer->i18n('FORM.GSINCE.CHANGE'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('gsince'); ?>">
                 <label for="gsince"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.GSINCE'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.GSINCE'); ?></label>
                 <div class="col-sm-10">
                     <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d"
                          data-date="<?php if (empty($applicantInput->getDateOfLastGrading())) {
@@ -402,27 +403,27 @@ $config = new ConfigurationWrapper();
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n('FORM.ROOM.PL'); ?></legend>
+            <legend><?php echo $hornlocalizer->i18n('FORM.ROOM.PL'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('room'); ?>">
-                <label class="col-sm-2 control-label" for="room"><?php echo HornLocalizer::i18n('FORM.ROOM'); ?></label>
+                <label class="col-sm-2 control-label" for="room"><?php echo $hornlocalizer->i18n('FORM.ROOM'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
-                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.3'); ?></option>
-                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.2'); ?></option>
-                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo HornLocalizer::i18n('FORM.ROOM.1'); ?></option>
+                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.3'); ?></option>
+                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.2'); ?></option>
+                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.1'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
             </div>
 
             <div id="together1-group">
-                <p><?php echo HornLocalizer::i18n('FORM.PARTNER'); ?></p>
+                <p><?php echo $hornlocalizer->i18n('FORM.PARTNER'); ?></p>
                 <div class="form-group <?php echo $applicantInput->getUIResponse('together1'); ?>">
                     <label for="together1"
-                           class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.PARTNER.P1'); ?></label>
+                           class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.PARTNER.P1'); ?></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="together1" id="together1"
-                               placeholder="<?php echo HornLocalizer::i18n('FORM.PARTNER.PL'); ?>"
+                               placeholder="<?php echo $hornlocalizer->i18n('FORM.PARTNER.PL'); ?>"
                                value="<?php echo $applicantInput->getPartnerOne(); ?>"/>
                         <?php echo $applicantInput->showSymbolIfFeedback('together1'); ?>
                     </div>
@@ -431,51 +432,51 @@ $config = new ConfigurationWrapper();
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('together2'); ?>" id="together2-group">
                 <label for="together2"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.PARTNER.P2'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.PARTNER.P2'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="together2" id="together2"
-                           placeholder="<?php echo HornLocalizer::i18n('FORM.PARTNER.PL'); ?>"
+                           placeholder="<?php echo $hornlocalizer->i18n('FORM.PARTNER.PL'); ?>"
                            value="<?php echo $applicantInput->getPartnerTwo(); ?>"/>
                     <?php echo $applicantInput->showSymbolIfFeedback('together2'); ?>
                 </div>
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('essen'); ?>">
-                <label class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.FOOD'); ?></label>
+                <label class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.FOOD'); ?></label>
                 <div class="col-sm-10">
                     <div class="radio" id="essen">
                         <label>
                             <input type="radio" name="essen" id="meat"
                                    value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n('FORM.FOOD.MEAT'); ?>
+                            <?php echo $hornlocalizer->i18n('FORM.FOOD.MEAT'); ?>
                         </label>
                         <label>
                             <input type="radio" name="essen" id="veg"
                                    value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
-                            <?php echo HornLocalizer::i18n('FORM.FOOD.VEG'); ?>
+                            <?php echo $hornlocalizer->i18n('FORM.FOOD.VEG'); ?>
                         </label>
                     </div>
                 </div>
             </div>
 
-            <legend><?php echo HornLocalizer::i18n('FORM.OTHER'); ?></legend>
+            <legend><?php echo $hornlocalizer->i18n('FORM.OTHER'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('additionals'); ?>">
                 <label for="additionals"
-                       class="col-sm-2 control-label"><?php echo HornLocalizer::i18n('FORM.REMARK'); ?></label>
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.REMARK'); ?></label>
                 <div class="col-sm-10">
                     <textarea class="form-control" name="additionals" id="additionals" rows="13" maxlength="400"
-                              placeholder="<?php echo HornLocalizer::i18n('FORM.REMARK.PL'); ?>"><?php echo $applicantInput->getRemarks(); ?></textarea>
+                              placeholder="<?php echo $hornlocalizer->i18n('FORM.REMARK.PL'); ?>"><?php echo $applicantInput->getRemarks(); ?></textarea>
                     <?php echo $applicantInput->showSymbolIfFeedback('additionals'); ?>
                 </div>
             </div>
 
             <?php if ($applicantInput->showFormButtons()) { ?>
-            <p class="lead"><?php echo HornLocalizer::i18n('FORM.MANDATORYFIELDS') ?></p>
+            <p class="lead"><?php echo $hornlocalizer->i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
-                        title="<?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?>"><?php echo HornLocalizer::i18n('FORM.SUBMIT'); ?></button>
+                        title="<?php echo $hornlocalizer->i18n('FORM.SUBMIT'); ?>"><?php echo $hornlocalizer->i18n('FORM.SUBMIT'); ?></button>
                 <button type="reset" class="btn btn-danger"
-                        title="<?php echo HornLocalizer::i18n('FORM.RESET'); ?>"><?php echo HornLocalizer::i18n('FORM.RESET'); ?></button>
+                        title="<?php echo $hornlocalizer->i18n('FORM.RESET'); ?>"><?php echo $hornlocalizer->i18n('FORM.RESET'); ?></button>
             </div>
         </form>
     <?php } // buttonIf ?>

@@ -65,7 +65,7 @@ $hornlocalizer = new HornLocalizer();
             <ul class="nav navbar-nav">
                 <!-- TODO FIXME menu structure -->
                 <li class="active"><a href="../"><span
-                                class="glyphicon glyphicon-briefcase"></span> <?php $hornlocalizer->i18n('MENU.ADMIN'); ?>
+                                class="glyphicon glyphicon-briefcase"></span> <?php echo $hornlocalizer->i18n('MENU.ADMIN'); ?>
                     </a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -81,7 +81,7 @@ $hornlocalizer = new HornLocalizer();
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> <?php $hornlocalizer->i18n('FORM.TITLE'); ?>
+            <span class="glyphicon glyphicon-sunglasses"></span> <?php echo $hornlocalizer->i18n('FORM.TITLE'); ?>
         </h1>
 
         <p>

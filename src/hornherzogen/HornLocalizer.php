@@ -10,12 +10,12 @@ class HornLocalizer
     public static $fallbackLanguage = 'de';
     public static $supportedLanguages = array('de', 'en', 'ru', 'jp');
 
-    public static function i18n($key)
+    public function i18n($key)
     {
         return self::i18nParams($key, []);
     }
 
-    public static function i18nParams($key, $params)
+    public function i18nParams($key, $params)
     {
         $messageFormatter = self::getMessageFormatterForKeyWithLanguageFallback($key);
         if ($messageFormatter) {
@@ -31,7 +31,7 @@ class HornLocalizer
      * @param $key
      * @return bool|MessageFormatter false in case no key is found for the currently set language or fallback language
      */
-    private static function getMessageFormatterForKeyWithLanguageFallback($key)
+    private function getMessageFormatterForKeyWithLanguageFallback($key)
     {
         if (isset($GLOBALS['messages'][self::getLanguage()][trim('' . $key)])) {
             return new MessageFormatter(self::getLanguage(), $GLOBALS['messages'][self::getLanguage()][$key]);
@@ -48,7 +48,7 @@ class HornLocalizer
      * Retrieve language parameter if available with fallback to en by taking care of session state as well.
      * @return string
      */
-    public static function getLanguage()
+    public function getLanguage()
     {
         $sessionLanguage = self::getLanguageFromSession();
         $lang = self::getLanguageFromUrlParameter();

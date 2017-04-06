@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php';
 use hornherzogen\HornLocalizer;
-$config = new \hornherzogen\ConfigurationWrapper();
+use hornherzogen\ConfigurationWrapper;
+
+$config = new ConfigurationWrapper();
+$hornlocalizer = new HornLocalizer();
 ?>
 <html lang="en">
 <head>
@@ -9,12 +12,12 @@ $config = new \hornherzogen\ConfigurationWrapper();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="<?php echo HornLocalizer::i18n('CONTACT.HEADER'); ?>">
+    <meta name="description" content="<?php echo $hornlocalizer->i18n('CONTACT.HEADER'); ?>">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="favicon.ico">
 
-    <title><?php echo HornLocalizer::i18n('CONTACT.HEADER'); ?></title>
+    <title><?php echo $hornlocalizer->i18n('CONTACT.HEADER'); ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -46,19 +49,19 @@ $config = new \hornherzogen\ConfigurationWrapper();
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only"><?php echo HornLocalizer::i18n('NAV.TOGGLE'); ?></span>
+                <span class="sr-only"><?php echo $hornlocalizer->i18n('NAV.TOGGLE'); ?></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="./index.php"><span class="glyphicon glyphicon-tree-conifer"></span>
-                <?php echo HornLocalizer::i18n('MENU.MAIN'); ?></a>
+                <?php echo $hornlocalizer->i18n('MENU.MAIN'); ?></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo HornLocalizer::i18n('MENU.APPLY'); ?></a></li>
-                <li class="active"><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo HornLocalizer::i18n('MENU.FAQ'); ?></a></li>
-                <li><a href="./admin"><span class="glyphicon glyphicon-briefcase"></span> <?php echo HornLocalizer::i18n('MENU.ADMIN'); ?></a></li>
+                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo $hornlocalizer->i18n('MENU.APPLY'); ?></a></li>
+                <li class="active"><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('MENU.FAQ'); ?></a></li>
+                <li><a href="./admin"><span class="glyphicon glyphicon-briefcase"></span> <?php echo $hornlocalizer->i18n('MENU.ADMIN'); ?></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?></a></li>
@@ -74,30 +77,30 @@ $config = new \hornherzogen\ConfigurationWrapper();
                     src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
                     alt="Fork me on GitHub"
                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-        <h1><span class="glyphicon glyphicon-send"></span> <?php echo HornLocalizer::i18n('CONTACT.H.APPLICATION'); ?></h1>
-        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.APPLICATION.LINE1'); ?><br />
-            <?php echo HornLocalizer::i18nParams('CONTACT.H.APPLICATION.LINE2', "form.php" ); ?>
+        <h1><span class="glyphicon glyphicon-send"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION'); ?></h1>
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION.LINE1'); ?><br />
+            <?php echo $hornlocalizer->i18nParams('CONTACT.H.APPLICATION.LINE2', "form.php" ); ?>
         </p>
     </div>
 
     <div class="starter-template">
-        <h1><span class="glyphicon glyphicon-paperclip"></span> <?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION'); ?></h1>
-        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION.LINE1'); ?><br />
-            <?php echo HornLocalizer::i18n('CONTACT.H.CONFIRMATION.LINE2'); ?>
+        <h1><span class="glyphicon glyphicon-paperclip"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION'); ?></h1>
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION.LINE1'); ?><br />
+            <?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION.LINE2'); ?>
         </p>
     </div>
 
     <div class="starter-template">
-        <h1><span class="glyphicon glyphicon-usd"></span> <?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT'); ?></h1>
-        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT.LINE1'); ?><br />
-            <?php echo HornLocalizer::i18n('CONTACT.H.PAYMENT.LINE2'); ?>
+        <h1><span class="glyphicon glyphicon-usd"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT'); ?></h1>
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT.LINE1'); ?><br />
+            <?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT.LINE2'); ?>
         </p>
     </div>
 
     <div class="starter-template">
-        <h1><?php echo HornLocalizer::i18n('CONTACT.H.OTHER'); ?></h1>
-        <p class="lead"><?php echo HornLocalizer::i18n('CONTACT.H.OTHER.LINE1'); ?><br />
-            <?php echo HornLocalizer::i18nParams('CONTACT.H.OTHER.LINE2', $config->mail()); ?>
+        <h1><?php echo $hornlocalizer->i18n('CONTACT.H.OTHER'); ?></h1>
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.OTHER.LINE1'); ?><br />
+            <?php echo $hornlocalizer->i18nParams('CONTACT.H.OTHER.LINE2', $config->mail()); ?>
         </p>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
