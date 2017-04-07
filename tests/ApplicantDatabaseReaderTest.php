@@ -72,4 +72,16 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->groupByOriginByWeek(NULL));
     }
 
+    public function testBuildByCountryQueryWithoutWeekParameter() {
+        $sql = $this->reader->buildGroupByCountryQuery(NULL);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT a.country, count(*) as ccount FROM `applicants` a GROUP BY a.country", $sql);
+    }
+
+    public function testBuildByCountryQueryWithWeekParameter() {
+        $week = "MyWeek";
+        $sql = $this->reader->buildGroupByCountryQuery($week);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT a.country, count(*) as ccount FROM `applicants` a WHERE a.week LIKE '%MyWeek%' GROUP BY a.country", $sql);
+    }
 }
