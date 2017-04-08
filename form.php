@@ -76,7 +76,8 @@ $hornlocalizer = new HornLocalizer();
                     </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?>
+                    </a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
@@ -84,11 +85,7 @@ $hornlocalizer = new HornLocalizer();
 
 <div class="container theme-showcase">
     <div class="starter-template">
-        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
-                    style="position: absolute; top: 100px; right: 0; border: 0;"
-                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-                    alt="Fork me on GitHub"
-                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+        <?php echo new hornherzogen\ui\ForkMe(); ?>
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> <?php echo $hornlocalizer->i18n('FORM.TITLE'); ?>
         </h1>
@@ -256,7 +253,8 @@ $hornlocalizer = new HornLocalizer();
             </div>
 
             <div class="form-group <?php echo $applicantInput->getUIResponse('city'); ?>">
-                <label for="city" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.CITY'); ?></label>
+                <label for="city"
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.CITY'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="city" id="city"
                            placeholder="<?php echo $hornlocalizer->i18n('FORM.CITY.PL'); ?>"
@@ -321,7 +319,8 @@ $hornlocalizer = new HornLocalizer();
 
             <legend><?php echo $hornlocalizer->i18n('FORM.AIKIDO'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('dojo'); ?>">
-                <label for="dojo" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.DOJO'); ?></label>
+                <label for="dojo"
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.DOJO'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="dojo" id="dojo"
                            placeholder="<?php echo $hornlocalizer->i18n('FORM.DOJO.PL'); ?>"
@@ -332,7 +331,8 @@ $hornlocalizer = new HornLocalizer();
 
             <p><?php echo $hornlocalizer->i18n('FORM.TWA.LABEL'); ?></p>
             <div class="form-group <?php echo $applicantInput->getUIResponse('twano'); ?>">
-                <label for="twano" class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.TWA'); ?></label>
+                <label for="twano"
+                       class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.TWA'); ?></label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="twano" id="twano"
                            placeholder="<?php echo $hornlocalizer->i18n('FORM.TWA.PL'); ?>"
@@ -405,7 +405,8 @@ $hornlocalizer = new HornLocalizer();
 
             <legend><?php echo $hornlocalizer->i18n('FORM.ROOM.PL'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('room'); ?>">
-                <label class="col-sm-2 control-label" for="room"><?php echo $hornlocalizer->i18n('FORM.ROOM'); ?></label>
+                <label class="col-sm-2 control-label"
+                       for="room"><?php echo $hornlocalizer->i18n('FORM.ROOM'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
                         <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.3'); ?></option>

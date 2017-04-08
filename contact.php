@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php require 'vendor/autoload.php';
-use hornherzogen\HornLocalizer;
 use hornherzogen\ConfigurationWrapper;
+use hornherzogen\HornLocalizer;
 
 $config = new ConfigurationWrapper();
 $hornlocalizer = new HornLocalizer();
@@ -59,12 +59,19 @@ $hornlocalizer = new HornLocalizer();
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="./form.php"><span class="glyphicon glyphicon-home"></span> <?php echo $hornlocalizer->i18n('MENU.APPLY'); ?></a></li>
-                <li class="active"><a href="./contact.php"><span class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('MENU.FAQ'); ?></a></li>
-                <li><a href="./admin"><span class="glyphicon glyphicon-briefcase"></span> <?php echo $hornlocalizer->i18n('MENU.ADMIN'); ?></a></li>
+                <li><a href="./form.php"><span
+                                class="glyphicon glyphicon-home"></span> <?php echo $hornlocalizer->i18n('MENU.APPLY'); ?>
+                    </a></li>
+                <li class="active"><a href="./contact.php"><span
+                                class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('MENU.FAQ'); ?>
+                    </a></li>
+                <li><a href="./admin"><span
+                                class="glyphicon glyphicon-briefcase"></span> <?php echo $hornlocalizer->i18n('MENU.ADMIN'); ?>
+                    </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-education"></span> <?php echo date('Y-m-d H:i:s'); ?>
+                    </a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -72,34 +79,33 @@ $hornlocalizer = new HornLocalizer();
 
 <div class="container">
     <div class="starter-template">
-        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
-                    style="position: absolute; top: 100px; right: 0; border: 0;"
-                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-                    alt="Fork me on GitHub"
-                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-        <h1><span class="glyphicon glyphicon-send"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION'); ?></h1>
-        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION.LINE1'); ?><br />
-            <?php echo $hornlocalizer->i18nParams('CONTACT.H.APPLICATION.LINE2', "form.php" ); ?>
+        <?php echo new hornherzogen\ui\ForkMe(); ?>
+        <h1><span class="glyphicon glyphicon-send"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION'); ?>
+        </h1>
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION.LINE1'); ?><br/>
+            <?php echo $hornlocalizer->i18nParams('CONTACT.H.APPLICATION.LINE2', "form.php"); ?>
         </p>
     </div>
 
     <div class="starter-template">
-        <h1><span class="glyphicon glyphicon-paperclip"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION'); ?></h1>
-        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION.LINE1'); ?><br />
+        <h1>
+            <span class="glyphicon glyphicon-paperclip"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION'); ?>
+        </h1>
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION.LINE1'); ?><br/>
             <?php echo $hornlocalizer->i18n('CONTACT.H.CONFIRMATION.LINE2'); ?>
         </p>
     </div>
 
     <div class="starter-template">
         <h1><span class="glyphicon glyphicon-usd"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT'); ?></h1>
-        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT.LINE1'); ?><br />
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT.LINE1'); ?><br/>
             <?php echo $hornlocalizer->i18n('CONTACT.H.PAYMENT.LINE2'); ?>
         </p>
     </div>
 
     <div class="starter-template">
         <h1><?php echo $hornlocalizer->i18n('CONTACT.H.OTHER'); ?></h1>
-        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.OTHER.LINE1'); ?><br />
+        <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.OTHER.LINE1'); ?><br/>
             <?php echo $hornlocalizer->i18nParams('CONTACT.H.OTHER.LINE2', $config->mail()); ?>
         </p>
     </div><!-- /.starter-template -->
