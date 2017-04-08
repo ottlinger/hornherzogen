@@ -34,10 +34,8 @@ class BookingErrorChecker extends BaseDatabaseWriter
             $query .= " order by r.name";
 
             $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
                 $results[] = $row;

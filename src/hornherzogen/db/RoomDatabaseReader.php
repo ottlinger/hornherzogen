@@ -25,10 +25,8 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             $query .= " order by r.name";
 
             $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
                 $results[] = $row;
@@ -46,10 +44,8 @@ class RoomDatabaseReader extends BaseDatabaseWriter
         $results = array();
         if (self::isHealthy()) {
             $dbResult = $this->database->query("SELECT r.id, r.name, r.capacity from `rooms` r ORDER BY r.name");
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
                 $results[] = $row;
@@ -67,10 +63,8 @@ class RoomDatabaseReader extends BaseDatabaseWriter
         $results = array();
         if (self::isHealthy() && is_numeric($roomId) && isset($roomId)) {
             $dbResult = $this->database->query("SELECT * from `rooms` WHERE id = " . $this->databaseHelper->trimAndMask($roomId));
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $results[] = $row;
             }
@@ -95,10 +89,8 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             $query .= " ORDER BY a.combinedName";
 
             $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
@@ -128,10 +120,8 @@ class RoomDatabaseReader extends BaseDatabaseWriter
             $query .= " ORDER BY a.combinedName";
 
             $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 // we silently ignore attribute bookingId from above SQL :-D while converting into ApplicantInput elements
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
