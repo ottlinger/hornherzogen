@@ -16,11 +16,8 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
         $results = array();
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
             while ($row = $dbResult->fetch()) {
                 //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
                 $results[] = $row();
@@ -50,11 +47,8 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
             while ($row = $dbResult->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
