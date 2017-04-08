@@ -14,9 +14,9 @@ class StatusDatabaseReaderTest extends TestCase
      */
     public function setUp()
     {
+        $this->databaseHelper = new DatabaseHelper();
         self::$pdo = $this->createTables();
         $this->reader = new StatusDatabaseReader(self::$pdo);
-        $this->databaseHelper = new DatabaseHelper();
     }
 
     private function createTables()
