@@ -45,16 +45,10 @@ class StatusDatabaseReaderTest extends TestCase
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (6,'PAID')");
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (7,'SPAM')");
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (8,'REJECTED')");
-        if (false === $dbResult) {
-            $error = $pdo->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
         $dbResult = $pdo->query("SELECT * FROM status");
-        if (false === $dbResult) {
-            $error = $pdo->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
         echo ">>>";
         while ($row = $dbResult->fetch()) {
