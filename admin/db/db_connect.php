@@ -22,10 +22,8 @@ if ($config->isValidDatabaseConfig()) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $q = $db->query("select curdate() AS foo from dual");
-        if (false === $q) {
-            $error = $db->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        $this->databaseHelper->logDatabaseErrors($q, $db);
+
         while ($row = $q->fetch()) {
             print "<h2>SUCCESS: Database date is set to '$row[foo]'</h2>\n";
         }

@@ -104,10 +104,7 @@ $localizer = new HornLocalizer();
 
                 // STATS
                 $q = $db->query("SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week");
-                if (false === $q) {
-                    $error = $db->errorInfo();
-                    print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                }
+                $this->databaseHelper->logDatabaseErrors($q, $db);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
                 echo "<thead>";
