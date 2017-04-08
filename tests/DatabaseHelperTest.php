@@ -154,11 +154,20 @@ class DatabaseHelperTest extends TestCase
     }
 
     public function testDatabaseLogErrorWithInvalidParameters() {
+        // to avoid a warning that no assertions are in the test
         $this->assertNotNull($this->helper);
+
         $this->helper->logDatabaseErrors(NULL, NULL);
         $this->helper->logDatabaseErrors(FALSE, NULL);
         $this->helper->logDatabaseErrors(TRUE, NULL);
+    }
+
+    public function testDatabaseLogErrorWithValidParameters() {
+        // to avoid a warning that no assertions are in the test
+        $this->assertNotNull($this->helper);
+
         $this->helper->logDatabaseErrors(TRUE, $this->pdo);
+        $this->helper->logDatabaseErrors(FALSE, $this->pdo);
     }
 
 }
