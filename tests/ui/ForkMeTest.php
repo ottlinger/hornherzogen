@@ -35,9 +35,10 @@ class ForkMeTest extends TestCase
     public function testToStringContainsForkMeAndGitHubAddress()
     {
         $this->assertNotNull($this->chartHelper);
-        $this->assertContains("hornherzogen", $this->chartHelper);
-        $this->assertContains("github", $this->chartHelper);
-        $this->assertContains("forkme_right_green_007200", $this->chartHelper);
+        $toString = (string)$this->chartHelper;
+        $this->assertContains("hornherzogen", $toString);
+        $this->assertContains("github", $toString);
+        $this->assertContains("forkme_right_green_007200", $toString);
     }
 
 }
