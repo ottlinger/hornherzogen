@@ -193,5 +193,20 @@ class DatabaseHelper
         return $applicant;
     }
 
+
+    /**
+     * Logs error information in case of database/SQL errors.
+     *
+     * @param $result PDO-database result.
+     * @param $database Database connection the errors happen on/are extracted from.
+     */
+    public function logDatabaseErrors($result, $database)
+    {
+        if (isset($result) && isset($database) && false === $result) {
+            $error = $database->errorInfo();
+            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+        }
+    }
+
 }
 
