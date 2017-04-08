@@ -91,10 +91,8 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
     {
         if ($this->isHealthy() && isset($roomId) && isset($applicantId) && is_numeric($roomId) && is_numeric($applicantId)) {
             $result = $this->database->exec("INSERT INTO `roombooking` (roomId, applicantId) VALUES (" . $this->databaseHelper->trimAndMask($roomId) . "," . $this->databaseHelper->trimAndMask($applicantId) . ")");
-            if (false === $result) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($result, $this->database);
+
             return $this->database->lastInsertId();
         }
         return NULL;
@@ -109,10 +107,7 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
     {
         if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
             $result = $this->database->exec("DELETE FROM `roombooking` WHERE applicantId=" . $this->databaseHelper->trimAndMask($applicantId));
-            if (false === $result) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($result, $this->database);
         }
         return NULL;
     }
@@ -126,11 +121,8 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
     {
         if ($this->isHealthy()) {
             $result = $this->database->query("select r.id as roomId, r.capacity, count(b.roomId) as bookings from rooms r, roombooking b where b.roomId = r.id and b.roomId=" . $this->databaseHelper->trimAndMask($roomId));
-            if (false === $result) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                return FALSE;
-            }
+            $this->databaseHelper->logDatabaseErrors($result, $this->database);
+
             while ($row = $result->fetch()) {
                 return $row['capacity'] > $row['bookings'];
             }
