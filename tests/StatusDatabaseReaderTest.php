@@ -35,7 +35,7 @@ class StatusDatabaseReaderTest extends TestCase
         ';
 
         $dbResult = $pdo->query($query);
-        $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+        $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED')");
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (2,'REGISTERED')");
