@@ -150,6 +150,8 @@ echo $week;
                 </div>
             </noscript>
         </form>
+        <h2>Wochenauslastung</h2>
+        <div id="gauge_div" style="width:280px; height: 140px;"></div>
 
         <h2>Aufteilung nach Herkunftsländern</h2>
         <div id="piechart_country"></div>
@@ -167,8 +169,9 @@ echo $week;
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
 <script src="../js/bootstrap-formhelpers.min.js"></script>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
+<!--script type="text/javascript">
     google.charts.load("current", {packages: ["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -184,8 +187,6 @@ echo $week;
             dataType: "json",
             async: false
         }).responseText;
-
-
 
         // Create our data table out of JSON data loaded from server.
         var data = new google.visualization.DataTable(jsonData);
@@ -203,6 +204,26 @@ echo $week;
 
         var chart2 = new google.visualization.PieChart(document.getElementById('piechart_country'));
         chart2.draw(dataCountry, options);
+
+    }
+</script-->
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['gauge']});
+    google.charts.setOnLoadCallback(drawGauge);
+
+    var gaugeOptions = {min: 0, max: 100,
+        yellowFrom: 45, yellowTo: 65,
+        redFrom: 65, redTo: 100, minorTicks: 5};
+    var gauge;
+
+    function drawGauge() {
+        gaugeData = new google.visualization.DataTable();
+        gaugeData.addColumn('number', 'Engine');
+        gaugeData.addRows(2);
+        gaugeData.setCell(0, 0, 99);
+
+        gauge = new google.visualization.Gauge(document.getElementById('gauge_div'));
+        gauge.draw(gaugeData, gaugeOptions);
     }
 </script>
 </body>
