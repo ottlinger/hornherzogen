@@ -125,25 +125,6 @@ $localizer = new HornLocalizer();
                 echo "</tbody>";
                 echo "</table>";
                 echo "</div>";
-
-                /*
-                        // ALL with status
-                        echo "<h2>Show all applicants and their status ...</h2>";
-                        $q = $db->query("SELECT a.vorname, a.nachname, a.created, s.name FROM `applicants` a, `status` s WHERE s.id = a.statusId ORDER BY s.name");
-                        if (false === $q) {
-                            $error = $db->errorInfo();
-                            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-                        }
-
-                        echo "<h1>Currently there are " . $q->rowCount() . " applicants in the database</h1>";
-
-                        $rowNum = 0;
-                        while ($row = $q->fetch()) {
-                            $rowNum++;
-                            print "<h2>($rowNum) $row[vorname] $row[nachname] created at $row[created] with status $row[name]</h2>\n";
-                        }
-                */
-
             } catch (PDOException $e) {
                 print "Unable to connect to db:" . $e->getMessage();
             }

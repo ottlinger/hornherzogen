@@ -1,4 +1,5 @@
 <?php
+use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
 use PHPUnit\Framework\TestCase;
 
@@ -6,6 +7,7 @@ class StatusDatabaseReaderTest extends TestCase
 {
     private static $pdo = null;
     private $reader = null;
+    private $databaseHelper;
 
     /**
      * Setup the test environment.
@@ -14,6 +16,7 @@ class StatusDatabaseReaderTest extends TestCase
     {
         self::$pdo = $this->createTables();
         $this->reader = new StatusDatabaseReader(self::$pdo);
+        $this->databaseHelper = new DatabaseHelper();
     }
 
     private function createTables()
@@ -32,10 +35,7 @@ class StatusDatabaseReaderTest extends TestCase
         ';
 
         $dbResult = $pdo->query($query);
-        if (false === $dbResult) {
-            $error = $pdo->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (1,'APPLIED')");
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (2,'REGISTERED')");
@@ -120,7 +120,8 @@ class StatusDatabaseReaderTest extends TestCase
         $this->assertEquals(array(array('id' => "1", 'name' => "APPLIED")), $this->reader->getByName("APPLIED"));
     }
 
-    public function testGetByNameWithNoName() {
+    public function testGetByNameWithNoName()
+    {
         $this->assertNull($this->reader->getByName(NULL));
     }
 }
