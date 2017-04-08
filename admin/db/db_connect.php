@@ -1,7 +1,10 @@
 <?php
 require '../../vendor/autoload.php';
 
-use \hornherzogen\ConfigurationWrapper;
+use hornherzogen\ConfigurationWrapper;
+use hornherzogen\db\DatabaseHelper;
+
+$databaseHelper = new DatabaseHelper();
 
 echo "<h1>Trying to connect to configured database ....</h1>";
 
@@ -22,7 +25,7 @@ if ($config->isValidDatabaseConfig()) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $q = $db->query("select curdate() AS foo from dual");
-        $this->databaseHelper->logDatabaseErrors($q, $db);
+        $databaseHelper->logDatabaseErrors($q, $db);
 
         while ($row = $q->fetch()) {
             print "<h2>SUCCESS: Database date is set to '$row[foo]'</h2>\n";

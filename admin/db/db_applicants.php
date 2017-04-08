@@ -8,9 +8,11 @@ use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
+use hornherzogen\db\DatabaseHelper;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
+$databaseHelper = new DatabaseHelper();
 ?>
 <html lang="en">
 <head>
@@ -104,7 +106,7 @@ $localizer = new HornLocalizer();
 
                 // STATS
                 $q = $db->query("SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week");
-                $this->databaseHelper->logDatabaseErrors($q, $db);
+                $databaseHelper->logDatabaseErrors($q, $db);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
                 echo "<thead>";
