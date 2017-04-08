@@ -194,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         var gauge;
 
         gaugeData = new google.visualization.DataTable();
-        gaugeData.addColumn('number', 'Engine');
+        gaugeData.addColumn('number', 'Anzahl');
         gaugeData.addRows(1);
         gaugeData.setCell(0, 0, <?php echo $chartHelper->getCountByWeek($week); ?>);
 
