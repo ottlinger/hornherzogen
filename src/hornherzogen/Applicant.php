@@ -17,8 +17,8 @@ class Applicant
     private $week;
     private $gender;
     private $firstname;
-        private $lastname; // combinedName to avoid double registrations
-private $fullName;
+    private $lastname; // combinedName to avoid double registrations
+    private $fullName;
     private $street;
     private $houseNumber;
     private $zipCode;
@@ -28,9 +28,9 @@ private $fullName;
     private $dojo;
     private $grading;
     private $dateOfLastGrading;
-        private $twaNumber; // language used when submitting the form
-private $language; // which kind of room
-private $room;
+    private $twaNumber; // language used when submitting the form
+    private $language; // which kind of room
+    private $room;
     private $partnerOne;
     private $partnerTwo;
     private $foodCategory;
@@ -41,7 +41,7 @@ private $room;
     private $remarks;
 
     // Admin-related stuff
-        private $persistenceId; // date when status was set to APPLIED
+    private $persistenceId; // date when status was set to APPLIED
     private $createdAt; // date when status was set to CONFIRMED
     private $confirmedAt; // reference to other table, final room at Herzogenhorn
     private $finalRoom; // name in other table
@@ -52,7 +52,7 @@ private $room;
     private $bookedAt; // data at which an applicant cancelled his/her booking
 
     // TECHNICAL attributes
-private $cancelledAt;
+    private $cancelledAt;
 
     function __construct()
     {
