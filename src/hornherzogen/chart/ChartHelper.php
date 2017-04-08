@@ -60,6 +60,11 @@ class ChartHelper
         return $results;
     }
 
+    public function getCountByWeek($week = NULL)
+    {
+        return sizeof($this->applicants->getAllByWeek($week));
+    }
+
     public function getByCountry($week = NULL)
     {
         $bycountry = $this->reader->groupByOriginByWeek($week);

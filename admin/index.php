@@ -3,12 +3,14 @@
 require '../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
+use hornherzogen\chart\ChartHelper;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $formHelper = new FormHelper();
+$chartHelper = new ChartHelper();
 
 $week = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
@@ -85,13 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Verwaltung</li>
                         <li><a href="db/db_applicantsWishes.php">Zimmerwünsche der Teilnehmer</a></li>
-                        <li><a href="db/db_book.php?id=1&week=1">Buchungen der Zimmer vornehmen</a></li>
+                        <li><a href="db/db_book.php?id=1&amp;week=1">Buchungen der Zimmer vornehmen</a></li>
                         <li><a href="#">TODO Raumplan pro Woche</a></li>
                         <li><a href="#">TODO Bewerbungsstatus ändern / Kontoverbindung aussenden</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
-                        <li><a href="db/db_applicants.php">TODO eingegangene Anmeldungen nach Flexibilität #77</a></li>
+                        <li><a href="db/db_applicants.php">TODO umbuchbare Anmeldungen #77</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
                         <li><a href="db/db_roomsByWeek.php">Raumverteilung pro Woche</a></li>
                         <li role="separator" class="divider"></li>
@@ -116,8 +118,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> Willkommen auf den Startseiten für die
             Herzogenhornanmeldungen des Jahres <?php echo $localizer->i18n('CONST.YEAR'); ?>
-            <h2 class="lead">Oben auswählen, was man machen will.</h2>
         </h1>
+        <h2 class="lead">Oben auswählen, was man machen will.</h2>
         <hr/>
 
         <form class="form-horizontal" method="post"
@@ -206,19 +208,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
     }
 </script-->
 <script type="text/javascript">
-    google.charts.load('current', {'packages':['gauge']});
+    google.charts.load('current', {'packages': ['gauge']});
     google.charts.setOnLoadCallback(drawGauge);
 
-    var gaugeOptions = {min: 0, max: 100,
+    <?php if(strlen($week)) { ?>
+    var gaugeOptions = {
+        min: 0, max: 100,
         yellowFrom: 45, yellowTo: 65,
-        redFrom: 65, redTo: 100, minorTicks: 5};
+        redFrom: 65, redTo: 100, minorTicks: 5
+    };
+    <?php } else { ?>
+    var gaugeOptions = {
+        min: 0, max: 200,
+        yellowFrom: 90, yellowTo: 130,
+        redFrom: 130, redTo: 200, minorTicks: 5
+    };
+    <?php } // scale of no week is selected ?>
+
     var gauge;
 
     function drawGauge() {
         gaugeData = new google.visualization.DataTable();
         gaugeData.addColumn('number', 'Engine');
-        gaugeData.addRows(2);
-        gaugeData.setCell(0, 0, 99);
+        gaugeData.addRows(1);
+        gaugeData.setCell(0, 0, <?php echo $chartHelper->getCountByWeek($week); ?>);
 
         gauge = new google.visualization.Gauge(document.getElementById('gauge_div'));
         gauge.draw(gaugeData, gaugeOptions);
