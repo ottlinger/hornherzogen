@@ -171,11 +171,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 <script src="../js/bootstrap-formhelpers.min.js"></script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<!--script type="text/javascript">
-    google.charts.load("current", {packages: ["corechart"]});
+<script type="text/javascript">
+    google.charts.load("current", {packages: ["corechart", "gauge"]});
     google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
 
+    function drawChart() {
+        // GAUGE
+        <?php if(strlen($week)) { ?>
+        var gaugeOptions = {
+            min: 0, max: 100,
+            yellowFrom: 45, yellowTo: 65,
+            redFrom: 65, redTo: 100, minorTicks: 5
+        };
+        <?php } else { ?>
+        var gaugeOptions = {
+            min: 0, max: 200,
+            yellowFrom: 90, yellowTo: 130,
+            redFrom: 130, redTo: 200, minorTicks: 5
+        };
+        <?php } // scale of no week is selected ?>
+
+        var gauge;
+
+        gaugeData = new google.visualization.DataTable();
+        gaugeData.addColumn('number', 'Engine');
+        gaugeData.addRows(1);
+        gaugeData.setCell(0, 0, <?php echo $chartHelper->getCountByWeek($week); ?>);
+
+        gauge = new google.visualization.Gauge(document.getElementById('gauge_div'));
+        gauge.draw(gaugeData, gaugeOptions);
+
+        // CORECHART
         var jsonData = $.ajax({
             url: "../chart/getByGender.php?week=<?php echo $formHelper->filterUserInput($week); ?>",
             dataType: "json",
@@ -204,37 +230,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
         var chart2 = new google.visualization.PieChart(document.getElementById('piechart_country'));
         chart2.draw(dataCountry, options);
-
-    }
-</script-->
-<script type="text/javascript">
-    google.charts.load('current', {'packages': ['gauge']});
-    google.charts.setOnLoadCallback(drawGauge);
-
-    <?php if(strlen($week)) { ?>
-    var gaugeOptions = {
-        min: 0, max: 100,
-        yellowFrom: 45, yellowTo: 65,
-        redFrom: 65, redTo: 100, minorTicks: 5
-    };
-    <?php } else { ?>
-    var gaugeOptions = {
-        min: 0, max: 200,
-        yellowFrom: 90, yellowTo: 130,
-        redFrom: 130, redTo: 200, minorTicks: 5
-    };
-    <?php } // scale of no week is selected ?>
-
-    var gauge;
-
-    function drawGauge() {
-        gaugeData = new google.visualization.DataTable();
-        gaugeData.addColumn('number', 'Engine');
-        gaugeData.addRows(1);
-        gaugeData.setCell(0, 0, <?php echo $chartHelper->getCountByWeek($week); ?>);
-
-        gauge = new google.visualization.Gauge(document.getElementById('gauge_div'));
-        gauge.draw(gaugeData, gaugeOptions);
     }
 </script>
 </body>

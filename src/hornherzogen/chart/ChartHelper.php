@@ -27,9 +27,9 @@ class ChartHelper
                 {\"id\":\"\",\"label\":\"Slices \",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [
-                {\"c\":[{\"v\":\"Male in week " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['male']) . ",\"f\":null}]},
-                {\"c\":[{\"v\":\"Female in week " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['female']) . ",\"f\":null}]},
-                {\"c\":[{\"v\":\"Others in week " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['other']) . ",\"f\":null}]}
+                {\"c\":[{\"v\":\"Frauen in Woche " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['female']) . ",\"f\":null}]},
+                {\"c\":[{\"v\":\"Männer in Woche " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['male']) . ",\"f\":null}]},
+                {\"c\":[{\"v\":\"Andere in Woche " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['other']) . ",\"f\":null}]}
               ]
         }";
     }
@@ -43,9 +43,8 @@ class ChartHelper
             'female' => array(),
         );
 
-        foreach ($applicantList as $applicant)
+        foreach ($applicantList as $applicant) {
             switch ($applicant->getGender()) {
-
                 case "female":
                     $results['female'][] = $applicant;
                     break;
@@ -57,6 +56,8 @@ class ChartHelper
                     $results['other'][] = $applicant;
                     break;
             }
+        }
+
         return $results;
     }
 
