@@ -48,11 +48,7 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         $query .= ' AND a.nachname = "' . $lastname . '" ';
         $query .= ' AND a.email = "' . $mail . '" ';
         $dbResult = $this->database->query($query);
-        if (false === $dbResult) {
-            $error = $this->database->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            return NULL;
-        }
+        $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
         if (0 == $dbResult->rowCount()) {
             return NULL;
@@ -80,10 +76,8 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             }
 
             $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
