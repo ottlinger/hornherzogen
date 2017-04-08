@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace hornherzogen\ui;
 
-use hornherzogen\db\ApplicantDatabaseReader;
-use hornherzogen\db\ApplicantDatabaseWriter;
-
 class ForkMe
 {
     public function __toString()
