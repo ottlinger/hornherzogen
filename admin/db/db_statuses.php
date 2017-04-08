@@ -1,7 +1,9 @@
 <?php
 require '../../vendor/autoload.php';
 
-use \hornherzogen\ConfigurationWrapper;
+use hornherzogen\ConfigurationWrapper;
+use hornherzogen\db\DatabaseHelper;
+$databaseHelper = new DatabaseHelper();
 
 echo "<h1>List all statuses and count bookings for it ....</h1>";
 
@@ -17,7 +19,7 @@ if ($config->isValidDatabaseConfig()) {
         // ALL values
         echo "<h3>All statuses</h3>";
         $q = $db->query("SELECT s.name FROM `status` s ORDER BY s.name");
-        $this->databaseHelper->logDatabaseErrors($q, $db);
+        $databaseHelper->logDatabaseErrors($q, $db);
 
         echo "<h3>Currently there are ".$q->rowCount()." status values available in the database</h3>";
 
@@ -30,7 +32,7 @@ if ($config->isValidDatabaseConfig()) {
         // COUNT from the applicants table
         echo "<h3>Statuses grouped by applicants in the database</h3>";
         $q = $db->query("SELECT s.name, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId");
-        $this->databaseHelper->logDatabaseErrors($q, $db);
+        $databaseHelper->logDatabaseErrors($q, $db);
 
         $rowNum = 0;
         while ($row = $q->fetch()) {
