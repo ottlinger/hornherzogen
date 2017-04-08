@@ -17,10 +17,8 @@ if ($config->isValidDatabaseConfig()) {
         // ALL values
         echo "<h3>All statuses</h3>";
         $q = $db->query("SELECT s.name FROM `status` s ORDER BY s.name");
-        if (false === $q) {
-            $error = $db->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        $this->databaseHelper->logDatabaseErrors($q, $db);
+
         echo "<h3>Currently there are ".$q->rowCount()." status values available in the database</h3>";
 
         $rowNum = 0;
@@ -32,10 +30,8 @@ if ($config->isValidDatabaseConfig()) {
         // COUNT from the applicants table
         echo "<h3>Statuses grouped by applicants in the database</h3>";
         $q = $db->query("SELECT s.name, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId");
-        if (false === $q) {
-            $error = $db->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-        }
+        $this->databaseHelper->logDatabaseErrors($q, $db);
+
         $rowNum = 0;
         while ($row = $q->fetch()) {
             $rowNum++;
