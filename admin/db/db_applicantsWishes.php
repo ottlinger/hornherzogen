@@ -89,11 +89,8 @@ $statusReader = new StatusDatabaseReader();
 
 <div class="container theme-showcase">
     <div class="starter-template">
-        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
-                    style="position: absolute; top: 100px; right: 0; border: 0;"
-                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-                    alt="Fork me on GitHub"
-                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+        <?php echo new hornherzogen\ui\ForkMe(); ?>
+
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> eingegangene Anmeldungen
         </h1>
@@ -136,7 +133,7 @@ $statusReader = new StatusDatabaseReader();
                 </div>
             </noscript>
         </form>
-        <hr/>
+    <hr/>
         <h3><span class="glyphicon glyphicon-indent-left"></span> Springe in Kategorie</h3>
 
         <a href="#anchor1bed">Einzelzimmer</a>
@@ -144,118 +141,118 @@ $statusReader = new StatusDatabaseReader();
         <a href="#anchor3bed">Dreierzimmer</a>
         <a href="#anchornobed">Ohne Zimmer</a>
 
-        <hr/>
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
-            $remover = new ApplicantDatabaseWriter();
-            $id = $formHelper->filterUserInput($_POST['aid']);
-            echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-            $_POST['aid'] = NULL;
+    <hr/>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+        $remover = new ApplicantDatabaseWriter();
+        $id = $formHelper->filterUserInput($_POST['aid']);
+        echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
+        $_POST['aid'] = NULL;
+    }
+
+    $allApplicants = $applicantReader->listByRoomCategoryPerWeek($week);
+
+    $catNumeric = 0;
+    foreach ($allApplicants as $applicants) {
+        $catNumeric++;
+
+        switch ($catNumeric) {
+            case 1:
+                echo "<a name=\"anchor1bed\"></a>";
+                $category = "Einzelzimmer";
+                break;
+            case 2:
+                echo "<a name=\"anchor2bed\"></a>";
+                $category = "Doppelzimmer";
+                break;
+            case 3:
+                echo "<a name=\"anchor3bed\"></a>";
+                $category = "Dreierzimmer";
+                break;
+
+            default:
+                echo "<a name=\"anchornobed\"></a>";
+                $category = " ohne Wünsche (sollte leer sein im Produktbetrieb)";
         }
 
-        $allApplicants = $applicantReader->listByRoomCategoryPerWeek($week);
 
-        $catNumeric = 0;
-        foreach ($allApplicants as $applicants) {
-            $catNumeric++;
+        if (!isset($applicants) || !boolval($applicants)) {
+            echo "<h2><span class=\"glyphicon glyphicon-lamp\"></span> Keine Anmeldungen für " . $category . "</h2>";
+            echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
+            continue;
+        }
+        echo "<h2><span class=\"glyphicon glyphicon-lamp\"></span> Kategorie " . $category . " (" . sizeof($applicants) . ")</h2>";
 
-            switch ($catNumeric) {
-                case 1:
-                    echo "<a name=\"anchor1bed\"></a>";
-                    $category = "Einzelzimmer";
-                    break;
-                case 2:
-                    echo "<a name=\"anchor2bed\"></a>";
-                    $category = "Doppelzimmer";
-                    break;
-                case 3:
-                    echo "<a name=\"anchor3bed\"></a>";
-                    $category = "Dreierzimmer";
-                    break;
+        echo '<div class="table-responsive"><table class="table table-striped">';
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>DB-Id</th>";
+        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+            echo "<th>AKTIONEN</th>";
+        }
+        echo "<th>Sprache</th>";
+        echo "<th>Anrede</th>";
+        echo "<th>Name</th>";
+        echo "<th>Dojo</th>";
+        echo "<th>Zimmer</th>";
+        echo "<th>Zusammenlegungswunsch</th>";
+        echo "<th>Umbuchbar?</th>";
+        echo "<th>Anmerkungen</th>";
+        echo "<th>aktueller Status</th>";
+        echo "<th>Statusübersicht</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
 
-                default:
-                    echo "<a name=\"anchornobed\"></a>";
-                    $category = " ohne Wünsche (sollte leer sein im Produktbetrieb)";
-            }
-
-
-            if (!isset($applicants) || !boolval($applicants)) {
-                echo "<h2><span class=\"glyphicon glyphicon-lamp\"></span> Keine Anmeldungen für " . $category . "</h2>";
-                echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
-                continue;
-            }
-            echo "<h2><span class=\"glyphicon glyphicon-lamp\"></span> Kategorie " . $category . " (" . sizeof($applicants) . ")</h2>";
-
-            echo '<div class="table-responsive"><table class="table table-striped">';
-            echo "<thead>";
+        foreach ($applicants as $applicant) {
             echo "<tr>";
-            echo "<th>DB-Id</th>";
+            echo "<td>" . $applicant->getPersistenceId() . "</td>";
+
             if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                echo "<th>AKTIONEN</th>";
-            }
-            echo "<th>Sprache</th>";
-            echo "<th>Anrede</th>";
-            echo "<th>Name</th>";
-            echo "<th>Dojo</th>";
-            echo "<th>Zimmer</th>";
-            echo "<th>Zusammenlegungswunsch</th>";
-            echo "<th>Umbuchbar?</th>";
-            echo "<th>Anmerkungen</th>";
-            echo "<th>aktueller Status</th>";
-            echo "<th>Statusübersicht</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-
-            foreach ($applicants as $applicant) {
-                echo "<tr>";
-                echo "<td>" . $applicant->getPersistenceId() . "</td>";
-
-                if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                    echo '<td>
+                echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Lösche Anmeldung #' . $applicant->getPersistenceId() . '</button>
                     </form>
                 </td>';
-                }
-
-                echo "<td>" . $applicant->getLanguage() . "</td>";
-                echo "<td>" . $applicant->getGender() . "</td>";
-                echo "<td>" . $applicant->getFullName() . "</td>";
-                echo "<td>" . $applicant->getDojo() . "</td>";
-                echo "<td>" . $applicant->getRoom() . "</td>";
-                echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-                echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-                echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-
-                $statId = $statusReader->getById($applicant->getCurrentStatus());
-                if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-                    echo "<td>" . $statId[0]['name'] . "</td>";
-                } else {
-                    echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-                }
-
-                echo "<td>";
-                echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-                echo "MAILED: " . $applicant->getMailedAt() . "</br>";
-                echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
-                echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
-                echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
-                echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
-                echo "CANCELLED: " . $applicant->getCancelledAt();
-                echo "</td>";
-                echo "</tr>";
             }
-            echo "</tbody>";
-            echo "</table></div>";
-            echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
-        }
 
-        } else {
-            echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+            echo "<td>" . $applicant->getLanguage() . "</td>";
+            echo "<td>" . $applicant->getGender() . "</td>";
+            echo "<td>" . $applicant->getFullName() . "</td>";
+            echo "<td>" . $applicant->getDojo() . "</td>";
+            echo "<td>" . $applicant->getRoom() . "</td>";
+            echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
+            echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
+            echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+
+            $statId = $statusReader->getById($applicant->getCurrentStatus());
+            if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
+                echo "<td>" . $statId[0]['name'] . "</td>";
+            } else {
+                echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
+            }
+
+            echo "<td>";
+            echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
+            echo "MAILED: " . $applicant->getMailedAt() . "</br>";
+            echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
+            echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
+            echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
+            echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
+            echo "CANCELLED: " . $applicant->getCancelledAt();
+            echo "</td>";
+            echo "</tr>";
         }
-        ?>
+        echo "</tbody>";
+        echo "</table></div>";
+        echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
+    }
+
+    } else {
+        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+    }
+    ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 

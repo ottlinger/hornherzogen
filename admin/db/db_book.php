@@ -112,11 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
 <div class="container theme-showcase">
     <div class="starter-template">
-        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
-                    style="position: absolute; top: 100px; right: 0; border: 0;"
-                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-                    alt="Fork me on GitHub"
-                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+        <?php echo new hornherzogen\ui\ForkMe(); ?>
 
         <h1>
             <span class="glyphicon glyphicon-bed"></span>
@@ -241,59 +237,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             </noscript>
         </form>
 
-        <?php
-        // PERFORM BOOKING
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
+    <?php
+    // PERFORM BOOKING
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
 
-            foreach ($_POST['applicantId'] as $submittedApplicantId) {
-                $iid = $formHelper->filterUserInput($_POST['id']);
+        foreach ($_POST['applicantId'] as $submittedApplicantId) {
+            $iid = $formHelper->filterUserInput($_POST['id']);
 
-                if ($roomWriter->canRoomBeBooked($iid)) {
-                    $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
-                    if (NULL != $persistId) {
-                        echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
-                        $_POST['applicantId'] = NULL;
-                    }
-                } else {
-                    echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
+            if ($roomWriter->canRoomBeBooked($iid)) {
+                $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
+                if (NULL != $persistId) {
+                    echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
+                    $_POST['applicantId'] = NULL;
                 }
-            } // end of for
-            $_POST['applicantId'] = NULL;
-        }
+            } else {
+                echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
+            }
+        } // end of for
+        $_POST['applicantId'] = NULL;
+    }
 
-        // REMOVE BOOKING
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
-            $aid = $formHelper->filterUserInput($_POST['aid']);
-            echo $roomWriter->deleteForApplicantId($aid) . " Zeilen für Applicant mit id #" . $id . " gelöscht";
-            $_POST['aid'] = NULL;
-        }
+    // REMOVE BOOKING
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+        $aid = $formHelper->filterUserInput($_POST['aid']);
+        echo $roomWriter->deleteForApplicantId($aid) . " Zeilen für Applicant mit id #" . $id . " gelöscht";
+        $_POST['aid'] = NULL;
+    }
 
-        echo "<hr/><h3><span class=\"glyphicon glyphicon-wrench\"></span> Für den Raum#$id sind bisher gebucht:</h3>";
-        $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
+    echo "<hr/><h3><span class=\"glyphicon glyphicon-wrench\"></span> Für den Raum#$id sind bisher gebucht:</h3>";
+    $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
 
-        echo '<div class="table-responsive"><table class="table table-striped">';
-        echo "<thead>";
+    echo '<div class="table-responsive"><table class="table table-striped">';
+    echo "<thead>";
+    echo "<tr>";
+    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+        echo "<th>AKTIONEN</th>";
+    }
+    echo "<th>Anrede</th>";
+    echo "<th>Name</th>";
+    echo "<th>Dojo</th>";
+    echo "<th>Zimmerkategorie</th>";
+    echo "<th>Zusammenlegungswunsch</th>";
+    echo "<th>Umbuchbar?</th>";
+    echo "<th>Anmerkungen</th>";
+    echo "<th>Sprache</th>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+
+    foreach ($roomBookings as $applicant) {
         echo "<tr>";
+
         if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-            echo "<th>AKTIONEN</th>";
-        }
-        echo "<th>Anrede</th>";
-        echo "<th>Name</th>";
-        echo "<th>Dojo</th>";
-        echo "<th>Zimmerkategorie</th>";
-        echo "<th>Zusammenlegungswunsch</th>";
-        echo "<th>Umbuchbar?</th>";
-        echo "<th>Anmerkungen</th>";
-        echo "<th>Sprache</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
-
-        foreach ($roomBookings as $applicant) {
-            echo "<tr>";
-
-            if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                echo '<td>
+            echo '<td>
                     <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?aid=' . $applicant->getPersistenceId() . '&week=' . $week . '&id=' . $id . '">
                         <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
                         <input type="hidden" name="week" value="' . $week . '"/>
@@ -301,25 +297,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entferne Person #' . $applicant->getPersistenceId() . ' aus Raum</button>
                     </form>
                 </td>';
-            }
-
-            echo "<td>" . $applicant->getGender() . "</td>";
-            echo "<td>" . $applicant->getFullName() . "</td>";
-            echo "<td>" . $applicant->getDojo() . "</td>";
-            echo "<td>" . $applicant->getRoom() . "</td>";
-            echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " / " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-            echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-            echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-            echo "<td>" . $applicant->getLanguage() . "</td>";
-            echo "</tr>";
         }
-        echo "</tbody>";
-        echo "</table></div>";
 
-        } else {
-            echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-        }
-        ?>
+        echo "<td>" . $applicant->getGender() . "</td>";
+        echo "<td>" . $applicant->getFullName() . "</td>";
+        echo "<td>" . $applicant->getDojo() . "</td>";
+        echo "<td>" . $applicant->getRoom() . "</td>";
+        echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " / " . $applicant->getPartnerTwo() : "keiner") . "</td>";
+        echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
+        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+        echo "<td>" . $applicant->getLanguage() . "</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table></div>";
+
+    } else {
+        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+    }
+    ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 

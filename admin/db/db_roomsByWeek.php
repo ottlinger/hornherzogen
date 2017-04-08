@@ -86,11 +86,7 @@ $roomReader = new RoomDatabaseReader();
 
 <div class="container theme-showcase">
     <div class="starter-template">
-        <a href="https://github.com/ottlinger/hornherzogen" target="_blank"><img
-                    style="position: absolute; top: 100px; right: 0; border: 0;"
-                    src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-                    alt="Fork me on GitHub"
-                    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+        <?php echo new hornherzogen\ui\ForkMe(); ?>
 
         <h1>
             <span class="glyphicon glyphicon-sunglasses"></span> Raumliste mit Anmeldungen pro Lehrgangswoche
@@ -135,35 +131,35 @@ $roomReader = new RoomDatabaseReader();
             </noscript>
         </form>
 
-        <?php
-        $rooms = $roomReader->listRoomBookings($week);
+    <?php
+    $rooms = $roomReader->listRoomBookings($week);
 
-        echo '<div class="table-responsive"><table class="table table-striped">';
-        echo "<thead>";
+    echo '<div class="table-responsive"><table class="table table-striped">';
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>Raumname</th>";
+    echo "<th>Kapazität</th>";
+    echo "<th>belegt mit</th>";
+    echo "<th>in Woche</th>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+
+    foreach ($rooms as $room) {
         echo "<tr>";
-        echo "<th>Raumname</th>";
-        echo "<th>Kapazität</th>";
-        echo "<th>belegt mit</th>";
-        echo "<th>in Woche</th>";
+        echo "<td>" . $room[roomname] . "</td>";
+        echo "<td>" . $room[capacity] . "</td>";
+        echo "<td>" . $room[combinedName] . "</td>";
+        echo "<td>" . $room[week] . "</td>";
         echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
+    }
+    echo "</tbody>";
+    echo "</table></div>";
 
-        foreach ($rooms as $room) {
-            echo "<tr>";
-            echo "<td>" . $room[roomname] . "</td>";
-            echo "<td>" . $room[capacity] . "</td>";
-            echo "<td>" . $room[combinedName] . "</td>";
-            echo "<td>" . $room[week] . "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table></div>";
-
-        } else {
-            echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-        }
-        ?>
+    } else {
+        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+    }
+    ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->
 
