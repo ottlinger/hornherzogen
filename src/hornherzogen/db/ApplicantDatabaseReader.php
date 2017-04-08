@@ -20,10 +20,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             $query .= " WHERE a.id =" . $this->databaseHelper->trimAndMask($applicantId);
 
             $dbResult = $this->database->query($query);
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
@@ -42,10 +40,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $results = array();
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
@@ -86,10 +82,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
@@ -132,10 +126,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
             while ($row = $dbResult->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
@@ -160,11 +152,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildGroupByCountryQuery($week));
-
-            if (false === $dbResult) {
-                $error = $this->database->errorInfo();
-                print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
-            }
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
                 $results[] = $row;
@@ -185,6 +173,5 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
         return $query;
     }
-
 
 }
