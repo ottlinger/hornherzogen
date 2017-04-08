@@ -296,4 +296,22 @@ class ApplicantTest extends TestCase
         $this->applicant->setCancelledAt($data);
         $this->assertEquals($data, $this->applicant->getCancelledAt());
     }
+
+    public function testGenderIconMale() {
+        $this->applicant->setGender('male');
+        $this->assertEquals("♂", $this->applicant->getGenderIcon());
+    }
+
+    public function testGenderIconFemale() {
+        $this->applicant->setGender('female');
+        $this->assertEquals("♀", $this->applicant->getGenderIcon());
+    }
+
+    public function testGenderIconOther() {
+        // verify default
+        $this->assertEquals("⚥", $this->applicant->getGenderIcon());
+        $this->applicant->setGender(NULL);
+        $this->assertEquals("⚥", $this->applicant->getGenderIcon());
+    }
+
 }
