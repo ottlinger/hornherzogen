@@ -18,8 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
     $week = $formHelper->filterUserInput($_POST['week']);
 }
-
-echo $week;
 ?>
 <html lang="en">
 <head>
