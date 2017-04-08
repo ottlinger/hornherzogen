@@ -218,7 +218,7 @@ $statusReader = new StatusDatabaseReader();
             }
 
             echo "<td>" . $applicant->getLanguage() . "</td>";
-            echo "<td>" . $applicant->getGender() . "</td>";
+            echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
             echo "<td>" . $applicant->getFullName() . "</td>";
             echo "<td>" . $applicant->getDojo() . "</td>";
             echo "<td>" . $applicant->getRoom() . "</td>";

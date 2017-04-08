@@ -102,6 +102,17 @@ class Applicant
         return $this;
     }
 
+    public function getGenderIcon()
+    {
+        switch ($this->getGender()) {
+            case "male":
+                return "♂";
+            case "female":
+                return "♀";
+        }
+        return "⚥";
+    }
+
     /**
      * @return mixed
      */
@@ -656,5 +667,4 @@ class Applicant
         $this->cancelledAt = $cancelledAt;
         return $this;
     }
-
 }

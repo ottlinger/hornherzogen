@@ -299,7 +299,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                 </td>';
         }
 
-        echo "<td>" . $applicant->getGender() . "</td>";
+        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
         echo "<td>" . $applicant->getFullName() . "</td>";
         echo "<td>" . $applicant->getDojo() . "</td>";
         echo "<td>" . $applicant->getRoom() . "</td>";

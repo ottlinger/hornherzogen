@@ -180,7 +180,7 @@ $statusReader = new StatusDatabaseReader();
         }
 
         echo "<td>" . $applicant->getWeek() . "</td>";
-        echo "<td>" . $applicant->getGender() . "</td>";
+        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFoodCategory() . "</td>";

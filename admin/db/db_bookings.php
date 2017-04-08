@@ -1,7 +1,7 @@
 <?php
 require '../../vendor/autoload.php';
 
-use \hornherzogen\ConfigurationWrapper;
+use hornherzogen\ConfigurationWrapper;
 
 echo "<h1>Retrieving bookings from DB ....</h1>";
 

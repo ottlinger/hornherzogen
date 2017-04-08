@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
                     echo "<td>" . $applicant->getWeek() . "</td>";
                     echo "<td>" . $applicant->getLanguage() . "</td>";
-                    echo "<td>" . $applicant->getGender() . "</td>";
+                    echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
                     echo "<td>" . $applicant->getFirstname() . "</td>";
                     echo "<td>" . $applicant->getLastname() . "</td>";
                     echo "<td>" . $applicant->getFullName() . "</td>";

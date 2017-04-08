@@ -5,10 +5,10 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
-use hornherzogen\db\DatabaseHelper;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
@@ -220,7 +220,7 @@ $databaseHelper = new DatabaseHelper();
 
         echo "<td>" . $applicant->getWeek() . "</td>";
         echo "<td>" . $applicant->getLanguage() . "</td>";
-        echo "<td>" . $applicant->getGender() . "</td>";
+        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFullName() . "</td>";
