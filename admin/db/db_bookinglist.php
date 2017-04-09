@@ -12,6 +12,8 @@ $formHelper = new FormHelper();
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $errorChecker = new BookingErrorChecker();
+
+$week = NULL;
 ?>
 <html lang="en">
 <head>
@@ -90,10 +92,41 @@ $errorChecker = new BookingErrorChecker();
             <span class="glyphicon glyphicon-sunglasses"></span> Liste der Raumbuchungen
         </h1>
 
+        <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
+                    <?php
+                    // filter for week?
+                    $formHelper = new FormHelper();
+                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                        $week = $formHelper->filterUserInput($_POST['week']);
+                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
+                    }
+                    ?>
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="week" name="week" onchange="this.form.submit()">
+                        <option value="">beide</option>
+                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        </option>
+                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <noscript>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default btn-primary" title="Submit">Submit</button>
+                    </div>
+                </div>
+            </noscript>
+        </form>
+
         <p>
             <?php
             $config = new ConfigurationWrapper();
-            $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
                 // Superadmin remove functionality
