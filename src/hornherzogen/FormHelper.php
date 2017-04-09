@@ -116,4 +116,20 @@ class FormHelper
         return date('Y-m-d H:i:s');
     }
 
+    /**
+     * Properly format a mailto-Link for the given parameters with CC: configuration registrationmail.
+     * @param $to
+     * @param $cc
+     * @param $subject
+     * @param $body
+     * @return string
+     */
+    public function convertToValidMailto($to, $cc, $subject, $body)
+    {
+        $result = "mailto:" . rawurlencode($to);
+        $result .= "?cc=" . rawurlencode($cc);
+        $result .= "&subject=" . rawurlencode($subject);
+        $result .= "&body=" . rawurlencode($body);
+        return htmlspecialchars($result);
+    }
 }
