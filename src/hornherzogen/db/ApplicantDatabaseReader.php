@@ -39,7 +39,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     {
         $results = array();
         if ($this->isHealthy()) {
-            $dbResult = $this->database->query($this->buildQuery($week));
+            $dbResult = $this->database->query($this->buildFoodQuery($week));
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
@@ -49,14 +49,14 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $results;
     }
 
-    public function buildQuery($week)
+    public function buildFoodQuery($week)
     {
         $query = "SELECT * from `applicants` a";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
         }
-        $query .= " ORDER by a.week, a.room";
+        $query .= " ORDER by a.week, a.essen";
 
         return $query;
     }
@@ -108,6 +108,18 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         }
 
         return $results;
+    }
+
+    public function buildQuery($week)
+    {
+        $query = "SELECT * from `applicants` a";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " ORDER by a.week, a.room";
+
+        return $query;
     }
 
     /**
