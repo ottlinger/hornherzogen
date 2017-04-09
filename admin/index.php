@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
-                        <li><a href="db/db_applicants.php">TODO umbuchbare Anmeldungen #77</a></li>
+                        <li><a href="db/db_applicantsFlexible.php">umbuchbare Anmeldungen</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
                         <li><a href="db/db_roomsByWeek.php">Raumverteilung pro Woche</a></li>
                         <li role="separator" class="divider"></li>
