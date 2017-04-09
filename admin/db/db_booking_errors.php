@@ -115,7 +115,7 @@ $applicantReader = new ApplicantDatabaseReader();
                     $applicantId = $row['applicantId'];
                     $applicant = $applicantReader->getById($applicantId)[0];
                     echo "<tr>";
-                    echo "<td>" . $applicantId . "</td>";
+                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">" . $applicantId . "</a></td>";
                     echo "<td>" . $applicant->getFirstname() . "</td>";
                     echo "<td>" . $applicant->getLastname() . "</td>";
                     echo "<td>" . $row['count'] . "</td>";
@@ -124,13 +124,30 @@ $applicantReader = new ApplicantDatabaseReader();
                 echo "</tbody>";
                 echo "</table></div>";
 
-                echo "<h2>Gleiche Personen in einer Woche</h2>";
-                echo "<p>TODO</p>";
-
                 echo "<h2>Buchungen, die überbucht sind</h2>";
-                echo "<p>TODO</p>";
+                $applicants = $errorChecker->listOverbookedBookings();
 
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>RoomId</th>";
+                echo "<th>Zimmer</th>";
+                echo "<th>vorgenommene Buchungen</th>";
+                echo "<th>erlaubte Buchunge/Raumkapazität</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
 
+                foreach ($applicants as $row) {
+                    echo "<tr>";
+                    echo "<td>" . $row['roomId'] . "</td>";
+                    echo "<td>" . $row['name'] . "</td>";
+                    echo "<td>" . $row['bookingcount'] . "</td>";
+                    echo "<td>" . $row['capacity'] . "</td>";
+                    echo "</tr>";
+                }
+                echo "</tbody>";
+                echo "</table></div>";
 
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";

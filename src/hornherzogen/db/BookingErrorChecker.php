@@ -6,15 +6,6 @@ namespace hornherzogen\db;
 class BookingErrorChecker extends BaseDatabaseWriter
 {
     /**
-     * TODO
-     *
-     * SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
-    FROM Orders
-    INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
-    WHERE LastName = 'Davolio' OR LastName = 'Fuller'
-    GROUP BY LastName
-    HAVING COUNT(Orders.OrderID) > 25;
-     *
      * Retrieve all rooms with their capacity and booking by week.
      *
      * @param $week week choice, null for both weeks.
@@ -62,7 +53,20 @@ class BookingErrorChecker extends BaseDatabaseWriter
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
-                //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
+                $results[] = $row;
+            }
+        }
+        return $results;
+    }
+
+    public function listOverbookedBookings() {
+        $results = array();
+        if (self::isHealthy()) {
+            $query = "select b.roomId, count(*) as bookingcount, r.capacity, r.name from roombooking b, rooms r where r.id=b.roomId group by b.roomId having bookingcount>r.capacity;";
+            $dbResult = $this->database->query($query);
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
+            while ($row = $dbResult->fetch()) {
                 $results[] = $row;
             }
         }
