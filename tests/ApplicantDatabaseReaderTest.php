@@ -50,9 +50,7 @@ class ApplicantDatabaseReaderTest extends TestCase
 
     public function testSortedByFlexibility() {
         $filteredByFlexibility = $this->reader->listByFlexibilityPerWeek(NULL);
-        $this->assertEquals(2, sizeof($filteredByFlexibility));
-        $this->assertEmpty($filteredByFlexibility['flexible']);
-        $this->assertEmpty($filteredByFlexibility['static']);
+        $this->assertEmpty($filteredByFlexibility);
     }
 
     public function testBuildQueryWithoutWeekParameter() {
