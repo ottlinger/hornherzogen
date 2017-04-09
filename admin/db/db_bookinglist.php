@@ -17,12 +17,12 @@ $errorChecker = new BookingErrorChecker();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 - Fehler bei Raumbuchungen ermitteln">
+    <meta name="description" content="Herzogenhorn 2017 - Liste der Raumbuchungen">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Herzogenhorn Adminbereich - Fehler bei Raumbuchungen</title>
+    <title>Herzogenhorn Adminbereich - Liste der Raumbuchungen</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -85,7 +85,7 @@ $errorChecker = new BookingErrorChecker();
         <?php echo new hornherzogen\ui\ForkMe(); ?>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> Prüfungen der Raumbuchungen
+            <span class="glyphicon glyphicon-sunglasses"></span> Liste der Raumbuchungen
         </h1>
 
         <p>
@@ -95,14 +95,10 @@ $errorChecker = new BookingErrorChecker();
 
             if ($config->isValidDatabaseConfig()) {
 
-                echo "<h2>Doppelte Buchungen pro Person</h2>";
-
                 // TODO link to db_applicant?id=applicantId
-                // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1;
                 // TODO extract in separate Class Error Helper
 
-                // TODO integrate somewhere else: $applicants = $errorChecker->listRoomBookings($week);
-
+                $applicants = $errorChecker->listRoomBookings($week);
                 var_dump($applicants);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';

@@ -99,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Prüfung</li>
                         <li><a href="db/db_booking_errors.php">Fehlerübersicht Raumbuchungen</a></li>
+                        <li><a href="db/db_bookinglist.php">Liste der Raumbuchungen</a></li>
                     </ul>
                 </li>
                 <?php echo $adminHelper->showSuperUserMenu(); ?>
