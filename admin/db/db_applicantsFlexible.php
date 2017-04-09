@@ -135,7 +135,7 @@ $statusReader = new StatusDatabaseReader();
         </form>
 
     <?php
-    $applicants = $applicantReader->listByFoodCategoryPerWeek($week);
+    $applicants = $applicantReader->listByFlexibilityPerWeek($week);
 
     echo '<div class="table-responsive"><table class="table table-striped">';
     echo "<thead>";
@@ -159,6 +159,12 @@ $statusReader = new StatusDatabaseReader();
     $veg = 0;
     $meat = 0;
 
+    if(empty($applicants)) {
+        echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
+    }
+
+    var_dump($applicants);
+
     foreach ($applicants as $applicant) {
         echo "<tr>";
         echo "<td>" . $applicant->getPersistenceId() . "</td>";
@@ -177,12 +183,6 @@ $statusReader = new StatusDatabaseReader();
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFoodCategory() . "</td>";
-        // parse food category and count
-        if ('veg' == $applicant->getFoodCategory()) {
-            $veg++;
-        } else {
-            $meat++;
-        }
         echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
 
         $statId = $statusReader->getById($applicant->getCurrentStatus());
@@ -205,8 +205,6 @@ $statusReader = new StatusDatabaseReader();
     }
     echo "</tbody>";
     echo "</table></div>";
-
-    echo "<h2>Zusammenfassung</h2><p>vegetarisch: " . $veg . " / nicht explizit vegetarisch: " . $meat . "</p>";
 
     } else {
         echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";

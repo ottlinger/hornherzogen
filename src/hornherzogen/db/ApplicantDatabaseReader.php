@@ -111,39 +111,36 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     }
 
     /**
-     * Get a list of applicants per week and sort them into an array indicating whether they are flexible to switch weeks or not:
-     * 'flexible' -> all people willing to switch weeks
-     * 'static' -> all people unable to switch
+     * Get a list of applicants per week that are willing to change weeks.
+     *
      * @param $week week choice, null for both weeks.
      * @return array a simple list of applicants to show in the UI
      */
     public function listByFlexibilityPerWeek($week)
     {
-        $results = array(
-            'flexible' => array(),
-            'static' => array(),
-        );
+        $results = array();
 
         if ($this->isHealthy()) {
-            $dbResult = $this->database->query($this->buildQuery($week));
+            $dbResult = $this->database->query($this->buildFlexibilityQuery($week));
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
-                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
-
-                switch ($applicant->getFlexible()) {
-                    case true:
-                        $results['flexible'][] = $applicant;
-                        break;
-
-                    default:
-                        $results['static'][] = $applicant;
-                        break;
-                }
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
-
         return $results;
+    }
+
+    public function buildFlexibilityQuery($week)
+    {
+        $query = "SELECT * from `applicants` a";
+        $query .= " WHERE flexible in ('yes', '1') ";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+
+        return $query;
     }
 
     public function groupByOriginByWeek($week)
@@ -173,5 +170,5 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
         return $query;
     }
-
 }
+
