@@ -5,8 +5,10 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\BookingErrorChecker;
+use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
+$formHelper = new FormHelper();
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $errorChecker = new BookingErrorChecker();
@@ -94,6 +96,13 @@ $errorChecker = new BookingErrorChecker();
             $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
+                // Superadmin remove functionality
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+                    $id = $formHelper->filterUserInput($_POST['bid']);
+                    echo $errorChecker->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
+                    $_POST['bid'] = NULL;
+                }
+
                 $applicants = $errorChecker->listRoomBookings($week);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
