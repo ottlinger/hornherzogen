@@ -141,23 +141,18 @@ $statusReader = new StatusDatabaseReader();
     echo "<thead>";
     echo "<tr>";
     echo "<th>DB-Id</th>";
-    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-        echo "<th>AKTIONEN</th>";
-    }
     echo "<th>Woche</th>";
     echo "<th>Anrede</th>";
     echo "<th>Vorname</th>";
     echo "<th>Nachname</th>";
     echo "<th>Essen</th>";
-    echo "<th>aktueller Status</th>";
+    echo "<th>E-Mail</th>";
     echo "<th>Anmerkungen</th>";
+    echo "<th>aktueller Status</th>";
     echo "<th>Statusübersicht</th>";
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
-
-    $veg = 0;
-    $meat = 0;
 
     if(empty($applicants)) {
         echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
@@ -169,22 +164,14 @@ $statusReader = new StatusDatabaseReader();
         echo "<tr>";
         echo "<td>" . $applicant->getPersistenceId() . "</td>";
 
-        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-            echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
-                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
-                    </form>
-                </td>';
-        }
-
         echo "<td>" . $applicant->getWeek() . "</td>";
         echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFoodCategory() . "</td>";
-        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+        echo "<td>" . $applicant->getEmail() . "</td>";
 
+        echo "<td> " . nl2br($applicant->getRemarks()) . "</td>";
         $statId = $statusReader->getById($applicant->getCurrentStatus());
         if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
             echo "<td>" . $statId[0]['name'] . "</td>";
