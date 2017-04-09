@@ -146,6 +146,7 @@ $statusReader = new StatusDatabaseReader();
     echo "<th>Vorname</th>";
     echo "<th>Nachname</th>";
     echo "<th>Essen</th>";
+    echo "<th>Sprache/Land</th>";
     echo "<th>E-Mail</th>";
     echo "<th>Anmerkungen</th>";
     echo "<th>aktueller Status</th>";
@@ -155,10 +156,8 @@ $statusReader = new StatusDatabaseReader();
     echo "<tbody>";
 
     if(empty($applicants)) {
-        echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
+        echo "<tr><td colspan='11'>keine</td></tr>";
     }
-
-    var_dump($applicants);
 
     foreach ($applicants as $applicant) {
         echo "<tr>";
@@ -169,6 +168,7 @@ $statusReader = new StatusDatabaseReader();
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFoodCategory() . "</td>";
+        echo "<td>" . $applicant->getLanguage() ." aus ".$applicant->getCountry(). "</td>";
         echo "<td>" . $applicant->getEmail() . "</td>";
 
         echo "<td> " . nl2br($applicant->getRemarks()) . "</td>";
