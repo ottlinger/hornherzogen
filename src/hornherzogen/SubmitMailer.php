@@ -335,7 +335,8 @@ class SubmitMailer
                 <li>Person 2: ' . $this->applicationInput->getPartnerTwo() . '</li>
                 <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
                 <li>Anmerkungen: ' . $remarks . '</li>
-                <li>E-Mail: <a href="mailto:' . $this->applicationInput->getEmail() . '?subject=Nachfrage zu Hornanmeldung">' . $this->applicationInput->getEmail() . '</a></li>
+                <li>E-Mail: <a href="' . $this->formHelper->convertToValidMailto($this->applicationInput->getEmail(), $this->config->registrationmail(), "Nachfrage zur Hornanmeldung", "") . '">
+                ' . $this->applicationInput->getEmail() . '</a></li>
                 </ul>
             </h2>
             <p>

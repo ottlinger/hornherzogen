@@ -177,11 +177,7 @@ $statusReader = new StatusDatabaseReader();
             $subject = "Anmeldung Herzogenhorn - Wochenwechsel möglich?";
             $body = "Hi, die von Dir gewählte Woche ist ausgebucht. Kannst Du Dir vorstellen in die andere Woche zu wechseln? Danke, das Orgateam aus Berlin";
         }
-
-
         echo "<td><a href=\"" . $formHelper->convertToValidMailto($applicant->getEmail(), $config->registrationmail(), $subject, $body) . "\">" . $applicant->getEmail() . "</a></td>";
-
-//        echo "<td><a href=\"mailto:" . $applicant->getEmail() . "?cc=" . $config->registrationmail() . "&amp;subject=" . $subject . "&amp;body=" . $body . "\">" . $applicant->getEmail() . "</a></td>";
 
         echo "<td> " . nl2br($applicant->getRemarks()) . "</td>";
         $statId = $statusReader->getById($applicant->getCurrentStatus());
