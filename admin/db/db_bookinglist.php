@@ -94,12 +94,7 @@ $errorChecker = new BookingErrorChecker();
             $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
-
-                // TODO link to db_applicant?id=applicantId
-                // TODO extract in separate Class Error Helper
-
                 $applicants = $errorChecker->listRoomBookings($week);
-                var_dump($applicants);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
                 echo "<thead>";
@@ -109,32 +104,30 @@ $errorChecker = new BookingErrorChecker();
                     echo "<th>AKTIONEN</th>";
                 }
                 echo "<th>Woche</th>";
-                echo "<th>Sprache</th>";
-                echo "<th>Anrede</th>";
-                echo "<th>Vorname</th>";
-                echo "<th>Nachname</th>";
-                echo "<th>Gesamtname</th>";
-                echo "<th>Adresse</th>";
-                echo "<th>PLZ/Stadt</th>";
-                echo "<th>Land</th>";
-                echo "<th>E-Mail</th>";
-                echo "<th>Dojo</th>";
-                echo "<th>Graduierung</th>";
-                echo "<th>twa?</th>";
-                echo "<th>Zimmer</th>";
-                echo "<th>Zusammenlegungswunsch</th>";
-                echo "<th>Essen</th>";
-                echo "<th>Umbuchbar?</th>";
-                echo "<th>Anmerkungen</th>";
-                echo "<th>aktueller Status</th>";
-                echo "<th>Statusübersicht</th>";
+                echo "<th>Raum</th>";
+                echo "<th>Kapazität</th>";
+                echo "<th>belegt mit</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
 
                 foreach ($applicants as $applicant) {
+                    $bookingId = $applicant[id];
                     echo "<tr>";
-                    echo "<td>" . $applicant->getPersistenceId() . "</td>";
+                    echo "<td>" . $bookingId . "</td>";
+                    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                        echo '<td>
+                                <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
+                                    <input type="hidden" name="bid" value="' . $bookingId . '"/>
+                                    <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $bookingId . '</button>
+                                </form>
+                            </td>';
+                    }
+                    echo "<td>" . $applicant[week] . "</td>";
+                    echo "<td>" . $applicant[roomname] . "</td>";
+                    echo "<td>" . $applicant[capacity] . "</td>";
+                    echo "<td>" . $applicant[combinedName] . "</td>";
+
                     echo "</tr>";
                 }
                 echo "</tbody>";

@@ -16,13 +16,13 @@ class BookingErrorChecker extends BaseDatabaseWriter
         $results = array();
         if (self::isHealthy()) {
 
-            $query = "select r.name as roomname, r.capacity, a.combinedName, a.week";
+            $query = "select b.id, r.name as roomname, r.capacity, a.combinedName, a.week";
             $query .= " from roombooking b, applicants a, rooms r where a.id=b.applicantId and r.id=b.roomId";
             // if week == null - return all, else for the given week
             if (isset($week) && strlen($week)) {
                 $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
             }
-            $query .= " order by r.name";
+            $query .= " order by a.week, r.name";
 
             // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1
 
