@@ -111,6 +111,10 @@ $applicantReader = new ApplicantDatabaseReader();
                 echo "</thead>";
                 echo "<tbody>";
 
+                if(empty($applicants)) {
+                    echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
+                }
+
                 foreach ($applicants as $row) {
                     $applicantId = $row['applicantId'];
                     $applicant = $applicantReader->getById($applicantId)[0];
@@ -137,6 +141,10 @@ $applicantReader = new ApplicantDatabaseReader();
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
+
+                if(empty($applicants)) {
+                    echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
+                }
 
                 foreach ($applicants as $row) {
                     echo "<tr>";
