@@ -153,6 +153,10 @@ $week = NULL;
                 echo "</thead>";
                 echo "<tbody>";
 
+                if (empty($applicants)) {
+                    echo "<tr><td colspan='5'>keine vorhanden</td></tr>";
+                }
+
                 foreach ($applicants as $applicant) {
                     $bookingId = $applicant[id];
                     echo "<tr>";
