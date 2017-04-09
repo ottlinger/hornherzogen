@@ -135,7 +135,7 @@ $errorChecker = new BookingErrorChecker();
                     echo "<td>" . $applicant[week] . "</td>";
                     echo "<td>" . $applicant[roomname] . "</td>";
                     echo "<td>" . $applicant[capacity] . "</td>";
-                    echo "<td>" . $applicant[combinedName] . "</td>";
+                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicant[applicantId] . "\">" . $applicant[combinedName] . "</a></td>";
 
                     echo "</tr>";
                 }

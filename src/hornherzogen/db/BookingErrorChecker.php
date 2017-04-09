@@ -16,7 +16,7 @@ class BookingErrorChecker extends BaseDatabaseWriter
         $results = array();
         if (self::isHealthy()) {
 
-            $query = "select b.id, r.name as roomname, r.capacity, a.combinedName, a.week";
+            $query = "select b.id, r.name as roomname, r.capacity, a.combinedName, a.week, b.applicantId";
             $query .= " from roombooking b, applicants a, rooms r where a.id=b.applicantId and r.id=b.roomId";
             // if week == null - return all, else for the given week
             if (isset($week) && strlen($week)) {
@@ -45,7 +45,8 @@ class BookingErrorChecker extends BaseDatabaseWriter
         return 0;
     }
 
-    public function listDoubleBookings() {
+    public function listDoubleBookings()
+    {
         $results = array();
         if (self::isHealthy()) {
             $query = "select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1";
@@ -59,7 +60,8 @@ class BookingErrorChecker extends BaseDatabaseWriter
         return $results;
     }
 
-    public function listOverbookedBookings() {
+    public function listOverbookedBookings()
+    {
         $results = array();
         if (self::isHealthy()) {
             $query = "select b.roomId, count(*) as bookingcount, r.capacity, r.name from roombooking b, rooms r where r.id=b.roomId group by b.roomId having bookingcount>r.capacity;";
