@@ -245,12 +245,12 @@ $databaseHelper = new DatabaseHelper();
         }
 
         echo "<td>";
-        echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-        echo "MAILED: " . $applicant->getMailedAt() . "</br>";
-        echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
-        echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
-        echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
-        echo "BOOKED: " . $applicant->getBookedAt() . "</br>";
+        echo "CREATED: " . $applicant->getCreatedAt() . "<br />";
+        echo "MAILED: " . $applicant->getMailedAt() . "<br />";
+        echo "VERIFIED: " . $applicant->getConfirmedAt() . "<br />";
+        echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "<br />";
+        echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "<br />";
+        echo "BOOKED: " . $applicant->getBookedAt() . "<br />";
         echo "CANCELLED: " . $applicant->getCancelledAt();
         echo "</td>";
         echo "</tr>";
