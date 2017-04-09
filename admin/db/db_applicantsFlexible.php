@@ -5,7 +5,6 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
-use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
@@ -155,7 +154,7 @@ $statusReader = new StatusDatabaseReader();
     echo "</thead>";
     echo "<tbody>";
 
-    if(empty($applicants)) {
+    if (empty($applicants)) {
         echo "<tr><td colspan='11'>keine</td></tr>";
     }
 
@@ -168,8 +167,18 @@ $statusReader = new StatusDatabaseReader();
         echo "<td>" . $applicant->getFirstname() . "</td>";
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFoodCategory() . "</td>";
-        echo "<td>" . $applicant->getLanguage() ." aus ".$applicant->getCountry(). "</td>";
-        echo "<td>" . $applicant->getEmail() . "</td>";
+        echo "<td>" . $applicant->getLanguage() . " aus " . $applicant->getCountry() . "</td>";
+
+        // TODO extract to localization
+        if ('de' != $applicant->getLanguage()) {
+            $subject = "Application Herzogenhorn - week change possible?";
+            $body = "Hi, english text goes here.";
+        } else {
+            $subject = "Anmeldung Herzogenhorn - Wochenwechsel möglich?";
+            $body = "Hi, die von Dir gewählte Woche ist ausgebucht. Kannst Du Dir vorstellen in die andere Woche zu wechseln? Danke, das Orgateam aus Berlin";
+        }
+
+        echo "<td><a href=\"mailto:" . $applicant->getEmail() . "?cc=" . $config->registrationmail() . "&subject=" . $subject . "&body=" . $body . "\">" . $applicant->getEmail() . "</a></td>";
 
         echo "<td> " . nl2br($applicant->getRemarks()) . "</td>";
         $statId = $statusReader->getById($applicant->getCurrentStatus());
@@ -180,8 +189,8 @@ $statusReader = new StatusDatabaseReader();
         }
 
         echo "<td>";
-        echo "CREATED: " . $applicant->getCreatedAt() . "</br>";
-        echo "MAILED: " . $applicant->getMailedAt() . "</br>";
+        echo "CREATED: " . $applicant->getCreatedAt() . "<br />";
+        echo "MAILED: " . $applicant->getMailedAt() . "<br />";
         echo "VERIFIED: " . $applicant->getConfirmedAt() . "</br>";
         echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</br>";
         echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</br>";
