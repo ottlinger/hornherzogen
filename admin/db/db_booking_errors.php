@@ -4,12 +4,14 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
+use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\BookingErrorChecker;
 use hornherzogen\HornLocalizer;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $errorChecker = new BookingErrorChecker();
+$applicantReader = new ApplicantDatabaseReader();
 ?>
 <html lang="en">
 <head>
@@ -96,53 +98,39 @@ $errorChecker = new BookingErrorChecker();
             if ($config->isValidDatabaseConfig()) {
 
                 echo "<h2>Doppelte Buchungen pro Person</h2>";
-
-                // TODO link to db_applicant?id=applicantId
-                // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1;
-                // TODO extract in separate Class Error Helper
-
-                // TODO integrate somewhere else: $applicants = $errorChecker->listRoomBookings($week);
-
-                var_dump($applicants);
+                $applicants = $errorChecker->listDoubleBookings();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
                 echo "<thead>";
                 echo "<tr>";
-                echo "<th>DB-Id</th>";
-                if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                    echo "<th>AKTIONEN</th>";
-                }
-                echo "<th>Woche</th>";
-                echo "<th>Sprache</th>";
-                echo "<th>Anrede</th>";
+                echo "<th>ApplicantId</th>";
                 echo "<th>Vorname</th>";
-                echo "<th>Nachname</th>";
-                echo "<th>Gesamtname</th>";
-                echo "<th>Adresse</th>";
-                echo "<th>PLZ/Stadt</th>";
-                echo "<th>Land</th>";
-                echo "<th>E-Mail</th>";
-                echo "<th>Dojo</th>";
-                echo "<th>Graduierung</th>";
-                echo "<th>twa?</th>";
-                echo "<th>Zimmer</th>";
-                echo "<th>Zusammenlegungswunsch</th>";
-                echo "<th>Essen</th>";
-                echo "<th>Umbuchbar?</th>";
-                echo "<th>Anmerkungen</th>";
-                echo "<th>aktueller Status</th>";
-                echo "<th>Statusübersicht</th>";
+                echo "<th>Name</th>";
+                echo "<th>Anzahl Buchungen</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
 
-                foreach ($applicants as $applicant) {
+                foreach ($applicants as $row) {
+                    $applicantId = $row['applicantId'];
+                    $applicant = $applicantReader->getById($applicantId)[0];
                     echo "<tr>";
-                    echo "<td>" . $applicant->getPersistenceId() . "</td>";
+                    echo "<td>" . $applicantId . "</td>";
+                    echo "<td>" . $applicant->getFirstname() . "</td>";
+                    echo "<td>" . $applicant->getLastname() . "</td>";
+                    echo "<td>" . $row['count'] . "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";
                 echo "</table></div>";
+
+                echo "<h2>Gleiche Personen in einer Woche</h2>";
+                echo "<p>TODO</p>";
+
+                echo "<h2>Buchungen, die überbucht sind</h2>";
+                echo "<p>TODO</p>";
+
+
 
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";

@@ -20,7 +20,7 @@ class BookingErrorChecker extends BaseDatabaseWriter
      * @param $week week choice, null for both weeks.
      * @return array a simple list of rooms to show in the UI
      */
-    public function listRoomBookings($week)
+    public function listRoomBookings($week = NULL)
     {
         $results = array();
         if (self::isHealthy()) {
@@ -54,21 +54,10 @@ class BookingErrorChecker extends BaseDatabaseWriter
         return 0;
     }
 
-    public function listDoubleBookings($week) {
+    public function listDoubleBookings() {
         $results = array();
         if (self::isHealthy()) {
-
-            // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1;
-            $query = "select r.name as roomname, r.capacity, a.combinedName, a.week";
-            $query .= " from roombooking b, applicants a, rooms r where a.id=b.applicantId and r.id=b.roomId";
-            // if week == null - return all, else for the given week
-            if (isset($week) && strlen($week)) {
-                $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
-            }
-            $query .= " order by r.name";
-
-            // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1
-
+            $query = "select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1";
             $dbResult = $this->database->query($query);
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
