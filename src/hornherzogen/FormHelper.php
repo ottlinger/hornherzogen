@@ -126,10 +126,10 @@ class FormHelper
      */
     public function convertToValidMailto($to, $cc, $subject, $body)
     {
-        $result = "mailto:" . rawurlencode($to);
-        $result .= "?cc=" . rawurlencode($cc);
-        $result .= "&subject=" . rawurlencode($subject);
-        $result .= "&body=" . rawurlencode($body);
+        $result = "mailto:" . rawurlencode('' . $to);
+        $result .= "?cc=" . rawurlencode('' . $cc);
+        $result .= "&subject=" . rawurlencode('' . $subject);
+        $result .= "&body=" . rawurlencode('' . $body);
         return htmlspecialchars($result);
     }
 }
