@@ -55,5 +55,16 @@ class ChartHelperTest extends TestCase
         $this->assertEquals(0, $json);
     }
 
+    public function testSplitByGenderWithNoInputGiven()
+    {
+        $applicants = array();
+        $splitted = ChartHelper::splitByGender($applicants);
+        $this->assertNotNull($splitted);
+        $this->assertEquals(3, sizeof($splitted));
+        $this->assertEmpty($splitted['male']);
+        $this->assertEmpty($splitted['female']);
+        $this->assertEmpty($splitted['other']);
+    }
+
 
 }
