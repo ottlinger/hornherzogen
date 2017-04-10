@@ -118,16 +118,16 @@ class FormHelper
 
     /**
      * Properly format a mailto-Link for the given parameters with CC: configuration registrationmail.
-     * @param $to
-     * @param $cc
+     * @param $toRecipient
+     * @param $ccRecipient
      * @param $subject
      * @param $body
      * @return string
      */
-    public function convertToValidMailto($to, $cc, $subject, $body)
+    public function convertToValidMailto($toRecipient, $ccRecipient, $subject, $body)
     {
-        $result = "mailto:" . rawurlencode('' . $to);
-        $result .= "?cc=" . rawurlencode('' . $cc);
+        $result = "mailto:" . rawurlencode('' . $toRecipient);
+        $result .= "?cc=" . rawurlencode('' . $ccRecipient);
         $result .= "&subject=" . rawurlencode('' . $subject);
         $result .= "&body=" . rawurlencode('' . $body);
         return htmlspecialchars($result);
