@@ -18,12 +18,12 @@ class FlexibilityMailGenerator
 
     public function getSubject()
     {
-        return $this->localizer->i18n('ADMIN.FLEX.BODY');
+        return $this->localizer->i18n('ADMIN.FLEX.SUBJECT');
     }
 
     public function getBody()
     {
-        return $this->localizer->i18nParams('ADMIN.FLEX.SUBJECT', array($this->applicant->getFirstname(), $this->applicant->getWeek(), $this->getOtherWeek()));
+        return $this->localizer->i18nParams('ADMIN.FLEX.BODY', array($this->applicant->getFirstname(), $this->applicant->getWeek(), $this->getOtherWeek()));
     }
 
     public function getOtherWeek()
