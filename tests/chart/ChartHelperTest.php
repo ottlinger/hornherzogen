@@ -66,5 +66,19 @@ class ChartHelperTest extends TestCase
         $this->assertEmpty($splitted['other']);
     }
 
+    public function testConversionToJsonFromDatabaseQuery()
+    {
+        $countries = array();
+        $countries[] = array('country' => "ANY", 'ccount' => 42);
+        $countries[] = array('country' => "THING", 'ccount' => 87);
+
+        $json = ChartHelper::toJSON($countries);
+        $this->assertNotNull($json);
+        $this->assertContains("\"v\":\"ANY\"", $json);
+        $this->assertContains("\"v\":42", $json);
+        $this->assertContains("\"v\":\"THING\"", $json);
+        $this->assertContains("\"v\":87", $json);
+    }
+
 
 }
