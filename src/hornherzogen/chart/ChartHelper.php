@@ -17,23 +17,6 @@ class ChartHelper
         $this->reader = new ApplicantDatabaseReader();
     }
 
-    public static function calculateTitleForGender($week)
-    {
-        if (isset($week) && strlen($week)) {
-            return array(
-                'female' => "Frauen in Woche " . $week,
-                'male' => "Männer in Woche " . $week,
-                'other' => "Andere in Woche " . $week
-            );
-        }
-
-        return array(
-            'female' => "Frauen",
-            'male' => "Männer",
-            'other' => "Andere"
-        );
-    }
-
     public function getByGender($week = NULL)
     {
         $applicants = $this->splitByGender($this->applicants->getAllByWeek($week));
@@ -80,6 +63,23 @@ class ChartHelper
         return $results;
     }
 
+    public static function calculateTitleForGender($week)
+    {
+        if (isset($week) && strlen($week)) {
+            return array(
+                'female' => "Frauen in Woche " . $week,
+                'male' => "Männer in Woche " . $week,
+                'other' => "Andere in Woche " . $week
+            );
+        }
+
+        return array(
+            'female' => "Frauen",
+            'male' => "Männer",
+            'other' => "Andere"
+        );
+    }
+
     public function getCountByWeek($week = NULL)
     {
         return sizeof($this->applicants->getAllByWeek($week));
@@ -89,9 +89,15 @@ class ChartHelper
     {
         $bycountry = $this->reader->groupByOriginByWeek($week);
 
+        if (isset($week) && strlen($week)) {
+            $header = "Countries in week " . $week;
+        } else {
+            $header = "Countries";
+        }
+
         return "{
           \"cols\": [
-                {\"id\":\"\",\"label\":\"Countries in week " . $week . "\",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"" . $header . "\",\"pattern\":\"\",\"type\":\"string\"},
                 {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [" . $this->toJSON($bycountry) . "]
