@@ -224,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
             <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
-                        title="<?php echo $hornlocalizer->i18n('FORM.SUBMIT'); ?>"> Personen in Raum einbuchen
+                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Personen in Raum einbuchen
                 </button>
             </div>
 
