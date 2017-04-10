@@ -1,6 +1,7 @@
 <?php
 use hornherzogen\chart\ChartHelper;
 use PHPUnit\Framework\TestCase;
+use hornherzogen\Applicant;
 
 class ChartHelperTest extends TestCase
 {
@@ -64,6 +65,24 @@ class ChartHelperTest extends TestCase
         $this->assertEmpty($splitted['male']);
         $this->assertEmpty($splitted['female']);
         $this->assertEmpty($splitted['other']);
+    }
+
+    public function testSplitByGenderWithValidInput()
+    {
+        $applicants = array();
+        $male = new Applicant();
+        $male->setGender('male');
+        $female = new Applicant();
+        $female->setGender('female');
+        $other = new Applicant();
+        $other->setGender('other');
+
+        $splitted = ChartHelper::splitByGender($applicants);
+        $this->assertNotNull($splitted);
+        $this->assertEquals(3, sizeof($splitted));
+        $this->assertContainsOnly($male, $splitted['male']);
+        $this->assertContainsOnly($female, $splitted['female']);
+        $this->assertContainsOnly($other, $splitted['other']);
     }
 
     public function testConversionToJsonFromDatabaseQuery()
