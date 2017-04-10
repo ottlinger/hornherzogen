@@ -82,11 +82,7 @@ class ChartHelper
     public static function toJSON($countryEntries)
     {
         if (!isset($countryEntries)) {
-            return "
-                {\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},
-                {\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},
-                {\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}
-            ";
+            return "{\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},{\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},{\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}";
         }
 
         $json = "";

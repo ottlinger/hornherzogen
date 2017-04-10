@@ -102,5 +102,11 @@ class ChartHelperTest extends TestCase
         $this->assertContains("\"v\":87", $json);
     }
 
+    public function testConversionToJsonFromDatabaseQueryWithoutEntriesWillReturnDummyResults()
+    {
+        $json = ChartHelper::toJSON(NULL);
+        $this->assertNotNull($json);
+        $this->assertEquals("{\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},{\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},{\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}", $json);
+    }
 
 }
