@@ -95,4 +95,17 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.essen", $sql);
     }
+
+    public function testFlexibilityQueryWithoutWeekParameter() {
+        $sql = $this->reader->buildFlexibilityQuery(NULL);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT * from `applicants` a WHERE flexible in ('yes', '1')", trim($sql));
+    }
+
+    public function testFlexibilityQueryWithWeekParameter() {
+        $week = "MyWeek";
+        $sql = $this->reader->buildFlexibilityQuery($week);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT * from `applicants` a WHERE flexible in ('yes', '1')  AND a.week LIKE '%MyWeek%'", $sql);
+    }
 }
