@@ -25,7 +25,7 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
-    'ADMIN.FLEX.BODY' => 'Hallo {0}, Du hast Dich kürzlich für die Woche {1} des Herzogenhornlehrgangs angemeldet. Diese Woche ist bereits überbucht. Wäre es für Dich denkbar in die Woche {1} zu wechseln? Danke für eine Antwort, damit wir die Buchung des Lehrgangs abschließen können. Viele Grüße aus Berlin von Philipp und Benjamin',
+    'ADMIN.FLEX.BODY' => 'Hallo {0}, Du hast Dich kürzlich für die Woche {1} des Herzogenhornlehrgangs angemeldet. Diese Woche ist bereits überbucht. Wäre es für Dich denkbar in die Woche {2} zu wechseln? Danke für eine Antwort, damit wir die Buchung des Lehrgangs abschließen können. Viele Grüße aus Berlin von Philipp und Benjamin',
     'ADMIN.FLEX.SUBJECT' => 'Anmeldung Herzogenhorn ' . $h_year . ' - Wochenwechsel möglich?',
     'FORM.GSINCE.CHANGE' => 'Bitte um das Datum einzustellen in das Textfeld klicken, auch wenn es grau eingefärbt ist.',
     'SUBMISSIONCLOSED' => 'Die Anmeldefrist für dieses Jahr ist abgelaufen, gern im nächsten Jahr wieder probieren :-)',
@@ -123,7 +123,7 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
-    'ADMIN.FLEX.BODY' => 'Hi {0}, you chose week {1} for Herzogenhorn. This week is overbooked. Would you mind considering switching to week {1}? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin',
+    'ADMIN.FLEX.BODY' => 'Hi {0}, you chose week {1} for Herzogenhorn. This week is overbooked. Would you mind considering to switch to week {2}? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin',
     'ADMIN.FLEX.SUBJECT' => 'Application Herzogenhorn ' . $h_year . ' - week change possible?',
     'FORM.GSINCE.CHANGE' => 'In order to change the date, please click the symbol or the whole textfield (even if coloured in gray).',
     'SUBMISSIONCLOSED' => 'Sorry, try again next year. This year\'s submission period is over.',
