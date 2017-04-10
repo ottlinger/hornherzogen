@@ -2,6 +2,7 @@
 <?php
 require '../../vendor/autoload.php';
 
+use hornherzogen\admin\FlexibilityMailGenerator;
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
@@ -15,7 +16,6 @@ $formHelper = new FormHelper();
 $applicantReader = new ApplicantDatabaseReader();
 $config = new ConfigurationWrapper();
 $statusReader = new StatusDatabaseReader();
-
 ?>
 <html lang="en">
 <head>
@@ -169,15 +169,8 @@ $statusReader = new StatusDatabaseReader();
         echo "<td>" . $applicant->getFoodCategory() . "</td>";
         echo "<td>" . $applicant->getLanguage() . " aus " . $applicant->getCountry() . "</td>";
 
-        // TODO extract to localization
-        if ('de' != $applicant->getLanguage()) {
-            $subject = "Application Herzogenhorn - week change possible?";
-            $body = "Hi, english text goes here.";
-        } else {
-            $subject = "Anmeldung Herzogenhorn - Wochenwechsel möglich?";
-            $body = "Hi, die von Dir gewählte Woche ist ausgebucht. Kannst Du Dir vorstellen in die andere Woche zu wechseln? Danke, das Orgateam aus Berlin";
-        }
-        echo "<td><a href=\"" . $formHelper->convertToValidMailto($applicant->getEmail(), $config->registrationmail(), $subject, $body) . "\">" . $applicant->getEmail() . "</a></td>";
+        $generator = new FlexibilityMailGenerator($applicant);
+        echo "<td><a href=\"" . $formHelper->convertToValidMailto($applicant->getEmail(), $config->registrationmail(), $generator->getSubject(), $generator->getBody()) . "\">" . $applicant->getEmail() . "</a></td>";
 
         echo "<td> " . nl2br($applicant->getRemarks()) . "</td>";
         $statId = $statusReader->getById($applicant->getCurrentStatus());
