@@ -17,9 +17,28 @@ class ChartHelper
         $this->reader = new ApplicantDatabaseReader();
     }
 
+    public static function calculateTitleForGender($week)
+    {
+        if (isset($week) && strlen($week)) {
+            return array(
+                'female' => "Frauen in Woche " . $week,
+                'male' => "Männer in Woche " . $week,
+                'other' => "Andere in Woche " . $week
+            );
+        }
+
+        return array(
+            'female' => "Frauen",
+            'male' => "Männer",
+            'other' => "Andere"
+        );
+    }
+
     public function getByGender($week = NULL)
     {
         $applicants = $this->splitByGender($this->applicants->getAllByWeek($week));
+
+        $headers = self::calculateTitleForGender($week);
 
         return "{
           \"cols\": [
@@ -27,9 +46,9 @@ class ChartHelper
                 {\"id\":\"\",\"label\":\"Slices \",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [
-                {\"c\":[{\"v\":\"Frauen in Woche " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['female']) . ",\"f\":null}]},
-                {\"c\":[{\"v\":\"Männer in Woche " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['male']) . ",\"f\":null}]},
-                {\"c\":[{\"v\":\"Andere in Woche " . $week . "\",\"f\":null},{\"v\":" . sizeof($applicants['other']) . ",\"f\":null}]}
+                {\"c\":[{\"v\":\"" . $headers['female'] . "\",\"f\":null},{\"v\":" . sizeof($applicants['female']) . ",\"f\":null}]},
+                {\"c\":[{\"v\":\"" . $headers['male'] . "\",\"f\":null},{\"v\":" . sizeof($applicants['male']) . ",\"f\":null}]},
+                {\"c\":[{\"v\":\"" . $headers['other'] . "\",\"f\":null},{\"v\":" . sizeof($applicants['other']) . ",\"f\":null}]}
               ]
         }";
     }
