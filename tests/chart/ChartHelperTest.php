@@ -69,13 +69,16 @@ class ChartHelperTest extends TestCase
 
     public function testSplitByGenderWithValidInput()
     {
-        $applicants = array();
         $male = new Applicant();
         $male->setGender('male');
         $female = new Applicant();
         $female->setGender('female');
         $other = new Applicant();
         $other->setGender('other');
+        $applicants = array();
+        $applicants[] = $male;
+        $applicants[] = $female;
+        $applicants[] = $other;
 
         $splitted = ChartHelper::splitByGender($applicants);
         $this->assertNotNull($splitted);
