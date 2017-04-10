@@ -4,14 +4,14 @@ use PHPUnit\Framework\TestCase;
 
 class ForkMeTest extends TestCase
 {
-    private $chartHelper = null;
+    private $forkMe = null;
 
     /**
      * Setup the test environment.
      */
     public function setUp()
     {
-        $this->chartHelper = new ForkMe();
+        $this->forkMe = new ForkMe();
     }
 
     /**
@@ -19,7 +19,7 @@ class ForkMeTest extends TestCase
      */
     public function tearDown()
     {
-        $this->chartHelper = null;
+        $this->forkMe = null;
     }
 
     /**
@@ -29,13 +29,13 @@ class ForkMeTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\ui\ForkMe', $this->chartHelper);
+        $this->assertInstanceOf('hornherzogen\ui\ForkMe', $this->forkMe);
     }
 
     public function testToStringContainsForkMeAndGitHubAddress()
     {
-        $this->assertNotNull($this->chartHelper);
-        $toString = (string)$this->chartHelper;
+        $this->assertNotNull($this->forkMe);
+        $toString = (string)$this->forkMe;
         $this->assertContains("hornherzogen", $toString);
         $this->assertContains("github", $toString);
         $this->assertContains("forkme_right_green_007200", $toString);
