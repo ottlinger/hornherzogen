@@ -18,28 +18,20 @@ class FlexibilityMailGenerator
 
     public function getSubject()
     {
-        // TODO extract to localization
-        if ('de' != $this->applicant->getLanguage()) {
-            $subject = "Application Herzogenhorn - week change possible?";
-            $body = "Hi, english text goes here.";
-        } else {
-            $subject = "Anmeldung Herzogenhorn - Wochenwechsel möglich?";
-            $body = "Hi, die von Dir gewählte Woche ist ausgebucht. Kannst Du Dir vorstellen in die andere Woche zu wechseln? Danke, das Orgateam aus Berlin";
-        }
-        return $subject;
+        return $this->localizer->i18n('ADMIN.FLEX.BODY');
     }
 
     public function getBody()
     {
-        // TODO extract to localization
-        if ('de' != $this->applicant->getLanguage()) {
-            $subject = "Application Herzogenhorn - week change possible?";
-            $body = "Hi, english text goes here.";
-        } else {
-            $subject = "Anmeldung Herzogenhorn - Wochenwechsel möglich?";
-            $body = "Hi, die von Dir gewählte Woche ist ausgebucht. Kannst Du Dir vorstellen in die andere Woche zu wechseln? Danke, das Orgateam aus Berlin";
+        return $this->localizer->i18nParams('ADMIN.FLEX.SUBJECT', array());
+    }
+
+    public function getOtherWeek()
+    {
+        if ($this->applicant->getWeek() == 1) {
+            return 2;
         }
-        return $body;
+        return 1;
     }
 
 }
