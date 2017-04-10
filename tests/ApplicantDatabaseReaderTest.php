@@ -82,4 +82,17 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT a.country, count(*) as ccount FROM `applicants` a WHERE a.week LIKE '%MyWeek%' GROUP BY a.country", $sql);
     }
+
+    public function testFoodQueryWithoutWeekParameter() {
+        $sql = $this->reader->buildFoodQuery(NULL);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT * from `applicants` a ORDER by a.week, a.essen", $sql);
+    }
+
+    public function testFoodQueryWithWeekParameter() {
+        $week = "MyWeek";
+        $sql = $this->reader->buildFoodQuery($week);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.essen", $sql);
+    }
 }
