@@ -48,4 +48,12 @@ class ChartHelperTest extends TestCase
         $this->assertContains($week, $json);
     }
 
+    public function testGetCountByGender()
+    {
+        $json = $this->chartHelper->getCountByWeek();
+        $this->assertNotNull($json);
+        $this->assertEquals(0, $json);
+    }
+
+
 }
