@@ -23,7 +23,7 @@ class FlexibilityMailGenerator
 
     public function getBody()
     {
-        return $this->localizer->i18nParams('ADMIN.FLEX.SUBJECT', $this->applicant->getFirstname(), $this->applicant->getWeek(), $this->getOtherWeek());
+        return $this->localizer->i18nParams('ADMIN.FLEX.SUBJECT', array($this->applicant->getFirstname(), $this->applicant->getWeek(), $this->getOtherWeek()));
     }
 
     public function getOtherWeek()

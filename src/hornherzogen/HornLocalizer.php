@@ -20,7 +20,13 @@ class HornLocalizer
         $messageFormatter = $this->getMessageFormatterForKeyWithLanguageFallback($key);
         if ($messageFormatter) {
             if (isset($params) && !empty($params)) {
-                return $messageFormatter->format(array($params));
+                if (is_array($params)) {
+                    // multiple parameters passed in
+                    return $messageFormatter->format($params);
+                } else {
+                    // single parameter values
+                    return $messageFormatter->format(array($params));
+                }
             }
             return $messageFormatter->format(array());
         }
