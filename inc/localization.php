@@ -25,6 +25,8 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
+    'ADMIN.FLEX.BODY' => '',
+    'ADMIN.FLEX.SUBJECT' => '',
     'FORM.GSINCE.CHANGE' => 'Bitte um das Datum einzustellen in das Textfeld klicken, auch wenn es grau eingefärbt ist.',
     'SUBMISSIONCLOSED' => 'Die Anmeldefrist für dieses Jahr ist abgelaufen, gern im nächsten Jahr wieder probieren :-)',
     'MAIL.INTERNAL' => 'Interne Mail an das Organisationsteam abgeschickt um {0}',

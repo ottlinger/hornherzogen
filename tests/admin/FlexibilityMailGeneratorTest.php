@@ -40,13 +40,13 @@ class FlexibilityMailGeneratorTest extends TestCase
     public function testSubjectRetrieval()
     {
         $this->assertNotNull($this->generator);
-        $this->assertNull($this->generator->getSubject());
+        $this->assertNotNull($this->generator->getSubject());
     }
 
     public function testBodyRetrieval()
     {
         $this->assertNotNull($this->generator);
-        $this->assertNull($this->generator->getBody());
+        $this->assertNotNull($this->generator->getBody());
     }
 
 }
