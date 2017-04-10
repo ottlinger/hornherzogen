@@ -89,19 +89,21 @@ class ChartHelper
     {
         $bycountry = $this->reader->groupByOriginByWeek($week);
 
-        if (isset($week) && strlen($week)) {
-            $header = "Countries in week " . $week;
-        } else {
-            $header = "Countries";
-        }
-
         return "{
           \"cols\": [
-                {\"id\":\"\",\"label\":\"" . $header . "\",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"" . self::caclulateCountryHeader($week) . "\",\"pattern\":\"\",\"type\":\"string\"},
                 {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [" . $this->toJSON($bycountry) . "]
         }";
+    }
+
+    public static function caclulateCountryHeader($week)
+    {
+        if (isset($week) && strlen($week)) {
+            return "Countries in week " . $week;
+        }
+        return "Countries";
     }
 
     public static function toJSON($countryEntries)
