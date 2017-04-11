@@ -10,7 +10,7 @@ namespace hornherzogen;
 class ConfigurationWrapper
 {
     const LINEBREAK = "<br/>";
-    private $formHelper;
+    protected $formHelper;
 
     public function __construct()
     {
@@ -42,7 +42,7 @@ class ConfigurationWrapper
         return self::getFromHornConfiguration('debug');
     }
 
-    private static function getFromHornConfiguration($key)
+    protected static function getFromHornConfiguration($key)
     {
         if ($GLOBALS['horncfg'] && isset($GLOBALS['horncfg'][$key])) {
             return trim('' . $GLOBALS['horncfg'][$key]);
