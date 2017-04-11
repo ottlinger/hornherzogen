@@ -1,8 +1,7 @@
 <?php
+declare(strict_types=1);
 use hornherzogen\admin\BankingConfiguration;
 use PHPUnit\Framework\TestCase;
-
-use hornherzogen\Applicant;
 
 class BankingConfigurationTest extends TestCase
 {
@@ -13,6 +12,7 @@ class BankingConfigurationTest extends TestCase
      */
     public function setUp()
     {
+        $GLOBALS['hornconfiguration'] = NULL;
         $this->generator = new BankingConfiguration();
     }
 
@@ -34,8 +34,18 @@ class BankingConfigurationTest extends TestCase
         $this->assertInstanceOf('hornherzogen\admin\BankingConfiguration', $this->generator);
     }
 
-    public function testSubjectRetrieval()
+    public function testDefaultValuesAreAllNull()
     {
-        $this->assertNotNull($this->generator);
+        $this->assertNull($this->generator->getIban());
+        $this->assertNull($this->generator->getAccountHolder());
+        $this->assertNull($this->generator->getBic());
+        $this->assertNull($this->generator->getReasonForPayment());
     }
+
+    // TODO add positive test
+/*
+    public function testBankingConfigurationValuesAreProperlyExtractedFromTheConfiguration()
+    {
+    }
+*/
 }
