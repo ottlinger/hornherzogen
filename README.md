@@ -176,17 +176,21 @@ The configuration file needs to be created in order to set certain application p
 
 | Configuration parameter        | Comment           |
 | --- |:---:|
-| mail | complete email address, may contain a subject line as well |
-| pdf | complete link to the seminar announcement (PDF) |
-| registrationmail | email address that all registrations are send to |
-| sendregistrationmails | boolean, whether to send registration mails to customers |
-| sendinternalregistrationmails | boolean, whether to send mails internally upon registration via web form |
-| submissionend | date string after which the application is not possible anymore, format: YYYY-mm-dd |
-| dbhost | database hostname with port if necessary |
-| dbname | database name |
-| dbuser | database username |
-| dbpassword | database password |
-| superuser | list of superusers with special permissions in the admin area (comma-separated list as one string) |
+| mail | Complete email address, may contain a subject line as well |
+| pdf | Complete link to the seminar announcement (PDF) |
+| registrationmail | Email address that all registrations are send to |
+| sendregistrationmails | Boolean, whether to send registration mails to customers |
+| sendinternalregistrationmails | Boolean, whether to send mails internally upon registration via web form |
+| submissionend | Date string after which the application is not possible anymore, format: YYYY-mm-dd |
+| dbhost | Database hostname with port if necessary |
+| dbname | Database name |
+| dbuser | Database username |
+| dbpassword | Database password |
+| iban | Target account [IBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) information |
+| bic | Target account [BIC](https://en.wikipedia.org/wiki/ISO_9362) information |
+| accountholder | Target account holder name |
+| reasonforpayment | Reason for payment, note to payee |
+| superuser | List of superusers with special permissions in the admin area (comma-separated list as one string) |
 
 See example configurations in
 [configuration example of this project](inc/config.ini.php.template)

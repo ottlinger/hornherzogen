@@ -32,5 +32,13 @@ dbuser = 'pi2ieVid1234567';
 dbpassword = 'anypassword';
 ;;// date after which no more applications are allowed
 submissionend = '2017-01-01';
+;;// IBAN information
+iban = 'DE44 5001 0517 5407 3249 31';
+;;// BIC code
+bic = 'DSBACNBXSHA';
+;;// Account owner/holder
+accountholder = 'My Company Account Ltd.';
+;;// Notes for bank transfer
+reasonforpayment = 'Hornherzogen application';
 ;*/
 ;?>
