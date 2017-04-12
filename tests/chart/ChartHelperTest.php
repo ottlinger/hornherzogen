@@ -46,6 +46,7 @@ class ChartHelperTest extends TestCase
         $json = $this->chartHelper->getByCountry();
         $this->assertNotNull($json);
         $this->assertContains("Countries", $json);
+        $this->assertNotContains("in week", $json);
     }
 
     public function testGetDataRetrievalByGender()
