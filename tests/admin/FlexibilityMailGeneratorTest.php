@@ -15,6 +15,7 @@ class FlexibilityMailGeneratorTest extends TestCase
     public function setUp()
     {
         $this->applicant = new Applicant();
+        $this->applicant->setFirstname("Seymor Butt");
         $this->generator = new FlexibilityMailGenerator($this->applicant);
     }
 
@@ -37,16 +38,21 @@ class FlexibilityMailGeneratorTest extends TestCase
         $this->assertInstanceOf('hornherzogen\admin\FlexibilityMailGenerator', $this->generator);
     }
 
-    public function testSubjectRetrieval()
+    public function testBodyRetrievalWeekOne()
     {
-        $this->assertNotNull($this->generator);
-        $this->assertNotNull($this->generator->getSubject());
+        $this->applicant->setWeek(1);
+        $this->assertEquals("Hi Seymor Butt, you chose week 1 for Herzogenhorn. This week is overbooked. Would you mind considering to switch to week 2? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin", $this->generator->getBody());
     }
 
-    public function testBodyRetrieval()
+    public function testBodyRetrievalWeekTwo()
     {
-        $this->assertNotNull($this->generator);
-        $this->assertNotNull($this->generator->getBody());
+        $this->applicant->setWeek(2);
+        $this->assertEquals("Hi Seymor Butt, you chose week 2 for Herzogenhorn. This week is overbooked. Would you mind considering to switch to week 1? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin", $this->generator->getBody());
+    }
+
+    public function testSubjectRetrieval()
+    {
+        $this->assertEquals("Application Herzogenhorn " . $GLOBALS['messages']['de']['CONST.YEAR'] . " - week change possible?", $this->generator->getSubject());
     }
 
 }
