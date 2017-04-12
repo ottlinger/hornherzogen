@@ -35,7 +35,7 @@ class ChartHelper
 
     public static function splitByGender($applicantList)
     {
-        // TODO extract into ApplicantDataSplitter class
+        // TODO #79 extract into ApplicantDataSplitter class
         $results = array(
             'other' => array(),
             'male' => array(),

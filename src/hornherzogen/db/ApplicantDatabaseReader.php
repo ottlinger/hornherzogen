@@ -87,6 +87,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             while ($row = $dbResult->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
+
+                // TODO #79: extract into ApplicantDataSplitter class, see ChartHelper
                 switch ($applicant->getRoom()) {
                     case "1bed":
                         $results['1'][] = $applicant;

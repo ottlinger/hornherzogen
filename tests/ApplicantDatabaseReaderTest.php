@@ -112,11 +112,11 @@ class ApplicantDatabaseReaderTest extends TestCase
     public function testWithoutConfigEmptyListIsRetrievedWithoutWeekParameter()
     {
         // may return results locally :-D
-        $this->assertEquals(0, sizeof($this->writer->getAllByWeek()));
+        $this->assertEquals(0, sizeof($this->reader->getAllByWeek()));
     }
 
     public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
     {
-        $this->assertEquals(0, sizeof($this->writer->getAllByWeek("week1")));
+        $this->assertEquals(0, sizeof($this->reader->getAllByWeek("week1")));
     }
 }
