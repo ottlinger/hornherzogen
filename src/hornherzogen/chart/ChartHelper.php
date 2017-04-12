@@ -91,14 +91,14 @@ class ChartHelper
 
         return "{
           \"cols\": [
-                {\"id\":\"\",\"label\":\"" . self::caclulateCountryHeader($week) . "\",\"pattern\":\"\",\"type\":\"string\"},
+                {\"id\":\"\",\"label\":\"" . self::calculateTitleByCountry($week) . "\",\"pattern\":\"\",\"type\":\"string\"},
                 {\"id\":\"\",\"label\":\"Slices\",\"pattern\":\"\",\"type\":\"number\"}
               ],
           \"rows\": [" . $this->toJSON($bycountry) . "]
         }";
     }
 
-    public static function caclulateCountryHeader($week)
+    public static function calculateTitleByCountry($week)
     {
         if (isset($week) && strlen($week)) {
             return "Countries in week " . $week;
