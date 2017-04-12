@@ -12,6 +12,8 @@ use hornherzogen\ConfigurationWrapper;
 
 class PaymentMailer
 {
+    // TODO add i18n keys PMAIL .... stuff
+
     // internal members
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
