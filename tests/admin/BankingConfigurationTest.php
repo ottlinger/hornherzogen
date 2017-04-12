@@ -12,7 +12,7 @@ class BankingConfigurationTest extends TestCase
      */
     public function setUp()
     {
-        $GLOBALS['hornconfiguration'] = NULL;
+        $GLOBALS['horncfg'] = NULL;
         $this->generator = new BankingConfiguration();
     }
 
@@ -42,10 +42,23 @@ class BankingConfigurationTest extends TestCase
         $this->assertNull($this->generator->getReasonForPayment());
     }
 
-    // TODO add positive test
-/*
     public function testBankingConfigurationValuesAreProperlyExtractedFromTheConfiguration()
     {
+        $iban = "DEWOOO";
+        $accountholder = "C`mor Butts";
+        $bic = "BICTOR";
+        $reason = "There always is a reason, isn't there?";
+
+        $GLOBALS['horncfg']['iban'] = $iban;
+        $GLOBALS['horncfg']['bic'] = $bic;
+        $GLOBALS['horncfg']['accountholder'] = $accountholder;
+        $GLOBALS['horncfg']['reasonforpayment'] = $reason;
+
+        $generator = new BankingConfiguration();
+
+        $this->assertEquals($iban, $generator->getIban());
+        $this->assertEquals($bic, $generator->getBic());
+        $this->assertEquals($accountholder, $generator->getAccountHolder());
+        $this->assertEquals($reason, $generator->getReasonForPayment());
     }
-*/
 }
