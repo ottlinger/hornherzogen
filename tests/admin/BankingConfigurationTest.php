@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class BankingConfigurationTest extends TestCase
 {
-    private $generator = null;
+    private $bankConfiguration = null;
 
     /**
      * Setup the test environment.
@@ -13,7 +13,7 @@ class BankingConfigurationTest extends TestCase
     public function setUp()
     {
         $GLOBALS['horncfg'] = NULL;
-        $this->generator = new BankingConfiguration();
+        $this->bankConfiguration = new BankingConfiguration();
     }
 
     /**
@@ -21,7 +21,7 @@ class BankingConfigurationTest extends TestCase
      */
     public function tearDown()
     {
-        $this->generator = null;
+        $this->bankConfiguration = null;
     }
 
     /**
@@ -31,15 +31,15 @@ class BankingConfigurationTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\admin\BankingConfiguration', $this->generator);
+        $this->assertInstanceOf('hornherzogen\admin\BankingConfiguration', $this->bankConfiguration);
     }
 
     public function testDefaultValuesAreAllNull()
     {
-        $this->assertNull($this->generator->getIban());
-        $this->assertNull($this->generator->getAccountHolder());
-        $this->assertNull($this->generator->getBic());
-        $this->assertNull($this->generator->getReasonForPayment());
+        $this->assertNull($this->bankConfiguration->getIban());
+        $this->assertNull($this->bankConfiguration->getAccountHolder());
+        $this->assertNull($this->bankConfiguration->getBic());
+        $this->assertNull($this->bankConfiguration->getReasonForPayment());
     }
 
     public function testBankingConfigurationValuesAreProperlyExtractedFromTheConfiguration()
