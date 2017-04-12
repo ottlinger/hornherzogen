@@ -5,6 +5,10 @@ namespace hornherzogen\mail;
 
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
+use hornherzogen\FormHelper;
+use hornherzogen\GitRevision;
+use hornherzogen\HornLocalizer;
+use hornherzogen\ConfigurationWrapper;
 
 class PaymentMailer
 {
@@ -20,9 +24,9 @@ class PaymentMailer
     // defines how the success messages are being shown in the UI
     private $statusReader;
 
-    function __construct($applicationInput)
+    function __construct($applicantId)
     {
-        $this->applicationInput = $applicationInput;
+        $this->applicationInput = $applicantId;
 
         $this->formHelper = new FormHelper();
         $this->revision = new GitRevision();
@@ -42,18 +46,7 @@ class PaymentMailer
 
         $importance = 1; //1 UrgentMessage, 3 Normal
 
-        // HowToSend at all: https://wiki.goneo.de/mailversand_php_cgi
-
-        // Fix encoding errors in subject:
-        // http://stackoverflow.com/questions/4389676/email-from-php-has-broken-subject-header-encoding#4389755
-        // https://ncona.com/2011/06/using-utf-8-characters-on-an-e-mail-subject/
-
-        // $preferences = ['input-charset' => 'UTF-8', 'output-charset' => 'UTF-8'];
-        // $encoded_subject = iconv_mime_encode('Subject', $this->localizer->i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp()), $preferences);
-        // $encoded_subject = substr($encoded_subject, strlen('Subject: '));
-
-        // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
-        $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
+        $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
@@ -79,12 +72,12 @@ class PaymentMailer
         if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
-            $this->applicationInput->setCreatedAt($appliedAt);
+            $this->applicationInput->setPaymentRequestedAt($appliedAt);
 
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt) . "</h3>";
         }
         $this->applicationInput->setMailSent(true);
 
@@ -147,15 +140,6 @@ class PaymentMailer
                 Bis dahin sonnige Grüße aus Berlin<br />
                 von Benjamin und Philipp</h3>
             </h2>
-            <p>
-            PS: Du hast die Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
-            und von der Adresse "' . $metadata['R_ADDR'] . '"';
-        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
-            $mailtext .= '(' . $metadata['R_HOST'] . ')';
-        }
-
-        $mailtext .= ' das Formular versendet.
-            </p>
         </body>
     </html>';
 
@@ -207,15 +191,6 @@ class PaymentMailer
                 All the best from Berlin<br />
                 Benjamin und Philipp</h3>
             </h2>
-            <p>
-            PS: Your selected language was "' . $metadata['LANG'] . '" with browser "' . $metadata['BROWSER'] . '".
-            Submission happened from address "' . $metadata['R_ADDR'] . '"';
-        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
-            $mailtext .= '(' . $metadata['R_HOST'] . ')';
-        }
-
-        $mailtext .= '
-            </p>
         </body>
     </html>';
 
@@ -232,7 +207,7 @@ class PaymentMailer
 
     private function setStatusAppliedIfPossible()
     {
-        $statusApplied = $this->statusReader->getByName('APPLIED');
+        $statusApplied = $this->statusReader->getByName('WAITING_FOR_PAYMENT');
         if (isset($statusApplied)) {
             $this->applicationInput->setCurrentStatus($statusApplied[0]['id']);
         }
@@ -240,24 +215,10 @@ class PaymentMailer
 
     public function saveInDatabase()
     {
+        // TODO we need to update!!!
+        // * state
+        // * paymentrequestedDate
         return $this->dbWriter->persist($this->applicationInput);
-    }
-
-    public function existsInDatabase()
-    {
-        $existingRows = $this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail());
-
-        // case1: database contains someone with the same name and mail address - treat as resubmit and do not persist
-        if (sizeof($existingRows) == 1 && $existingRows[0]->getFullName() === ($existingRows[0]->getFirstname() . ' ' . $existingRows[0]->getLastname())) {
-            return true;
-        }
-
-        // case2: there are already more than one entries in the database, persist will correct the current one
-        if (sizeof($existingRows) >= 1) {
-            return false; // persist is going to correct the doublette by adding a salt to the fullname
-        }
-
-        return boolval($existingRows);
     }
 
     /**
@@ -271,7 +232,7 @@ class PaymentMailer
             $importance = 1;
 
             // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
-            $encoded_subject = "=?UTF-8?B?" . base64_encode("Anmeldung Herzogenhorn eingegangen - Woche " . $this->applicationInput->getWeek()) . "?=";
+            $encoded_subject = "=?UTF-8?B?" . base64_encode("Bezahlung Herzogenhorn angefordert - Woche " . $this->applicationInput->getWeek()) . "?=";
 
             // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
             $headers = array();
@@ -296,7 +257,7 @@ class PaymentMailer
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
         }
         return '';
     }
@@ -304,8 +265,6 @@ class PaymentMailer
     public function getInternalMailtext()
     {
         $remarks = self::reformat($this->applicationInput->getRemarks());
-
-        $metadata = $this->formHelper->extractMetadataForFormSubmission();
 
         $mailtext =
             '
@@ -339,14 +298,7 @@ class PaymentMailer
                 ' . $this->applicationInput->getEmail() . '</a></li>
                 </ul>
             </h2>
-            <p>
-            PS: Sprache "' . $metadata['LANG'] . '" im Browser "' . $metadata['BROWSER'] . '" ausgewählt
-            und von der Adresse "' . $metadata['R_ADDR'] . '"';
-        if ($this->formHelper->isSetAndNotEmptyInArray($metadata, "R_HOST")) {
-            $mailtext .= '(' . $metadata['R_HOST'] . ')';
-        }
-
-        $mailtext .= ' das Formular versendet.
+             das Formular versendet.
             </p>
         </body>
     </html>';
