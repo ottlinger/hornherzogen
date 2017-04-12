@@ -197,7 +197,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
-                $results[] = $row;
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
 
