@@ -83,17 +83,6 @@ class ApplicantDatabaseWriterTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\ApplicantDatabaseWriter', $this->writer);
     }
 
-    public function testWithoutConfigEmptyListIsRetrievedWithoutWeekParameter()
-    {
-        // may return results locally :-D
-        $this->assertEquals(0, sizeof($this->writer->getAllByWeek()));
-    }
-
-    public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
-    {
-        $this->assertEquals(0, sizeof($this->writer->getAllByWeek("week1")));
-    }
-
     public function testRetrieveNameMailCombination()
     {
         $result = $this->writer->getByNameAndMailadress('Hugo', 'Hirsch', 'foo@bar.de');

@@ -108,4 +108,15 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a WHERE flexible in ('yes', '1')  AND a.week LIKE '%MyWeek%'", $sql);
     }
+
+    public function testWithoutConfigEmptyListIsRetrievedWithoutWeekParameter()
+    {
+        // may return results locally :-D
+        $this->assertEquals(0, sizeof($this->writer->getAllByWeek()));
+    }
+
+    public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
+    {
+        $this->assertEquals(0, sizeof($this->writer->getAllByWeek("week1")));
+    }
 }

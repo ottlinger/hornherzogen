@@ -5,7 +5,7 @@ namespace hornherzogen\db;
 
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
-    const selectAll = "SELECT * from `applicants` a ";
+    const selectAll = "SELECT * from `applicants` a";
 
     /**
      * Retrieve all applicants with the given id, should be one.
