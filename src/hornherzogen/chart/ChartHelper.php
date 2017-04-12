@@ -4,22 +4,19 @@ declare(strict_types=1);
 namespace hornherzogen\chart;
 
 use hornherzogen\db\ApplicantDatabaseReader;
-use hornherzogen\db\ApplicantDatabaseWriter;
 
 class ChartHelper
 {
-    private $applicants;
     private $reader;
 
     function __construct()
     {
-        $this->applicants = new ApplicantDatabaseWriter();
         $this->reader = new ApplicantDatabaseReader();
     }
 
     public function getByGender($week = NULL)
     {
-        $applicants = $this->splitByGender($this->applicants->getAllByWeek($week));
+        $applicants = $this->splitByGender($this->reader->getAllByWeek($week));
 
         $headers = self::calculateTitleForGender($week);
 
@@ -82,7 +79,7 @@ class ChartHelper
 
     public function getCountByWeek($week = NULL)
     {
-        return sizeof($this->applicants->getAllByWeek($week));
+        return sizeof($this->reader->getAllByWeek($week));
     }
 
     public function getByCountry($week = NULL)

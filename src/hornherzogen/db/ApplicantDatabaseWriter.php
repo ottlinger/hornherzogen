@@ -62,29 +62,6 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         return $results;
     }
 
-    // add logics to create a new combined Name
-    // add helper method to transform a given Object into an INSERT INTO
-    // TODO extract to reader?!
-    function getAllByWeek($week = NULL)
-    {
-        $results = array();
-        if (self::isHealthy()) {
-            $query = "SELECT * from `applicants` a";
-            // if week == null - return all, else for the given week
-            if (isset($week) && strlen($week)) {
-                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-            }
-
-            $dbResult = $this->database->query($query);
-            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
-
-            while ($row = $dbResult->fetch()) {
-                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
-            }
-        }
-        return $results;
-    }
-
     function removeById($applicantId)
     {
         if ($this->isHealthy() && isset($applicantId) && strlen($applicantId)) {

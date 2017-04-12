@@ -5,6 +5,7 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseWriter;
+use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
@@ -172,8 +173,8 @@ $databaseHelper = new DatabaseHelper();
 
     $statusReader = new StatusDatabaseReader();
 
-    $writer = new ApplicantDatabaseWriter();
-    $applicants = $writer->getAllByWeek($week);
+    $reader = new ApplicantDatabaseReader();
+    $applicants = $reader->getAllByWeek($week);
 
     echo '<div class="table-responsive"><table class="table table-striped">';
     echo "<thead>";
