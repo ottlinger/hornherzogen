@@ -5,6 +5,8 @@ namespace hornherzogen\db;
 
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
+    const selectAll = "SELECT * from `applicants` a ";
+
     /**
      * Retrieve all applicants with the given id, should be one.
      *
@@ -16,9 +18,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $results = array();
         if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
 
-            $query = "SELECT * from `applicants` a";
-            $query .= " WHERE a.id =" . $this->databaseHelper->trimAndMask($applicantId);
-
+            $query = self::selectAll . " WHERE a.id =" . $this->databaseHelper->trimAndMask($applicantId);
             $dbResult = $this->database->query($query);
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
@@ -51,7 +51,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function buildFoodQuery($week)
     {
-        $query = "SELECT * from `applicants` a";
+        $query = self::selectAll;
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
@@ -112,7 +112,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function buildQuery($week)
     {
-        $query = "SELECT * from `applicants` a";
+        $query = self::selectAll;
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
@@ -145,7 +145,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function buildFlexibilityQuery($week)
     {
-        $query = "SELECT * from `applicants` a";
+        $query = self::selectAll;
         $query .= " WHERE flexible in ('yes', '1') ";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
@@ -183,27 +183,38 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $query;
     }
 
-    // TODO extract to reader?!
-    function getAllByWeek($week = NULL)
+    /**
+     * Return all applicants in the given week or if NULL for all weeks.
+     * @param null $week
+     * @return mixed
+     */
+    public function getAllByWeek($week = NULL)
     {
         $results = array();
-        if (self::isHealthy()) {
-            $query = "SELECT * from `applicants` a";
-            // if week == null - return all, else for the given week
-            if (isset($week) && strlen($week)) {
-                $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-            }
 
-            $dbResult = $this->database->query($query);
+        if ($this->isHealthy()) {
+            $dbResult = $this->database->query($this->buildGetAllQuery($week));
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
-                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+                $results[] = $row;
             }
         }
+
         return $results;
     }
 
+    public function buildGetAllQuery($week)
+    {
+        $query = self::selectAll;
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " ORDER BY a.created";
+
+        return $query;
+    }
 
 }
 
