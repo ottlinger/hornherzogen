@@ -23,10 +23,9 @@ class HornLocalizer
                 if (is_array($params)) {
                     // multiple parameters passed in
                     return $messageFormatter->format($params);
-                } else {
-                    // single parameter values
-                    return $messageFormatter->format(array($params));
                 }
+                // single parameter values
+                return $messageFormatter->format(array($params));
             }
             return $messageFormatter->format(array());
         }
