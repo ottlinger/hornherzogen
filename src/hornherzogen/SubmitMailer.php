@@ -38,9 +38,8 @@ class SubmitMailer
     // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
     public function send()
     {
-        $replyto = $this->config->registrationmail();
-
-        $importance = 1; //1 UrgentMessage, 3 Normal
+        $replyTo = $this->config->registrationmail();
+        $headers = $this->getHeaders($replyTo);
 
         // HowToSend at all: https://wiki.goneo.de/mailversand_php_cgi
 
@@ -54,6 +53,25 @@ class SubmitMailer
 
         // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
+
+        if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
+            mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
+            $appliedAt = $this->formHelper->timestamp();
+            $this->applicationInput->setCreatedAt($appliedAt);
+
+            $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
+            $this->setStatusAppliedIfPossible();
+
+            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
+        }
+        $this->applicationInput->setMailSent(true);
+
+        return '';
+    }
+
+    private function getHeaders($replyto)
+    {
+        $importance = 1; //1 UrgentMessage, 3 Normal
 
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
@@ -76,19 +94,7 @@ class SubmitMailer
         $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
         $headers[] = 'X-Mailer: PHP/' . phpversion();
 
-        if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
-            mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
-            $appliedAt = $this->formHelper->timestamp();
-            $this->applicationInput->setCreatedAt($appliedAt);
-
-            $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
-            $this->setStatusAppliedIfPossible();
-
-            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
-        }
-        $this->applicationInput->setMailSent(true);
-
-        return '';
+        return $headers;
     }
 
     public function isMailSent()
@@ -267,34 +273,13 @@ class SubmitMailer
     {
         if ($this->config->sendinternalregistrationmails() && !$this->isMailSent()) {
 
-            $replyto = $this->config->registrationmail();
-            $importance = 1;
-
             // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
             $encoded_subject = "=?UTF-8?B?" . base64_encode("Anmeldung Herzogenhorn eingegangen - Woche " . $this->applicationInput->getWeek()) . "?=";
 
-            // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
-            $headers = array();
-            $headers[] = 'MIME-Version: 1.0';
+            $replyTo = $this->config->registrationmail();
+            $headers = $this->getHeaders($replyTo);
 
-            $headers[] = 'X-Priority: ' . $importance;
-            $headers[] = 'Importance: ' . $importance;
-            $headers[] = 'X-MSMail-Priority: High';
-
-            $headers[] = 'Reply-To: ' . $replyto;
-            // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-            $headers[] = 'From: ' . $replyto;
-            $headers[] = 'Return-Path: ' . $replyto;
-            $headers[] = 'Errors-To: ' . $replyto;
-
-            $headers[] = 'Content-type: text/html; charset=UTF-8';
-            $headers[] = 'Date: ' . date("r");
-            $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
-            $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
-            $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
-            $headers[] = 'X-Mailer: PHP/' . phpversion();
-
-            mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            mail($replyTo, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
 
             return $this->uiPrefix . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
         }
