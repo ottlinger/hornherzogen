@@ -100,8 +100,6 @@ class PaymentMailer
 
         $remarks = self::reformat($this->applicationInput->getRemarks());
 
-        $metadata = $this->formHelper->extractMetadataForFormSubmission();
-
         $mailtext =
             '
     <html>
@@ -151,8 +149,6 @@ class PaymentMailer
     private function getEnglishMailtext()
     {
         $remarks = self::reformat($this->applicationInput->getRemarks());
-
-        $metadata = $this->formHelper->extractMetadataForFormSubmission();
 
         $mailtext =
             '
