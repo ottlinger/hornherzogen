@@ -7,7 +7,6 @@ use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
-use hornherzogen\GitRevision;
 use hornherzogen\HornLocalizer;
 
 class SubmitMailer
@@ -16,10 +15,10 @@ class SubmitMailer
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
     private $applicationInput;
-    private $revision;
     private $localizer;
     private $config;
     private $dbWriter;
+    private $headerGenerator;
 
     // defines how the success messages are being shown in the UI
     private $statusReader;
@@ -29,7 +28,7 @@ class SubmitMailer
         $this->applicationInput = $applicationInput;
 
         $this->formHelper = new FormHelper();
-        $this->revision = new GitRevision();
+        $this->headerGenerator = new MailHeaderGenerator();
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
         $this->dbWriter = new ApplicantDatabaseWriter();
@@ -71,35 +70,6 @@ class SubmitMailer
         $this->applicationInput->setMailSent(true);
 
         return '';
-    }
-
-    // TODO #80: extract to MailHelper
-    private function getHeaders($replyto)
-    {
-        $importance = 1; //1 UrgentMessage, 3 Normal
-
-        // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
-        $headers = array();
-        $headers[] = 'MIME-Version: 1.0';
-
-        $headers[] = 'X-Priority: ' . $importance;
-        $headers[] = 'Importance: ' . $importance;
-        $headers[] = 'X-MSMail-Priority: High';
-
-        $headers[] = 'Reply-To: ' . $replyto;
-        // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-        $headers[] = 'From: ' . $replyto;
-        $headers[] = 'Return-Path: ' . $replyto;
-        $headers[] = 'Errors-To: ' . $replyto;
-
-        $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'Date: ' . date("r");
-        $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
-        $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
-        $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
-        $headers[] = 'X-Mailer: PHP/' . phpversion();
-
-        return $headers;
     }
 
     public function isMailSent()
