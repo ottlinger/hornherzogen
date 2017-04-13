@@ -42,7 +42,7 @@ class SubmitMailer
     public function send()
     {
         $replyTo = $this->config->registrationmail();
-        $headers = $this->getHeaders($replyTo);
+        $headers = $this->headerGenerator->getHeaders($replyTo);
 
         // HowToSend at all: https://wiki.goneo.de/mailversand_php_cgi
 
