@@ -252,7 +252,7 @@ class SubmitMailer
             $encoded_subject = "=?UTF-8?B?" . base64_encode("Anmeldung Herzogenhorn eingegangen - Woche " . $this->applicationInput->getWeek()) . "?=";
 
             $replyTo = $this->config->registrationmail();
-            $headers = $this->getHeaders($replyTo);
+            $headers = $this->headerGenerator->getHeaders($replyTo);
 
             mail($replyTo, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
 

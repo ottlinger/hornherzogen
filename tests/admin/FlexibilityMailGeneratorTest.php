@@ -14,6 +14,7 @@ class FlexibilityMailGeneratorTest extends TestCase
      */
     public function setUp()
     {
+        $_GET['lang'] = "en";
         $this->applicant = new Applicant();
         $this->applicant->setFirstname("Seymor Butt");
         $this->generator = new FlexibilityMailGenerator($this->applicant);
