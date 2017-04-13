@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace hornherzogen\mail;
 
+use hornherzogen\ConfigurationWrapper;
+use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\GitRevision;
 use hornherzogen\HornLocalizer;
-use hornherzogen\ConfigurationWrapper;
 
 class PaymentMailer
 {
@@ -19,6 +20,7 @@ class PaymentMailer
     private $formHelper;
     private $applicationInput;
     private $revision;
+    private $reader;
     private $localizer;
     private $config;
     private $dbWriter;
@@ -28,10 +30,12 @@ class PaymentMailer
 
     function __construct($applicantId)
     {
-        $this->applicationInput = $applicantId;
+        $this->reader = new ApplicantDatabaseReader();
+        $this->applicationInput = $this->reader->getById($applicantId);
 
         $this->formHelper = new FormHelper();
         $this->revision = new GitRevision();
+
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
         $this->dbWriter = new ApplicantDatabaseWriter();
@@ -40,8 +44,6 @@ class PaymentMailer
         date_default_timezone_set('Europe/Berlin');
     }
 
-    // In case you need authentication you should switch the the PEAR module
-    // https://www.lifewire.com/send-email-from-php-script-using-smtp-authentication-and-ssl-1171197
     public function send()
     {
         $replyto = $this->config->registrationmail();
@@ -78,7 +80,6 @@ class PaymentMailer
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setPaymentRequestedAt($appliedAt);
 
-            $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
             return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt) . "</h3>";
@@ -100,46 +101,32 @@ class PaymentMailer
             return $this->getEnglishMailtext();
         }
 
-        $remarks = self::reformat($this->applicationInput->getRemarks());
-
         $mailtext =
             '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Anmeldebestätigung Herzogenhorn Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
+            <title>Zahlungsaufforderung Herzogenhorn Woche ' . $this->applicationInput->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>
                 Hallo ' . $this->applicationInput->getFirstname() . ',</h2>
-                <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . $this->formHelper->timestamp() . '
-                erhalten und melden uns sobald die Anmeldefrist abgelaufen ist und wir die beiden Wochen geplant haben.
+                <p>wir haben die Lehrgangswoche soweit geplant und bitten Dich nun um ' . $this->formHelper->timestamp() . '
+                innerhalb der nächsten 2 Wochen zu überweisen.
                 </p>
-                <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
+                <p>Bitte verwende die folgende Bankverbindung
                 <ul>
                 <li>Anrede: ' . ($this->applicationInput->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
-                <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
-                <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
-                <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
-                <li>Land: ' . $this->applicationInput->getCountry() . '</li>
-                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
-                <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
-                <li>Graduierung: ' . $this->applicationInput->getGrading() . ' (seit ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
-                <li>Zimmer: ' . $this->applicationInput->getRoom() . '</li>
-                <li>Person1: ' . $this->applicationInput->getPartnerOne() . '</li>
-                <li>Person2: ' . $this->applicationInput->getPartnerTwo() . '</li>
-                <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
-                <li>Anmerkungen: ' . $remarks . '</li>
-                <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
+                <li>Verwendungszweck: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
                 <p>
                 Danke für Deine Geduld und wir freuen uns Dich zu sehen - <br />
                 </p>
                 <h3>
-                Bis dahin sonnige Grüße aus Berlin<br />
+                Sonnige Grüße aus Berlin<br />
                 von Benjamin und Philipp</h3>
             </h2>
         </body>
@@ -150,42 +137,28 @@ class PaymentMailer
 
     private function getEnglishMailtext()
     {
-        $remarks = self::reformat($this->applicationInput->getRemarks());
-
         $mailtext =
             '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>You\'ve successfully applied for Herzogenhorn week ' . $this->applicationInput->getWeek() . '</title >
+            <title>Request for payment for Herzogenhorn seminar week ' . $this->applicationInput->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - application for week ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicationInput->getWeek() . '</h1>
             <h2>
                 Hi ' . $this->applicationInput->getFirstname() . ',</h2>
-                <p>we have received your application for Herzogenhorn week ' . $this->applicationInput->getWeek() . ' at ' . $this->formHelper->timestamp() . '. 
-                After the end of submission we\'ll get back to you.
-                </p>
-                <p>Your application contained the following data that were saved in our database:
+                <p>thanks for your patience. We\'ve planned the seminar week ' . $this->applicationInput->getWeek() . ' at  ' . $this->formHelper->timestamp() . '. 
+                and would like to request your payment in the next 14 days in order to fulfill your seminar application.</p>
+                <p>Please transfer the money to the following bank account:
                 <ul>
                 <li>Gender: ' . ($this->applicationInput->getGender() === 'male' ? 'Mr.' : 'Mrs.') . '</li>
-                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
-                <li>Flexible? ' . ($this->applicationInput->getFlexible() == 1 ? 'yes' : 'no') . '</li>
-                <li>Address: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
-                <li>City: ' . $this->applicationInput->getCity() . '</li>
-                <li>Country: ' . $this->applicationInput->getCountry() . '</li>
-                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
-                <li>TWA-number: ' . $this->applicationInput->getTwaNumber() . '</li>
-                <li>Grading: ' . $this->applicationInput->getGrading() . ' (since ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
-                <li>Room category: ' . $this->applicationInput->getRoom() . '</li>
-                <li>together with: ' . $this->applicationInput->getPartnerOne() . '</li>
-                <li>and: ' . $this->applicationInput->getPartnerTwo() . '</li>
-                <li>Food category: ' . $this->applicationInput->getFoodCategory() . '</li>
-                <li>Remarks: ' . $remarks . '</li>
+                <li>Reason for payment: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Amount: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
                 <p>
-                Thanks for your patience! We are looking forward to seeing you -<br />
+                If we do not receive your payment in time we are forced to cancel your reservation -<br />
                 </p>
                 <h3>
                 All the best from Berlin<br />
@@ -197,12 +170,12 @@ class PaymentMailer
         return $mailtext;
     }
 
-    private static function reformat($input)
+    public function getSeminarPrice()
     {
-        if (!empty($input)) {
-            return nl2br($input);
+        if (strlen($this->applicationInput->getTwaNumber())) {
+            return "250,00 €";
         }
-        return "n/a";
+        return "300,00 €";
     }
 
     private function setStatusAppliedIfPossible()
@@ -264,41 +237,29 @@ class PaymentMailer
 
     public function getInternalMailtext()
     {
-        $remarks = self::reformat($this->applicationInput->getRemarks());
-
         $mailtext =
             '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Anmeldung für Woche ' . $this->applicationInput->getWeek() . ' eingegangen</title >
+            <title>Zahlungsbestätigung versendet für Woche ' . $this->applicationInput->getWeek() . ' </title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicationInput->getWeek() . 'verschickt</h1>
             <h2>Anmeldungsdetails</h2>
-                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die folgende Anmeldung ein:</p>
+                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung raus:</p>
                 <ul>
                 <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
                 <li>Anrede: ' . ($this->applicationInput->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>Name: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
                 <li>interner Name: ' . $this->applicationInput->getFullname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
-                <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
-                <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
                 <li>Land: ' . $this->applicationInput->getCountry() . '</li>
                 <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
                 <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
-                <li>Graduierung: ' . $this->applicationInput->getGrading() . ' (seit ' . $this->applicationInput->getDateOfLastGrading() . ')</li>
-                <li>Zimmerkategorie: ' . $this->applicationInput->getRoom() . '</li>
-                <li>Person 1: ' . $this->applicationInput->getPartnerOne() . '</li>
-                <li>Person 2: ' . $this->applicationInput->getPartnerTwo() . '</li>
-                <li>Essenswunsch: ' . $this->applicationInput->getFoodCategory() . '</li>
-                <li>Anmerkungen: ' . $remarks . '</li>
-                <li>E-Mail: <a href="' . $this->formHelper->convertToValidMailto($this->applicationInput->getEmail(), $this->config->registrationmail(), "Nachfrage zur Hornanmeldung", "") . '">
-                ' . $this->applicationInput->getEmail() . '</a></li>
+                <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
             </h2>
-             das Formular versendet.
+             Zahlungsfrist sind 2 Wochen!
             </p>
         </body>
     </html>';
