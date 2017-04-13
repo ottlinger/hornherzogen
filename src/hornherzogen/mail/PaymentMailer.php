@@ -8,7 +8,6 @@ use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
-use hornherzogen\GitRevision;
 use hornherzogen\HornLocalizer;
 
 class PaymentMailer
@@ -19,11 +18,11 @@ class PaymentMailer
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
     private $applicationInput;
-    private $revision;
     private $reader;
     private $localizer;
     private $config;
     private $dbWriter;
+    private $headerGenerator;
 
     // defines how the success messages are being shown in the UI
     private $statusReader;
@@ -33,8 +32,8 @@ class PaymentMailer
         $this->reader = new ApplicantDatabaseReader();
         $this->applicationInput = $this->reader->getById($applicantId);
 
+        $this->headerGenerator = new MailHeaderGenerator();
         $this->formHelper = new FormHelper();
-        $this->revision = new GitRevision();
 
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
@@ -47,33 +46,9 @@ class PaymentMailer
     public function send()
     {
         $replyto = $this->config->registrationmail();
-
-        $importance = 1; //1 UrgentMessage, 3 Normal
+        $headers = $this->headerGenerator->getHeaders($replyto);
 
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
-
-        // TODO #80: extract to MailHelper, use SubmitMailer::getHeaders
-
-        // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
-        $headers = array();
-        $headers[] = 'MIME-Version: 1.0';
-
-        $headers[] = 'X-Priority: ' . $importance;
-        $headers[] = 'Importance: ' . $importance;
-        $headers[] = 'X-MSMail-Priority: High';
-
-        $headers[] = 'Reply-To: ' . $replyto;
-        // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-        $headers[] = 'From: ' . $replyto;
-        $headers[] = 'Return-Path: ' . $replyto;
-        $headers[] = 'Errors-To: ' . $replyto;
-
-        $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'Date: ' . date("r");
-        $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
-        $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
-        $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
-        $headers[] = 'X-Mailer: PHP/' . phpversion();
 
         if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
@@ -202,31 +177,9 @@ class PaymentMailer
         if ($this->config->sendinternalregistrationmails() && !$this->isMailSent()) {
 
             $replyto = $this->config->registrationmail();
-            $importance = 1;
 
-            // As long as https://github.com/ottlinger/hornherzogen/issues/19 is not fixed by goneo:
             $encoded_subject = "=?UTF-8?B?" . base64_encode("Bezahlung Herzogenhorn angefordert - Woche " . $this->applicationInput->getWeek()) . "?=";
-
-            // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
-            $headers = array();
-            $headers[] = 'MIME-Version: 1.0';
-
-            $headers[] = 'X-Priority: ' . $importance;
-            $headers[] = 'Importance: ' . $importance;
-            $headers[] = 'X-MSMail-Priority: High';
-
-            $headers[] = 'Reply-To: ' . $replyto;
-            // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-            $headers[] = 'From: ' . $replyto;
-            $headers[] = 'Return-Path: ' . $replyto;
-            $headers[] = 'Errors-To: ' . $replyto;
-
-            $headers[] = 'Content-type: text/html; charset=UTF-8';
-            $headers[] = 'Date: ' . date("r");
-            $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
-            $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
-            $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
-            $headers[] = 'X-Mailer: PHP/' . phpversion();
+            $headers = $this->headerGenerator->getHeaders($replyto);
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
