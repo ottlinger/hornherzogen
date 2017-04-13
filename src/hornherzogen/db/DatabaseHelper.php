@@ -51,11 +51,7 @@ class DatabaseHelper
     public function makeSQLCapable($input, $database)
     {
         if (isset($input)) {
-            if (isset($database)) {
-                $mask = $database->quote($input);
-            } else {
-                $mask = "'" . $input . "'";
-            }
+            $mask = isset($database) ? $database->quote($input) : "'" . $input . "'";
             $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
             return $mask;
         }
@@ -187,7 +183,6 @@ class DatabaseHelper
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'language')) {
                 $applicant->setLanguage($row['language']);
             }
-
         }
 
         return $applicant;
