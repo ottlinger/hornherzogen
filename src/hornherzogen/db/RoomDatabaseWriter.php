@@ -50,6 +50,7 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
             while ($row = $dbResult->fetch()) {
+                // TODO #79: extract into ApplicantDataSplitter class, see ChartHelper and ApplicantDatabaseReader
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
                 switch ($applicant->getRoom()) {
