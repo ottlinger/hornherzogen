@@ -1,6 +1,6 @@
 <?php
 use hornherzogen\ApplicantInput;
-use hornherzogen\SubmitMailer;
+use hornherzogen\mail\SubmitMailer;
 use PHPUnit\Framework\TestCase;
 
 class SubmitMailerTest extends TestCase
@@ -50,7 +50,7 @@ class SubmitMailerTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\SubmitMailer', $this->mailer);
+        $this->assertInstanceOf('hornherzogen\mail\SubmitMailer', $this->mailer);
     }
 
     /**

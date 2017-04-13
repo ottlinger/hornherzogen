@@ -1,10 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace hornherzogen;
+namespace hornherzogen\mail;
 
+use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
+use hornherzogen\FormHelper;
+use hornherzogen\GitRevision;
+use hornherzogen\HornLocalizer;
 
 class SubmitMailer
 {
