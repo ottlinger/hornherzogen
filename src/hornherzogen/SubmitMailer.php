@@ -125,7 +125,7 @@ class SubmitMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung für Woche ' . $this->applicationInput->getWeek() . '</h1>
             <h2>
                 Hallo ' . $this->applicationInput->getFirstname() . ',</h2>
-                <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang 2017 um ' . $this->formHelper->timestamp() . '
+                <p>wir haben Deine Anmeldedaten für den Herzogenhornlehrgang ' . $this->localizer->i18n('CONST.YEAR') . ' um ' . $this->formHelper->timestamp() . '
                 erhalten und melden uns sobald die Anmeldefrist abgelaufen ist und wir die beiden Wochen geplant haben.
                 </p>
                 <p>Deine Anmeldung erfolgte mit den folgenden Eingaben:
