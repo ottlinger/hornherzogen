@@ -69,6 +69,7 @@ class SubmitMailer
         return '';
     }
 
+    // TODO #80: extract to MailHelper
     private function getHeaders($replyto)
     {
         $importance = 1; //1 UrgentMessage, 3 Normal

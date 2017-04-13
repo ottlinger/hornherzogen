@@ -50,6 +50,8 @@ class PaymentMailer
 
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
+        // TODO #80: extract to MailHelper, use SubmitMailer::getHeaders
+
         // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
         $headers = array();
         $headers[] = 'MIME-Version: 1.0';
