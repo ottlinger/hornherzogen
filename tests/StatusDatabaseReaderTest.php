@@ -131,5 +131,7 @@ class StatusDatabaseReaderTest extends TestCase
         $allStatuses = $this->reader->getAll();
         $this->assertNotNull($allStatuses);
         $this->assertCount(8, $allStatuses);
+        $this->assertEquals("APPLIED", $allStatuses[0]['name']);
+        $this->assertEquals("WAITING_FOR_PAYMENT", $allStatuses[7]['name']);
     }
 }
