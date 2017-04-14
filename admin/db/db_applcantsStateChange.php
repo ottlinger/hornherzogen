@@ -98,6 +98,7 @@ $reader = new ApplicantDatabaseReader();
             echo "<h2>nach Status sortiert</h2>";
 
             $week = NULL;
+            $sid = $aid = NULL;
 
             // parse parameters
             if (isset($_POST['aid'])) {
@@ -188,7 +189,7 @@ $reader = new ApplicantDatabaseReader();
             <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
                         title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Status ändern in (TODO: write mail
-                    if PAYMENT_REQUESTED) <?php echo $sid; ?>
+                    if PAYMENT_REQUESTED) // S:<?php echo $sid; ?> // A:<?php echo $aid; ?>
                 </button>
             </div>
 
