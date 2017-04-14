@@ -4,7 +4,6 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
-use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
@@ -14,6 +13,8 @@ use hornherzogen\HornLocalizer;
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $databaseHelper = new DatabaseHelper();
+$config = new ConfigurationWrapper();
+$reader = new ApplicantDatabaseReader();
 ?>
 <html lang="en">
 <head>
@@ -96,8 +97,15 @@ $databaseHelper = new DatabaseHelper();
             <?php
             echo "<h2>nach Status sortiert</h2>";
 
-            $config = new ConfigurationWrapper();
             $week = NULL;
+
+            // parse parameters
+            if (isset($_POST['aid'])) {
+                $aid = $formHelper->filterUserInput($_POST['aid']);
+            }
+            if (isset($_POST['sid'])) {
+                $sid = $formHelper->filterUserInput($_POST['sid']);
+            }
 
             if ($config->isValidDatabaseConfig()) {
             ?>
@@ -136,14 +144,7 @@ $databaseHelper = new DatabaseHelper();
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
                         foreach ($applicants as $applicant) {
-                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . "</option>";
-                            /*
-                                                    <option value="">beide</option>
-                                                    <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
-                                                    </option>
-                                                    <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
-                                                    </option>
-                            */
+                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . "(" . $applicant->getCountry() . ")</option>";
                         }
                         ?>
                     </select>
@@ -153,6 +154,11 @@ $databaseHelper = new DatabaseHelper();
             <?php
             $statusReader = new StatusDatabaseReader();
             $allStatus = $statusReader->getAll();
+
+            if (isset($aid) && strlen($aid)) {
+                $asApplicant = $reader->getById($aid);
+                $currentStatus = $statusReader->getById($asApplicant->getCurrentStatus());
+            }
             ?>
 
             <div class="form-group">
@@ -161,7 +167,8 @@ $databaseHelper = new DatabaseHelper();
                     <select class="form-control" id="sid" name="sid">
                         <?php
                         foreach ($allStatus as $status) {
-                            echo "  <option value=\"" . $status['id'] . "\">" . $status['name'] . "</option>";
+                            $statusId = $status['id'];
+                            echo "  <option value=\"" . $statusId . "\" " . (isset($currentStatus) && strlen($currentStatus) && $statusId == $currentStatus) ? ' selected' : '' . ">" . $status['name'] . "</option>";
                             /*
                                                     <option value="">beide</option>
                                                     <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
