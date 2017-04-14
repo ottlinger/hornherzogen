@@ -96,7 +96,7 @@ $reader = new ApplicantDatabaseReader();
 
         <p>
             <?php
-            echo "<h2>nach Status sortiert</h2>";
+            echo "<h2>Bitte die Woche auswählen und danach den Zielzutand des Bewerbers festlegen</h2>";
 
             $week = NULL;
             $sid = $aid = NULL;
@@ -146,6 +146,8 @@ $reader = new ApplicantDatabaseReader();
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
                         foreach ($applicants as $applicant) {
+
+                            // TODO selected if $aid
                             echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . " aus Land " . $applicant->getCountry() . "</option>";
                         }
                         ?>
