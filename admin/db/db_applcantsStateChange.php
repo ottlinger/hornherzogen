@@ -16,6 +16,7 @@ $localizer = new HornLocalizer();
 $databaseHelper = new DatabaseHelper();
 $config = new ConfigurationWrapper();
 $reader = new ApplicantDatabaseReader();
+$statusReader = new StatusDatabaseReader();
 ?>
 <html lang="en">
 <head>
@@ -96,7 +97,7 @@ $reader = new ApplicantDatabaseReader();
 
         <p>
             <?php
-            echo "<h2>Bitte die Woche auswählen und danach den Zielzutand des Bewerbers festlegen</h2>";
+            echo "<h2>Bitte die Woche auswählen und danach den Zielzustand des Bewerbers festlegen</h2>";
 
             $week = NULL;
             $sid = $aid = NULL;
@@ -117,7 +118,6 @@ $reader = new ApplicantDatabaseReader();
                 <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
                     <?php
                     // filter for week?
-                    $formHelper = new FormHelper();
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
                         echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
@@ -136,7 +136,6 @@ $reader = new ApplicantDatabaseReader();
             </div>
 
             <?php
-            $reader = new ApplicantDatabaseReader();
             $applicants = $reader->getAllByWeek($week);
 
             ?>
@@ -146,8 +145,7 @@ $reader = new ApplicantDatabaseReader();
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
                         foreach ($applicants as $applicant) {
-
-                            // TODO selected if $aid
+                            // TODO selected if $aid is the same as persistenceId
                             echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . " aus Land " . $applicant->getCountry() . "</option>";
                         }
                         ?>
@@ -156,11 +154,12 @@ $reader = new ApplicantDatabaseReader();
             </div>
 
             <?php
-            $statusReader = new StatusDatabaseReader();
-
+            // retrieve currentState of selected applicant
             if (isset($aid) && strlen($aid)) {
                 $asApplicant = $reader->getById($aid);
-                $currentStatus = $statusReader->getById($asApplicant->getCurrentStatus());
+                if (isset($asApplicant) && NULL != $asApplicant) {
+                    $currentStatus = $statusReader->getById($asApplicant->getCurrentStatus());
+                }
             }
             ?>
 
