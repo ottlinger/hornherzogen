@@ -169,7 +169,16 @@ $databaseHelper = new DatabaseHelper();
                 </div>
 
             </div>
-            <noscript>
+
+        <hr/>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default btn-primary"
+                    title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Status ändern in (TODO: write mail if PAYMENT_REQUESTED) <?php echo $sid; ?>
+            </button>
+        </div>
+
+        <noscript>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default btn-primary" title="Submit">Submit</button>
