@@ -158,7 +158,7 @@ $statusReader = new StatusDatabaseReader();
             if (isset($aid) && strlen($aid)) {
                 $asApplicant = $reader->getById($aid);
                 if (isset($asApplicant) && NULL != $asApplicant) {
-                    $currentStatus = $statusReader->getById($asApplicant->getCurrentStatus());
+                    $currentStatus = $statusReader->getById($asApplicant[0]->getCurrentStatus());
                 }
             }
             ?>
