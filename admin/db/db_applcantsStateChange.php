@@ -145,8 +145,9 @@ $statusReader = new StatusDatabaseReader();
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
                         foreach ($applicants as $applicant) {
-                            // TODO selected if $aid is the same as persistenceId
-                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . " aus Land " . $applicant->getCountry() . "</option>";
+                            $applicantId = $applicant->getPersistenceId();
+                            $selectedStatus = (isset($aid) && $aid === $applicantId ? ' selected' : '');
+                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\" " . $selectedStatus . ">" . $applicant->getFullName() . " aus Land " . $applicant->getCountry() . "</option>";
                         }
                         ?>
                     </select>
