@@ -172,7 +172,7 @@ $statusReader = new StatusDatabaseReader();
 
                         foreach ($allStatus as $status) {
                             $statusId = $status['id'];
-                            echo "  <option value=\"" . $statusId . "\" " . (isset($currentStatus) && strlen($currentStatus) && $statusId === $currentStatus) ? ' selected' : '' . ">" . $status['name'] . "</option>";
+                            echo "  <option value=\"" . $statusId . "\" " . (isset($currentStatus) && !empty($currentStatus) && $statusId === $currentStatus[0]['id']) ? ' selected' : '' . ">" . $status['name'] . "</option>";
                             /*
                                                     <option value="">beide</option>
                                                     <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
