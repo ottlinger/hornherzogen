@@ -129,6 +129,7 @@ $databaseHelper = new DatabaseHelper();
                 $applicants = $reader->getAllByWeek($week);
 
                 ?>
+                <label class="col-sm-2 control-label" for="aid">Welcher Bewerber?</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
@@ -151,6 +152,7 @@ $databaseHelper = new DatabaseHelper();
                 $allStatus = $statusReader->getAll();
                 ?>
 
+                <label class="col-sm-2 control-label" for="sid">Welcher Zielstatus?</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="sid" name="sid">
                         <?php
@@ -170,15 +172,16 @@ $databaseHelper = new DatabaseHelper();
 
             </div>
 
-        <hr/>
+            <hr/>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-default btn-primary"
-                    title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Status ändern in (TODO: write mail if PAYMENT_REQUESTED) <?php echo $sid; ?>
-            </button>
-        </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default btn-primary"
+                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Status ändern in (TODO: write mail
+                    if PAYMENT_REQUESTED) <?php echo $sid; ?>
+                </button>
+            </div>
 
-        <noscript>
+            <noscript>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default btn-primary" title="Submit">Submit</button>
