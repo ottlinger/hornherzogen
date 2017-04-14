@@ -144,7 +144,7 @@ $reader = new ApplicantDatabaseReader();
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
                         foreach ($applicants as $applicant) {
-                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . "(" . $applicant->getCountry() . ")</option>";
+                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . " aus Land " . $applicant->getCountry() . "</option>";
                         }
                         ?>
                     </select>
@@ -153,7 +153,6 @@ $reader = new ApplicantDatabaseReader();
 
             <?php
             $statusReader = new StatusDatabaseReader();
-            $allStatus = $statusReader->getAll();
 
             if (isset($aid) && strlen($aid)) {
                 $asApplicant = $reader->getById($aid);
@@ -166,9 +165,11 @@ $reader = new ApplicantDatabaseReader();
                 <div class="col-sm-10">
                     <select class="form-control" id="sid" name="sid">
                         <?php
+                        $allStatus = $statusReader->getAll();
+
                         foreach ($allStatus as $status) {
                             $statusId = $status['id'];
-                            echo "  <option value=\"" . $statusId . "\" " . (isset($currentStatus) && strlen($currentStatus) && $statusId == $currentStatus) ? ' selected' : '' . ">" . $status['name'] . "</option>";
+                            echo "  <option value=\"" . $statusId . "\" " . (isset($currentStatus) && strlen($currentStatus) && $statusId === $currentStatus) ? ' selected' : '' . ">" . $status['name'] . "</option>";
                             /*
                                                     <option value="">beide</option>
                                                     <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
