@@ -173,7 +173,7 @@ $statusReader = new StatusDatabaseReader();
                         foreach ($allStatus as $status) {
                             $statusId = $status['id'];
                             $selectedStatus = ((isset($currentStatus) && !empty($currentStatus) && $statusId === $currentStatus[0]['id']) ? ' selected' : '');
-                            echo "<option value=\"" . $statusId . "\">" . $status['name'] . $selectedStatus . "</option>";
+                            echo "<option value=\"" . $statusId . "\" " . $selectedStatus . ">" . $status['name'] . "</option>";
                         }
                         ?>
                     </select>
