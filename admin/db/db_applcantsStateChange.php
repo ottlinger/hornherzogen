@@ -123,12 +123,14 @@ $databaseHelper = new DatabaseHelper();
                         </option>
                     </select>
                 </div>
+            </div>
 
-                <?php
-                $reader = new ApplicantDatabaseReader();
-                $applicants = $reader->getAllByWeek($week);
+            <?php
+            $reader = new ApplicantDatabaseReader();
+            $applicants = $reader->getAllByWeek($week);
 
-                ?>
+            ?>
+            <div class="form-group">
                 <label class="col-sm-2 control-label" for="aid">Welcher Bewerber?</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
@@ -146,12 +148,14 @@ $databaseHelper = new DatabaseHelper();
                         ?>
                     </select>
                 </div>
+            </div>
 
-                <?php
-                $statusReader = new StatusDatabaseReader();
-                $allStatus = $statusReader->getAll();
-                ?>
+            <?php
+            $statusReader = new StatusDatabaseReader();
+            $allStatus = $statusReader->getAll();
+            ?>
 
+            <div class="form-group">
                 <label class="col-sm-2 control-label" for="sid">Welcher Zielstatus?</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="sid" name="sid">
@@ -169,7 +173,6 @@ $databaseHelper = new DatabaseHelper();
                         ?>
                     </select>
                 </div>
-
             </div>
 
             <hr/>
