@@ -10,6 +10,7 @@ use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 
+$formHelper = new FormHelper();
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $databaseHelper = new DatabaseHelper();
