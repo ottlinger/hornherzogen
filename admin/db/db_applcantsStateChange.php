@@ -133,14 +133,15 @@ $databaseHelper = new DatabaseHelper();
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
                         <?php
                         foreach ($applicants as $applicant) {
-                        echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . "</option>";
-                        /*
-                                                <option value="">beide</option>
-                                                <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
-                                                </option>
-                                                <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
-                                                </option>
-                        */
+                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . "</option>";
+                            /*
+                                                    <option value="">beide</option>
+                                                    <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                                                    </option>
+                                                    <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                                                    </option>
+                            */
+                        }
                         ?>
                     </select>
                 </div>
@@ -152,11 +153,18 @@ $databaseHelper = new DatabaseHelper();
 
                 <div class="col-sm-10">
                     <select class="form-control" id="sid" name="sid">
-                        <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
-                        </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
-                        </option>
+                        <?php
+                        foreach ($allStatus as $status) {
+                            echo "  <option value=\"" . $status['id'] . "\">" . $status['name'] . "</option>";
+                            /*
+                                                    <option value="">beide</option>
+                                                    <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                                                    </option>
+                                                    <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                                                    </option>
+                            */
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -171,17 +179,6 @@ $databaseHelper = new DatabaseHelper();
         </form>
 
     <?php
-
-
-/*
-        $statId = $statusReader->getById($applicant->getCurrentStatus());
-        if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-            echo "<td>" . $statId[0]['name'] . "</td>";
-        } else {
-            echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-        }
-*/
-
     } else {
         echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
     }
