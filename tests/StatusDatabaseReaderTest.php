@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
 use PHPUnit\Framework\TestCase;
@@ -117,5 +118,18 @@ class StatusDatabaseReaderTest extends TestCase
     public function testGetByNameWithNoName()
     {
         $this->assertNull($this->reader->getByName(NULL));
+    }
+
+    public function testGetAllIsNullWithoutDatabase()
+    {
+        $reader = new StatusDatabaseReader();
+        $this->assertNull($reader->getAll());
+    }
+
+    public function testGetAllSortedByName()
+    {
+        $allStatuses = $this->reader->getAll();
+        $this->assertNotNull($allStatuses);
+        $this->assertCount(8, $allStatuses);
     }
 }

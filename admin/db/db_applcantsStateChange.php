@@ -26,7 +26,7 @@ $databaseHelper = new DatabaseHelper();
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Herzogenhorn Adminbereich - Anmeldungen</title>
+    <title>Herzogenhorn Adminbereich - Status der Bewerbungen abändern</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -89,7 +89,7 @@ $databaseHelper = new DatabaseHelper();
         <?php echo new hornherzogen\ui\ForkMe(); ?>
 
         <h1>
-            <span class="glyphicon glyphicon-sunglasses"></span> eingegangene Anmeldungen
+            <span class="glyphicon glyphicon-sunglasses"></span> Statusänderungen an Bewerbern durchführen
         </h1>
 
         <p>
@@ -100,36 +100,6 @@ $databaseHelper = new DatabaseHelper();
             $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
-
-            try {
-                $db = new PDO('mysql:host=' . $config->dbhost() . ';dbname=' . $config->dbname(), $config->dbuser(), $config->dbpassword());
-                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                // STATS
-                $q = $db->query("SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week");
-                $databaseHelper->logDatabaseErrors($q, $db);
-
-                echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>Week</th>";
-                echo "<th>Current Status</th>";
-                echo "<th>#applicants</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
-
-                while ($row = $q->fetch()) {
-                    print "<tr><td>$row[week]</td><td>$row[name]</td><td>$row[howmany]</td></tr>";
-                }
-                echo "</tbody>";
-                echo "</table>";
-                echo "</div>";
-            } catch (PDOException $e) {
-                print "Unable to connect to db:" . $e->getMessage();
-            }
-
-            echo "<h2>Als Gesamtliste</h2>";
             ?>
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -153,6 +123,43 @@ $databaseHelper = new DatabaseHelper();
                         </option>
                     </select>
                 </div>
+
+                <?php
+                $reader = new ApplicantDatabaseReader();
+                $applicants = $reader->getAllByWeek($week);
+
+                ?>
+                <div class="col-sm-10">
+                    <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
+                        <?php
+                        foreach ($applicants as $applicant) {
+                        echo "  <option value=\"" . $applicant->getPersistenceId() . "\">" . $applicant->getFullName() . "</option>";
+                        /*
+                                                <option value="">beide</option>
+                                                <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                                                </option>
+                                                <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                                                </option>
+                        */
+                        ?>
+                    </select>
+                </div>
+
+                <?php
+                $statusReader = new StatusDatabaseReader();
+                $allStatus = $statusReader->getAll();
+                ?>
+
+                <div class="col-sm-10">
+                    <select class="form-control" id="sid" name="sid">
+                        <option value="">beide</option>
+                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        </option>
+                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        </option>
+                    </select>
+                </div>
+
             </div>
             <noscript>
                 <div class="form-group">
@@ -164,100 +171,16 @@ $databaseHelper = new DatabaseHelper();
         </form>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
-        $remover = new ApplicantDatabaseWriter();
-        $id = $formHelper->filterUserInput($_POST['aid']);
-        echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-        $_POST['aid'] = NULL;
-    }
 
-    $statusReader = new StatusDatabaseReader();
 
-    $reader = new ApplicantDatabaseReader();
-    $applicants = $reader->getAllByWeek($week);
-
-    echo '<div class="table-responsive"><table class="table table-striped">';
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>DB-Id</th>";
-    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-        echo "<th>AKTIONEN</th>";
-    }
-    echo "<th>Woche</th>";
-    echo "<th>Sprache</th>";
-    echo "<th>Anrede</th>";
-    echo "<th>Vorname</th>";
-    echo "<th>Nachname</th>";
-    echo "<th>Gesamtname</th>";
-    echo "<th>Adresse</th>";
-    echo "<th>PLZ/Stadt</th>";
-    echo "<th>Land</th>";
-    echo "<th>E-Mail</th>";
-    echo "<th>Dojo</th>";
-    echo "<th>Graduierung</th>";
-    echo "<th>twa?</th>";
-    echo "<th>Zimmer</th>";
-    echo "<th>Zusammenlegungswunsch</th>";
-    echo "<th>Essen</th>";
-    echo "<th>Umbuchbar?</th>";
-    echo "<th>Anmerkungen</th>";
-    echo "<th>aktueller Status</th>";
-    echo "<th>Statusübersicht</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
-    foreach ($applicants as $applicant) {
-        echo "<tr>";
-        echo "<td>" . $applicant->getPersistenceId() . "</td>";
-
-        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-            echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
-                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
-                    </form>
-                </td>';
-        }
-
-        echo "<td>" . $applicant->getWeek() . "</td>";
-        echo "<td>" . $applicant->getLanguage() . "</td>";
-        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-        echo "<td>" . $applicant->getFirstname() . "</td>";
-        echo "<td>" . $applicant->getLastname() . "</td>";
-        echo "<td>" . $applicant->getFullName() . "</td>";
-        echo "<td>" . $applicant->getStreet() . " " . $applicant->getHouseNumber() . "</td>";
-        echo "<td>" . $applicant->getZipCode() . " " . $applicant->getCity() . "</td>";
-        echo "<td>" . $applicant->getCountry() . "</td>";
-        echo "<td>" . $applicant->getEmail() . "</td>";
-        echo "<td>" . $applicant->getDojo() . "</td>";
-        echo "<td>" . $applicant->getGrading() . " seit " . $applicant->getDateOfLastGrading() . "</td>";
-        echo "<td>" . (strlen($applicant->getTwaNumber()) ? " ja,  " . $applicant->getTwaNumber() : "nein") . "</td>";
-        echo "<td>" . $applicant->getRoom() . "</td>";
-        echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-        echo "<td>" . $applicant->getFoodCategory() . "</td>";
-        echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-
+/*
         $statId = $statusReader->getById($applicant->getCurrentStatus());
         if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
             echo "<td>" . $statId[0]['name'] . "</td>";
         } else {
             echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
         }
-
-        echo "<td>";
-        echo "CREATED: " . $applicant->getCreatedAt() . "<br />";
-        echo "MAILED: " . $applicant->getMailedAt() . "<br />";
-        echo "VERIFIED: " . $applicant->getConfirmedAt() . "<br />";
-        echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "<br />";
-        echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "<br />";
-        echo "BOOKED: " . $applicant->getBookedAt() . "<br />";
-        echo "CANCELLED: " . $applicant->getCancelledAt();
-        echo "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table></div>";
+*/
 
     } else {
         echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
