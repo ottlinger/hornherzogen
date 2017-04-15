@@ -17,7 +17,7 @@ class PaymentMailer
     // internal members
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
-    private $applicationInput;
+    private $applicant;
     private $reader;
     private $localizer;
     private $config;
@@ -30,7 +30,7 @@ class PaymentMailer
     function __construct($applicantId)
     {
         $this->reader = new ApplicantDatabaseReader();
-        $this->applicationInput = $this->reader->getById($applicantId);
+        $this->applicant = $this->reader->getById($applicantId)[0];
 
         $this->headerGenerator = new MailHeaderGenerator();
         $this->formHelper = new FormHelper();
@@ -51,19 +51,14 @@ class PaymentMailer
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
         if ($this->config->sendregistrationmails()) {
-            mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
-            $this->applicationInput->setPaymentRequestedAt($appliedAt);
+            $this->applicant->setPaymentRequestedAt($appliedAt);
 
             return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt) . "</h3>";
         }
 
         return '';
-    }
-
-    public function isMailSent()
-    {
-        return boolval($this->applicationInput->isMailSent());
     }
 
     public function getMailtext()
@@ -78,19 +73,19 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Zahlungsaufforderung Herzogenhorn Woche ' . $this->applicationInput->getWeek() . '</title >
+            <title>Zahlungsaufforderung Herzogenhorn Woche ' . $this->applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicant->getWeek() . '</h1>
             <h2>
-                Hallo ' . $this->applicationInput->getFirstname() . ',</h2>
+                Hallo ' . $this->applicant->getFirstname() . ',</h2>
                 <p>wir haben die Lehrgangswoche soweit geplant und bitten Dich nun um ' . $this->formHelper->timestamp() . '
                 innerhalb der nächsten 2 Wochen zu überweisen.
                 </p>
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
-                <li>Anrede: ' . ($this->applicationInput->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>Verwendungszweck: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
+                <li>Verwendungszweck: ' . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
                 <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
@@ -114,18 +109,18 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Request for payment for Herzogenhorn seminar week ' . $this->applicationInput->getWeek() . '</title >
+            <title>Request for payment for Herzogenhorn seminar week ' . $this->applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicationInput->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicant->getWeek() . '</h1>
             <h2>
-                Hi ' . $this->applicationInput->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve planned the seminar week ' . $this->applicationInput->getWeek() . ' at  ' . $this->formHelper->timestamp() . '. 
+                Hi ' . $this->applicant->getFirstname() . ',</h2>
+                <p>thanks for your patience. We\'ve planned the seminar week ' . $this->applicant->getWeek() . ' at  ' . $this->formHelper->timestamp() . '. 
                 and would like to request your payment in the next 14 days in order to fulfill your seminar application.</p>
                 <p>Please transfer the money to the following bank account:
                 <ul>
-                <li>Gender: ' . ($this->applicationInput->getGender() === 'male' ? 'Mr.' : 'Mrs.') . '</li>
-                <li>Reason for payment: ' . $this->applicationInput->getFirstname() . ' ' . $this->applicationInput->getLastname() . '</li>
+                <li>Gender: ' . ($this->applicant->getGender() === 'male' ? 'Mr.' : 'Mrs.') . '</li>
+                <li>Reason for payment: ' . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
                 <li>Amount: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
@@ -144,7 +139,7 @@ class PaymentMailer
 
     public function getSeminarPrice()
     {
-        if (strlen($this->applicationInput->getTwaNumber())) {
+        if (strlen($this->applicant->getTwaNumber())) {
             return "250,00 €";
         }
         return "300,00 €";
@@ -159,7 +154,7 @@ class PaymentMailer
 
             $replyto = $this->config->registrationmail();
 
-            $encoded_subject = "=?UTF-8?B?" . base64_encode("Bezahlung Herzogenhorn angefordert - Woche " . $this->applicationInput->getWeek()) . "?=";
+            $encoded_subject = "=?UTF-8?B?" . base64_encode("Bezahlung Herzogenhorn angefordert - Woche " . $this->applicant->getWeek()) . "?=";
             $headers = $this->headerGenerator->getHeaders($replyto);
 
             mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
@@ -176,20 +171,20 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Zahlungsbestätigung versendet für Woche ' . $this->applicationInput->getWeek() . ' </title >
+            <title>Zahlungsbestätigung versendet für Woche ' . $this->applicant->getWeek() . ' </title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicationInput->getWeek() . 'verschickt</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicant->getWeek() . 'verschickt</h1>
             <h2>Anmeldungsdetails</h2>
                 <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung raus:</p>
                 <ul>
-                <li>Woche: ' . $this->applicationInput->getWeek() . '</li>
-                <li>Anrede: ' . ($this->applicationInput->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>interner Name: ' . $this->applicationInput->getFullname() . '</li>
-                <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
-                <li>Land: ' . $this->applicationInput->getCountry() . '</li>
-                <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
-                <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
+                <li>Woche: ' . $this->applicant->getWeek() . '</li>
+                <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
+                <li>interner Name: ' . $this->applicant->getFullname() . '</li>
+                <li>Umbuchbar? ' . ($this->applicant->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
+                <li>Land: ' . $this->applicant->getCountry() . '</li>
+                <li>Dojo:  ' . $this->applicant->getDojo() . '</li>
+                <li>TWA: ' . $this->applicant->getTwaNumber() . '</li>
                 <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
             </h2>

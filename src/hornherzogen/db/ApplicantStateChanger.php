@@ -33,8 +33,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
         $mappingResult = $this->mapToDatabaseDateField($stateId);
         if (!empty($mappingResult)) {
 
-            // TODO perform update in database
-
+            // send out mails
             if ($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'mail')) {
                 if ('PaymentMailer' == $mappingResult['mail']) {
                     $paymentMailer = new PaymentMailer($applicantId);
@@ -43,6 +42,9 @@ class ApplicantStateChanger extends BaseDatabaseWriter
                 }
             }
 
+            // TODO perform update in database
+            echo "<h3>Würde ".$mappingResult['field']." auf ".$this->formHelper->timestamp()." setzen in Datenbank .... :-)</h3>";
+            $result = TRUE;
         }
 
         return $result;
@@ -55,8 +57,6 @@ class ApplicantStateChanger extends BaseDatabaseWriter
         if (empty($state) || NULL == $state || sizeof($state) < 1) {
             return array();
         }
-
-        var_dump($state);
 
         switch ($state[0]['name']) {
             case 'WAITING_FOR_PAYMENT':
