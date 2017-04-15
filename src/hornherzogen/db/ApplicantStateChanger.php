@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace hornherzogen\db;
 
+use hornherzogen\mail\PaymentMailer;
+
 class ApplicantStateChanger extends BaseDatabaseWriter
 {
     private $statusReader;
@@ -22,17 +24,39 @@ class ApplicantStateChanger extends BaseDatabaseWriter
      */
     public function changeStateTo($applicantId, $stateId)
     {
-        // TODO retrieve statename to allow using
-        if (!self::isHealthy()) {
+        $result = FALSE;
+
+        if (!self::isHealthy() || NULL === $applicantId || NULL === $stateId) {
             return FALSE;
         }
 
-        return TRUE;
+        $mappingResult = $this->mapToDatabaseDateField($stateId);
+        if (!empty($mappingResult)) {
+
+            // TODO perform update in database
+
+            if($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'mail')) {
+                if('PaymentMailer' == $mappingResult['mail']) {
+                    $paymentMailer = new PaymentMailer($applicantId);
+                    $paymentMailer->send();
+                    $paymentMailer->sendInternally();
+                }
+            }
+
+        }
+
+        return $result;
     }
 
     public function mapToDatabaseDateField($stateId)
     {
         $state = $this->statusReader->getById($stateId);
+
+        if (empty($state) || NULL == $state) {
+            return array();
+        }
+
+        var_dump($state);
 
         switch ($state['name']) {
             case 'WAITING_FOR_PAYMENT':
@@ -50,13 +74,9 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             case 'SPAM':
             case 'REJECTED':
             case 'CANCELLED':
-                return array('field' => 'cancelled');
             default:
                 return array('field' => 'cancelled');
         }
-
-
     }
-
 
 }

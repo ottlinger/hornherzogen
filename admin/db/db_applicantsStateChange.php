@@ -115,7 +115,7 @@ $stateChanger = new ApplicantStateChanger();
             // perform any changes or actions
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid)) {
                 echo "<h3>Statusänderung von #" . $aid . " auf " . $sid . " war ";
-                echo !$stateChanger->changeStateTo($aid, $sid) ? ' nicht ' : '';
+                echo $stateChanger->changeStateTo($aid, $sid) ? '' : 'nicht ';
                 echo "erfolgreich</h3>";
             }
 

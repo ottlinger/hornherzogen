@@ -161,14 +161,6 @@ class PaymentMailer
         }
     }
 
-    public function saveInDatabase()
-    {
-        // TODO we need to update!!!
-        // * state
-        // * paymentrequestedDate
-        return $this->dbWriter->persist($this->applicationInput);
-    }
-
     /**
      * Send mails to us after sending a mail to the person that registered.
      */
