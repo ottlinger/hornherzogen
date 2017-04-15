@@ -101,14 +101,16 @@ $stateChanger = new ApplicantStateChanger();
             <?php
             echo "<h2>Bitte die Woche auswählen und danach den Zielzustand des Bewerbers festlegen</h2>";
 
+            // reset any previous calls
             $week = NULL;
-            $sid = $aid = NULL;
+            $sid = NULL;
+            $aid = NULL;
 
             // parse parameters
-            if (isset($_POST['aid'])) {
+            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'aid')) {
                 $aid = $formHelper->filterUserInput($_POST['aid']);
             }
-            if (isset($_POST['sid'])) {
+            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'sid')) {
                 $sid = $formHelper->filterUserInput($_POST['sid']);
             }
 

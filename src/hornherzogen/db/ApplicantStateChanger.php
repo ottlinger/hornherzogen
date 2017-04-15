@@ -8,12 +8,14 @@ use hornherzogen\mail\PaymentMailer;
 class ApplicantStateChanger extends BaseDatabaseWriter
 {
     private $statusReader;
+    private $applicantReader;
 
     function __construct($databaseConnection = NULL)
     {
         parent::__construct($databaseConnection);
 
         $this->statusReader = new StatusDatabaseReader($databaseConnection);
+        $this->applicantReader = new ApplicantDatabaseReader($databaseConnection);
     }
 
     /**
@@ -35,9 +37,9 @@ class ApplicantStateChanger extends BaseDatabaseWriter
 
             // TODO perform update in database
 
-            if($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'mail')) {
-                if('PaymentMailer' == $mappingResult['mail']) {
-                    $paymentMailer = new PaymentMailer($applicantId);
+            if ($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'mail')) {
+                if ('PaymentMailer' == $mappingResult['mail']) {
+                    $paymentMailer = new PaymentMailer($this->applicantReader->getById($applicantId));
                     $paymentMailer->send();
                     $paymentMailer->sendInternally();
                 }
@@ -52,13 +54,13 @@ class ApplicantStateChanger extends BaseDatabaseWriter
     {
         $state = $this->statusReader->getById($stateId);
 
-        if (empty($state) || NULL == $state) {
+        if (empty($state) || NULL == $state || sizeof($state) < 1) {
             return array();
         }
 
         var_dump($state);
 
-        switch ($state['name']) {
+        switch ($state[0]['name']) {
             case 'WAITING_FOR_PAYMENT':
                 return array('mail' => 'PaymentMailer', 'field' => 'paymentRequested');
 
