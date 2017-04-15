@@ -5,7 +5,6 @@ namespace hornherzogen\db;
 
 class ApplicantStateChanger extends BaseDatabaseWriter
 {
-
     private $statusReader;
 
     function __construct($databaseConnection = NULL)
@@ -13,8 +12,6 @@ class ApplicantStateChanger extends BaseDatabaseWriter
         parent::__construct($databaseConnection);
 
         $this->statusReader = new StatusDatabaseReader($databaseConnection);
-
-
     }
 
     /**
@@ -30,13 +27,36 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             return FALSE;
         }
 
-        // get state
-
-
         return TRUE;
     }
 
+    public function mapToDatabaseDateField($stateId)
+    {
+        $state = $this->statusReader->getById($stateId);
 
+        switch ($state['name']) {
+            case 'WAITING_FOR_PAYMENT':
+                return array('mail' => 'PaymentMailer', 'field' => 'paymentRequested');
+
+            case 'PAID':
+                return array('field' => 'paymentReceived');
+
+            case 'APPLIED':
+                return array('field' => 'created');
+
+            case 'REGISTERED':
+            case 'CONFIRMED':
+
+            case 'SPAM':
+            case 'REJECTED':
+            case 'CANCELLED':
+                return array('field' => 'cancelled');
+            default:
+                return array('field' => 'cancelled');
+        }
+
+
+    }
 
 
 }

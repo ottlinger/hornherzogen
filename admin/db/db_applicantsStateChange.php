@@ -152,6 +152,7 @@ $stateChanger = new ApplicantStateChanger();
                 <label class="col-sm-2 control-label" for="aid">Welcher Bewerber?</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="aid" name="aid" onchange="this.form.submit()">
+                        <option value="">KEINER</option>
                         <?php
                         foreach ($applicants as $applicant) {
                             $applicantId = $applicant->getPersistenceId();
