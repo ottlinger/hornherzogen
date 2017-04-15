@@ -1,13 +1,9 @@
 <?php
-use hornherzogen\ApplicantInput;
 use hornherzogen\mail\PaymentMailer;
 use PHPUnit\Framework\TestCase;
 
 class PaymentMailerTest extends TestCase
 {
-    private static $firstname = "Hugo Egon";
-    private static $lastname = "Balder";
-    private static $remarks = "First line\r\nSecond line\nThird line";
     private $mailer = null;
 
     /**
@@ -19,20 +15,7 @@ class PaymentMailerTest extends TestCase
         $_GET = array();
         $_GET['lang'] = "de";
 
-        $this->mailer = new PaymentMailer(self::createApplicantInput());
-    }
-
-    private static function createApplicantInput()
-    {
-        // TODO set all necessary attributes
-        $applicantInput = new ApplicantInput();
-        $applicantInput->setWeek(1);
-        $applicantInput->setFirstname(self::$firstname);
-        $applicantInput->setLastname(self::$lastname);
-        $applicantInput->setRemarks(self::$remarks);
-        $applicantInput->parse();
-
-        return $applicantInput;
+        $this->mailer = new PaymentMailer(PaymentMailer::TEST_APPLICANT_ID);
     }
 
     /**

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace hornherzogen\mail;
 
+use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\ApplicantDatabaseWriter;
@@ -13,6 +14,7 @@ use hornherzogen\HornLocalizer;
 class PaymentMailer
 {
     // TODO add i18n keys PMAIL .... stuff
+    const TEST_APPLICANT_ID = -4711;
 
     // internal members
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
@@ -30,7 +32,12 @@ class PaymentMailer
     function __construct($applicantId)
     {
         $this->reader = new ApplicantDatabaseReader();
-        $this->applicant = $this->reader->getById($applicantId)[0];
+
+        if (self::TEST_APPLICANT_ID == $applicantId) {
+            $this->applicant = new Applicant();
+        } else {
+            $this->applicant = $this->reader->getById($applicantId)[0];
+        }
 
         $this->headerGenerator = new MailHeaderGenerator();
         $this->formHelper = new FormHelper();
