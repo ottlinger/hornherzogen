@@ -17,6 +17,9 @@ $databaseHelper = new DatabaseHelper();
 $config = new ConfigurationWrapper();
 $reader = new ApplicantDatabaseReader();
 $statusReader = new StatusDatabaseReader();
+
+$
+
 ?>
 <html lang="en">
 <head>
@@ -110,6 +113,12 @@ $statusReader = new StatusDatabaseReader();
                 $sid = $formHelper->filterUserInput($_POST['sid']);
             }
 
+            // perform any changes or actions
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid)) {
+                echo "<h3>Statusänderung von #".$aid." auf ".$sid."</h3>";
+
+            }
+
             if ($config->isValidDatabaseConfig()) {
             ?>
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -185,8 +194,7 @@ $statusReader = new StatusDatabaseReader();
 
             <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
-                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Status ändern in (TODO: write mail
-                    if PAYMENT_REQUESTED) // S:<?php echo $sid; ?> // A:<?php echo $aid; ?>
+                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Status ändern
                 </button>
             </div>
 
