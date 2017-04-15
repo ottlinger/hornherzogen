@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li><a href="db/db_applicantsWishes.php">Zimmerwünsche der Teilnehmer</a></li>
                         <li><a href="db/db_book.php?id=1&amp;week=1">Buchungen der Zimmer vornehmen</a></li>
                         <li><a href="#">TODO Raumplan pro Woche</a></li>
-                        <li><a href="db/db_applcantsStateChange.php">Bewerbungsstatus ändern / Kontoverbindung aussenden</a></li>
+                        <li><a href="db/db_applicantsStateChange.php">Bewerbungsstatus ändern / Kontoverbindung aussenden</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
