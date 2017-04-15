@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace hornherzogen\mail;
 
 use hornherzogen\GitRevision;
