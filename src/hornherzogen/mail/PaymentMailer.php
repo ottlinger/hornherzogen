@@ -50,16 +50,13 @@ class PaymentMailer
 
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
-        if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
+        if ($this->config->sendregistrationmails()) {
             mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setPaymentRequestedAt($appliedAt);
 
-            $this->setStatusAppliedIfPossible();
-
             return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt) . "</h3>";
         }
-        $this->applicationInput->setMailSent(true);
 
         return '';
     }
@@ -153,20 +150,12 @@ class PaymentMailer
         return "300,00 €";
     }
 
-    private function setStatusAppliedIfPossible()
-    {
-        $statusApplied = $this->statusReader->getByName('WAITING_FOR_PAYMENT');
-        if (isset($statusApplied)) {
-            $this->applicationInput->setCurrentStatus($statusApplied[0]['id']);
-        }
-    }
-
     /**
      * Send mails to us after sending a mail to the person that registered.
      */
     public function sendInternally()
     {
-        if ($this->config->sendinternalregistrationmails() && !$this->isMailSent()) {
+        if ($this->config->sendinternalregistrationmails()) {
 
             $replyto = $this->config->registrationmail();
 

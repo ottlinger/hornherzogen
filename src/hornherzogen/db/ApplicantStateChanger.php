@@ -8,14 +8,12 @@ use hornherzogen\mail\PaymentMailer;
 class ApplicantStateChanger extends BaseDatabaseWriter
 {
     private $statusReader;
-    private $applicantReader;
 
     function __construct($databaseConnection = NULL)
     {
         parent::__construct($databaseConnection);
 
         $this->statusReader = new StatusDatabaseReader($databaseConnection);
-        $this->applicantReader = new ApplicantDatabaseReader($databaseConnection);
     }
 
     /**
@@ -39,7 +37,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
 
             if ($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'mail')) {
                 if ('PaymentMailer' == $mappingResult['mail']) {
-                    $paymentMailer = new PaymentMailer($this->applicantReader->getById($applicantId));
+                    $paymentMailer = new PaymentMailer($applicantId);
                     $paymentMailer->send();
                     $paymentMailer->sendInternally();
                 }
