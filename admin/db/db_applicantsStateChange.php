@@ -5,6 +5,7 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
+use hornherzogen\db\ApplicantStateChanger;
 use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
@@ -17,9 +18,7 @@ $databaseHelper = new DatabaseHelper();
 $config = new ConfigurationWrapper();
 $reader = new ApplicantDatabaseReader();
 $statusReader = new StatusDatabaseReader();
-
-$
-
+$stateChanger = new ApplicantStateChanger();
 ?>
 <html lang="en">
 <head>
@@ -115,8 +114,9 @@ $
 
             // perform any changes or actions
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid)) {
-                echo "<h3>Statusänderung von #".$aid." auf ".$sid."</h3>";
-
+                echo "<h3>Statusänderung von #" . $aid . " auf " . $sid . " war ";
+                echo !$stateChanger->changeStateTo($aid, $sid) ? ' nicht ' : '';
+                echo "erfolgreich</h3>";
             }
 
             if ($config->isValidDatabaseConfig()) {
