@@ -36,11 +36,31 @@ class PaymentMailerTest extends TestCase
         $this->assertInstanceOf('hornherzogen\mail\PaymentMailer', $this->mailer);
     }
 
-    public function testGermanMailTextContainsAllAccountInformation() {
-        $this->assertEquals("", $this->mailer->getMailtext());
+    public function testGermanMailTextContainsAllAccountInformation()
+    {
+        $text = $this->mailer->getMailtext();
+        $this->assertContains("Emil Mustermann", $text);
+        $this->assertContains("C`mor Butts", $text);
+        $this->assertContains("DEWOOO", $text);
+        $this->assertContains("BICTOR", $text);
+        $this->assertContains("250,00 €", $text);
+        $this->assertContains("Woche 2", $text);
     }
-    public function testEnglishMailTextContainsAllAccountInformation() {
+
+    public function testEnglishMailTextContainsAllAccountInformation()
+    {
         $this->assertEquals("", $this->mailer->getEnglishMailtext());
+    }
+
+    public function testPriceCalculationWithTWA()
+    {
+        $this->assertEquals("250,00 €", $this->mailer->getSeminarPrice());
+    }
+
+    public function testPriceCalculationWithoutTWA()
+    {
+        $mailer = new PaymentMailer(NULL);
+        $this->assertEquals("300,00 €", $mailer->getSeminarPrice());
     }
 
 }

@@ -18,7 +18,7 @@ class PaymentMailer
     // internal members
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
-    private $applicant;
+    private $applicant = NULL;
     private $reader;
     private $localizer;
     private $config;
@@ -46,7 +46,10 @@ class PaymentMailer
         if (self::TEST_APPLICANT_ID == $applicantId) {
             $this->applicant = self::createTestApplicant();
         } else {
-            $this->applicant = $this->reader->getById($applicantId)[0];
+            $findApplicant = $this->reader->getById($applicantId);
+            if (!empty($findApplicant)) {
+                $this->applicant = $this->reader->getById($applicantId)[0];
+            }
         }
 
         $this->headerGenerator = new MailHeaderGenerator();
@@ -168,7 +171,7 @@ class PaymentMailer
 
     public function getSeminarPrice()
     {
-        if (NULL != $this->applicant->getTwaNumber() && strlen($this->applicant->getTwaNumber())) {
+        if ($this->hasValidApplicant() && NULL != $this->applicant->getTwaNumber() && strlen($this->applicant->getTwaNumber())) {
             return "250,00 €";
         }
         return "300,00 €";
