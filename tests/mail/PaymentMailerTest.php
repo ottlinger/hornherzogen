@@ -49,7 +49,13 @@ class PaymentMailerTest extends TestCase
 
     public function testEnglishMailTextContainsAllAccountInformation()
     {
-        $this->assertEquals("", $this->mailer->getEnglishMailtext());
+        $text = $this->mailer->getEnglishMailtext();
+        $this->assertContains("Emil Mustermann", $text);
+        $this->assertContains("C`mor Butts", $text);
+        $this->assertContains("DEWOOO", $text);
+        $this->assertContains("BICTOR", $text);
+        $this->assertContains("250,00 €", $text);
+        $this->assertContains("week 2", $text);
     }
 
     public function testPriceCalculationWithTWA()

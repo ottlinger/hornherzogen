@@ -147,12 +147,14 @@ class PaymentMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $this->applicant->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve planned the seminar week ' . $this->applicant->getWeek() . ' at ' . $this->formHelper->timestamp() . '. 
-                and would like to request your payment in the next 14 days in order to fulfill your seminar application.</p>
-                <p>Please transfer the money to the following bank account:
+                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $this->applicant->getWeek() . ' at ' . $this->formHelper->timestamp() . ' 
+                and would like to request your payment in the next 14 days in order to finally fulfil your seminar application.</p>
+                <p>Please use the following bank account and notes to transfer the money properly:
                 <ul>
-                <li>Gender: ' . ($this->applicant->getGender() === 'male' ? 'Mr.' : 'Mrs.') . '</li>
-                <li>Reason for payment: ' . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
+                <li>Account holder: ' . $this->accountConfiguration->getAccountHolder() . '</li>
+                <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
+                <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
+                <li>Reason for payment: Herzogenhorn seminar ' . $this->localizer->i18n('CONST.YEAR') . "/Week " . $this->applicant->getWeek() . "/" . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '/#' . $this->applicant->getPersistenceId() . '</li>
                 <li>Amount: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
