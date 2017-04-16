@@ -42,9 +42,8 @@ class ApplicantStateChanger extends BaseDatabaseWriter
                 }
             }
 
-            // TODO perform update in database
-            echo "(Würde ".$mappingResult['field']." auf ".$this->formHelper->timestamp()." setzen in Datenbank) ";
-            $result = TRUE;
+            //echo "(Würde " . $mappingResult['field'] . " auf " . $this->formHelper->timestamp() . " setzen in Datenbank) ";
+            $result = is_numeric($this->updateInDatabase($applicantId, $stateId, $mappingResult));
         }
 
         return $result;
@@ -77,6 +76,23 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             default:
                 return array('field' => 'cancelled');
         }
+    }
+
+    public function updateInDatabase($applicantId, $stateId, $mappingResult)
+    {
+        if ($this->isHealthy() && isset($stateId) && isset($applicantId) && is_numeric($applicantId) && is_numeric($stateId)) {
+
+            // TODO use result
+            $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
+            $stmt = $this->database->prepare($sql);
+
+            // execute the query
+            $result = $stmt->execute();
+            $this->databaseHelper->logDatabaseErrors($result, $this->database);
+
+            return $stmt->rowCount();
+        }
+        return NULL;
     }
 
 }
