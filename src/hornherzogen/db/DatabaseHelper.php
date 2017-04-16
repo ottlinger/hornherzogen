@@ -176,7 +176,6 @@ class DatabaseHelper
             }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'statusId')) {
-                // TODO add mapping to name from status.id
                 $applicant->setCurrentStatus($row['statusId']);
             }
 
