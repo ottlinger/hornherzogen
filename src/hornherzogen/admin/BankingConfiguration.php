@@ -28,8 +28,8 @@ class BankingConfiguration extends ConfigurationWrapper
     {
         $status = "<pre>Payment configuration is: " . self::LINEBREAK;
         $status .= "Account holder: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getAccountHolder()), 10) . self::LINEBREAK;
-        $status .= "IBAN: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getIban()), 7) . self::LINEBREAK;
-        $status .= "BIC: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getBic()), 7) . self::LINEBREAK;
+        $status .= "IBAN: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getIban()), 5) . self::LINEBREAK;
+        $status .= "BIC: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getBic()), 5) . self::LINEBREAK;
         $status .= "</pre>";
         return $status;
     }

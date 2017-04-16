@@ -57,5 +57,10 @@ class BankingConfigurationTest extends TestCase
         $this->assertEquals($iban, $generator->getIban());
         $this->assertEquals($bic, $generator->getBic());
         $this->assertEquals($accountholder, $generator->getAccountHolder());
+
+        $toString = (String)$generator;
+        $this->assertNotContains($iban, $toString);
+        $this->assertNotContains($bic, $toString);
+        $this->assertNotContains($accountholder, $toString);
     }
 }
