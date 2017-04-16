@@ -82,7 +82,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
     {
         if ($this->isHealthy() && isset($stateId) && isset($applicantId) && is_numeric($applicantId) && is_numeric($stateId)) {
 
-            $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " " . $this->updateInDatabase($mappingResult) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
+            $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " " . $this->mapMappingToSQL($mappingResult) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
             $stmt = $this->database->prepare($sql);
 
             // execute the query
