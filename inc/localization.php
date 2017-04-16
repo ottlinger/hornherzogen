@@ -25,6 +25,8 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
+    'PMAIL.SUBJECT' => '合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' - Bitte um Zahlung des Lehrgangsbeitrags zur Anmeldebestätigung {0}',
+    'PMAIL.APPLICANT' => 'Mail mit Zahlungsinformationen verschickt um {0}.',
     'ADMIN.FLEX.BODY' => 'Hallo {0}, Du hast Dich kürzlich für die Woche {1} des Herzogenhornlehrgangs angemeldet. Diese Woche ist bereits überbucht. Wäre es für Dich denkbar in die Woche {2} zu wechseln? Danke für eine Antwort, damit wir die Buchung des Lehrgangs abschließen können. Viele Grüße aus Berlin von Philipp und Benjamin',
     'ADMIN.FLEX.SUBJECT' => 'Anmeldung Herzogenhorn ' . $h_year . ' - Wochenwechsel möglich?',
     'FORM.GSINCE.CHANGE' => 'Bitte um das Datum einzustellen in das Textfeld klicken, auch wenn es grau eingefärbt ist.',
@@ -117,12 +119,14 @@ $GLOBALS['messages']['de'] = array(
     'MENU.APPLY' => 'Anmeldung',
     'MENU.FAQ' => 'Fragen',
     'MENU.ADMIN' => 'Admin-Bereich',
-    'MAIL.SUBJECT' => 'Anmeldung für den 合気道-Lehrgang auf dem Herzogenhorn 2017 - eingegangen {0}',
+    'MAIL.SUBJECT' => 'Anmeldung für den 合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' - eingegangen {0}',
     'FORM.ERROR_MESSAGE' => 'Es gibt noch {0} Felder mit Fehlern - bitte korrigieren und erneut absenden!',
     'TIME' => 'Es ist {0}');
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'PMAIL.SUBJECT' => '',
+    'PMAIL.APPLICANT' => '',
     'ADMIN.FLEX.BODY' => 'Hi {0}, you chose week {1} for Herzogenhorn. This week is overbooked. Would you mind considering to switch to week {2}? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin',
     'ADMIN.FLEX.SUBJECT' => 'Application Herzogenhorn ' . $h_year . ' - week change possible?',
     'FORM.GSINCE.CHANGE' => 'In order to change the date, please click the symbol or the whole textfield (even if coloured in gray).',
@@ -215,7 +219,7 @@ $GLOBALS['messages']['en'] = array(
     'MENU.APPLY' => 'Apply form',
     'MENU.FAQ' => 'Questions',
     'MENU.ADMIN' => 'Admin area',
-    'MAIL.SUBJECT' => 'Application 合気道 seminar Herzogenhorn 2017 - registered at {0}',
+    'MAIL.SUBJECT' => 'Application 合気道 seminar Herzogenhorn ' . $h_year . ' - registered at {0}',
     'FORM.ERROR_MESSAGE' => 'There are {0} input fields with errors, please correct them and resubmit your application!',
     'TIME' => 'Now it is {0}');
 
