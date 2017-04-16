@@ -39,7 +39,6 @@ class BankingConfigurationTest extends TestCase
         $this->assertNull($this->bankConfiguration->getIban());
         $this->assertNull($this->bankConfiguration->getAccountHolder());
         $this->assertNull($this->bankConfiguration->getBic());
-        $this->assertNull($this->bankConfiguration->getReasonForPayment());
     }
 
     public function testBankingConfigurationValuesAreProperlyExtractedFromTheConfiguration()
@@ -52,13 +51,11 @@ class BankingConfigurationTest extends TestCase
         $GLOBALS['horncfg']['iban'] = $iban;
         $GLOBALS['horncfg']['bic'] = $bic;
         $GLOBALS['horncfg']['accountholder'] = $accountholder;
-        $GLOBALS['horncfg']['reasonforpayment'] = $reason;
 
         $generator = new BankingConfiguration();
 
         $this->assertEquals($iban, $generator->getIban());
         $this->assertEquals($bic, $generator->getBic());
         $this->assertEquals($accountholder, $generator->getAccountHolder());
-        $this->assertEquals($reason, $generator->getReasonForPayment());
     }
 }

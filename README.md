@@ -189,7 +189,6 @@ The configuration file needs to be created in order to set certain application p
 | iban | Target account [IBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) information |
 | bic | Target account [BIC](https://en.wikipedia.org/wiki/ISO_9362) information |
 | accountholder | Target account holder name |
-| reasonforpayment | Reason for payment, note to payee |
 | superuser | List of superusers with special permissions in the admin area (comma-separated list as one string) |
 
 See example configurations in
