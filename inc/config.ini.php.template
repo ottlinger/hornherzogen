@@ -38,7 +38,5 @@ iban = 'DE44 5001 0517 5407 3249 31';
 bic = 'DSBACNBXSHA';
 ;;// Account owner/holder
 accountholder = 'My Company Account Ltd.';
-;;// Notes for bank transfer
-reasonforpayment = 'Hornherzogen application';
 ;*/
 ;?>

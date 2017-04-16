@@ -28,9 +28,13 @@ class PaymentMailer
     // defines how the success messages are being shown in the UI
     private $statusReader;
 
-    public static function createTestApplicant() {
+    public static function createTestApplicant()
+    {
         $a = new Applicant();
-
+        $a->setFirstname("Emil");
+        $a->setLastname("Mustermann");
+        $a->setTwaNumber("CC-0815");
+        $a->setWeek(2);
         return $a;
     }
 
@@ -106,8 +110,10 @@ class PaymentMailer
                 </p>
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
-                <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>Verwendungszweck: Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
+                <li>Kontoinhaber: ' . $this->accountConfiguration->getAccountHolder() . '</li>
+                <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
+                <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
+                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicant->getWeek() . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
                 <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
@@ -137,7 +143,7 @@ class PaymentMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $this->applicant->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve planned the seminar week ' . $this->applicant->getWeek() . ' at  ' . $this->formHelper->timestamp() . '. 
+                <p>thanks for your patience. We\'ve planned the seminar week ' . $this->applicant->getWeek() . ' at ' . $this->formHelper->timestamp() . '. 
                 and would like to request your payment in the next 14 days in order to fulfill your seminar application.</p>
                 <p>Please transfer the money to the following bank account:
                 <ul>
