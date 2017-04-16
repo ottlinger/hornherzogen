@@ -43,7 +43,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             }
 
             // TODO perform update in database
-            echo "(Würde ".$mappingResult['field']." auf ".$this->formHelper->timestamp()." setzen in Datenbank)";
+            echo "(Würde ".$mappingResult['field']." auf ".$this->formHelper->timestamp()." setzen in Datenbank) ";
             $result = TRUE;
         }
 
