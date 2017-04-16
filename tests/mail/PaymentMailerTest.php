@@ -36,4 +36,11 @@ class PaymentMailerTest extends TestCase
         $this->assertInstanceOf('hornherzogen\mail\PaymentMailer', $this->mailer);
     }
 
+    public function testGermanMailTextContainsAllAccountInformation() {
+        $this->assertEquals("", $this->mailer->getMailtext());
+    }
+    public function testEnglishMailTextContainsAllAccountInformation() {
+        $this->assertEquals("", $this->mailer->getEnglishMailtext());
+    }
+
 }

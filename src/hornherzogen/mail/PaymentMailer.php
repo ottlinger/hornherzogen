@@ -6,14 +6,13 @@ namespace hornherzogen\mail;
 use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
-use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
+use hornherzogen\admin\BankingConfiguration;
 
 class PaymentMailer
 {
-    // TODO add i18n keys PMAIL .... stuff
     const TEST_APPLICANT_ID = -4711;
 
     // internal members
@@ -23,18 +22,24 @@ class PaymentMailer
     private $reader;
     private $localizer;
     private $config;
-    private $dbWriter;
+    private $accountConfiguration;
     private $headerGenerator;
 
     // defines how the success messages are being shown in the UI
     private $statusReader;
+
+    public static function createTestApplicant() {
+        $a = new Applicant();
+
+        return $a;
+    }
 
     function __construct($applicantId)
     {
         $this->reader = new ApplicantDatabaseReader();
 
         if (self::TEST_APPLICANT_ID == $applicantId) {
-            $this->applicant = new Applicant();
+            $this->applicant = self::createTestApplicant();
         } else {
             $this->applicant = $this->reader->getById($applicantId)[0];
         }
@@ -44,8 +49,8 @@ class PaymentMailer
 
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
-        $this->dbWriter = new ApplicantDatabaseWriter();
         $this->statusReader = new StatusDatabaseReader();
+        $this->accountConfiguration = new BankingConfiguration();
 
         date_default_timezone_set('Europe/Berlin');
     }
@@ -80,7 +85,7 @@ class PaymentMailer
 
     public function getMailtext()
     {
-        // all non German customers will get an English confirmation mail
+        // all non German customers will get an English mail
         if ($this->localizer->getLanguage() != 'de') {
             return $this->getEnglishMailtext();
         }
@@ -102,7 +107,7 @@ class PaymentMailer
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
                 <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>Verwendungszweck: ' . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
+                <li>Verwendungszweck: Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
                 <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
@@ -119,7 +124,7 @@ class PaymentMailer
         return $mailtext;
     }
 
-    private function getEnglishMailtext()
+    public function getEnglishMailtext()
     {
         $mailtext =
             '
