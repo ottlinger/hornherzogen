@@ -30,13 +30,13 @@ class PaymentMailer
 
     public static function createTestApplicant()
     {
-        $a = new Applicant();
-        $a->setFirstname("Emil");
-        $a->setLastname("Mustermann");
-        $a->setTwaNumber("CC-0815");
-        $a->setPersistenceId(4711);
-        $a->setWeek(2);
-        return $a;
+        $testApplicant = new Applicant();
+        $testApplicant->setFirstname("Emil");
+        $testApplicant->setLastname("Mustermann");
+        $testApplicant->setTwaNumber("CC-0815");
+        $testApplicant->setPersistenceId(4711);
+        $testApplicant->setWeek(2);
+        return $testApplicant;
     }
 
     function __construct($applicantId)
