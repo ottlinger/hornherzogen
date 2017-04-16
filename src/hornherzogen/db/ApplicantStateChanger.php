@@ -83,7 +83,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
         if ($this->isHealthy() && isset($stateId) && isset($applicantId) && is_numeric($applicantId) && is_numeric($stateId)) {
 
             // TODO use result
-            $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
+            $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " " . $this->updateInDatabase($mappingResult) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
             $stmt = $this->database->prepare($sql);
 
             // execute the query
@@ -93,6 +93,12 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             return $stmt->rowCount();
         }
         return NULL;
+    }
+
+    public function mapMappingToSQL($mappingResult)
+    {
+        return '';
+
     }
 
 }
