@@ -42,7 +42,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
                 }
             }
 
-            //echo "(Würde " . $mappingResult['field'] . " auf " . $this->formHelper->timestamp() . " setzen in Datenbank) ";
+            // update database fields
             $result = is_numeric($this->updateInDatabase($applicantId, $stateId, $mappingResult));
         }
 
@@ -83,6 +83,9 @@ class ApplicantStateChanger extends BaseDatabaseWriter
         if ($this->isHealthy() && isset($stateId) && isset($applicantId) && is_numeric($applicantId) && is_numeric($stateId)) {
 
             $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " " . $this->mapMappingToSQL($mappingResult) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
+
+            var_dump($sql);
+
             $stmt = $this->database->prepare($sql);
 
             // execute the query
@@ -101,7 +104,6 @@ class ApplicantStateChanger extends BaseDatabaseWriter
         }
 
         return '';
-
     }
 
 }
