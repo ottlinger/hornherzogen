@@ -59,16 +59,18 @@ class ApplicantStateChanger extends BaseDatabaseWriter
 
         switch ($state[0]['name']) {
             case 'WAITING_FOR_PAYMENT':
-                return array('mail' => 'PaymentMailer', 'field' => 'paymentRequested');
+                return array('mail' => 'PaymentMailer', 'field' => 'paymentmailed');
 
             case 'PAID':
-                return array('field' => 'paymentReceived');
+                return array('field' => 'paymentreceived');
 
             case 'APPLIED':
                 return array('field' => 'created');
 
             case 'REGISTERED':
             case 'CONFIRMED':
+                return array('field' => 'booked');
+
 
             case 'SPAM':
             case 'REJECTED':
