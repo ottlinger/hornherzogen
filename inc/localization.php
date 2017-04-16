@@ -125,8 +125,8 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
-    'PMAIL.SUBJECT' => '',
-    'PMAIL.APPLICANT' => '',
+    'PMAIL.SUBJECT' => '合気道 seminar Herzogenhorn ' . $h_year . ' - in order to fulfil your application payment is requested {0}',
+    'PMAIL.APPLICANT' => 'Sent mail with payment information at {0}.',
     'ADMIN.FLEX.BODY' => 'Hi {0}, you chose week {1} for Herzogenhorn. This week is overbooked. Would you mind considering to switch to week {2}? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin',
     'ADMIN.FLEX.SUBJECT' => 'Application Herzogenhorn ' . $h_year . ' - week change possible?',
     'FORM.GSINCE.CHANGE' => 'In order to change the date, please click the symbol or the whole textfield (even if coloured in gray).',
