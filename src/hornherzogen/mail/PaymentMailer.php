@@ -52,6 +52,10 @@ class PaymentMailer
 
     public function send()
     {
+        if (!$this->hasValidApplicant()) {
+            return 'Nothing to send';
+        }
+
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
 
@@ -66,6 +70,12 @@ class PaymentMailer
         }
 
         return '';
+    }
+
+
+    public function hasValidApplicant()
+    {
+        return boolval($this->applicant != null && !(empty($this->applicant)));
     }
 
     public function getMailtext()
@@ -146,7 +156,7 @@ class PaymentMailer
 
     public function getSeminarPrice()
     {
-        if (strlen($this->applicant->getTwaNumber())) {
+        if (NULL != $this->applicant->getTwaNumber() && strlen($this->applicant->getTwaNumber())) {
             return "250,00 €";
         }
         return "300,00 €";
@@ -157,6 +167,10 @@ class PaymentMailer
      */
     public function sendInternally()
     {
+        if (!$this->hasValidApplicant()) {
+            return 'Nothing to send internally.';
+        }
+
         if ($this->config->sendinternalregistrationmails()) {
 
             $replyto = $this->config->registrationmail();
