@@ -34,6 +34,7 @@ class PaymentMailer
         $a->setFirstname("Emil");
         $a->setLastname("Mustermann");
         $a->setTwaNumber("CC-0815");
+        $a->setPersistenceId(4711);
         $a->setWeek(2);
         return $a;
     }
@@ -105,15 +106,15 @@ class PaymentMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicant->getWeek() . '</h1>
             <h2>
                 Hallo ' . $this->applicant->getFirstname() . ',</h2>
-                <p>wir haben die Lehrgangswoche soweit geplant und bitten Dich nun um ' . $this->formHelper->timestamp() . '
-                innerhalb der nächsten 2 Wochen zu überweisen.
+                <p>wir haben die Lehrgangswoche soweit durchgeplant und bitten Dich nun um ' . $this->formHelper->timestamp() . '
+                innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
                 </p>
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
                 <li>Kontoinhaber: ' . $this->accountConfiguration->getAccountHolder() . '</li>
                 <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
                 <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicant->getWeek() . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '</li>
+                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicant->getWeek() . "/" . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '/#' . $this->applicant->getPersistenceId() . '</li>
                 <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
