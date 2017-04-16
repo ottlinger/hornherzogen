@@ -25,6 +25,7 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
+    'PMAIL.INTERNAL' => 'Eine internal Zahlungsbestätigungsmail wurde um {0} versendet.',
     'PMAIL.SUBJECT' => '合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' - Bitte um Zahlung des Lehrgangsbeitrags zur Anmeldebestätigung {0}',
     'PMAIL.APPLICANT' => 'Mail mit Zahlungsinformationen verschickt um {0}.',
     'ADMIN.FLEX.BODY' => 'Hallo {0}, Du hast Dich kürzlich für die Woche {1} des Herzogenhornlehrgangs angemeldet. Diese Woche ist bereits überbucht. Wäre es für Dich denkbar in die Woche {2} zu wechseln? Danke für eine Antwort, damit wir die Buchung des Lehrgangs abschließen können. Viele Grüße aus Berlin von Philipp und Benjamin',
@@ -125,6 +126,7 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'PMAIL.INTERNAL' => 'An internal payment confirmation mail was sent at {0}.',
     'PMAIL.SUBJECT' => '合気道 seminar Herzogenhorn ' . $h_year . ' - in order to fulfil your application payment is requested {0}',
     'PMAIL.APPLICANT' => 'Sent mail with payment information at {0}.',
     'ADMIN.FLEX.BODY' => 'Hi {0}, you chose week {1} for Herzogenhorn. This week is overbooked. Would you mind considering to switch to week {2}? We are looking forward to your reply in order to complete the booking of all weeks. Thanks in advance, cheers from Berlin, Philipp and Benjamin',
