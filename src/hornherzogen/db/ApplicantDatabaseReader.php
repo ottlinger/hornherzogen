@@ -6,6 +6,13 @@ namespace hornherzogen\db;
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
     const SELECT_ALL_APPLICANTS = "SELECT * from `applicants` a";
+    private $dataSplitter;
+
+    function __construct($databaseConnection = NULL)
+    {
+        parent::__construct($databaseConnection);
+        $this->dataSplitter = new ApplicantDataSplitter();
+    }
 
     /**
      * Retrieve all applicants with the given id, should be one.
@@ -83,30 +90,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
-
-            while ($row = $dbResult->fetch()) {
-                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
-
-
-                // TODO #79: extract into ApplicantDataSplitter class, see ChartHelper
-                switch ($applicant->getRoom()) {
-                    case "1bed":
-                        $results['1'][] = $applicant;
-                        break;
-
-                    case "2bed":
-                        $results['2'][] = $applicant;
-                        break;
-
-                    case "3bed":
-                        $results['3'][] = $applicant;
-                        break;
-
-                    default:
-                        $results['4'][] = $applicant;
-                        break;
-                }
-            }
+            $results = $this->dataSplitter->splitByRoomCategory($dbResult);
         }
 
         return $results;
