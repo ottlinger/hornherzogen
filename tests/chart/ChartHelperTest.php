@@ -74,38 +74,6 @@ class ChartHelperTest extends TestCase
         $this->assertEquals(0, $json);
     }
 
-    public function testSplitByGenderWithNoInputGiven()
-    {
-        $applicants = array();
-        $splitted = ChartHelper::splitByGender($applicants);
-        $this->assertNotNull($splitted);
-        $this->assertEquals(3, sizeof($splitted));
-        $this->assertEmpty($splitted['male']);
-        $this->assertEmpty($splitted['female']);
-        $this->assertEmpty($splitted['other']);
-    }
-
-    public function testSplitByGenderWithValidInput()
-    {
-        $male = new Applicant();
-        $male->setGender('male');
-        $female = new Applicant();
-        $female->setGender('female');
-        $other = new Applicant();
-        $other->setGender('other');
-        $applicants = array();
-        $applicants[] = $male;
-        $applicants[] = $female;
-        $applicants[] = $other;
-
-        $splitted = ChartHelper::splitByGender($applicants);
-        $this->assertNotNull($splitted);
-        $this->assertEquals(3, sizeof($splitted));
-        $this->assertContainsOnly($male, $splitted['male']);
-        $this->assertContainsOnly($female, $splitted['female']);
-        $this->assertContainsOnly($other, $splitted['other']);
-    }
-
     public function testConversionToJsonFromDatabaseQuery()
     {
         $countries = array();

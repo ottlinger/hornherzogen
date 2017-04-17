@@ -47,8 +47,32 @@ class ApplicantDataSplitter
         }
 
         return $results;
-
     }
 
+    public function splitByGender($applicantList)
+    {
+        $results = array(
+            'other' => array(),
+            'male' => array(),
+            'female' => array(),
+        );
+
+        foreach ($applicantList as $applicant) {
+            switch ($applicant->getGender()) {
+                case "female":
+                    $results['female'][] = $applicant;
+                    break;
+                case "male":
+                    $results['male'][] = $applicant;
+                    break;
+
+                default:
+                    $results['other'][] = $applicant;
+                    break;
+            }
+        }
+
+        return $results;
+    }
 
 }

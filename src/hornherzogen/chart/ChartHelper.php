@@ -4,19 +4,22 @@ declare(strict_types=1);
 namespace hornherzogen\chart;
 
 use hornherzogen\db\ApplicantDatabaseReader;
+use hornherzogen\db\ApplicantDataSplitter;
 
 class ChartHelper
 {
     private $reader;
+    private $dataSplitter;
 
     function __construct()
     {
         $this->reader = new ApplicantDatabaseReader();
+        $this->dataSplitter = new ApplicantDataSplitter();
     }
 
     public function getByGender($week = NULL)
     {
-        $applicants = $this->splitByGender($this->reader->getAllByWeek($week));
+        $applicants = $this->dataSplitter->splitByGender($this->reader->getAllByWeek($week));
 
         $headers = self::calculateTitleForGender($week);
 
@@ -31,33 +34,6 @@ class ChartHelper
                 {\"c\":[{\"v\":\"" . $headers['other'] . "\",\"f\":null},{\"v\":" . sizeof($applicants['other']) . ",\"f\":null}]}
               ]
         }";
-    }
-
-    public static function splitByGender($applicantList)
-    {
-        // TODO #79 extract into ApplicantDataSplitter class
-        $results = array(
-            'other' => array(),
-            'male' => array(),
-            'female' => array(),
-        );
-
-        foreach ($applicantList as $applicant) {
-            switch ($applicant->getGender()) {
-                case "female":
-                    $results['female'][] = $applicant;
-                    break;
-                case "male":
-                    $results['male'][] = $applicant;
-                    break;
-
-                default:
-                    $results['other'][] = $applicant;
-                    break;
-            }
-        }
-
-        return $results;
     }
 
     public static function calculateTitleForGender($week)

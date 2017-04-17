@@ -2,6 +2,7 @@
 
 use hornherzogen\db\ApplicantDataSplitter;
 use PHPUnit\Framework\TestCase;
+use hornherzogen\Applicant;
 
 class ApplicantDataSplitterTest extends TestCase
 {
@@ -72,6 +73,38 @@ class ApplicantDataSplitterTest extends TestCase
 
         $this->assertCount(4, $this->stateChanger->splitByRoomCategory($dbResult));
         $this->assertCount(1, $this->stateChanger->splitByRoomCategory($dbResult)[4]);
+    }
+
+    public function testSplitByGenderWithNoInputGiven()
+    {
+        $applicants = array();
+        $splitted = $this->stateChanger->splitByGender($applicants);
+        $this->assertNotNull($splitted);
+        $this->assertEquals(3, sizeof($splitted));
+        $this->assertEmpty($splitted['male']);
+        $this->assertEmpty($splitted['female']);
+        $this->assertEmpty($splitted['other']);
+    }
+
+    public function testSplitByGenderWithValidInput()
+    {
+        $male = new Applicant();
+        $male->setGender('male');
+        $female = new Applicant();
+        $female->setGender('female');
+        $other = new Applicant();
+        $other->setGender('other');
+        $applicants = array();
+        $applicants[] = $male;
+        $applicants[] = $female;
+        $applicants[] = $other;
+
+        $splitted = $this->stateChanger->splitByGender($applicants);
+        $this->assertNotNull($splitted);
+        $this->assertEquals(3, sizeof($splitted));
+        $this->assertContainsOnly($male, $splitted['male']);
+        $this->assertContainsOnly($female, $splitted['female']);
+        $this->assertContainsOnly($other, $splitted['other']);
     }
 
 }
