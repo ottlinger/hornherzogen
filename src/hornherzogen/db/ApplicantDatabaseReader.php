@@ -5,7 +5,7 @@ namespace hornherzogen\db;
 
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
-    const SELECT_ALL_APPLICANTS = "SELECT * from `applicants` a";
+    const SELECT_ALL_APPLICANTS = "SELECT SQL_NO_CACHE * from `applicants` a";
     private $dataSplitter;
 
     function __construct($databaseConnection = NULL)
