@@ -66,7 +66,7 @@ class PaymentMailer
     public function send()
     {
         if (!$this->hasValidApplicant()) {
-            return 'Nothing to send';
+            return 'Nothing to send.';
         }
 
         $replyto = $this->config->registrationmail();
