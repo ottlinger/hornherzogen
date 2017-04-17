@@ -6,77 +6,6 @@ namespace hornherzogen\db;
 class RoomDatabaseWriter extends BaseDatabaseWriter
 {
     /**
-     * Retrieve all applicants per week, sort the resulting list by week and food category.
-     *
-     * @param $week week choice, null for both weeks.
-     * @return array a simple list of applicants to show in the UI
-     */
-    public function listByFoodCategoryPerWeek($week)
-    {
-        $results = array();
-        if ($this->isHealthy()) {
-            $dbResult = $this->database->query($this->buildQuery($week));
-            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
-
-            while ($row = $dbResult->fetch()) {
-                //  access all members print "<h2>'$row[name]' has place for $row[capacity] people</h2>\n";
-                $results[] = $row();
-            }
-        }
-        return $results;
-    }
-
-    /**
-     * Get a list of applicants per week and sort them into an array by room category:
-     * array of array
-     * 1 -> all single rooms
-     * 2 -> all double rooms
-     * 3 -> all triple rooms
-     * 4 -> all other rooms
-     * @param $week week choice, null for both weeks.
-     * @return array a simple list of applicants to show in the UI
-     */
-    public function listByRoomCategoryPerWeek($week)
-    {
-        $results = array(
-            '1' => array(),
-            '2' => array(),
-            '3' => array(),
-            '4' => array(),
-        );
-
-        if ($this->isHealthy()) {
-            $dbResult = $this->database->query($this->buildQuery($week));
-            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
-
-            while ($row = $dbResult->fetch()) {
-                // TODO #79: extract into ApplicantDataSplitter class, see ChartHelper and ApplicantDatabaseReader
-                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
-
-                switch ($applicant->getRoom()) {
-                    case "1bed":
-                        $results['1'][] = $applicant;
-                        break;
-
-                    case "2bed":
-                        $results['2'][] = $applicant;
-                        break;
-
-                    case "3bed":
-                        $results['3'][] = $applicant;
-                        break;
-
-                    default:
-                        $results['4'][] = $applicant;
-                        break;
-                }
-            }
-        }
-
-        return $results;
-    }
-
-    /**
      * Book the given roomId for the applicantId.
      * @param $roomId database roomId
      * @param $applicantId database applicantId
@@ -123,18 +52,6 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
             }
         }
         return FALSE;
-    }
-
-    private function buildQuery($week)
-    {
-        $query = "SELECT * from `applicants` a";
-        // if week == null - return all, else for the given week
-        if (isset($week) && strlen($week)) {
-            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
-        }
-        $query .= " ORDER by a.week, a.room";
-
-        return $query;
     }
 
 }
