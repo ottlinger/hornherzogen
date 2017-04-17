@@ -24,7 +24,6 @@ class ApplicantDataSplitter
 
         if (NULL != $applicantsResultFromDatabase) {
             foreach ($applicantsResultFromDatabase as $row) {
-//                while ($row = $applicantsResultFromDatabase->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
                 switch ($applicant->getRoom()) {
