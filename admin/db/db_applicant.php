@@ -168,9 +168,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
                     $statId = $statusReader->getById($applicant->getCurrentStatus());
 
-                    var_dump($statId);
-                    var_dump($applicant->getCurrentStatus());
-
                     if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
                         echo "<td>" . $statId[0]['name'] . "</td>";
                     } else {
