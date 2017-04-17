@@ -116,5 +116,4 @@ class ApplicantDataSplitterTest extends TestCase
         $this->assertCount(3, $this->stateChanger->splitByGender(NULL));
     }
 
-
 }
