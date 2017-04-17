@@ -10,6 +10,7 @@ use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
 use hornherzogen\admin\BankingConfiguration;
+use MessageFormatter;
 
 class PaymentMailer
 {
@@ -73,8 +74,11 @@ class PaymentMailer
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
 
+        $withParam = new MessageFormatter($this->applicant->getLanguage(), $GLOBALS['messages'][$this->applicant->getLanguage()]["PMAIL.SUBJECT"]);
+        $subject = $withParam->format(array($this->formHelper->timestamp()));
+
         // we need the key directly for the language of the applicant!
-        $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
+        $encoded_subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 
         if ($this->config->sendregistrationmails()) {
             mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
