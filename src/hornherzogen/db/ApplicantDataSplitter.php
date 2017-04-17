@@ -13,7 +13,7 @@ class ApplicantDataSplitter
     }
 
 
-    public function splitByRoomCategory($applicantsResultFromDatabase)
+    public function splitByRoomCategory($applicantList)
     {
         $results = array(
             '1' => array(),
@@ -22,10 +22,8 @@ class ApplicantDataSplitter
             '4' => array(),
         );
 
-        if (NULL != $applicantsResultFromDatabase) {
-            foreach ($applicantsResultFromDatabase as $row) {
-                $applicant = $this->databaseHelper->fromDatabaseToObject($row);
-
+        if (NULL != $applicantList) {
+            foreach ($applicantList as $applicant) {
                 switch ($applicant->getRoom()) {
                     case "1bed":
                         $results['1'][] = $applicant;
@@ -57,18 +55,20 @@ class ApplicantDataSplitter
             'female' => array(),
         );
 
-        foreach ($applicantList as $applicant) {
-            switch ($applicant->getGender()) {
-                case "female":
-                    $results['female'][] = $applicant;
-                    break;
-                case "male":
-                    $results['male'][] = $applicant;
-                    break;
+        if (NULL != $applicantList) {
+            foreach ($applicantList as $applicant) {
+                switch ($applicant->getGender()) {
+                    case "female":
+                        $results['female'][] = $applicant;
+                        break;
+                    case "male":
+                        $results['male'][] = $applicant;
+                        break;
 
-                default:
-                    $results['other'][] = $applicant;
-                    break;
+                    default:
+                        $results['other'][] = $applicant;
+                        break;
+                }
             }
         }
 

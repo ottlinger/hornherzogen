@@ -90,7 +90,12 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
-            $results = $this->dataSplitter->splitByRoomCategory($dbResult);
+
+            while ($row = $dbResult->fetch()) {
+                $applicants[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+
+            $results = $this->dataSplitter->splitByRoomCategory($applicants);
         }
 
         return $results;
