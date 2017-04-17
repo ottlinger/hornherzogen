@@ -222,6 +222,7 @@ class PaymentMailer
                 <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
                 <li>interner Name: ' . $this->applicant->getFullname() . '</li>
                 <li>Umbuchbar? ' . ($this->applicant->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
+                <li>E-Mail: ' . $this->applicant->getEmail() . '</li>
                 <li>Land: ' . $this->applicant->getCountry() . '</li>
                 <li>Dojo:  ' . $this->applicant->getDojo() . '</li>
                 <li>TWA: ' . $this->applicant->getTwaNumber() . '</li>
