@@ -109,8 +109,7 @@ class PaymentMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicant->getWeek() . '</h1>
             <h2>
                 Hallo ' . $this->applicant->getFirstname() . ',</h2>
-                <p>wir haben die Lehrgangswoche soweit durchgeplant und bitten Dich nun um ' . $this->formHelper->timestamp() . '
-                innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
+                <p>wir haben die Lehrgangswoche ' . $this->applicant->getWeek() . ' soweit durchgeplant und bitten Dich innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
                 </p>
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
@@ -120,9 +119,6 @@ class PaymentMailer
                 <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicant->getWeek() . "/" . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '/#' . $this->applicant->getPersistenceId() . '</li>
                 <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
-                </p>
-                <p>
-                Danke für Deine Geduld und wir freuen uns Dich zu sehen - <br />
                 </p>
                 <h3>
                 Sonnige Grüße aus Berlin<br />
@@ -147,7 +143,7 @@ class PaymentMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $this->applicant->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $this->applicant->getWeek() . ' at ' . $this->formHelper->timestamp() . ' 
+                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $this->applicant->getWeek() . ' 
                 and would like to request your payment in the next 14 days in order to finally fulfil your seminar application.</p>
                 <p>Please use the following bank account and notes to transfer the money properly:
                 <ul>
