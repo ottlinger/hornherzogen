@@ -69,4 +69,10 @@ class PaymentMailerTest extends TestCase
         $this->assertEquals("300,00 €", $mailer->getSeminarPrice());
     }
 
+    public function testSendWithoutApplicant() {
+        $mailer = new PaymentMailer(NULL);
+        $this->assertEquals("Nothing to send", $mailer->send());
+
+    }
+
 }
