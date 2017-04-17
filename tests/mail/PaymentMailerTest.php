@@ -15,6 +15,10 @@ class PaymentMailerTest extends TestCase
         $_GET = array();
         $_GET['lang'] = "de";
 
+        // prevent sending mails in tests
+        $GLOBALS['horncfg']['sendregistrationmails'] = false;
+        $GLOBALS['horncfg']['sendinternalregistrationmails'] = false;
+
         $this->mailer = new PaymentMailer(PaymentMailer::TEST_APPLICANT_ID);
     }
 
@@ -73,14 +77,22 @@ class PaymentMailerTest extends TestCase
     {
         $mailer = new PaymentMailer(NULL);
         $this->assertEquals("Nothing to send.", $mailer->send());
-
     }
 
     public function testSendInternallyWithoutApplicant()
     {
         $mailer = new PaymentMailer(NULL);
         $this->assertEquals("Nothing to send internally.", $mailer->sendInternally());
+    }
 
+    public function testSend()
+    {
+        $this->assertEquals("", $this->mailer->send());
+    }
+
+    public function testSendInternally()
+    {
+        $this->assertEquals("", $this->mailer->sendInternally());
     }
 
 }
