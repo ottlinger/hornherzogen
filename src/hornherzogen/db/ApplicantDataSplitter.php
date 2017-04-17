@@ -23,7 +23,8 @@ class ApplicantDataSplitter
         );
 
         if (NULL != $applicantsResultFromDatabase) {
-            while ($row = $applicantsResultFromDatabase->fetch()) {
+            foreach ($applicantsResultFromDatabase as $row) {
+//                while ($row = $applicantsResultFromDatabase->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 
                 switch ($applicant->getRoom()) {
