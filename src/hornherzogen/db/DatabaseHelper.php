@@ -178,6 +178,10 @@ class DatabaseHelper
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'statusId')) {
                 $applicant->setCurrentStatus($row['statusId']);
             }
+            // #79: where is current status?
+            if ($this->formHelper->isSetAndNotEmptyInArray($row, 'statusid')) {
+                $applicant->setCurrentStatus($row['statusid']);
+            }
 
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'language')) {
                 $applicant->setLanguage($row['language']);
