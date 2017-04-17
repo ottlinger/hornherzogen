@@ -95,4 +95,11 @@ class PaymentMailerTest extends TestCase
         $this->assertEquals("", $this->mailer->sendInternally());
     }
 
+    public function testGetMailSubjectDirectlyAsItIsInLanguageOfApplicantAndNotCurrentSession()
+    {
+        $withParam = new MessageFormatter("de", $GLOBALS['messages']["de"]["PMAIL.SUBJECT"]);
+        $subject = $withParam->format(array("TimeStamp"));
+        $this->assertContains("Anmeldebestätigung", $subject);
+        $this->assertContains("TimeStamp", $subject);
+    }
 }

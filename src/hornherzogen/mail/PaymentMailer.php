@@ -73,6 +73,7 @@ class PaymentMailer
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
 
+        // we need the key directly for the language of the applicant!
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('PMAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
         if ($this->config->sendregistrationmails()) {
