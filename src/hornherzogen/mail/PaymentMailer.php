@@ -94,7 +94,7 @@ class PaymentMailer
     public function getMailtext()
     {
         // all non German customers will get an English mail
-        if ($this->localizer->getLanguage() != 'de') {
+        if ($this->applicant->getLanguage() != 'de') {
             return $this->getEnglishMailtext();
         }
 
