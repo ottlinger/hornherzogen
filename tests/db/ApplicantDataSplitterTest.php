@@ -56,4 +56,22 @@ class ApplicantDataSplitterTest extends TestCase
         $this->assertCount(1, $this->stateChanger->splitByRoomCategory($dbResult)[2]);
     }
 
+    public function testRetrievalWithDatabaseResults1Bed()
+    {
+        $dbResult = array();
+        $dbResult[0] = array('room' => '1bed');
+
+        $this->assertCount(4, $this->stateChanger->splitByRoomCategory($dbResult));
+        $this->assertCount(1, $this->stateChanger->splitByRoomCategory($dbResult)[1]);
+    }
+
+    public function testRetrievalWithDatabaseResultsArbitraryCategory()
+    {
+        $dbResult = array();
+        $dbResult[0] = array('room' => 'anythingGoesHere');
+
+        $this->assertCount(4, $this->stateChanger->splitByRoomCategory($dbResult));
+        $this->assertCount(1, $this->stateChanger->splitByRoomCategory($dbResult)[4]);
+    }
+
 }
