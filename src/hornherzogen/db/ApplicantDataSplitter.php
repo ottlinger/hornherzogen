@@ -23,7 +23,6 @@ class ApplicantDataSplitter
         );
 
         if (NULL != $applicantsResultFromDatabase) {
-
             while ($row = $applicantsResultFromDatabase->fetch()) {
                 $applicant = $this->databaseHelper->fromDatabaseToObject($row);
 

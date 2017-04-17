@@ -33,4 +33,8 @@ class ApplicantDataSplitterTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\ApplicantDataSplitter', $this->stateChanger);
     }
 
+    public function testRetrievalWithNoDatabaseResults() {
+        $this->assertCount(4, $this->stateChanger->splitByRoomCategory(NULL));
+    }
+
 }
