@@ -36,6 +36,7 @@ class PaymentMailer
         $testApplicant->setTwaNumber("CC-0815");
         $testApplicant->setPersistenceId(4711);
         $testApplicant->setWeek(2);
+        $testApplicant->setLanguage('de');
         return $testApplicant;
     }
 
