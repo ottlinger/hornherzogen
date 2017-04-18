@@ -38,9 +38,16 @@ class ApplicantStateChangerTest extends TestCase
         $this->assertFalse($this->stateChanger->changeStateTo("applicantId", "stateId"));
     }
 
-    public function mapToSQLWithoutMappableField() {
-        $this->assertEquals("", $this->stateChanger->mapMappingResult(NULL));
-        $this->assertEquals("", $this->stateChanger->mapMappingResult(array()));
+    public function mapToSQLWithoutMappableField()
+    {
+        $this->assertEquals("", $this->stateChanger->mapMappingToSQL(NULL));
+        $this->assertEquals("", $this->stateChanger->mapMappingToSQL(array()));
     }
 
+    public function mapToSQLWithOneMappableField()
+    {
+        $field = "myFieldInTest";
+        $mappingResult = array('field' => $field);
+        $this->assertEquals("adsfadfsdf", $this->stateChanger->mapMappingToSQL($mappingResult));
+    }
 }
