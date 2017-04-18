@@ -68,6 +68,9 @@ class StatusDatabaseReader extends BaseDatabaseWriter
             case "WAITING_FOR_PAYMENT":
                 return " (sendet Mail raus!)";
 
+            case "APPLIED":
+                return " (Standard nach erfolgter Anmeldung)";
+
             default:
                 return '';
         }
