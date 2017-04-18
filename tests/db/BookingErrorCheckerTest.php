@@ -33,4 +33,8 @@ class BookingErrorCheckerTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\BookingErrorChecker', $this->errorChecker);
     }
 
+    public function testlistRoomBookings() {
+        $this->assertEmpty($this->errorChecker->listRoomBookings());
+    }
+
 }
