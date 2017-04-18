@@ -33,6 +33,7 @@ INSERT INTO status (name) VALUES ('APPLIED');
 INSERT INTO status (name) VALUES ('REGISTERED');
 INSERT INTO status (name) VALUES ('CONFIRMED');
 INSERT INTO status (name) VALUES ('WAITING_FOR_PAYMENT');
+INSERT INTO status (name) VALUES ('BOOKED');
 INSERT INTO status (name) VALUES ('CANCELLED');
 INSERT INTO status (name) VALUES ('PAID');
 INSERT INTO status (name) VALUES ('SPAM');
