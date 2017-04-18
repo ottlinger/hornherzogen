@@ -52,4 +52,8 @@ class ApplicantStateChangerTest extends TestCase
         // timestamp is in between
         $this->assertStringEndsWith("'", $this->stateChanger->mapMappingToSQL($mappingResult));
     }
+
+    public function testUpdateInDatabaseWithoutDatabaseYieldsNull() {
+        $this->assertNull($this->stateChanger->updateInDatabase(4711,4712, NULL));
+    }
 }
