@@ -38,16 +38,18 @@ class ApplicantStateChangerTest extends TestCase
         $this->assertFalse($this->stateChanger->changeStateTo("applicantId", "stateId"));
     }
 
-    public function mapToSQLWithoutMappableField()
+    public function testMapToSQLWithoutMappableField()
     {
         $this->assertEquals("", $this->stateChanger->mapMappingToSQL(NULL));
         $this->assertEquals("", $this->stateChanger->mapMappingToSQL(array()));
     }
 
-    public function mapToSQLWithOneMappableField()
+    public function testMapToSQLWithOneMappableField()
     {
         $field = "myFieldInTest";
         $mappingResult = array('field' => $field);
-        $this->assertEquals("adsfadfsdf", $this->stateChanger->mapMappingToSQL($mappingResult));
+        $this->assertStringStartsWith(" , myFieldInTest = '", $this->stateChanger->mapMappingToSQL($mappingResult));
+        // timestamp is in between
+        $this->assertStringEndsWith("'", $this->stateChanger->mapMappingToSQL($mappingResult));
     }
 }
