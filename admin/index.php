@@ -83,20 +83,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                                 class="glyphicon glyphicon-briefcase"></span>
                         <?php echo $localizer->i18n('MENU.ADMIN'); ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
+                        <li><a href="db/db_applicants.php">eingegangene Anmeldungen zeigen</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Verwaltung</li>
-                        <li><a href="db/db_applicantsWishes.php">Zimmerwünsche der Teilnehmer</a></li>
+                        <li class="dropdown-header">Verwaltungshilfe</li>
+                        <li><a href="db/db_applicantsWishes.php">Zimmerwünsche der Teilnehmer einsehen</a></li>
                         <li><a href="db/db_book.php?id=1&amp;week=1">Buchungen der Zimmer vornehmen</a></li>
-                        <li><a href="db/db_applicantsStateChange.php">Bewerbungsstatus ändern / Kontoverbindung aussenden</a></li>
+                        <li><a href="db/db_applicantsStateChange.php">Bewerbungsstatus ändern und Mails automatisch aussenden</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Listen</li>
-                        <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
-                        <li><a href="db/db_applicantsFlexible.php">umbuchbare Anmeldungen</a></li>
-                        <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
-                        <li><a href="db/db_roomsByWeek.php">Raumplan pro Woche</a></li>
+                        <li class="dropdown-header">Übersichtslisten</li>
+                        <li><a href="db/db_applicantsFlexible.php">umbuchbare Anmeldungen zeigen</a></li>
+                        <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche ansehen</a></li>
+                        <li><a href="db/db_roomsByWeek.php">Raumplan pro Woche anschauen</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Prüfung</li>
+                        <li class="dropdown-header">zur Prüfung</li>
                         <li><a href="db/db_booking_errors.php">Fehlerübersicht Raumbuchungen</a></li>
                         <li><a href="db/db_bookinglist.php">Liste der Raumbuchungen</a></li>
                     </ul>
