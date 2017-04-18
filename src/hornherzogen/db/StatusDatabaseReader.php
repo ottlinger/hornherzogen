@@ -52,6 +52,12 @@ class StatusDatabaseReader extends BaseDatabaseWriter
         if (!self::isHealthy()) {
             return NULL;
         }
-        return $this->getResultsFromDatabase('SELECT * from status s ORDER BY s.name DESC');
+        return $this->getResultsFromDatabase('SELECT * from status s ORDER BY s.name ASC');
+    }
+
+    public function adminAdditionalTextForState($name) {
+
+
+
     }
 }
