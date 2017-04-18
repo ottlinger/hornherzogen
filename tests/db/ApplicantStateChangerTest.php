@@ -53,7 +53,14 @@ class ApplicantStateChangerTest extends TestCase
         $this->assertStringEndsWith("'", $this->stateChanger->mapMappingToSQL($mappingResult));
     }
 
-    public function testUpdateInDatabaseWithoutDatabaseYieldsNull() {
-        $this->assertNull($this->stateChanger->updateInDatabase(4711,4712, NULL));
+    public function testUpdateInDatabaseWithoutDatabaseYieldsNull()
+    {
+        $this->assertNull($this->stateChanger->updateInDatabase(4711, 4712, NULL));
+    }
+
+    public function testMappingOfStateWhenUpdating()
+    {
+        $mappingResult = $this->stateChanger->mapToDatabaseDateField('unknown_statusId');
+        $this->assertEmpty($mappingResult);
     }
 }
