@@ -88,14 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li class="dropdown-header">Verwaltung</li>
                         <li><a href="db/db_applicantsWishes.php">Zimmerwünsche der Teilnehmer</a></li>
                         <li><a href="db/db_book.php?id=1&amp;week=1">Buchungen der Zimmer vornehmen</a></li>
-                        <li><a href="#">TODO Raumplan pro Woche</a></li>
                         <li><a href="db/db_applicantsStateChange.php">Bewerbungsstatus ändern / Kontoverbindung aussenden</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Listen</li>
                         <li><a href="db/db_applicants.php">eingegangene Anmeldungen</a></li>
                         <li><a href="db/db_applicantsFlexible.php">umbuchbare Anmeldungen</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche</a></li>
-                        <li><a href="db/db_roomsByWeek.php">Raumverteilung pro Woche</a></li>
+                        <li><a href="db/db_roomsByWeek.php">Raumplan pro Woche</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Prüfung</li>
                         <li><a href="db/db_booking_errors.php">Fehlerübersicht Raumbuchungen</a></li>
