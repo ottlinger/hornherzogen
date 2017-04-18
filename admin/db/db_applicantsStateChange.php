@@ -187,8 +187,7 @@ $stateChanger = new ApplicantStateChanger();
                             $statusId = $status['id'];
                             $selectedStatus = ((isset($currentStatus) && !empty($currentStatus) && $statusId === $currentStatus[0]['id']) ? ' selected' : '');
                             $name = $status['name'];
-                            $withMail = ($name == "WAITING_FOR_PAYMENT") ? " (sendet Mail raus!)":"";
-                            echo "<option value=\"" . $statusId . "\" " . $selectedStatus . ">" . $name .$withMail. "</option>";
+                            echo "<option value=\"" . $statusId . "\" " . $selectedStatus . ">" . $name .$statusReader->adminAdditionalTextForState($name). "</option>";
                         }
                         ?>
                     </select>

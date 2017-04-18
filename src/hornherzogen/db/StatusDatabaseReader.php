@@ -55,9 +55,21 @@ class StatusDatabaseReader extends BaseDatabaseWriter
         return $this->getResultsFromDatabase('SELECT * from status s ORDER BY s.name ASC');
     }
 
-    public function adminAdditionalTextForState($name) {
+    public function adminAdditionalTextForState($name)
+    {
+        switch ($name) {
+            case "BOOKED":
+                // TODO #91 adapt text
+                return " (wird später eine Mail raussenden, #91 - nyi)";
 
+            case "PAID":
+                return " (sobald Zahlung eingangen)";
 
+            case "WAITING_FOR_PAYMENT":
+                return " (sendet Mail raus!)";
 
+            default:
+                return '';
+        }
     }
 }
