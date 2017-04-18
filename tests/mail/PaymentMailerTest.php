@@ -102,4 +102,16 @@ class PaymentMailerTest extends TestCase
         $this->assertContains("Anmeldebestätigung", $subject);
         $this->assertContains("TimeStamp", $subject);
     }
+
+    public function testGetInternalMailText()
+    {
+        $mailtext = $this->mailer->getInternalMailtext();
+        $this->assertContains("Emil Musterman", $mailtext);
+        $this->assertContains("Zahlungsbestätigung", $mailtext);
+        $this->assertContains("Woche: 2", $mailtext);
+        $this->assertContains("Umbuchbar? nein", $mailtext);
+        $this->assertContains("Frau", $mailtext);
+        $this->assertContains("250,00 €", $mailtext);
+        $this->assertContains("CC-0815", $mailtext);
+    }
 }

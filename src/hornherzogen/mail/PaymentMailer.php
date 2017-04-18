@@ -211,12 +211,12 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Zahlungsbestätigung versendet für Woche ' . $this->applicant->getWeek() . ' </title >
+            <title>Zahlungsbestätigung versendet für Woche ' . $this->applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicant->getWeek() . 'verschickt</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicant->getWeek() . ' verschickt</h1>
             <h2>Anmeldungsdetails</h2>
-                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung raus:</p>
+                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung per E-Mail raus:</p>
                 <ul>
                 <li>Woche: ' . $this->applicant->getWeek() . '</li>
                 <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
