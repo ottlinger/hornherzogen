@@ -135,41 +135,25 @@ class StatusDatabaseReaderTest extends TestCase
         $this->assertEquals("WAITING_FOR_PAYMENT", $allStatuses[7]['name']);
     }
 
-    public function testAdditionalNotesMappingUnknownName() {
+    public function testAdditionalNotesMappingUnknownName()
+    {
         $this->assertEquals('', $this->reader->adminAdditionalTextForState("LALELOU"));
         $this->assertEquals(' (Standard nach erfolgter Anmeldung)', $this->reader->adminAdditionalTextForState("APPLIED"));
     }
 
-    public function testAdditionalNotesMappingBooked() {
+    public function testAdditionalNotesMappingBooked()
+    {
         $this->assertEquals(' (wird später eine Mail raussenden, #91 - nyi)', $this->reader->adminAdditionalTextForState("BOOKED"));
     }
 
-    public function testAdditionalNotesMappingPaid() {
+    public function testAdditionalNotesMappingPaid()
+    {
         $this->assertEquals(' (sobald Zahlung eingangen)', $this->reader->adminAdditionalTextForState("PAID"));
     }
 
-    /*
-    public function adminAdditionalTextForState($name)
+    public function testAdditionalNotesMappingWaitingForPayment()
     {
-        switch ($name) {
-            case "BOOKED":
-                // TODO #91 adapt text
-                return " (wird später eine Mail raussenden, #91 - nyi)";
-
-            case "PAID":
-                return " (sobald Zahlung eingangen)";
-
-            case "WAITING_FOR_PAYMENT":
-                return " (sendet Mail raus!)";
-
-            case "APPLIED":
-                return " (Standard nach erfolgter Anmeldung)";
-
-            default:
-                return '';
-        }
+        $this->assertEquals(' (sendet Mail raus!)', $this->reader->adminAdditionalTextForState("WAITING_FOR_PAYMENT"));
     }
-         */
-
 
 }
