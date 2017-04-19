@@ -125,6 +125,18 @@ $statusReader = new StatusDatabaseReader();
                     </select>
                 </div>
             </div>
+
+            <?php
+            // TODO #91: replace with correct implementation
+            $applicants = $applicantReader->listByFlexibilityPerWeek($week);
+            ?>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default btn-primary"
+                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>">Klicke hier, um Mails an
+                    alle <?php echo sizeof($applicants); ?> aus der Liste versenden
+                </button>
+            </div>
+
             <noscript>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -135,9 +147,6 @@ $statusReader = new StatusDatabaseReader();
         </form>
     <hr/>
     <?php
-    // TODO #91: replace with correct implementation
-    $applicants = $applicantReader->listByFlexibilityPerWeek($week);
-
     echo '<div class="table-responsive"><table class="table table-striped">';
     echo "<thead>";
     echo "<tr>";
@@ -155,6 +164,11 @@ $statusReader = new StatusDatabaseReader();
     echo "</thead>";
     echo "<tbody>";
 
+    function textIfEmpty($input)
+    {
+        return ($input ? "<span class=\"glyphicon glyphicon-check\"></span> " . $input : "<span class=\"glyphicon glyphicon-pencil\"></span> noch nicht");
+    }
+
     foreach ($applicants as $applicant) {
         echo "<tr>";
         echo "<td>" . $applicant->getPersistenceId() . "</td>";
@@ -170,10 +184,10 @@ $statusReader = new StatusDatabaseReader();
             echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
         }
 
-        echo "<td>APPLIED: " . $applicant->getCreatedAt() . "</td>";
-        echo "<td>PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "</td>";
-        echo "<td>PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "</td>";
-        echo "<td>BOOKED: " . $applicant->getBookedAt() . "</td>";
+        echo "<td>" . textIfEmpty($applicant->getCreatedAt()) . "</td>";
+        echo "<td>" . textIfEmpty($applicant->getPaymentRequestedAt()) . "</td>";
+        echo "<td>" . textIfEmpty($applicant->getPaymentReceivedAt()) . "</td>";
+        echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
         echo "</td>";
         echo "</tr>";
     }
