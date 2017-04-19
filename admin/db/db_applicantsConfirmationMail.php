@@ -129,9 +129,12 @@ $statusReader = new StatusDatabaseReader();
             <?php
             // TODO #91: replace with correct implementation
             $applicants = $applicantReader->listByFlexibilityPerWeek($week);
+
+            $isDisabled = empty($applicants);
+
             ?>
             <div class="form-group">
-                <button type="submit" class="btn btn-default btn-primary"
+                <button type="submit" class="btn btn-default btn-primary <?php if($isDisabled) echo "disabled"; ?>"
                         title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>">Klicke hier, um Mails an
                     alle <?php echo sizeof($applicants); ?> aus der Liste versenden
                 </button>
@@ -145,55 +148,59 @@ $statusReader = new StatusDatabaseReader();
                 </div>
             </noscript>
         </form>
-    <hr/>
     <?php
-    echo '<div class="table-responsive"><table class="table table-striped">';
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>DB-Id</th>";
-    echo "<th>Anrede</th>";
-    echo "<th>Name</th>";
-    echo "<th>Dojo</th>";
-    echo "<th>Anmerkungen</th>";
-    echo "<th>aktueller Status</th>";
-    echo "<th>angemeldet</th>";
-    echo "<th>Zahlung angefordert</th>";
-    echo "<th>Zahlung eingegangen</th>";
-    echo "<th>auf finalen Status gesetzt</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
 
-    function textIfEmpty($input)
-    {
-        return ($input ? "<span class=\"glyphicon glyphicon-check\"></span> " . $input : "<span class=\"glyphicon glyphicon-pencil\"></span> noch nicht");
-    }
-
-    foreach ($applicants as $applicant) {
+    // only show UI if any applicants
+    if (!$isDisabled) {
+        echo '<hr/><div class="table-responsive"><table class="table table-striped">';
+        echo "<thead>";
         echo "<tr>";
-        echo "<td>" . $applicant->getPersistenceId() . "</td>";
-        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-        echo "<td>" . $applicant->getFullName() . "</td>";
-        echo "<td>" . $applicant->getDojo() . "</td>";
-        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+        echo "<th>DB-Id</th>";
+        echo "<th>Anrede</th>";
+        echo "<th>Name</th>";
+        echo "<th>Dojo</th>";
+        echo "<th>Anmerkungen</th>";
+        echo "<th>aktueller Status</th>";
+        echo "<th>angemeldet</th>";
+        echo "<th>Zahlung angefordert</th>";
+        echo "<th>Zahlung eingegangen</th>";
+        echo "<th>auf finalen Status gesetzt</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
 
-        $statId = $statusReader->getById($applicant->getCurrentStatus());
-        if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-            echo "<td>" . $statId[0]['name'] . "</td>";
-        } else {
-            echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
+        function textIfEmpty($input)
+        {
+            return ($input ? "<span class=\"glyphicon glyphicon-check\"></span> " . $input : "<span class=\"glyphicon glyphicon-pencil\"></span> noch nicht");
         }
 
-        echo "<td>" . textIfEmpty($applicant->getCreatedAt()) . "</td>";
-        echo "<td>" . textIfEmpty($applicant->getPaymentRequestedAt()) . "</td>";
-        echo "<td>" . textIfEmpty($applicant->getPaymentReceivedAt()) . "</td>";
-        echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
-        echo "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table></div>";
-    echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
+        foreach ($applicants as $applicant) {
+            echo "<tr>";
+            echo "<td>" . $applicant->getPersistenceId() . "</td>";
+            echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
+            echo "<td>" . $applicant->getFullName() . "</td>";
+            echo "<td>" . $applicant->getDojo() . "</td>";
+            echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+
+            $statId = $statusReader->getById($applicant->getCurrentStatus());
+            if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
+                echo "<td>" . $statId[0]['name'] . "</td>";
+            } else {
+                echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
+            }
+
+            echo "<td>" . textIfEmpty($applicant->getCreatedAt()) . "</td>";
+            echo "<td>" . textIfEmpty($applicant->getPaymentRequestedAt()) . "</td>";
+            echo "<td>" . textIfEmpty($applicant->getPaymentReceivedAt()) . "</td>";
+            echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
+            echo "</td>";
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table></div>";
+        echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
+    } // end if empty
+
     } else {
         echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
     }
