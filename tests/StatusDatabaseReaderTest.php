@@ -144,6 +144,10 @@ class StatusDatabaseReaderTest extends TestCase
         $this->assertEquals(' (wird später eine Mail raussenden, #91 - nyi)', $this->reader->adminAdditionalTextForState("BOOKED"));
     }
 
+    public function testAdditionalNotesMappingPaid() {
+        $this->assertEquals(' (sobald Zahlung eingangen)', $this->reader->adminAdditionalTextForState("PAID"));
+    }
+
     /*
     public function adminAdditionalTextForState($name)
     {
