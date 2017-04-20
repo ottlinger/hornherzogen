@@ -23,7 +23,7 @@ $statusReader = new StatusDatabaseReader();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Herzogenhorn 2017 Anmeldung Zimmerliste">
+    <meta name="description" content="Herzogenhorn 2017 Anmeldung finale Mailbestätigung aussenden">
     <meta name="author" content="OTG">
     <meta name="robots" content="none,noarchive,nosnippet,noimageindex"/>
     <link rel="icon" href="../../favicon.ico">
