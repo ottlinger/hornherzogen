@@ -207,5 +207,24 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $query;
     }
 
+    public function getPaidButNotConfirmedApplicants($week = NULL) {
+
+    }
+
+    public function buildPaidButNotConfirmedQuery($week)
+    {
+        $query = self::SELECT_ALL_APPLICANTS;
+        $query .= ", status s ";
+        $query .= " WHERE s.name='PAID' AND a.statusId = s.id ";
+        $query .= " AND a.booked IS NULL";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " ORDER BY a.created";
+
+        return $query;
+    }
+
 }
 
