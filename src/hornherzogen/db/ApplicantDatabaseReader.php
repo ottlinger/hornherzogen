@@ -208,7 +208,18 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     }
 
     public function getPaidButNotConfirmedApplicants($week = NULL) {
+        $results = array();
 
+        if ($this->isHealthy()) {
+            $dbResult = $this->database->query($this->buildPaidButNotConfirmedQuery($week));
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+        }
+
+        return $results;
     }
 
     public function buildPaidButNotConfirmedQuery($week)
