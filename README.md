@@ -1,13 +1,7 @@
 # Project hornherzogen
-Pet project to manage seminar registration for Herzogenhorn 2017
+Pet project to manage seminar registration for Herzogenhorn 2017, started in January 2017.
 
-## Release [v1.0.0](https://github.com/ottlinger/hornherzogen/releases/tag/v1.0.0)
-
-Live as of 2017-03-20.
-
-## Current version
-
-Status: Work in progress since 2017-01-07 :-)
+## Project Status
 
 [![Stories in Backlog](https://badge.waffle.io/ottlinger/hornherzogen.png?label=backlog&title=Backlog)](https://waffle.io/ottlinger/hornherzogen)
 [![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
@@ -33,6 +27,19 @@ In order to just play around with it I've integrated a CI run:
 ### VersionEye - dependency update management
 
 [![Dependency versions](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
+
+# Releases
+
+## Release [v1.0.0](https://github.com/ottlinger/hornherzogen/releases/tag/v1.0.0)
+
+Live as of 2017-03-20:
+* Applicant registration works in English and German
+
+## Current version
+
+Status: Work in progress since 2017-01-07 :-)
+* Admin interface to manage applications and track payments
+* Admin interface to
 
 ## Local installation
 
@@ -212,10 +219,8 @@ This a collection of related links that helped working on and with this applicat
   * [Learning PHP-example code](https://github.com/oreillymedia/Learning_PHP)
 * books
   * [Learning PHP: A Gentle Introduction to the Web's Most Popular Language, David Sklar](https://www.amazon.de/Learning-PHP-Introduction-Popular-Language/dp/1491933577?tag=tendoryuberlin)
-  * [Git Pocket Guide](https://www.amazon.de/Git-Pocket-Guide-Richard-Silverman/dp/1449325866?tag=tendoryuberlin) 
+  * [Git Pocket Guide](https://www.amazon.de/Git-Pocket-Guide-Richard-Silverman/dp/1449325866?tag=tendoryuberlin)
 
 ## License
 
 * Copyright © 2017 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
-
- 
