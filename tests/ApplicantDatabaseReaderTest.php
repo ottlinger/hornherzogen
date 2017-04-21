@@ -162,4 +162,10 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL AND a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
     }
 
+    public function testGetPaidButNotConfirmedApplicants()
+    {
+        $this->assertEmpty($this->reader->getPaidButNotConfirmedApplicants());
+
+    }
+
 }
