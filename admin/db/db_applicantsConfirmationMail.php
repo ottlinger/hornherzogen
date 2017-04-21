@@ -127,8 +127,7 @@ $statusReader = new StatusDatabaseReader();
             </div>
 
             <?php
-            // TODO #91: replace with correct implementation
-            $applicants = $applicantReader->listByFlexibilityPerWeek($week);
+            $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
 
             $isDisabled = empty($applicants);
 

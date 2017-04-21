@@ -43,66 +43,77 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->listByFoodCategoryPerWeek(NULL));
     }
 
-    public function testGetById() {
+    public function testGetById()
+    {
         $this->assertEmpty($this->reader->getById(NULL));
         $this->assertEmpty($this->reader->getById(4711));
     }
 
-    public function testSortedByFlexibility() {
+    public function testSortedByFlexibility()
+    {
         $filteredByFlexibility = $this->reader->listByFlexibilityPerWeek(NULL);
         $this->assertEmpty($filteredByFlexibility);
     }
 
-    public function testBuildQueryWithoutWeekParameter() {
+    public function testBuildQueryWithoutWeekParameter()
+    {
         $sql = $this->reader->buildQuery(NULL);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a ORDER by a.week, a.room", $sql);
     }
 
-    public function testBuildQueryWithWeekParameter() {
+    public function testBuildQueryWithWeekParameter()
+    {
         $week = "MyWeek";
         $sql = $this->reader->buildQuery($week);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.room", $sql);
     }
 
-    public function testGetGroupByCountryWithoutWeek() {
+    public function testGetGroupByCountryWithoutWeek()
+    {
         $this->assertEmpty($this->reader->groupByOriginByWeek(NULL));
     }
 
-    public function testBuildByCountryQueryWithoutWeekParameter() {
+    public function testBuildByCountryQueryWithoutWeekParameter()
+    {
         $sql = $this->reader->buildGroupByCountryQuery(NULL);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT a.country, count(*) as ccount FROM `applicants` a GROUP BY a.country", $sql);
     }
 
-    public function testBuildByCountryQueryWithWeekParameter() {
+    public function testBuildByCountryQueryWithWeekParameter()
+    {
         $week = "MyWeek";
         $sql = $this->reader->buildGroupByCountryQuery($week);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT a.country, count(*) as ccount FROM `applicants` a WHERE a.week LIKE '%MyWeek%' GROUP BY a.country", $sql);
     }
 
-    public function testFoodQueryWithoutWeekParameter() {
+    public function testFoodQueryWithoutWeekParameter()
+    {
         $sql = $this->reader->buildFoodQuery(NULL);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a ORDER by a.week, a.essen", $sql);
     }
 
-    public function testFoodQueryWithWeekParameter() {
+    public function testFoodQueryWithWeekParameter()
+    {
         $week = "MyWeek";
         $sql = $this->reader->buildFoodQuery($week);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.essen", $sql);
     }
 
-    public function testFlexibilityQueryWithoutWeekParameter() {
+    public function testFlexibilityQueryWithoutWeekParameter()
+    {
         $sql = $this->reader->buildFlexibilityQuery(NULL);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a WHERE flexible in ('yes', '1')", trim($sql));
     }
 
-    public function testFlexibilityQueryWithWeekParameter() {
+    public function testFlexibilityQueryWithWeekParameter()
+    {
         $week = "MyWeek";
         $sql = $this->reader->buildFlexibilityQuery($week);
         $this->assertNotEmpty($sql);
@@ -120,17 +131,35 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEquals(0, sizeof($this->reader->getAllByWeek("week1")));
     }
 
-    public function testGetAllQueryWithoutWeekParameter() {
+    public function testGetAllQueryWithoutWeekParameter()
+    {
         $sql = $this->reader->buildGetAllQuery(NULL);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a ORDER BY a.created", trim($sql));
     }
 
-    public function testGetAllQueryWithWeekParameter() {
+    public function testGetAllQueryWithWeekParameter()
+    {
         $week = "MyWeek";
         $sql = $this->reader->buildGetAllQuery($week);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
+    }
+
+    public function testPaidButNotConfirmedQueryWithoutWeek()
+    {
+        $sql = $this->reader->buildPaidButNotConfirmedQuery(NULL);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL ORDER BY a.created", trim($sql));
+
+    }
+
+    public function testPaidButNotConfirmedQueryWithWeek()
+    {
+        $week = "MyWeek";
+        $sql = $this->reader->buildPaidButNotConfirmedQuery($week);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL AND a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
     }
 
 }
