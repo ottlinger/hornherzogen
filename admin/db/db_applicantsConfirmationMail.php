@@ -133,13 +133,6 @@ $statusReader = new StatusDatabaseReader();
             $isDisabled = empty($applicants);
 
             ?>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default btn-primary <?php if ($isDisabled) echo "disabled"; ?>"
-                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>">Klicke hier, um Mails an
-                    alle <?php echo sizeof($applicants); ?> aus der Liste versenden
-                </button>
-            </div>
-
             <noscript>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -147,6 +140,20 @@ $statusReader = new StatusDatabaseReader();
                     </div>
                 </div>
             </noscript>
+        </form>
+
+    <?php
+    // If the button is hit different actions are triggerd thus we need a different form
+    ?>
+        <form target="_blank" class="form-horizontal" method="post" action="db_sendConfirmation.php">
+            <div class="form-group">
+                <input type="hidden" name="makeItSo" value="yesSir"/>
+                <input type="hidden" name="week" value="<?php echo $week; ?>"/>
+                <button type="submit" class="btn btn-default btn-primary <?php if ($isDisabled) echo "disabled"; ?>"
+                        title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>">Klicke hier, um Mails an
+                    alle <?php echo sizeof($applicants); ?> aus der Liste versenden
+                </button>
+            </div>
         </form>
     <?php
 
@@ -195,11 +202,11 @@ $statusReader = new StatusDatabaseReader();
             echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
             echo "</td>";
             echo "</tr>";
+            // #91: move to sendConfirmation
             // send mail if submit is hit
-//            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sendMail'])) {
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo']) && 'yesSir' == $_POST['makeItSo']) {
                 $mailer = new ConfirmationMailer($applicant->getPersistenceId());
-                echo "<tr><td colspan='5'>WÜRDE SENDEN</td></tr>";
+                echo "<tr><td colspan='10'>WÜRDE SENDEN</td></tr>";
             }
         }
         echo "</tbody>";
