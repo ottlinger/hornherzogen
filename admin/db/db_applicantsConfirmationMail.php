@@ -198,7 +198,7 @@ $statusReader = new StatusDatabaseReader();
             // send mail if submit is hit
 //            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sendMail'])) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $mailer = new ConfirmationMailer($applicant);
+                $mailer = new ConfirmationMailer($applicant->getPersistenceId());
                 echo "<tr><td colspan='5'>WÜRDE SENDEN</td></tr>";
             }
         }
