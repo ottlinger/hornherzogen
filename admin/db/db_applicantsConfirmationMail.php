@@ -8,6 +8,7 @@ use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
+use hornherzogen\mail\ConfirmationMailer;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
@@ -133,7 +134,7 @@ $statusReader = new StatusDatabaseReader();
 
             ?>
             <div class="form-group">
-                <button type="submit" class="btn btn-default btn-primary <?php if($isDisabled) echo "disabled"; ?>"
+                <button type="submit" class="btn btn-default btn-primary <?php if ($isDisabled) echo "disabled"; ?>"
                         title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>">Klicke hier, um Mails an
                     alle <?php echo sizeof($applicants); ?> aus der Liste versenden
                 </button>
@@ -194,6 +195,12 @@ $statusReader = new StatusDatabaseReader();
             echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
             echo "</td>";
             echo "</tr>";
+            // send mail if submit is hit
+//            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sendMail'])) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $mailer = new ConfirmationMailer($applicant);
+                echo "<tr><td colspan='5'>WÜRDE SENDEN</td></tr>";
+            }
         }
         echo "</tbody>";
         echo "</table></div>";
