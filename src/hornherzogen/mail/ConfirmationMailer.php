@@ -83,7 +83,7 @@ class ConfirmationMailer
         if ($this->config->sendregistrationmails()) {
             mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
-            $this->applicant->setPaymentRequestedAt($appliedAt);
+            $this->applicant->setConfirmed($appliedAt);
 
             return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt) . "</h3>";
         }
@@ -123,7 +123,6 @@ class ConfirmationMailer
                 <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
                 <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
                 <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicant->getWeek() . "/" . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '/#' . $this->applicant->getPersistenceId() . '</li>
-                <li>Betrag: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
                 <h3>
@@ -171,14 +170,6 @@ class ConfirmationMailer
     </html>';
 
         return $mailtext;
-    }
-
-    public function getSeminarPrice()
-    {
-        if ($this->hasValidApplicant() && NULL != $this->applicant->getTwaNumber() && strlen($this->applicant->getTwaNumber())) {
-            return "250,00 €";
-        }
-        return "300,00 €";
     }
 
     /**
