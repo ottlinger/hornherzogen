@@ -154,7 +154,11 @@ $week = NULL;
                 echo "<tbody>";
 
                 if (empty($applicants)) {
-                    echo "<tr><td colspan='5'>keine vorhanden</td></tr>";
+                    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                        echo "<tr><td colspan='6'>keine vorhanden</td></tr>";
+                    } else {
+                        echo "<tr><td colspan='5'>keine vorhanden</td></tr>";
+                    }
                 }
 
                 foreach ($applicants as $applicant) {
