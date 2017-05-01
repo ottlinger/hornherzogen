@@ -16,7 +16,7 @@ class DatabaseHelper
     }
 
     /**
-     * Trims given data and surrounds with quotes for SQL insertion.
+     * Trims given data and surrounds with quotes for SQL insertion after removing any XSS stuff.
      * @param $input
      * @return null|string
      */
@@ -24,7 +24,7 @@ class DatabaseHelper
     {
         $trimmed = $this->emptyToNull($input);
         if (boolval($trimmed)) {
-            return '\'' . $trimmed . '\'';
+            return '\'' . $this->formHelper->filterUserInput($trimmed) . '\'';
         }
         return NULL;
     }
