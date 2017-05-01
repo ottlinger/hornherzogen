@@ -61,7 +61,7 @@ class ApplicantDatabaseParserTest extends TestCase
         $expected = "INSERT INTO applicants (language,week,gender,email,city,country,vorname,nachname,combinedName,street,houseno,plz,grad,gradsince,twano,room,together1,together2,essen,flexible,additionals,statusId,dojo) VALUES ('ru','1','unknown','foo@bar.com','Berlin','DE','Egon','Balder','Egon Balder','UpDeStraat','1','2','shodan','2017-01-01','DE1234','1a','P1','P2','hungry','1','Just a test',1,'KaiShinKan')";
         $this->assertStringStartsWith("INSERT INTO applicants (", $this->writer->getInsertIntoSql());
         $this->assertEquals($expected, $this->writer->getInsertIntoSql());
-        $this->assertEquals(22, sizeof($this->writer->getInsertIntoValues()));
+        $this->assertEquals(23, sizeof($this->writer->getInsertIntoValues()));
     }
 
     public function testParsingOfPotentiallyNullableStrings()
