@@ -32,6 +32,7 @@ if (!isset($id)) {
     die();
 }
 
+$week = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
     $week = $formHelper->filterUserInput($_GET['week']);
 }
