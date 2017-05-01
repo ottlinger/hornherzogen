@@ -33,6 +33,34 @@ class AdminHelperTest extends TestCase
         $this->assertInstanceOf('hornherzogen\AdminHelper', $this->adminHelper);
     }
 
+    public function testIsAdminWithMultipleConfiguredSuperusers()
+    {
+        $GLOBALS["horncfg"]["superuser"] = "emil,walter,bernhard";
+        $_SERVER['PHP_AUTH_USER'] = "emil";
+        $this->assertTrue($this->adminHelper->isAdmin());
+    }
+
+    public function testIsAdminWithSingleConfiguredSuperusers()
+    {
+        $GLOBALS["horncfg"]["superuser"] = "emil";
+        $_SERVER['PHP_AUTH_USER'] = "emil";
+        $this->assertTrue($this->adminHelper->isAdmin());
+    }
+
+    public function testIsAdminWithMultipleConfiguredSuperusersNegativeTestcase()
+    {
+        $GLOBALS["horncfg"]["superuser"] = "emil,limel";
+        $_SERVER['PHP_AUTH_USER'] = "walter";
+        $this->assertFalse($this->adminHelper->isAdmin());
+    }
+
+    public function testIsAdminWithSingleConfiguredSuperusersNegativeTestcase()
+    {
+        $GLOBALS["horncfg"]["superuser"] = "emil";
+        $_SERVER['PHP_AUTH_USER'] = "walter";
+        $this->assertFalse($this->adminHelper->isAdmin());
+    }
+
     public function testIsAdminWithoutConfigurationKey()
     {
         $GLOBALS["horncfg"]["superuser"] = NULL;

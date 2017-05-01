@@ -36,7 +36,7 @@ class AdminHelper
 
     public function isAdmin()
     {
-        if (NULL != $this->config->superuser() && strpos($this->getUserName(), $this->config->superuser()) !== FALSE) {
+        if (NULL != $this->config->superuser() && strpos($this->config->superuser(), $this->getUserName()) !== FALSE) {
             return true;
         }
         return false;
