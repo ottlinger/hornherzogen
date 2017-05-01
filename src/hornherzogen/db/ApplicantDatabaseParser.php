@@ -144,6 +144,11 @@ class ApplicantDatabaseParser
             $this->placeholder[] = 'statusId';
         }
 
+        if (boolval($this->databaseHelper->emptyToNull($this->applicant->getDojo()))) {
+            $this->values[] = $this->databaseHelper->trimAndMask($this->applicant->getDojo());
+            $this->placeholder[] = 'dojo';
+        }
+
         // we silently ignore all status fields here since parser is *Yet* only used for initial save to the database
         /*
              $applicant->setCreatedAt($row['created']);
