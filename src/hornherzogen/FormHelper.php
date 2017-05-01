@@ -92,6 +92,8 @@ class FormHelper
             $data = trim('' . $data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
+            // manual hack to replace quotes here in order to make stuff more DB/MySQL compliant
+            $data = strtr($data, array("'" => "\'"));
         }
         return $data;
     }

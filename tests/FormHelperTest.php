@@ -40,6 +40,19 @@ class FormHelperTest extends TestCase
         $this->assertEquals('&lt;html/&gt;', $this->formHelper->filterUserInput($dataIn));
     }
 
+    public function testFilterOutSingleQuotes()
+    {
+        // REVIEW dirty hack, we should use PDO's builtin mask functionality to get rid of single quotes when inserting into MySQL
+        $dataIn = " If it's convenient do it <> properly ";
+        $this->assertEquals("If it\\'s convenient do it &lt;&gt; properly", $this->formHelper->filterUserInput($dataIn));
+    }
+
+    public function testFilterOutQuotes()
+    {
+        $dataIn = ' If it"s convenient do it <> properly ';
+        $this->assertEquals('If it&quot;s convenient do it &lt;&gt; properly', $this->formHelper->filterUserInput($dataIn));
+    }
+
     public function testFilterOutDoesNotChangeContestsItself()
     {
         $dataIn = ' html    ';

@@ -28,6 +28,10 @@ class ApplicantDatabaseParser
     private function prepare()
     {
         $this->parseValues();
+        /* REVIEW: To avoid XSS/SQL-injection we should we find a way to use PDO's builtin feature:
+        $stmt = $dbh->prepare("SELECT * FROM user WHERE name = ?");
+        $stmt->bindParam(1, $name);
+        */
         $this->sql = "INSERT INTO applicants (" . implode(",", $this->placeholder) . ") VALUES (" . implode(",", $this->values) . ")";
     }
 
