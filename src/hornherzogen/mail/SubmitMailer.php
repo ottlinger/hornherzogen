@@ -109,6 +109,7 @@ class SubmitMailer
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
                 <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
                 <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
+                <li>PLZ: ' . $this->applicationInput->getZipCode() . '</li>
                 <li>Land: ' . $this->applicationInput->getCountry() . '</li>
                 <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
                 <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
@@ -170,6 +171,7 @@ class SubmitMailer
                 <li>Flexible? ' . ($this->applicationInput->getFlexible() == 1 ? 'yes' : 'no') . '</li>
                 <li>Address: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
                 <li>City: ' . $this->applicationInput->getCity() . '</li>
+                <li>Zipcode: ' . $this->applicationInput->getZipCode() . '</li>
                 <li>Country: ' . $this->applicationInput->getCountry() . '</li>
                 <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
                 <li>TWA-number: ' . $this->applicationInput->getTwaNumber() . '</li>
@@ -286,6 +288,7 @@ class SubmitMailer
                 <li>Umbuchbar? ' . ($this->applicationInput->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
                 <li>Adresse: ' . $this->applicationInput->getStreet() . ' ' . $this->applicationInput->getHouseNumber() . '</li>
                 <li>Stadt: ' . $this->applicationInput->getCity() . '</li>
+                <li>PLZ: ' . $this->applicationInput->getZipCode() . '</li>
                 <li>Land: ' . $this->applicationInput->getCountry() . '</li>
                 <li>Dojo:  ' . $this->applicationInput->getDojo() . '</li>
                 <li>TWA: ' . $this->applicationInput->getTwaNumber() . '</li>
