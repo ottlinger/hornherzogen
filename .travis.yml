@@ -13,8 +13,8 @@ before_script:
 
 # Explicitly use the phpunit from composer, not any system-wide found
 script: 
-  - vendor/bin/phpunit -c phpunit.xml --coverage-clover=coverage.xml --testdox tests
-#  - vendor/bin/phpunit -c phpunit.xml --coverage-clover=coverage.xml tests
+#  - vendor/bin/phpunit -c phpunit.xml --coverage-clover=coverage.xml --testdox tests
+  - vendor/bin/phpunit -c phpunit.xml --coverage-clover=coverage.xml tests
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
