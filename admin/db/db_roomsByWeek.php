@@ -147,10 +147,10 @@ $roomReader = new RoomDatabaseReader();
 
     foreach ($rooms as $room) {
         echo "<tr>";
-        echo "<td>" . $room[roomname] . "</td>";
-        echo "<td>" . $room[capacity] . "</td>";
-        echo "<td>" . $room[combinedName] . "</td>";
-        echo "<td>" . $room[week] . "</td>";
+        echo "<td>" . $room['roomname'] . "</td>";
+        echo "<td>" . $room['capacity'] . "</td>";
+        echo "<td>" . $room['combinedName'] . "</td>";
+        echo "<td>" . $room['week'] . "</td>";
         echo "</tr>";
     }
     echo "</tbody>";

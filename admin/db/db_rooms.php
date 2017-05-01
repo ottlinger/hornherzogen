@@ -112,10 +112,10 @@ $roomReader = new RoomDatabaseReader();
 
                 foreach ($rooms as $room) {
                     echo "<tr>";
-                    echo "<td>" . $room[name] . "</td>";
-                    $roomCount += $room[capacity];
-                    echo "<td>" . $room[capacity] . "</td>";
-                    echo "<td>Starte <a href='db_book.php?id=" . $room[id] . "'>Buchen</a> für Raum " . $room[name] . "</td>";
+                    echo "<td>" . $room['name'] . "</td>";
+                    $roomCount += $room['capacity'];
+                    echo "<td>" . $room['capacity'] . "</td>";
+                    echo "<td>Starte <a href='db_book.php?id=" . $room['id'] . "'>Buchen</a> für Raum " . $room['name'] . "</td>";
                     echo "</tr>";
                 }
                 // stats

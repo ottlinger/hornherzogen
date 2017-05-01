@@ -146,6 +146,7 @@ $statusReader = new StatusDatabaseReader();
     echo "<th>Nachname</th>";
     echo "<th>Essen</th>";
     echo "<th>Sprache/Land</th>";
+    echo "<th>Dojo/Stadt</th>";
     echo "<th>E-Mail</th>";
     echo "<th>Anmerkungen</th>";
     echo "<th>aktueller Status</th>";
@@ -168,6 +169,7 @@ $statusReader = new StatusDatabaseReader();
         echo "<td>" . $applicant->getLastname() . "</td>";
         echo "<td>" . $applicant->getFoodCategory() . "</td>";
         echo "<td>" . $applicant->getLanguage() . " aus " . $applicant->getCountry() . "</td>";
+        echo "<td>" . $applicant->getDojo() . " / " . $applicant->getCity() . "</td>";
 
         $generator = new FlexibilityMailGenerator($applicant);
         echo "<td><a href=\"" . $formHelper->convertToValidMailto($applicant->getEmail(), $config->registrationmail(), $generator->getSubject(), $generator->getBody()) . "\">" . $applicant->getEmail() . "</a></td>";

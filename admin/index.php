@@ -95,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li><a href="db/db_applicantsFlexible.php">umbuchbare Anmeldungen zeigen</a></li>
                         <li><a href="db/db_applicantsFoodlist.php">Essensliste pro Woche ansehen</a></li>
                         <li><a href="db/db_roomsByWeek.php">Raumplan pro Woche anschauen</a></li>
+                        <li><a href="db/db_rooms.php">Gesamtraumübersicht</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">zur Prüfung</li>
                         <li><a href="db/db_booking_errors.php">Fehlerübersicht Raumbuchungen</a></li>

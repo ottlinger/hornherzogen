@@ -162,7 +162,7 @@ $week = NULL;
                 }
 
                 foreach ($applicants as $applicant) {
-                    $bookingId = $applicant[id];
+                    $bookingId = $applicant['id'];
                     echo "<tr>";
                     echo "<td>" . $bookingId . "</td>";
                     if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
@@ -173,10 +173,10 @@ $week = NULL;
                                 </form>
                             </td>';
                     }
-                    echo "<td>" . $applicant[week] . "</td>";
-                    echo "<td>" . $applicant[roomname] . "</td>";
-                    echo "<td>" . $applicant[capacity] . "</td>";
-                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicant[applicantId] . "\">" . $applicant[combinedName] . "</a></td>";
+                    echo "<td>" . $applicant['week'] . "</td>";
+                    echo "<td>" . $applicant['roomname'] . "</td>";
+                    echo "<td>" . $applicant['capacity'] . "</td>";
+                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicant['applicantId'] . "\">" . $applicant['combinedName'] . "</a></td>";
 
                     echo "</tr>";
                 }
