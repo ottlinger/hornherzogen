@@ -244,13 +244,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
         foreach ($_POST['applicantId'] as $submittedApplicantId) {
             $iid = $formHelper->filterUserInput($_POST['id']);
-            // WEEK is not taken care of
-            //if ($roomWriter->canRoomBeBooked($iid)) {
-            $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
-            if (NULL != $persistId) {
-                echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
-                $_POST['applicantId'] = NULL;
-                //  }
+            if ($roomWriter->canRoomBeBooked($iid)) {
+                $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
+                if (NULL != $persistId) {
+                    echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
+                    $_POST['applicantId'] = NULL;
+                }
             } else {
                 echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
             }

@@ -48,7 +48,8 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
             $this->databaseHelper->logDatabaseErrors($result, $this->database);
 
             while ($row = $result->fetch()) {
-                return $row['capacity'] > $row['bookings'];
+                // 2 per week, thus multiply by 2
+                return (2 * $row['capacity']) > $row['bookings'];
             }
         }
         return FALSE;
