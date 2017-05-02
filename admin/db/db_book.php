@@ -246,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             $iid = $formHelper->filterUserInput($_POST['id']);
 
             // skip no selection
-            if("(none)" == $submittedApplicantId) {
+            if ("(none)" == $submittedApplicantId) {
                 continue;
             }
 
@@ -307,7 +307,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
         echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
         echo "<td>" . $applicant->getFullName() . "</td>";
-        echo "<td>" . $applicant->getDojo() . "</td>";
+        echo "<td>" . $applicant->getDojo() . " in " . $applicant->getCity() . "</td>";
         echo "<td>" . $applicant->getRoom() . "</td>";
         echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " / " . $applicant->getPartnerTwo() : "keiner") . "</td>";
         echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
