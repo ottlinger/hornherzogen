@@ -244,6 +244,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
         foreach ($_POST['applicantId'] as $submittedApplicantId) {
             $iid = $formHelper->filterUserInput($_POST['id']);
+
+            // skip no selection
+            if("(none)" == $submittedApplicantId) {
+                continue;
+            }
+
             if ($roomWriter->canRoomBeBooked($iid)) {
                 $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
                 if (NULL != $persistId) {

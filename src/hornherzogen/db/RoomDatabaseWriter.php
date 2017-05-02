@@ -39,7 +39,7 @@ class RoomDatabaseWriter extends BaseDatabaseWriter
     /**
      * Retrieve if the given roomId can be booked. Returns false in case no database initialized!
      * @param $roomId
-     * @return bool true iff the given roomId has less bookings than capacity, false otherwise.
+     * @return bool true iff the given roomId has less bookings than 2 * capacity, false otherwise.
      */
     public function canRoomBeBooked($roomId)
     {
