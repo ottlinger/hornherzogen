@@ -137,7 +137,7 @@ $applicantReader = new ApplicantDatabaseReader();
                 echo "<th>RoomId</th>";
                 echo "<th>Zimmer</th>";
                 echo "<th>vorgenommene Buchungen</th>";
-                echo "<th>erlaubte Buchunge/Raumkapazität</th>";
+                echo "<th>erlaubte Buchungen/Raumkapazität</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
