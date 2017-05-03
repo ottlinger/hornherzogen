@@ -64,7 +64,8 @@ class BookingErrorChecker extends BaseDatabaseWriter
     {
         $results = array();
         if (self::isHealthy()) {
-            $query = "select b.roomId, count(*) as bookingcount, r.capacity, r.name from roombooking b, rooms r where r.id=b.roomId group by b.roomId having bookingcount>r.capacity;";
+            // Issue #96: multiply by 2 for al weeks
+            $query = "select b.roomId, count(*) as bookingcount, r.capacity, r.name from roombooking b, rooms r where r.id=b.roomId group by b.roomId having bookingcount>(2*r.capacity);";
             $dbResult = $this->database->query($query);
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
