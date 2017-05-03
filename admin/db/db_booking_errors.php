@@ -151,7 +151,8 @@ $applicantReader = new ApplicantDatabaseReader();
                     echo "<td>" . $row['roomId'] . "</td>";
                     echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['bookingcount'] . "</td>";
-                    echo "<td>" . $row['capacity'] . "</td>";
+                    // Issue #96: add 2 for both weeks
+                    echo "<td>" . (2 * $row['capacity']) . "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";
