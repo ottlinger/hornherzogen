@@ -19,6 +19,20 @@ $config = new ConfigurationWrapper();
 $reader = new ApplicantDatabaseReader();
 $statusReader = new StatusDatabaseReader();
 $stateChanger = new ApplicantStateChanger();
+
+// TODO extract somewhere
+// retrieve currentState of selected applicant
+function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader)
+{
+    if (isset($applicantId) && strlen($applicantId)) {
+        $asApplicant = $appDBReader->getById($applicantId);
+        if (isset($asApplicant) && NULL != $asApplicant) {
+            return $statusDBReader->getById($asApplicant[0]->getCurrentStatus());
+        }
+    }
+    return NULL;
+}
+
 ?>
 <html lang="en">
 <head>
@@ -116,9 +130,18 @@ $stateChanger = new ApplicantStateChanger();
 
             // perform any changes or actions
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid)) {
-                echo "<h3>Statusänderung von #" . $aid . " auf " . $sid . " war ";
-                echo $stateChanger->changeStateTo($aid, $sid) ? '' : 'nicht ';
-                echo "erfolgreich</h3>";
+
+                // do not change to same status if appicant has that status already
+                // in order to prevent double mails upon accidental clicks or "I just want to have a look" auto-submits of fields week or applicant
+                $stateInDB = getCurrentStatusOfApplicant($aid, $reader, $statusReader);
+
+                if (isset($stateInDB) && sizeof($stateInDB) > 0 && $stateInDB[0]['id'] === $sid) {
+                    echo "<h3>Keine Änderung gemacht, da nur Daten angezeigt werden</h3>";
+                } else {
+                    echo "<h3>Statusänderung von #" . $aid . " auf " . $sid . " war ";
+                    echo $stateChanger->changeStateTo($aid, $sid) ? '' : 'nicht ';
+                    echo "erfolgreich</h3>";
+                }
             }
 
             if ($config->isValidDatabaseConfig()) {
@@ -167,13 +190,7 @@ $stateChanger = new ApplicantStateChanger();
             </div>
 
             <?php
-            // retrieve currentState of selected applicant
-            if (isset($aid) && strlen($aid)) {
-                $asApplicant = $reader->getById($aid);
-                if (isset($asApplicant) && NULL != $asApplicant) {
-                    $currentStatus = $statusReader->getById($asApplicant[0]->getCurrentStatus());
-                }
-            }
+            $currentStatus = getCurrentStatusOfApplicant($aid, $reader, $statusReader);
             ?>
 
             <div class="form-group">
@@ -187,7 +204,7 @@ $stateChanger = new ApplicantStateChanger();
                             $statusId = $status['id'];
                             $selectedStatus = ((isset($currentStatus) && !empty($currentStatus) && $statusId === $currentStatus[0]['id']) ? ' selected' : '');
                             $name = $status['name'];
-                            echo "<option value=\"" . $statusId . "\" " . $selectedStatus . ">" . $name .$statusReader->adminAdditionalTextForState($name). "</option>";
+                            echo "<option value=\"" . $statusId . "\" " . $selectedStatus . ">" . $name . $statusReader->adminAdditionalTextForState($name) . "</option>";
                         }
                         ?>
                     </select>
