@@ -200,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <select class="form-control" id="applicantId[<?php echo $personNumber; ?>]"
                                 name="applicantId[<?php echo $personNumber; ?>]">
                             <?php
-                            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'applicantId')) {
+                            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'applicantId') && sizeof($_POST['applicantId']) > $personNumber) {
                                 $applicantId = $formHelper->filterUserInput($_POST['applicantId'][$personNumber]);
                             } else {
                                 $applicantId = "(none)";
