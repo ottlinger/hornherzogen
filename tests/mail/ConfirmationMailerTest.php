@@ -19,7 +19,7 @@ class ConfirmationMailerTest extends TestCase
         $GLOBALS['horncfg']['sendregistrationmails'] = false;
         $GLOBALS['horncfg']['sendinternalregistrationmails'] = false;
 
-        $this->mailer = new ConfirmationMailer(ConfirmationMailer::TEST_APPLICANT_ID);
+        $this->mailer = new ConfirmationMailer(ConfirmationMailer::TEST_APPLICANT);
     }
 
     /**

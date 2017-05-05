@@ -186,7 +186,7 @@ $statusReader = new StatusDatabaseReader();
             echo "<td>" . $applicant->getPersistenceId() . "</td>";
             echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
             echo "<td>" . $applicant->getFullName() . "</td>";
-            echo "<td>" . $applicant->getDojo() . "</td>";
+            echo "<td>" . $applicant->getDojo() . " in " . $applicant->getCity() . "</td>";
             echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
 
             $statId = $statusReader->getById($applicant->getCurrentStatus());
@@ -205,7 +205,7 @@ $statusReader = new StatusDatabaseReader();
             // #91: move to sendConfirmation
             // send mail if submit is hit
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo']) && 'yesSir' == $_POST['makeItSo']) {
-                $mailer = new ConfirmationMailer($applicant->getPersistenceId());
+                $mailer = new ConfirmationMailer($applicants);
                 echo "<tr><td colspan='10'>WÜRDE SENDEN</td></tr>";
             }
         }
