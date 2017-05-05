@@ -8,7 +8,6 @@ use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
-use hornherzogen\mail\ConfirmationMailer;
 
 $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
@@ -16,7 +15,6 @@ $formHelper = new FormHelper();
 $applicantReader = new ApplicantDatabaseReader();
 $config = new ConfigurationWrapper();
 $statusReader = new StatusDatabaseReader();
-
 ?>
 <html lang="en">
 <head>
@@ -202,12 +200,6 @@ $statusReader = new StatusDatabaseReader();
             echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
             echo "</td>";
             echo "</tr>";
-            // #91: move to sendConfirmation
-            // send mail if submit is hit
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo']) && 'yesSir' == $_POST['makeItSo']) {
-                $mailer = new ConfirmationMailer($applicants);
-                echo "<tr><td colspan='10'>WÜRDE SENDEN</td></tr>";
-            }
         }
         echo "</tbody>";
         echo "</table></div>";

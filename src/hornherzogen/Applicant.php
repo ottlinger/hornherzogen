@@ -41,18 +41,18 @@ class Applicant
     private $remarks;
 
     // Admin-related stuff
-    private $persistenceId; // date when status was set to APPLIED
-    private $createdAt; // date when status was set to CONFIRMED
-    private $confirmedAt; // reference to other table, final room at Herzogenhorn
-    private $finalRoom; // name in other table
-    private $currentStatus; // when the mail was sent and status changed to REGISTERED
-    private $mailedAt; // when the mail to pay was sent and status changed to WAITING_FOR_PAYMENT
-    private $paymentRequestedAt; // when the payment was received successfully and status changed to PAID
-    private $paymentReceivedAt;// final confirmation is sent out and status changed to BOOKED
-    private $bookedAt; // data at which an applicant cancelled his/her booking
+    private $persistenceId;
+    private $createdAt; // date when status was set to APPLIED
+    private $confirmedAt; // date when status was set to CONFIRMED
+    private $finalRoom; // reference to other table, final room at Herzogenhorn name in other table
+    private $currentStatus;
+    private $mailedAt; // when the mail was sent and status changed to REGISTERED
+    private $paymentRequestedAt; // when the mail to pay was sent and status changed to WAITING_FOR_PAYMENT
+    private $paymentReceivedAt; // when the payment was received successfully and status changed to PAID
+    private $bookedAt; // final confirmation is sent out and status changed to BOOKED
 
     // TECHNICAL attributes
-    private $cancelledAt;
+    private $cancelledAt; // data at which an applicant cancelled his/her booking
 
     function __construct()
     {
