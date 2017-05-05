@@ -69,9 +69,10 @@ class ConfirmationMailer
 
     public function sendAsBatch()
     {
-        $counter = 1;
+        $counter = 0;
         foreach ($this->applicants as $applicant) {
-            echo "<h2>Sending out to applicant #" . $counter . " / " . $applicant->getFullName() . "</h2>";
+            echo "<h2>Sending out to applicant #" . $counter++ . " / " . $applicant->getFullName() . "</h2>";
+
             // get a fresh timestamp
             $this->formHelper = new FormHelper();
 
