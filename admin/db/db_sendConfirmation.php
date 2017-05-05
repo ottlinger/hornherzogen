@@ -95,10 +95,6 @@ $config = new ConfigurationWrapper();
 
         <p>
             <?php
-
-            // REMOVE ME later :-D
-            var_dump($_POST);
-
             // TODO einbauen, dass auf richtigen Header geschaut wird - makeItSo == yesSir
 
             $week = NULL;
@@ -112,58 +108,7 @@ $config = new ConfigurationWrapper();
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
 
                 $mailer = new ConfirmationMailer($applicants);
-                $isDisabled = empty($applicants);
-
-                // only show UI if any applicants
-                if (!$isDisabled) {
-                    echo '<hr/><div class="table-responsive"><table class="table table-striped">';
-                    echo "<thead>";
-                    echo "<tr>";
-                    echo "<th>DB-Id</th>";
-                    echo "<th>Anrede</th>";
-                    echo "<th>Name</th>";
-                    echo "<th>Dojo</th>";
-                    echo "<th>Anmerkungen</th>";
-                    echo "<th>aktueller Status</th>";
-                    echo "<th>angemeldet</th>";
-                    echo "<th>Zahlung angefordert</th>";
-                    echo "<th>Zahlung eingegangen</th>";
-                    echo "<th>auf finalen Status gesetzt</th>";
-                    echo "</tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-
-                    function textIfEmpty($input)
-                    {
-                        return ($input ? "<span class=\"glyphicon glyphicon-check\"></span> " . $input : "<span class=\"glyphicon glyphicon-pencil\"></span> noch nicht");
-                    }
-
-                    foreach ($applicants as $applicant) {
-                        echo "<tr>";
-                        echo "<td>" . $applicant->getPersistenceId() . "</td>";
-                        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-                        echo "<td>" . $applicant->getFullName() . "</td>";
-                        echo "<td>" . $applicant->getDojo() . " in " . $applicant->getCity() . "</td>";
-                        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-
-                        $statId = $statusReader->getById($applicant->getCurrentStatus());
-                        if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-                            echo "<td>" . $statId[0]['name'] . "</td>";
-                        } else {
-                            echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-                        }
-
-                        echo "<td>" . textIfEmpty($applicant->getCreatedAt()) . "</td>";
-                        echo "<td>" . textIfEmpty($applicant->getPaymentRequestedAt()) . "</td>";
-                        echo "<td>" . textIfEmpty($applicant->getPaymentReceivedAt()) . "</td>";
-                        echo "<td>" . textIfEmpty($applicant->getBookedAt()) . "</td>";
-                        echo "</td>";
-                        echo "</tr>";
-                    }
-                    echo "</tbody>";
-                    echo "</table></div>";
-                    echo "<a href=\"#top\"><span class=\"glyphicon glyphicon-list-alt\"></span> back to top</a><hr />";
-                } // end if empty
+                echo $mailer->sendAsBatch();
 
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";

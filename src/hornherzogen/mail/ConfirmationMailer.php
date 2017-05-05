@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace hornherzogen\mail;
 
+use hornherzogen\admin\BankingConfiguration;
 use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
-use hornherzogen\admin\BankingConfiguration;
 use MessageFormatter;
 
 /**
@@ -32,20 +32,6 @@ class ConfirmationMailer
     // defines how the success messages are being shown in the UI
     private $statusReader;
 
-    public static function createTestApplicants()
-    {
-        $testApplicant = new Applicant();
-        $testApplicant->setFirstname("Emil");
-        $testApplicant->setLastname("Mustermann");
-        $testApplicant->setTwaNumber("CC-0815");
-        $testApplicant->setPersistenceId(4711);
-        $testApplicant->setWeek(2);
-        $testApplicant->setLanguage('de');
-        $testApplicant->setCurrentStatus(6); // PAID
-        $testApplicant->setEmail("shouldnotwork"); // do not really send an email
-        return array($testApplicant);
-    }
-
     function __construct($applicants = NULL)
     {
         $this->reader = new ApplicantDatabaseReader();
@@ -67,42 +53,62 @@ class ConfirmationMailer
         date_default_timezone_set('Europe/Berlin');
     }
 
-    public function send()
+    public static function createTestApplicants()
     {
-        if (!$this->hasValidApplicant()) {
+        $testApplicant = new Applicant();
+        $testApplicant->setFirstname("Emil");
+        $testApplicant->setLastname("Mustermann");
+        $testApplicant->setTwaNumber("CC-0815");
+        $testApplicant->setPersistenceId(4711);
+        $testApplicant->setWeek(2);
+        $testApplicant->setLanguage('de');
+        $testApplicant->setCurrentStatus(6); // PAID
+        $testApplicant->setEmail("shouldnotwork"); // do not really send an email
+        return array($testApplicant);
+    }
+
+    public function sendAsBatch()
+    {
+        $counter = 1;
+        foreach ($this->applicants as $applicant) {
+            echo "<h2>Sending out to applicant #" . $counter . " / " . $applicant->getFullName() . "</h2>";
+            // get a fresh timestamp
+            $this->formHelper = new FormHelper();
+
+            echo $this->send($applicant);
+            echo $this->sendInternally($applicant);
+        }
+    }
+
+    function send($applicant)
+    {
+        if (!isset($applicant)) {
             return 'Nothing to send.';
         }
 
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
 
-        $withParam = new MessageFormatter($this->applicants->getLanguage(), $GLOBALS['messages'][$this->applicants->getLanguage()]["CMAIL.SUBJECT"]);
+        $withParam = new MessageFormatter($applicant->getLanguage(), $GLOBALS['messages']['' . $applicant->getLanguage()]["CMAIL.SUBJECT"]);
         $subject = $withParam->format(array($this->formHelper->timestamp()));
 
         // we need the key directly for the language of the applicant!
         $encoded_subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 
         if ($this->config->sendregistrationmails()) {
-            mail($this->applicants->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $mailResult = mail($applicant->getEmail(), $encoded_subject, $this->getMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
-            $this->applicants->setConfirmed($appliedAt);
-
-            return $this->uiPrefix . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt) . "</h3>";
+            $applicant->setBookedAt($appliedAt);
+            return $this->uiPrefix . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt . " returnCode:" . $mailResult) . "</h3>";
         }
 
         return '';
     }
 
-
-    public function hasValidApplicant()
-    {
-        return boolval($this->applicants != null && !(empty($this->applicants)));
-    }
-
-    public function getMailtext()
+    public function getMailtext($applicant)
     {
         // all non German customers will get an English mail
-        if ($this->applicants->getLanguage() != 'de') {
+        if ($applicant->getLanguage() != 'de') {
             return $this->getEnglishMailtext();
         }
 
@@ -111,20 +117,20 @@ class ConfirmationMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>finale Bestätigung Herzogenhorn Woche ' . $this->applicants->getWeek() . '</title >
+            <title>finale Bestätigung Herzogenhorn Woche ' . $applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicants->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $applicant->getWeek() . '</h1>
             <h2>
-                Hallo ' . $this->applicants->getFirstname() . ',</h2>
-                <p>wir haben die Lehrgangswoche ' . $this->applicants->getWeek() . ' soweit durchgeplant und bitten Dich innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
+                Hallo ' . $applicant->getFirstname() . ',</h2>
+                <p>wir haben die Lehrgangswoche ' . $applicant->getWeek() . ' soweit durchgeplant und bitten Dich innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
                 </p>
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
                 <li>Kontoinhaber: ' . $this->accountConfiguration->getAccountHolder() . '</li>
                 <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
                 <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicants->getWeek() . "/" . $this->applicants->getFirstname() . ' ' . $this->applicants->getLastname() . '/#' . $this->applicants->getPersistenceId() . '</li>
+                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $applicant->getWeek() . "/" . $applicant->getFirstname() . ' ' . $applicant->getLastname() . '/#' . $applicant->getPersistenceId() . '</li>
                 </ul>
                 </p>
                 <h3>
@@ -137,27 +143,27 @@ class ConfirmationMailer
         return $mailtext;
     }
 
-    public function getEnglishMailtext()
+    public function getEnglishMailtext($applicant)
     {
         $mailtext =
             '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Final confirmation for payment for Herzogenhorn seminar week ' . $this->applicants->getWeek() . '</title >
+            <title>Final confirmation for payment for Herzogenhorn seminar week ' . $applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicants->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $applicant->getWeek() . '</h1>
             <h2>
-                Hi ' . $this->applicants->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $this->applicants->getWeek() . ' 
+                Hi ' . $applicant->getFirstname() . ',</h2>
+                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $applicant->getWeek() . ' 
                 and would like to request your payment in the next 14 days in order to finally fulfil your seminar application.</p>
                 <p>Please use the following bank account and notes to transfer the money properly:
                 <ul>
                 <li>Account holder: ' . $this->accountConfiguration->getAccountHolder() . '</li>
                 <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
                 <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Reason for payment: Herzogenhorn seminar ' . $this->localizer->i18n('CONST.YEAR') . "/Week " . $this->applicants->getWeek() . "/" . $this->applicants->getFirstname() . ' ' . $this->applicants->getLastname() . '/#' . $this->applicants->getPersistenceId() . '</li>
+                <li>Reason for payment: Herzogenhorn seminar ' . $this->localizer->i18n('CONST.YEAR') . "/Week " . $applicant->getWeek() . "/" . $applicant->getFirstname() . ' ' . $applicant->getLastname() . '/#' . $applicant->getPersistenceId() . '</li>
                 <li>Amount: ' . $this->getSeminarPrice() . '</li>
                 </ul>
                 </p>
@@ -174,12 +180,9 @@ class ConfirmationMailer
         return $mailtext;
     }
 
-    /**
-     * Send mails to us after sending a mail to the person that registered.
-     */
-    public function sendInternally()
+    function sendInternally($applicant = NULL)
     {
-        if (!$this->hasValidApplicant()) {
+        if (!isset($applicant)) {
             return 'Nothing to send internally.';
         }
 
@@ -187,39 +190,38 @@ class ConfirmationMailer
 
             $replyto = $this->config->registrationmail();
 
-            $encoded_subject = "=?UTF-8?B?" . base64_encode("finale Bestätigung ausgesendet - Woche " . $this->applicants->getWeek()) . "?=";
+            $encoded_subject = "=?UTF-8?B?" . base64_encode("finale Bestätigung ausgesendet - Woche " . $applicant->getWeek()) . "?=";
             $headers = $this->headerGenerator->getHeaders($replyto);
 
-            mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $mailResult = mail($replyto, $encoded_subject, $this->getInternalMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('CMAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('CMAIL.INTERNAL', $this->formHelper->timestamp() . " returnCode: " . $mailResult) . "</h3>";
         }
         return '';
     }
 
-    public function getInternalMailtext()
+    public function getInternalMailtext($applicant)
     {
         $mailtext =
             '
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Lehrgangsbestätigung versendet für Woche ' . $this->applicants->getWeek() . '</title >
+            <title>Lehrgangsbestätigung versendet für Woche ' . $applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicants->getWeek() . ' verschickt</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $applicant->getWeek() . ' verschickt</h1>
             <h2>Anmeldungsdetails</h2>
                 <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung per E-Mail raus:</p>
                 <ul>
-                <li>Woche: ' . $this->applicants->getWeek() . '</li>
-                <li>Anrede: ' . ($this->applicants->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>interner Name: ' . $this->applicants->getFullname() . '</li>
-                <li>Umbuchbar? ' . ($this->applicants->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
-                <li>E-Mail: ' . $this->applicants->getEmail() . '</li>
-                <li>Land: ' . $this->applicants->getCountry() . '</li>
-                <li>Dojo:  ' . $this->applicants->getDojo() . '</li>
-                <li>TWA: ' . $this->applicants->getTwaNumber() . '</li>
-                <li>Betrag: ' . $this->getSeminarPrice() . '</li>
+                <li>Woche: ' . $applicant->getWeek() . '</li>
+                <li>Anrede: ' . ($applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
+                <li>interner Name: ' . $applicant->getFullname() . '</li>
+                <li>Umbuchbar? ' . ($applicant->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
+                <li>E-Mail: ' . $applicant->getEmail() . '</li>
+                <li>Land: ' . $applicant->getCountry() . '</li>
+                <li>Dojo:  ' . $applicant->getDojo() . '</li>
+                <li>TWA: ' . $applicant->getTwaNumber() . '</li>
                 </ul>
             </h2>
              DONE - juchhe!
