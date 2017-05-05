@@ -21,7 +21,6 @@ class ConfirmationMailer
     const TEST_APPLICANT = -4711;
 
     // internal members
-    public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
     private $applicants = NULL;
     private $localizer;
@@ -100,7 +99,7 @@ class ConfirmationMailer
             $mailResult = mail($applicant->getEmail(), $encoded_subject, $this->getMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $applicant->setBookedAt($appliedAt);
-            return $this->uiPrefix . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt . " returnCode:" . $mailResult) . "</h3>";
+            return $this->getColouredUIPrefix($mailResult) . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt . " returnCode:" . $mailResult) . "</h3>";
         }
 
         return '';
@@ -196,7 +195,7 @@ class ConfirmationMailer
 
             $mailResult = mail($replyto, $encoded_subject, $this->getInternalMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('CMAIL.INTERNAL', $this->formHelper->timestamp() . " returnCode: " . $mailResult) . "</h3>";
+            return $this->getColouredUIPrefix($mailResult) . $this->localizer->i18nParams('CMAIL.INTERNAL', $this->formHelper->timestamp() . " returnCode: " . $mailResult) . "</h3>";
         }
         return '';
     }
@@ -231,6 +230,14 @@ class ConfirmationMailer
     </html>';
 
         return $mailtext;
+    }
+
+    public function getColouredUIPrefix($mailResult)
+    {
+        if (boolval($mailResult)) {
+            return "<h3 style='color: darkgreen; font-weight: bold;'>";
+        }
+        return "<h3 style='color: red; font-weight: bold;'>";
     }
 
 }
