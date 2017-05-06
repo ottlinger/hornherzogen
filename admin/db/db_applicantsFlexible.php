@@ -161,7 +161,7 @@ $statusReader = new StatusDatabaseReader();
 
     foreach ($applicants as $applicant) {
         echo "<tr>";
-        echo "<td>" . $applicant->getPersistenceId() . "</td>";
+        echo "<td><a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>" . $applicant->getPersistenceId() . "</a></td>";
 
         echo "<td>" . $applicant->getWeek() . "</td>";
         echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
