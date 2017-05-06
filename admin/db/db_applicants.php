@@ -4,8 +4,8 @@ require '../../vendor/autoload.php';
 
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
-use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\ApplicantDatabaseReader;
+use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
@@ -208,7 +208,7 @@ $databaseHelper = new DatabaseHelper();
     echo "<tbody>";
     foreach ($applicants as $applicant) {
         echo "<tr>";
-        echo "<td>" . $applicant->getPersistenceId() . "</td>";
+        echo "<td><a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>" . $applicant->getPersistenceId() . "</a></td>";
 
         if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
             echo '<td>
