@@ -197,9 +197,9 @@ class PaymentMailer
             $encoded_subject = "=?UTF-8?B?" . base64_encode("Bezahlung Herzogenhorn angefordert - Woche " . $this->applicant->getWeek()) . "?=";
             $headers = $this->headerGenerator->getHeaders($replyto);
 
-            mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $mailResult = mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.INTERNAL', $this->formHelper->timestamp() . " returnCode: " . $mailResult) . "</h3>";
         }
         return '';
     }
