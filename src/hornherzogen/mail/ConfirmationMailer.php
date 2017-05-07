@@ -125,16 +125,22 @@ class ConfirmationMailer
                 Hallo ' . $applicant->getFirstname() . ',</h2>
                 <p>danke für den Eingang Deiner Zahlung für die Lehrgangswoche ' . $applicant->getWeek() . '.
                 </p>
-                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet.
+                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet. Aktuell bist Du für den Raum
                 <ul>
-                <li>Kontoinhaber: ' . $this->accountConfiguration->getAccountHolder() . '</li>
-                <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
-                <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $applicant->getWeek() . "/" . $applicant->getFirstname() . ' ' . $applicant->getLastname() . '/#' . $applicant->getPersistenceId() . '</li>
+                <li>TBD ' . $this->accountConfiguration->getAccountHolder() . '</li>
+                </ul>
+                eingeplant.
+                </p>
+                <p>
+                Bitte beachte die folgenden <b>Stornoregeln</b> und kontaktiere uns im Notfall, sodass Aikidoka auf der Warteliste nachrücken können:
+                <ul>
+                <li>bis 4 Wochen vor Lehrgangsbeginn kostenfrei</li>
+                <li>bis 2 Wochen vor Lehrgangsbeginn 50% der Kosten</li>
+                <li>weniger als 2 Wochen vor Lehrgangsbeginn 100% der Kosten</li>
                 </ul>
                 </p>
                 <h3>
-                Sonnige Grüße aus Berlin<br />
+                Sonnige Grüße aus Berlin, wir freuen uns auf das gemeinsame Training!<br />
                 von Benjamin und Philipp</h3>
             </h2>
         </body>
@@ -178,6 +184,14 @@ class ConfirmationMailer
     </html>';
 
         return $mailtext;
+    }
+
+    public function getColouredUIPrefix($mailResult)
+    {
+        if (boolval($mailResult)) {
+            return "<h3 style='color: darkgreen; font-weight: bold;'>";
+        }
+        return "<h3 style='color: red; font-weight: bold;'>";
     }
 
     function sendInternally($applicant = NULL)
@@ -230,14 +244,6 @@ class ConfirmationMailer
     </html>';
 
         return $mailtext;
-    }
-
-    public function getColouredUIPrefix($mailResult)
-    {
-        if (boolval($mailResult)) {
-            return "<h3 style='color: darkgreen; font-weight: bold;'>";
-        }
-        return "<h3 style='color: red; font-weight: bold;'>";
     }
 
 }
