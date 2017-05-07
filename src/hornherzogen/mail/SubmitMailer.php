@@ -256,9 +256,9 @@ class SubmitMailer
             $replyTo = $this->config->registrationmail();
             $headers = $this->headerGenerator->getHeaders($replyTo);
 
-            mail($replyTo, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
+            $mailResult = mail($replyTo, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp()) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.INTERNAL', $this->formHelper->timestamp() . " (returnCode: " . $mailResult . ")") . "</h3>";
         }
         return '';
     }
