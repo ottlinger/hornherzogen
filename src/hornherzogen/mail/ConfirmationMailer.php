@@ -120,12 +120,12 @@ class ConfirmationMailer
             <title>finale Bestätigung Herzogenhorn Woche ' . $applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $applicant->getWeek() . '</h1>
+            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - finale Anmeldebestätigung für Woche ' . $applicant->getWeek() . '</h1>
             <h2>
                 Hallo ' . $applicant->getFirstname() . ',</h2>
-                <p>wir haben die Lehrgangswoche ' . $applicant->getWeek() . ' soweit durchgeplant und bitten Dich innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
+                <p>danke für den Eingang Deiner Zahlung für die Lehrgangswoche ' . $applicant->getWeek() . '.
                 </p>
-                <p>Bitte verwende die folgende Bankverbindung
+                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet.
                 <ul>
                 <li>Kontoinhaber: ' . $this->accountConfiguration->getAccountHolder() . '</li>
                 <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
