@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace hornherzogen\mail;
 
+use hornherzogen\admin\BankingConfiguration;
 use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
-use hornherzogen\admin\BankingConfiguration;
 use MessageFormatter;
 
 class PaymentMailer
@@ -28,18 +28,6 @@ class PaymentMailer
 
     // defines how the success messages are being shown in the UI
     private $statusReader;
-
-    public static function createTestApplicant()
-    {
-        $testApplicant = new Applicant();
-        $testApplicant->setFirstname("Emil");
-        $testApplicant->setLastname("Mustermann");
-        $testApplicant->setTwaNumber("CC-0815");
-        $testApplicant->setPersistenceId(4711);
-        $testApplicant->setWeek(2);
-        $testApplicant->setLanguage('de');
-        return $testApplicant;
-    }
 
     function __construct($applicantId)
     {
@@ -65,6 +53,18 @@ class PaymentMailer
         date_default_timezone_set('Europe/Berlin');
     }
 
+    public static function createTestApplicant()
+    {
+        $testApplicant = new Applicant();
+        $testApplicant->setFirstname("Emil");
+        $testApplicant->setLastname("Mustermann");
+        $testApplicant->setTwaNumber("CC-0815");
+        $testApplicant->setPersistenceId(4711);
+        $testApplicant->setWeek(2);
+        $testApplicant->setLanguage('de');
+        return $testApplicant;
+    }
+
     public function send()
     {
         if (!$this->hasValidApplicant()) {
@@ -81,11 +81,11 @@ class PaymentMailer
         $encoded_subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 
         if ($this->config->sendregistrationmails()) {
-            mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $mailResult = mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicant->setPaymentRequestedAt($appliedAt);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt . " returnCode: " . $mailResult) . "</h3>";
         }
 
         return '';
