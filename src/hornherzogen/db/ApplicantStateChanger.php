@@ -43,8 +43,10 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             }
 
             // update database fields
-            $result = is_numeric($this->updateInDatabase($applicantId, $stateId, $mappingResult));
+            $dbResult = $this->updateInDatabase($applicantId, $stateId, $mappingResult);
+            $result = is_numeric($dbResult);
         }
+
 
         return $result;
     }

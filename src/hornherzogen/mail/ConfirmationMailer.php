@@ -7,10 +7,10 @@ use hornherzogen\admin\BankingConfiguration;
 use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
+use hornherzogen\db\ApplicantStateChanger;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
-use hornherzogen\db\ApplicantStateChanger;
 use MessageFormatter;
 
 /**
@@ -72,6 +72,8 @@ class ConfirmationMailer
     public function sendAsBatch()
     {
         $counter = 0;
+        $bookedDBId = $this->statusReader->getByName("BOOKED")[0]['id'];
+
         foreach ($this->applicants as $applicant) {
             echo "<h2>Sending out to applicant #" . $counter++ . " / " . $applicant->getFullName() . "</h2>";
 
@@ -84,7 +86,8 @@ class ConfirmationMailer
             echo $this->sendInternally($applicant);
 
             // TODO change state if sending was successful, parse from above $mailResult
-            $this->stateChanger->changeStateTo($applicant->getPersistenceId(), $this->statusReader->getByName("BOOKED"));
+            echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
+            echo "<hr/>";
         }
     }
 
