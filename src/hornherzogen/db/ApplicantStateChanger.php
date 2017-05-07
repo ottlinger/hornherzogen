@@ -61,9 +61,9 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             case 'WAITING_FOR_PAYMENT':
                 return array('mail' => 'PaymentMailer', 'field' => 'paymentmailed');
 
-                // TODO #91: mailer should update date field booked to prevent double mails!
+            // Issue #91: ConfirmationMailer sends mail as batch, thus no mail argument here
             case 'BOOKED':
-                return array('mail' => 'FinalConfirmationMailer', 'field' => 'booked');
+                return array('field' => 'booked');
 
             case 'PAID':
                 return array('field' => 'paymentreceived');

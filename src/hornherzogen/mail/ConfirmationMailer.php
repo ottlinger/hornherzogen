@@ -10,6 +10,7 @@ use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
+use hornherzogen\db\ApplicantStateChanger;
 use MessageFormatter;
 
 /**
@@ -27,6 +28,7 @@ class ConfirmationMailer
     private $config;
     private $accountConfiguration;
     private $headerGenerator;
+    private $stateChanger;
 
     // defines how the success messages are being shown in the UI
     private $statusReader;
@@ -48,6 +50,7 @@ class ConfirmationMailer
         $this->config = new ConfigurationWrapper();
         $this->statusReader = new StatusDatabaseReader();
         $this->accountConfiguration = new BankingConfiguration();
+        $this->stateChanger = new ApplicantStateChanger();
 
         date_default_timezone_set('Europe/Berlin');
     }
@@ -75,8 +78,13 @@ class ConfirmationMailer
             // get a fresh timestamp
             $this->formHelper = new FormHelper();
 
-            echo $this->send($applicant);
+            $mailResult = $this->send($applicant);
+
+            echo $mailResult;
             echo $this->sendInternally($applicant);
+
+            // TODO change state if sending was successful, parse from above $mailResult
+            $this->stateChanger->changeStateTo($applicant->getPersistenceId(), $this->statusReader->getByName("BOOKED"));
         }
     }
 
