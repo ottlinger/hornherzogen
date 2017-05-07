@@ -58,14 +58,14 @@ class SubmitMailer
         $encoded_subject = "=?UTF-8?B?" . base64_encode($this->localizer->i18nParams('MAIL.SUBJECT', $this->formHelper->timestamp())) . "?=";
 
         if ($this->config->sendregistrationmails() && !$this->isMailSent()) {
-            mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
+            $mailResult = mail($this->applicationInput->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyTo);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicationInput->setCreatedAt($appliedAt);
 
             $this->applicationInput->setLanguage($this->formHelper->extractMetadataForFormSubmission()['LANG']);
             $this->setStatusAppliedIfPossible();
 
-            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt) . "</h3>";
+            return $this->uiPrefix . $this->localizer->i18nParams('MAIL.APPLICANT', $appliedAt . " (returnCode: " . $mailResult . ")") . "</h3>";
         }
         $this->applicationInput->setMailSent(true);
 
