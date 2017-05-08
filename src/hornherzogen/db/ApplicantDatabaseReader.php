@@ -233,6 +233,8 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
         }
         $query .= " ORDER BY a.created";
+        // Issue #98: ISP blocks more than 200 mails per hour - grmpf
+        $query .= " LIMIT 100";
 
         return $query;
     }
