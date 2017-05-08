@@ -119,6 +119,7 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
             $week = NULL;
             $sid = NULL;
             $aid = NULL;
+            $makeItSo = NULL;
 
             // parse parameters
             if ($formHelper->isSetAndNotEmptyInArray($_POST, 'aid')) {
@@ -127,10 +128,12 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
             if ($formHelper->isSetAndNotEmptyInArray($_POST, 'sid')) {
                 $sid = $formHelper->filterUserInput($_POST['sid']);
             }
+            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
+                $makeItSo = $formHelper->filterUserInput($_POST['makeItSo']);
+            }
 
-            // perform any changes or actions
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid)) {
-
+            // perform any changes or actions only if checkbox is checked
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid) && isset($makeItSo) && boolval($makeItSo)) {
                 // do not change to same status if appicant has that status already
                 // in order to prevent double mails upon accidental clicks or "I just want to have a look" auto-submits of fields week or applicant
                 $stateInDB = getCurrentStatusOfApplicant($aid, $reader, $statusReader);
@@ -212,6 +215,11 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
             </div>
 
             <hr/>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="makeItSo">Wirklich abändern?</label>
+                <input class="button" type="radio" name="makeItSo" value="true">
+            </div>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
