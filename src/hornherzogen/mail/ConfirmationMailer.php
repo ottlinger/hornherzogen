@@ -113,7 +113,7 @@ class ConfirmationMailer
             if($mailResult) {
                 $applicant->setBookedAt($appliedAt);
             }
-            
+
             return $this->getColouredUIPrefix($mailResult) . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt . " returnCode:" . $mailResult) . "</h3>";
         }
 
