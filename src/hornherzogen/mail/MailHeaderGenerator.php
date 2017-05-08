@@ -49,35 +49,4 @@ class MailHeaderGenerator
 
         return $headers;
     }
-
-    public function getInternalHeaders($replyTo)
-    {
-        $importance = 1; //1 UrgentMessage, 3 Normal
-
-        // set all necessary headers to prevent being treated as SPAM in some mailers, headers must not start with a space
-        $headers = array();
-        $headers[] = 'MIME-Version: 1.0';
-
-        $headers[] = 'X-Priority: ' . $importance;
-        $headers[] = 'X-MSMail-Priority: High';
-        $headers[] = 'Importance: ' . $importance;
-
-        $headers[] = 'Reply-To: ' . $replyTo;
-        $headers[] = 'Cc: ' . $replyTo;
-        // https://api.drupal.org/api/drupal/includes%21mail.inc/function/drupal_mail/6.x
-        $headers[] = 'From: ' . $replyTo;
-        $headers[] = 'Errors-To: ' . $replyTo;
-        $headers[] = 'Return-Path: ' . $replyTo;
-
-        $headers[] = 'Date: ' . date("r");
-        $headers[] = 'Message-ID: <' . md5(uniqid(microtime())) . '@' . $_SERVER["SERVER_NAME"] . ">";
-        $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'X-Git-Revision: <' . $this->revision->gitrevision() . ">";
-        $headers[] = 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"];
-        $headers[] = 'X-Mailer: PHP/' . phpversion();
-
-        return $headers;
-    }
-
-
 }

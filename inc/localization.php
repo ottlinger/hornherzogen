@@ -25,7 +25,7 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
-    // TODO i18n
+    // TODO i18n for English
     'CMAIL.INTERNAL' => 'Eine finale Buchungsbestätigung wurde um {0} versendet.',
     'CMAIL.SUBJECT' => 'Zusage für die Teilnahme am 合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' vom {0} - gute Anreise',
     'CMAIL.APPLICANT' => 'Finale Buchungsbestätigungsmail verschickt um {0}.',

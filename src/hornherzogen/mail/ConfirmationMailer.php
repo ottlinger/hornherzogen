@@ -102,8 +102,9 @@ class ConfirmationMailer
         }
 
         $replyto = $this->config->registrationmail();
+        $headers = $this->headerGenerator->getHeaders($replyto);
         // CC to us internally to avoid ISP blocking
-        $headers = $this->headerGenerator->getInternalHeaders($replyto);
+        $headers[] = 'Cc: ' . $replyto;
 
         $withParam = new MessageFormatter($applicant->getLanguage(), $GLOBALS['messages']['' . $applicant->getLanguage()]["CMAIL.SUBJECT"]);
         $subject = $withParam->format(array($this->formHelper->timestamp()));
