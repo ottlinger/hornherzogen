@@ -74,6 +74,10 @@ class ConfirmationMailer
         $counter = 1;
         $bookedDBId = $this->statusReader->getByName("BOOKED")[0]['id'];
 
+        if(empty($this->applicants)) {
+            echo "<h3>Keine Teilnehmer im richtigen Status gefunden! Bitte prüfen.";
+        }
+
         foreach ($this->applicants as $applicant) {
             echo "<h2>Sending out to " . $counter++ . ".applicant with <a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>#" . $applicant->getPersistenceId() . "</a> / " . $applicant->getFullName() . "</h2>";
 

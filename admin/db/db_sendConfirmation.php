@@ -106,7 +106,6 @@ $config = new ConfigurationWrapper();
                     $week = $formHelper->filterUserInput($_POST['week']);
                 }
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
-
                 $mailer = new ConfirmationMailer($applicants);
                 echo $mailer->sendAsBatch();
 
