@@ -75,7 +75,7 @@ class ConfirmationMailer
         $bookedDBId = $this->statusReader->getByName("BOOKED")[0]['id'];
 
         foreach ($this->applicants as $applicant) {
-            echo "<h2>Sending out to " . $counter++ . ".applicant with #" . $applicant->getPersistenceId() . " / " . $applicant->getFullName() . "</h2>";
+            echo "<h2>Sending out to " . $counter++ . ".applicant with <a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>#" . $applicant->getPersistenceId() . "</a> / " . $applicant->getFullName() . "</h2>";
 
             // get a fresh timestamp
             $this->formHelper = new FormHelper();
