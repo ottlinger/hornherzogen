@@ -109,7 +109,11 @@ class ConfirmationMailer
         if ($this->config->sendregistrationmails()) {
             $mailResult = mail($applicant->getEmail(), $encoded_subject, $this->getMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
-            $applicant->setBookedAt($appliedAt);
+
+            if($mailResult) {
+                $applicant->setBookedAt($appliedAt);
+            }
+            
             return $this->getColouredUIPrefix($mailResult) . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt . " returnCode:" . $mailResult) . "</h3>";
         }
 
