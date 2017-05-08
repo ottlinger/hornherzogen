@@ -234,7 +234,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         }
         $query .= " ORDER BY a.created";
         // Issue #98: ISP blocks more than 200 mails per hour - grmpf
-        $query .= " LIMIT 100";
+        $query .= " LIMIT 50";
 
         return $query;
     }
