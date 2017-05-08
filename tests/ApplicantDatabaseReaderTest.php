@@ -94,7 +94,7 @@ class ApplicantDatabaseReaderTest extends TestCase
     {
         $sql = $this->reader->buildFoodQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a ORDER by a.week, a.essen", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a ORDER by a.week, a.essen", $sql);
     }
 
     public function testFoodQueryWithWeekParameter()
@@ -102,14 +102,14 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildFoodQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.essen", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.essen", $sql);
     }
 
     public function testFlexibilityQueryWithoutWeekParameter()
     {
         $sql = $this->reader->buildFlexibilityQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a WHERE flexible in ('yes', '1')", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE flexible in ('yes', '1')", trim($sql));
     }
 
     public function testFlexibilityQueryWithWeekParameter()
@@ -117,7 +117,7 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildFlexibilityQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a WHERE flexible in ('yes', '1')  AND a.week LIKE '%MyWeek%'", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE flexible in ('yes', '1')  AND a.week LIKE '%MyWeek%'", $sql);
     }
 
     public function testWithoutConfigEmptyListIsRetrievedWithoutWeekParameter()
@@ -135,7 +135,7 @@ class ApplicantDatabaseReaderTest extends TestCase
     {
         $sql = $this->reader->buildGetAllQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a ORDER BY a.created", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a ORDER BY a.created", trim($sql));
     }
 
     public function testGetAllQueryWithWeekParameter()
@@ -143,14 +143,14 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildGetAllQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
     }
 
     public function testPaidButNotConfirmedQueryWithoutWeek()
     {
         $sql = $this->reader->buildPaidButNotConfirmedQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL ORDER BY a.created LIMIT 100", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL ORDER BY a.created LIMIT 100", trim($sql));
 
     }
 
@@ -159,7 +159,7 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildPaidButNotConfirmedQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL AND a.week LIKE '%MyWeek%' ORDER BY a.created LIMIT 100", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL AND a.week LIKE '%MyWeek%' ORDER BY a.created LIMIT 100", $sql);
     }
 
     public function testGetPaidButNotConfirmedApplicants()
