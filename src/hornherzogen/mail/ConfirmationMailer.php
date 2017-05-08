@@ -83,7 +83,7 @@ class ConfirmationMailer
             $mailResult = $this->send($applicant);
 
             echo $mailResult;
-            echo $this->sendInternally($applicant);
+            // since we send out more than 200 mails, use BCC instead: echo $this->sendInternally($applicant);
 
             // TODO change state if sending was successful, parse from above $mailResult
             echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
@@ -99,6 +99,9 @@ class ConfirmationMailer
 
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
+
+        // BCC to us internally to avoid ISP blocking
+        $headers[] = 'BCC: ' . $this->config->registrationmail();
 
         $withParam = new MessageFormatter($applicant->getLanguage(), $GLOBALS['messages']['' . $applicant->getLanguage()]["CMAIL.SUBJECT"]);
         $subject = $withParam->format(array($this->formHelper->timestamp()));
