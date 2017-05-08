@@ -71,11 +71,11 @@ class ConfirmationMailer
 
     public function sendAsBatch()
     {
-        $counter = 0;
+        $counter = 1;
         $bookedDBId = $this->statusReader->getByName("BOOKED")[0]['id'];
 
         foreach ($this->applicants as $applicant) {
-            echo "<h2>Sending out to applicant #" . $counter++ . " / " . $applicant->getFullName() . "</h2>";
+            echo "<h2>Sending out to " . $counter++ . ".applicant with #" . $applicant->getPersistenceId() . " / " . $applicant->getFullName() . "</h2>";
 
             // get a fresh timestamp
             $this->formHelper = new FormHelper();
@@ -101,7 +101,7 @@ class ConfirmationMailer
         $headers = $this->headerGenerator->getHeaders($replyto);
 
         // BCC to us internally to avoid ISP blocking
-        $headers[] = 'BCC: ' . $this->config->registrationmail();
+        $headers[] = 'CC: ' . $this->config->registrationmail();
 
         $withParam = new MessageFormatter($applicant->getLanguage(), $GLOBALS['messages']['' . $applicant->getLanguage()]["CMAIL.SUBJECT"]);
         $subject = $withParam->format(array($this->formHelper->timestamp()));
@@ -113,7 +113,7 @@ class ConfirmationMailer
             $mailResult = mail($applicant->getEmail(), $encoded_subject, $this->getMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
 
-            if($mailResult) {
+            if ($mailResult) {
                 $applicant->setBookedAt($appliedAt);
             }
 

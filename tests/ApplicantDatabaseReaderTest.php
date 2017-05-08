@@ -150,7 +150,7 @@ class ApplicantDatabaseReaderTest extends TestCase
     {
         $sql = $this->reader->buildPaidButNotConfirmedQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL ORDER BY a.created", trim($sql));
+        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL ORDER BY a.created LIMIT 100", trim($sql));
 
     }
 
@@ -159,7 +159,7 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildPaidButNotConfirmedQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL AND a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
+        $this->assertEquals("SELECT * from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id  AND a.booked IS NULL AND a.week LIKE '%MyWeek%' ORDER BY a.created LIMIT 100", $sql);
     }
 
     public function testGetPaidButNotConfirmedApplicants()
