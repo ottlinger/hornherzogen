@@ -59,7 +59,7 @@ class ApplicantDatabaseReaderTest extends TestCase
     {
         $sql = $this->reader->buildQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a ORDER by a.week, a.room", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a ORDER by a.week, a.room", $sql);
     }
 
     public function testBuildQueryWithWeekParameter()
@@ -67,7 +67,7 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT * from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.room", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER by a.week, a.room", $sql);
     }
 
     public function testGetGroupByCountryWithoutWeek()
