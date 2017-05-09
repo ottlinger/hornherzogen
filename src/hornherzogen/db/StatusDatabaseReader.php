@@ -60,16 +60,16 @@ class StatusDatabaseReader extends BaseDatabaseWriter
         switch ($name) {
             case "BOOKED":
                 // TODO #91 adapt text
-                return " (wird später eine Mail raussenden, #91 - nyi)";
+                return " (wird später eine Mail raussenden, #91 - aktuell in Bearbeitung)";
 
             case "PAID":
                 return " (sobald Zahlung eingangen)";
 
             case "WAITING_FOR_PAYMENT":
-                return " (sendet Mail raus!)";
+                return " (sendet Zahlungsaufforderung per Mail raus!)";
 
             case "APPLIED":
-                return " (Standard nach erfolgter Anmeldung)";
+                return " (Standard nach erfolgter Anmeldung, kein Mailversand)";
 
             default:
                 return '';
