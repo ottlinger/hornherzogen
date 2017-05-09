@@ -10,7 +10,7 @@ $h_applicationPublishedSince = $h_year . "-03-20"; // since when is the registra
 $h_week1_start = $h_year . "-06-18";
 $h_week2_start = $h_year . "-06-25";
 
-// fallback to tomorrow if not set
+// fallback to May 1st if not set
 if (NULL != $config->submissionend()) {
     $h_applicationEndDate = $config->submissionend();
 } else {

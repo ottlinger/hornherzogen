@@ -13,11 +13,11 @@ $formHelper = new FormHelper();
 // special handling to allow submission after end of submission
 $isMagic = false;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
-    $isMagic = boolval($formHelper->filterUserInput($_POST['isMagic']));
-}
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['isMagic'])) {
     $isMagic = boolval($formHelper->filterUserInput($_GET['isMagic']));
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
+    $isMagic = boolval($formHelper->filterUserInput($_POST['isMagic']));
 }
 ?>
 <html lang="en">
@@ -138,30 +138,36 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['isMagic'])) {
         <p><?php echo $hornlocalizer->i18nParams('TIME', $formHelper->timestamp()); ?></p>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+            <?php
+            // in order to survive the post we add it as a hidden value
+            if (boolval($isMagic)) {
+                echo "<input type=\"hidden\" name=\"isMagic\" value=\"yesSir\"/>";
+            }
 
-            <?php if ($applicantInput->hasParseErrors()) {
+            if ($applicantInput->hasParseErrors()) {
                 echo "<p class=\"lead\" style=\"color: red; font-weight: bold;\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . $hornlocalizer->i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
             } // show error message ?>
 
             <?php } else { ?>
-                <p class="lead" style="color: darkgreen; font-weight: bold;"><span
-                            class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('FORM.SUC.CHECK'); ?>
-                </p>
                 <p><?php echo $hornlocalizer->i18nParams('TIME', $formHelper->timestamp()); ?></p>
                 <?php
                 // send mail only if there are no error messages and nothing already exists in the database
                 $sender = new SubmitMailer($applicantInput);
 
-                if ((!$formHelper->isSubmissionClosed($config) && !$sender->existsInDatabase()) ||
-                    // #103: special case
-                    boolval($isMagic) && !$sender->existsInDatabase()
-                ) {
+                // #103: special case isMagic
+                if ((boolval($isMagic) || !$formHelper->isSubmissionClosed($config)) && !$sender->existsInDatabase()) {
                     echo $sender->send();
                     echo $sender->sendInternally();
+                    ?>
+                    <p class="lead" style="color: darkgreen; font-weight: bold;"><span
+                                class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('FORM.SUC.CHECK'); ?>
+                    </p>
+                    <?php
                     echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $hornlocalizer->i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
                 }
             } // if showButtons
             ?>
+
 
             <legend><?php echo $hornlocalizer->i18n('FORM.WEEK'); ?></legend>
             <div class="form-group <?php echo $applicantInput->getUIResponse('week'); ?>">
