@@ -41,6 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
     $week = $formHelper->filterUserInput($_POST['week']);
 }
 
+// prevent double submits
+$makeItSo = NULL;
+if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
+    $makeItSo = $formHelper->filterUserInput($_POST['makeItSo']);
+}
 ?>
 <html lang="en">
 <head>
@@ -224,6 +229,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
             <hr/>
 
             <div class="form-group">
+                <label class="col-sm-2 control-label" for="makeItSo">Wirklich abändern?</label>
+                <input class="button" type="radio" name="makeItSo" value="true">
+            </div>
+
+            <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
                         title="<?php echo $localizer->i18n('FORM.SUBMIT'); ?>"> Personen in Raum einbuchen
                 </button>
@@ -240,7 +250,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
     <?php
     // PERFORM BOOKING
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId']) && boolval($makeItSo)) {
 
         foreach ($_POST['applicantId'] as $submittedApplicantId) {
             $iid = $formHelper->filterUserInput($_POST['id']);
