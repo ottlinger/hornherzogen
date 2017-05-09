@@ -138,12 +138,12 @@ class StatusDatabaseReaderTest extends TestCase
     public function testAdditionalNotesMappingUnknownName()
     {
         $this->assertEquals('', $this->reader->adminAdditionalTextForState("LALELOU"));
-        $this->assertEquals(' (Standard nach erfolgter Anmeldung)', $this->reader->adminAdditionalTextForState("APPLIED"));
+        $this->assertEquals(' (Standard nach erfolgter Anmeldung, kein Mailversand)', $this->reader->adminAdditionalTextForState("APPLIED"));
     }
 
     public function testAdditionalNotesMappingBooked()
     {
-        $this->assertEquals(' (wird später eine Mail raussenden, #91 - nyi)', $this->reader->adminAdditionalTextForState("BOOKED"));
+        $this->assertEquals(' (wird später eine Mail raussenden, #91 - aktuell in Bearbeitung)', $this->reader->adminAdditionalTextForState("BOOKED"));
     }
 
     public function testAdditionalNotesMappingPaid()
@@ -153,7 +153,7 @@ class StatusDatabaseReaderTest extends TestCase
 
     public function testAdditionalNotesMappingWaitingForPayment()
     {
-        $this->assertEquals(' (sendet Mail raus!)', $this->reader->adminAdditionalTextForState("WAITING_FOR_PAYMENT"));
+        $this->assertEquals(' (sendet Zahlungsaufforderung per Mail raus!)', $this->reader->adminAdditionalTextForState("WAITING_FOR_PAYMENT"));
     }
 
 }
