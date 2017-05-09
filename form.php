@@ -8,6 +8,16 @@ use hornherzogen\mail\SubmitMailer;
 
 $config = new ConfigurationWrapper();
 $hornlocalizer = new HornLocalizer();
+
+// special handling to allow submission after end of submission
+$isMagic = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
+    $isMagic = boolval($formHelper->filterUserInput($_POST['isMagic']));
+}
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['isMagic'])) {
+    $isMagic = boolval($formHelper->filterUserInput($_GET['isMagic']));
+}
 ?>
 <html lang="en">
 <head>
@@ -99,6 +109,10 @@ $hornlocalizer = new HornLocalizer();
             echo "<h1 style=\"color: red; font-weight: bold;\">" . $hornlocalizer->i18n('SUBMISSIONCLOSED') . "</h1>";
         }
 
+        if (boolval($isMagic)) {
+            echo "<h1 style=\"color: red; font-weight: bold;\">FORM SUBMISSION WILL WORK AFTER SUBMISSION IS CLOSED</h1>";
+        }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $applicantInput->parse();
@@ -138,7 +152,10 @@ $hornlocalizer = new HornLocalizer();
                 // send mail only if there are no error messages and nothing already exists in the database
                 $sender = new SubmitMailer($applicantInput);
 
-                if (!$formHelper->isSubmissionClosed($config) && !$sender->existsInDatabase()) {
+                if ((!$formHelper->isSubmissionClosed($config) && !$sender->existsInDatabase()) ||
+                    // #103: special case
+                    boolval($isMagic) && !$sender->existsInDatabase()
+                ) {
                     echo $sender->send();
                     echo $sender->sendInternally();
                     echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $hornlocalizer->i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
