@@ -8,6 +8,7 @@ use hornherzogen\mail\SubmitMailer;
 
 $config = new ConfigurationWrapper();
 $hornlocalizer = new HornLocalizer();
+$formHelper = new FormHelper();
 
 // special handling to allow submission after end of submission
 $isMagic = false;
@@ -103,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['isMagic'])) {
         <?php
         // we always have an empty container for user input data
         $applicantInput = new ApplicantInput();
-        $formHelper = new FormHelper();
 
         if ($formHelper->isSubmissionClosed($config)) {
             echo "<h1 style=\"color: red; font-weight: bold;\">" . $hornlocalizer->i18n('SUBMISSIONCLOSED') . "</h1>";
