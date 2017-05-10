@@ -8,6 +8,7 @@ use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\ApplicantStateChanger;
+use hornherzogen\db\BookingDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
@@ -29,6 +30,7 @@ class ConfirmationMailer
     private $accountConfiguration;
     private $headerGenerator;
     private $stateChanger;
+    private $bookingReader;
 
     // defines how the success messages are being shown in the UI
     private $statusReader;
@@ -51,6 +53,7 @@ class ConfirmationMailer
         $this->statusReader = new StatusDatabaseReader();
         $this->accountConfiguration = new BankingConfiguration();
         $this->stateChanger = new ApplicantStateChanger();
+        $this->bookingReader = new BookingDatabaseReader();
 
         date_default_timezone_set('Europe/Berlin');
     }
@@ -75,7 +78,7 @@ class ConfirmationMailer
         $counter = 1;
         $bookedDBId = $this->statusReader->getByName("BOOKED")[0]['id'];
 
-        if(empty($this->applicants)) {
+        if (empty($this->applicants)) {
             echo "<h3>Keine Teilnehmer im richtigen Status gefunden! Bitte prüfen.";
         }
 
@@ -88,7 +91,7 @@ class ConfirmationMailer
             $mailResult = $this->send($applicant);
             echo $mailResult;
 
-            if(boolval($mailResult)) {
+            if (boolval($mailResult)) {
                 echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
             } else {
                 echo "Problem while trying to send mail, will not send out mail. Please try again in 1.5hours time since the overall mail limit of the ISP may have been reached.";
@@ -130,9 +133,13 @@ class ConfirmationMailer
 
     public function getMailtext($applicant)
     {
+
+        // collect any booked rooms
+        $bookings = $this->bookingReader->getForApplicant($applicant->getPersistenceId());
+
         // all non German customers will get an English mail
         if ($applicant->getLanguage() != 'de') {
-            return $this->getEnglishMailtext();
+            return $this->getEnglishMailtext($applicant);
         }
 
         $mailtext =
@@ -148,11 +155,19 @@ class ConfirmationMailer
                 Hallo ' . $applicant->getFirstname() . ',</h2>
                 <p>danke für den Eingang Deiner Zahlung für die Lehrgangswoche ' . $applicant->getWeek() . '.
                 </p>
-                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet. Aktuell bist Du für den Raum
-                <ul>
-                <li>TBD ' . $this->accountConfiguration->getAccountHolder() . '</li>
-                </ul>
-                eingeplant.
+                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet. Aktuell bist Du für den Raum ';
+
+        if (!isset($bookings) || empty($bookings)) {
+            $mailtext .= '<ul>';
+            foreach ($bookings as $b) {
+                $mailtext .= '<li>' . $b . '</li>';
+            }
+            $mailtext .= '</ul>';
+        } else {
+            $mailtext .= "'unbekannt'";
+        }
+
+        $mailtext .= ' eingeplant.
                 </p>
                 <p>
                 Bitte beachte die folgenden <b>Stornoregeln</b> und kontaktiere uns im Notfall, sodass Aikidoka auf der Warteliste nachrücken können:
