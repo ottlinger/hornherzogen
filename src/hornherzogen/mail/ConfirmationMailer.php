@@ -179,25 +179,13 @@ class ConfirmationMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Final confirmation for payment for Herzogenhorn seminar week ' . $applicant->getWeek() . '</title >
+            <title>Final confirmation for Herzogenhorn seminar week ' . $applicant->getWeek() . '</title >
         </head>
         <body>
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $applicant->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $applicant->getWeek() . ' 
-                and would like to request your payment in the next 14 days in order to finally fulfil your seminar application.</p>
-                <p>Please use the following bank account and notes to transfer the money properly:
-                <ul>
-                <li>Account holder: ' . $this->accountConfiguration->getAccountHolder() . '</li>
-                <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
-                <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Reason for payment: Herzogenhorn seminar ' . $this->localizer->i18n('CONST.YEAR') . "/Week " . $applicant->getWeek() . "/" . $applicant->getFirstname() . ' ' . $applicant->getLastname() . '/#' . $applicant->getPersistenceId() . '</li>
-                <li>Amount: ' . $this->getSeminarPrice() . '</li>
-                </ul>
-                </p>
-                <p>
-                If we do not receive your payment in time we are forced to cancel your reservation -<br />
+                <p>TODO add text
                 </p>
                 <h3>
                 All the best from Berlin<br />
