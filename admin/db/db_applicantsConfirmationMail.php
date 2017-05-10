@@ -99,7 +99,6 @@ $statusReader = new StatusDatabaseReader();
             $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
-
             ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -127,9 +126,7 @@ $statusReader = new StatusDatabaseReader();
 
             <?php
             $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
-
             $isDisabled = empty($applicants);
-
             ?>
             <noscript>
                 <div class="form-group">

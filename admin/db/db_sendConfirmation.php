@@ -106,6 +106,8 @@ $config = new ConfigurationWrapper();
                     $week = $formHelper->filterUserInput($_POST['week']);
                 }
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
+                echo sizeof($applicants)." Bewerber sind im Status 'PAID'.";
+
                 $mailer = new ConfirmationMailer($applicants);
                 echo $mailer->sendAsBatch();
 
