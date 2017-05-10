@@ -104,7 +104,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
     public function mapMappingToSQL($mappingResult)
     {
         if ($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'field')) {
-            return " , " . $this->formHelper->filterUserInput($mappingResult['field']) . " = " . $this->databaseHelper->trimAndMask($this->formHelper->timestamp());
+            return " , " . $this->formHelper->filterUserInput($mappingResult['field']) . " = " . $this->databaseHelper->trimAndMask(date('Y-m-d H:i:s'));
         }
 
         return '';
