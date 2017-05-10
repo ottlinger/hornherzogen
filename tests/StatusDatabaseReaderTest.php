@@ -143,7 +143,7 @@ class StatusDatabaseReaderTest extends TestCase
 
     public function testAdditionalNotesMappingBooked()
     {
-        $this->assertEquals(' (wird später eine Mail raussenden, #91 - aktuell in Bearbeitung)', $this->reader->adminAdditionalTextForState("BOOKED"));
+        $this->assertEquals(' (Status wird erzeugt durch Batchaussenden der Bestätigungsmails - nicht einstellen)', $this->reader->adminAdditionalTextForState("BOOKED"));
     }
 
     public function testAdditionalNotesMappingPaid()
