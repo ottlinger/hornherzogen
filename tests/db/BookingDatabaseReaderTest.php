@@ -71,4 +71,8 @@ class BookingDatabaseReaderTest extends TestCase
     {
         $this->assertInstanceOf('hornherzogen\db\BookingDatabaseReader', $this->reader);
     }
+
+    public function returnEmptyBookingsWithoutDatabase() {
+        $this->assertEmpty($this->reader->getForApplicant(4711));
+    }
 }
