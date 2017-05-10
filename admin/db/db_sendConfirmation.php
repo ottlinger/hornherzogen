@@ -95,21 +95,25 @@ $config = new ConfigurationWrapper();
 
         <p>
             <?php
-            // TODO einbauen, dass auf richtigen Header geschaut wird - makeItSo == yesSir
-
             $week = NULL;
+            $makeItSo = NULL;
+            // check for special headers
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                $week = $formHelper->filterUserInput($_POST['week']);
+            }
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
+                $makeItSo = $formHelper->filterUserInput($_POST['makeItSo']);
+            }
 
             if ($config->isValidDatabaseConfig()) {
-
-                // filter for week?
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
-                    $week = $formHelper->filterUserInput($_POST['week']);
-                }
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
-                echo sizeof($applicants)." Bewerber sind im Status 'PAID'.";
+                echo sizeof($applicants) . " Bewerber sind im Status 'PAID' und haben kein Buchungsdatum.";
 
-                $mailer = new ConfirmationMailer($applicants);
-                echo $mailer->sendAsBatch();
+                if (isset($makeItSo) && "yesSir" === $makeItSo) {
+                    $mailer = new ConfirmationMailer($applicants);
+                    echo $mailer->sendAsBatch();
+                }
+
 
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
