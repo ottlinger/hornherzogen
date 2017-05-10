@@ -5,6 +5,7 @@ require '../../vendor/autoload.php';
 use hornherzogen\AdminHelper;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\db\ApplicantDatabaseReader;
+use hornherzogen\db\ApplicantDatabaseWriter;
 use hornherzogen\db\StatusDatabaseReader;
 use hornherzogen\FormHelper;
 use hornherzogen\HornLocalizer;
@@ -100,6 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
             $config = new ConfigurationWrapper();
 
             if ($config->isValidDatabaseConfig()) {
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+                    $remover = new ApplicantDatabaseWriter();
+                    $id = $formHelper->filterUserInput($_POST['aid']);
+                    echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
+                    $_POST['aid'] = NULL;
+                }
 
                 $applicants = $reader->getById($id);
                 $statusReader = new StatusDatabaseReader();
