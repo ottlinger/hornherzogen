@@ -85,12 +85,13 @@ class ConfirmationMailer
             $this->formHelper = new FormHelper();
 
             $mailResult = $this->send($applicant);
-
             echo $mailResult;
-            // since we send out more than 200 mails, use BCC instead: echo $this->sendInternally($applicant);
 
-            // TODO change state if sending was successful, parse from above $mailResult
-            echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
+            if(boolval($mailResult)) {
+                echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
+            } else {
+                echo "Problem while trying to send mail, will not send out mail. Please try again in 1.5hours time since the overall mail limit of the ISP may have been reached.";
+            }
             echo "<hr/>";
         }
     }
@@ -214,57 +215,4 @@ class ConfirmationMailer
         }
         return "<h3 style='color: red; font-weight: bold;'>";
     }
-
-    function sendInternally($applicant = NULL)
-    {
-        if (!isset($applicant)) {
-            return 'Nothing to send internally.';
-        }
-
-        if ($this->config->sendinternalregistrationmails()) {
-
-            $replyto = $this->config->registrationmail();
-
-            $encoded_subject = "=?UTF-8?B?" . base64_encode("finale Bestätigung ausgesendet - Woche " . $applicant->getWeek()) . "?=";
-            $headers = $this->headerGenerator->getHeaders($replyto);
-
-            $mailResult = mail($replyto, $encoded_subject, $this->getInternalMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
-
-            return $this->getColouredUIPrefix($mailResult) . $this->localizer->i18nParams('CMAIL.INTERNAL', $this->formHelper->timestamp() . " returnCode: " . $mailResult) . "</h3>";
-        }
-        return '';
-    }
-
-    public function getInternalMailtext($applicant)
-    {
-        $mailtext =
-            '
-    <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Lehrgangsbestätigung versendet für Woche ' . $applicant->getWeek() . '</title >
-        </head>
-        <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $applicant->getWeek() . ' verschickt</h1>
-            <h2>Anmeldungsdetails</h2>
-                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung per E-Mail raus:</p>
-                <ul>
-                <li>Woche: ' . $applicant->getWeek() . '</li>
-                <li>Anrede: ' . ($applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>interner Name: ' . $applicant->getFullname() . '</li>
-                <li>Umbuchbar? ' . ($applicant->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
-                <li>E-Mail: ' . $applicant->getEmail() . '</li>
-                <li>Land: ' . $applicant->getCountry() . '</li>
-                <li>Dojo:  ' . $applicant->getDojo() . '</li>
-                <li>TWA: ' . $applicant->getTwaNumber() . '</li>
-                </ul>
-            </h2>
-             DONE - juchhe!
-            </p>
-        </body>
-    </html>';
-
-        return $mailtext;
-    }
-
 }
