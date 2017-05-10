@@ -133,13 +133,12 @@ class ConfirmationMailer
 
     public function getMailtext($applicant)
     {
-
         // collect any booked rooms
         $bookings = $this->bookingReader->getForApplicant($applicant->getPersistenceId());
 
         // all non German customers will get an English mail
         if ($applicant->getLanguage() != 'de') {
-            return $this->getEnglishMailtext($applicant);
+            return $this->getEnglishMailtext($applicant, $bookings);
         }
 
         $mailtext =
@@ -157,14 +156,14 @@ class ConfirmationMailer
                 </p>
                 <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet. Aktuell bist Du für den Raum ';
 
-        if (!isset($bookings) || empty($bookings)) {
+        if (!isset($bookings) || empty($bookings) || NULL == $bookings) {
+            $mailtext .= "'unbekannt'";
+        } else {
             $mailtext .= '<ul>';
             foreach ($bookings as $b) {
-                $mailtext .= '<li>' . $b . '</li>';
+                $mailtext .= '<li>' . $b['name'] . '</li>';
             }
             $mailtext .= '</ul>';
-        } else {
-            $mailtext .= "'unbekannt'";
         }
 
         $mailtext .= ' eingeplant.
@@ -187,7 +186,7 @@ class ConfirmationMailer
         return $mailtext;
     }
 
-    public function getEnglishMailtext($applicant)
+    public function getEnglishMailtext($applicant, $roombookings)
     {
         $mailtext =
             '
@@ -200,7 +199,7 @@ class ConfirmationMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $applicant->getFirstname() . ',</h2>
-                <p>TODO add text
+                <p>TODO add text and room '.$roombookings.'
                 </p>
                 <h3>
                 All the best from Berlin<br />
