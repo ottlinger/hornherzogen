@@ -64,6 +64,7 @@ class ConfirmationMailer
         $testApplicant->setPersistenceId(4711);
         $testApplicant->setWeek(2);
         $testApplicant->setLanguage('de');
+        $testApplicant->setBookedAt(NULL); // to avoid not being caught in SQL - reset in DB: update applicants set booked = null where statusId =6;
         $testApplicant->setCurrentStatus(6); // PAID
         $testApplicant->setEmail("shouldnotwork"); // do not really send an email
         return array($testApplicant);
@@ -105,7 +106,7 @@ class ConfirmationMailer
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
         // CC to us internally to avoid ISP blocking
-        $headers[] = 'Cc: ' . $replyto;
+        $headers[] = 'Bcc: ' . $replyto;
 
         $withParam = new MessageFormatter($applicant->getLanguage(), $GLOBALS['messages']['' . $applicant->getLanguage()]["CMAIL.SUBJECT"]);
         $subject = $withParam->format(array($this->formHelper->timestamp()));
