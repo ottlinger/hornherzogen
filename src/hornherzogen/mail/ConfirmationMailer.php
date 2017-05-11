@@ -121,14 +121,15 @@ class ConfirmationMailer
             $mailResult = mail($applicant->getEmail(), $encoded_subject, $this->getMailtext($applicant), implode("\r\n", $headers), "-f " . $replyto);
             $appliedAt = $this->formHelper->timestamp();
 
-            if ($mailResult) {
-                $applicant->setBookedAt($appliedAt);
+            if (!$mailResult) {
+                return FALSE;
             }
 
             return $this->getColouredUIPrefix($mailResult) . $this->localizer->i18nParams('CMAIL.APPLICANT', $appliedAt . " returnCode:" . $mailResult) . "</h3>";
         }
 
-        return '';
+        // if no mail is sent due to configuration everything is fine
+        return TRUE;
     }
 
     public function getMailtext($applicant)
@@ -199,7 +200,7 @@ class ConfirmationMailer
             <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $applicant->getFirstname() . ',</h2>
-                <p>TODO add text and room '.$roombookings.'
+                <p>TODO add text and room ' . $roombookings . '
                 </p>
                 <h3>
                 All the best from Berlin<br />
