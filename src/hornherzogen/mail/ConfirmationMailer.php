@@ -39,10 +39,9 @@ class ConfirmationMailer
     {
         $this->reader = new ApplicantDatabaseReader();
 
+        $this->applicants = $applicants;
         if (!isset($applicants) || !empty($applicants)) {
             $this->applicants = self::createTestApplicants();
-        } else {
-            $this->applicants = $applicants;
         }
 
         $this->headerGenerator = new MailHeaderGenerator();
