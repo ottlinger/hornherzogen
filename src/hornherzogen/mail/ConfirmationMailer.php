@@ -39,7 +39,7 @@ class ConfirmationMailer
     {
         $this->reader = new ApplicantDatabaseReader();
 
-        if (!isset($applicants) && !empty($applicants)) {
+        if (!isset($applicants) || !empty($applicants)) {
             $this->applicants = self::createTestApplicants();
         } else {
             $this->applicants = $applicants;
@@ -75,7 +75,7 @@ class ConfirmationMailer
 
     public function sendAsBatch()
     {
-        $counter = 1;
+        $counter = 0;
         $bookedDBId = $this->statusReader->getByName("BOOKED")[0]['id'];
 
         if (empty($this->applicants)) {
@@ -85,7 +85,7 @@ class ConfirmationMailer
         if ($this->applicants != NULL) {
 
             foreach ($this->applicants as $applicant) {
-                echo "<h2>Sending out to " . $counter++ . ".applicant with <a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>#" . $applicant->getPersistenceId() . "</a> / " . $applicant->getFullName() . "</h2>";
+                echo "<h2>Sending out to " . ++$counter . ".applicant with <a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>#" . $applicant->getPersistenceId() . "</a> / " . $applicant->getFullName() . "</h2>";
 
                 // get a fresh timestamp
                 $this->formHelper = new FormHelper();
