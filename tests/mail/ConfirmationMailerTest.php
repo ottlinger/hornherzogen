@@ -1,5 +1,6 @@
 <?php
 use hornherzogen\mail\ConfirmationMailer;
+use hornherzogen\Applicant;
 use PHPUnit\Framework\TestCase;
 
 class ConfirmationMailerTest extends TestCase
@@ -55,6 +56,22 @@ class ConfirmationMailerTest extends TestCase
     public function testSendNullArgument()
     {
         $this->assertEquals("Nothing to send.", $this->mailer->send(NULL));
+    }
+
+    public function testGermanMailtextIsNotEmpty() {
+        $applicant = new Applicant();
+        $applicant->setPersistenceId(4712);
+        $applicant->setLanguage('de');
+
+        $this->assertNotEmpty($this->mailer->getMailtext($applicant));
+    }
+
+    public function testEnglishMailtextIsNotEmpty() {
+        $applicant = new Applicant();
+        $applicant->setPersistenceId(4712);
+        $applicant->setLanguage('notGerman');
+
+        $this->assertNotEmpty($this->mailer->getMailtext($applicant));
     }
 
 }
