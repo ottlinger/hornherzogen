@@ -76,4 +76,9 @@ class RoomDatabaseWriterTest extends TestCase
         $this->assertNull($this->writer->performBooking(1,2));
     }
 
+    public function testDeleteForApplicantId()
+    {
+        $this->assertNull($this->writer->deleteForApplicantId(123));
+    }
+
 }
