@@ -132,9 +132,6 @@ class ConfirmationMailer
 
     public function getMailtext($applicant)
     {
-        // collect any booked rooms
-        $bookings = $this->bookingReader->getForApplicant($applicant->getPersistenceId());
-
         // all non German customers will get an English mail
         if ($applicant->getLanguage() != 'de') {
             return $this->getEnglishMailtext($applicant, $bookings);
@@ -153,19 +150,8 @@ class ConfirmationMailer
                 Hallo ' . $applicant->getFirstname() . ',</h2>
                 <p>danke für den Eingang Deiner Zahlung für die Lehrgangswoche ' . $applicant->getWeek() . '.
                 </p>
-                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet. Aktuell bist Du für den Raum ';
-
-        if (!isset($bookings) || empty($bookings) || NULL == $bookings) {
-            $mailtext .= "'unbekannt'";
-        } else {
-            $mailtext .= '<ul>';
-            foreach ($bookings as $b) {
-                $mailtext .= '<li>' . $b['name'] . '</li>';
-            }
-            $mailtext .= '</ul>';
-        }
-
-        $mailtext .= ' eingeplant.
+                <p>Du bist mit dieser Mail final für das Herzogenhorn angemeldet. 
+                Aktuell bist Du für den Raum ' . $this->getRoomBookingsInMail($applicant) . ' eingeplant.
                 </p>
                 <p>
                 Bitte beachte die folgenden <b>Stornoregeln</b> und kontaktiere uns im Notfall, sodass Aikidoka auf der Warteliste nachrücken können:
@@ -192,10 +178,10 @@ class ConfirmationMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Final confirmation for Herzogenhorn seminar week ' . $applicant->getWeek() . '</title >
+            <title>Final confirmation to attend Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' seminar in week ' . $applicant->getWeek() . '</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $applicant->getWeek() . '</h1>
+            <h1>final confirmation for Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - seminar week ' . $applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $applicant->getFirstname() . ',</h2>
                 <p>TODO add text and room ' . $roombookings . '
@@ -210,6 +196,34 @@ class ConfirmationMailer
         return $mailtext;
     }
 
+    function getRoomBookingsInMail($applicant)
+    {
+        if (!isset($applicant)) {
+            return "n/a";
+        }
+
+        // collect any booked rooms
+        $bookings = $this->bookingReader->getForApplicant($applicant->getPersistenceId());
+
+        // start with default no room
+        if ('de' == $applicant->getLanguage()) {
+            $mailtext = "'unbekannt'";
+        } else {
+            $mailtext = "'unknown'";
+        }
+
+        // add any more rooms
+        if (isset($bookings) && !empty($bookings) && NULL != $bookings) {
+            $mailtext = '<ul>';
+            foreach ($bookings as $b) {
+                $mailtext .= '<li>' . $b['name'] . '</li>';
+            }
+            $mailtext .= '</ul>';
+        }
+
+        return $mailtext;
+    }
+
     public function getColouredUIPrefix($mailResult)
     {
         if (boolval($mailResult)) {
@@ -217,4 +231,6 @@ class ConfirmationMailer
         }
         return "<h3 style='color: red; font-weight: bold;'>";
     }
+
+
 }
