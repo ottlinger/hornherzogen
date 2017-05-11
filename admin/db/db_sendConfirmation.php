@@ -107,11 +107,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
             <?php
             if ($config->isValidDatabaseConfig()) {
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
-                echo sizeof($applicants) . " Bewerber sind im Status 'PAID' und haben kein Buchungsdatum.";
+                echo sizeof($applicants) . " Bewerber sind im Status 'PAID' in der Datenbank für die ausgewählte Woche " . ($week == NULL ? " (beide)" : $week) . ".";
 
                 if (isset($makeItSo) && "yesSir" === $makeItSo) {
                     $mailer = new ConfirmationMailer($applicants);
-                    echo $mailer->sendAsBatch();
+                    $mailResult = $mailer->sendAsBatch();
+
+                    switch ($mailResult) {
+                        case "-1":
+                        case "0":
+                            echo " Es wurden keine Mails versendet.";
+                            break;
+                        default:
+                            echo $mailResult;
+                    }
                 }
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
