@@ -46,6 +46,12 @@ class ConfirmationMailerTest extends TestCase
         $this->assertEquals(1, $this->mailer->sendAsBatch());
     }
 
+    public function testMailSendingWithoutAnyApplicants()
+    {
+        $this->mailer = new ConfirmationMailer(array());
+        $this->assertEquals(-1, $this->mailer->sendAsBatch());
+    }
+
     public function testSendNullArgument()
     {
         $this->assertEquals("Nothing to send.", $this->mailer->send(NULL));
