@@ -73,7 +73,7 @@ class RoomDatabaseWriterTest extends TestCase
 
     public function testPerformBooking()
     {
-        $this->assertEmpty($this->writer->performBooking(1,2));
+        $this->assertNull($this->writer->performBooking(1,2));
     }
 
 }
