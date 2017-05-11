@@ -90,4 +90,9 @@ class RoomDatabaseReaderTest extends TestCase
     {
         $this->assertEmpty($this->reader->listApplicantsWithoutBookingsInWeek(1));
     }
+
+    public function testListBookingsByRoomNumberAndWeek()
+    {
+        $this->assertEmpty($this->reader->listBookingsByRoomNumberAndWeek(1,23));
+    }
 }
