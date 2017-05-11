@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class RoomDatabaseWriterTest extends TestCase
 {
     private static $pdo = null;
-    private $reader = null;
+    private $writer = null;
     private $databaseHelper;
 
     /**
@@ -17,8 +17,8 @@ class RoomDatabaseWriterTest extends TestCase
     {
         $this->databaseHelper = new DatabaseHelper();
         self::$pdo = $this->createTables();
-        // TODO        $this->reader = new RoomDatabaseWriter(self::$pdo);
-        $this->reader = new RoomDatabaseWriter(NULL);
+        // TODO        $this->writer = new RoomDatabaseWriter(self::$pdo);
+        $this->writer = new RoomDatabaseWriter(NULL);
     }
 
     private function createTables()
@@ -58,7 +58,7 @@ class RoomDatabaseWriterTest extends TestCase
      */
     public function tearDown()
     {
-        $this->reader = null;
+        $this->writer = null;
     }
 
     /**
@@ -68,12 +68,12 @@ class RoomDatabaseWriterTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('hornherzogen\db\RoomDatabaseWriter', $this->reader);
+        $this->assertInstanceOf('hornherzogen\db\RoomDatabaseWriter', $this->writer);
     }
 
     public function testPerformBooking()
     {
-        $this->assertEmpty($this->reader->performBooking(1,2));
+        $this->assertEmpty($this->writer->performBooking(1,2));
     }
 
 }
