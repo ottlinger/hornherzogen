@@ -19,7 +19,8 @@ class BookingDatabaseReaderTest extends TestCase
     {
         $this->databaseHelper = new DatabaseHelper();
         self::$pdo = $this->createTables();
-        $this->reader = new BookingDatabaseReader(self::$pdo);
+        // TODO        $this->reader = new BookingDatabaseReader(self::$pdo);
+        $this->reader = new BookingDatabaseReader(NULL);
     }
 
     private function createTables()
@@ -72,7 +73,9 @@ class BookingDatabaseReaderTest extends TestCase
         $this->assertInstanceOf('hornherzogen\db\BookingDatabaseReader', $this->reader);
     }
 
-    public function returnEmptyBookingsWithoutDatabase() {
+    public function testReturnEmptyBookingsWithoutDatabase()
+    {
         $this->assertEmpty($this->reader->getForApplicant(4711));
     }
+
 }
