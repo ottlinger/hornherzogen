@@ -226,8 +226,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     {
         $query = self::SELECT_ALL_APPLICANTS;
         $query .= ", status s";
-        $query .= " WHERE s.name='PAID' AND a.statusId = s.id ";
-        $query .= " AND a.booked IS NULL";
+        $query .= " WHERE s.name='PAID' AND a.statusId = s.id";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
