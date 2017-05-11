@@ -85,7 +85,6 @@ class ConfirmationMailer
 
                 $mailResult = $this->send($applicant);
                 echo $mailResult;
-
                 if (boolval($mailResult)) {
                     echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
                 } else {
@@ -188,7 +187,7 @@ class ConfirmationMailer
                 <p>Thus we confirm your participation in week ' . $applicant->getWeek() . '.</p>
                 <p>Currently your planned accommodation is room ' . $this->getRoomBookingsInMail($applicant) . '</p>
                 <p>
-                In case you are unable to attend the seminar, feel free to contact us, as people from waiting list might be eager to attend. Additionally you may cancel your seat under the following <b>compensation restrictions</b>:
+                In case you are unable to attend the seminar, feel free to contact us, as people from the waiting list might be eager to attend. Additionally you may cancel your seat under the following <b>compensation restrictions</b>:
                 <ul>
                 <li>no costs/free - until up to 4 weeks to the beginning of the seminar</li>
                 <li>50% of the seminar costs - until up to 2 weeks to the beginning of the seminar</li>

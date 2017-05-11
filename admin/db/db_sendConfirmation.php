@@ -116,10 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
                     switch ($mailResult) {
                         case "-1":
                         case "0":
-                            echo " Es wurden keine Mails versendet.";
+                            echo "<br /><span class=\"glyphicon glyphicon-ban-circle\"></span> Es wurden keinerlei Mails ausgesendet.";
                             break;
                         default:
-                            echo $mailResult;
+                            echo "<span class=\"glyphicon glyphicon-envelope\"></span> Resultat: ".$mailResult." Mails wurden insgesamt verschickt.";
                     }
                 }
             } else {
