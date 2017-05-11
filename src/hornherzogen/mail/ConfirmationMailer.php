@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace hornherzogen\mail;
 
-use hornherzogen\admin\BankingConfiguration;
 use hornherzogen\Applicant;
 use hornherzogen\ConfigurationWrapper;
-use hornherzogen\db\ApplicantDatabaseReader;
 use hornherzogen\db\ApplicantStateChanger;
 use hornherzogen\db\BookingDatabaseReader;
 use hornherzogen\db\StatusDatabaseReader;
@@ -27,7 +25,6 @@ class ConfirmationMailer
     private $applicants = NULL;
     private $localizer;
     private $config;
-    private $accountConfiguration;
     private $headerGenerator;
     private $stateChanger;
     private $bookingReader;
@@ -38,7 +35,7 @@ class ConfirmationMailer
     function __construct($applicants = NULL)
     {
         $this->applicants = $applicants;
-        if (!isset($applicants) || !empty($applicants)) {
+        if (!isset($applicants) && NULL === $applicants) {
             $this->applicants = self::createTestApplicants();
         }
 
@@ -48,7 +45,6 @@ class ConfirmationMailer
         $this->localizer = new HornLocalizer();
         $this->config = new ConfigurationWrapper();
         $this->statusReader = new StatusDatabaseReader();
-        $this->accountConfiguration = new BankingConfiguration();
         $this->stateChanger = new ApplicantStateChanger();
         $this->bookingReader = new BookingDatabaseReader();
 
