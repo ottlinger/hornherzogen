@@ -76,4 +76,13 @@ class RoomDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->listRoomBookings(1));
     }
 
+    public function testListRooms()
+    {
+        $this->assertEmpty($this->reader->listRooms());
+    }
+
+    public function testGetRoomById()
+    {
+        $this->assertEmpty($this->reader->getRoomById(4711));
+    }
 }
