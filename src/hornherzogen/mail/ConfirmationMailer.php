@@ -134,7 +134,7 @@ class ConfirmationMailer
     {
         // all non German customers will get an English mail
         if ($applicant->getLanguage() != 'de') {
-            return $this->getEnglishMailtext($applicant, $bookings);
+            return $this->getEnglishMailtext($applicant);
         }
 
         $mailtext =
@@ -171,9 +171,9 @@ class ConfirmationMailer
         return $mailtext;
     }
 
-    public function getEnglishMailtext($applicant, $roombookings)
+    public function getEnglishMailtext($applicant)
     {
-        $mailtext =
+        return
             '
     <html>
         <head>
@@ -201,8 +201,6 @@ class ConfirmationMailer
             </h2>
         </body>
     </html>';
-
-        return $mailtext;
     }
 
     function getRoomBookingsInMail($applicant)
