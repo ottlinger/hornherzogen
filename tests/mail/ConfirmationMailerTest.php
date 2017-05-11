@@ -74,4 +74,10 @@ class ConfirmationMailerTest extends TestCase
         $this->assertNotEmpty($this->mailer->getMailtext($applicant));
     }
 
+    public function testMailPrefixSetsColour() {
+        $this->assertContains("green", $this->mailer->getColouredUIPrefix(TRUE));
+        $this->assertContains("red", $this->mailer->getColouredUIPrefix(FALSE));
+
+    }
+
 }
