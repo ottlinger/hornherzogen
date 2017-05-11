@@ -64,7 +64,7 @@ class ConfirmationMailer
         $testApplicant->setFirstname("Emil");
         $testApplicant->setLastname("Mustermann");
         $testApplicant->setTwaNumber("CC-0815");
-        $testApplicant->setPersistenceId(4711);
+        $testApplicant->setPersistenceId(self::TEST_APPLICANT);
         $testApplicant->setWeek(2);
         $testApplicant->setLanguage('de');
         $testApplicant->setBookedAt(NULL); // to avoid not being caught in SQL - reset in DB: update applicants set booked = null where statusId =6;
@@ -82,22 +82,27 @@ class ConfirmationMailer
             echo "<h3>Keine Teilnehmer im richtigen Status gefunden! Bitte prüfen.";
         }
 
-        foreach ($this->applicants as $applicant) {
-            echo "<h2>Sending out to " . $counter++ . ".applicant with <a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>#" . $applicant->getPersistenceId() . "</a> / " . $applicant->getFullName() . "</h2>";
+        if ($this->applicants != NULL) {
 
-            // get a fresh timestamp
-            $this->formHelper = new FormHelper();
+            foreach ($this->applicants as $applicant) {
+                echo "<h2>Sending out to " . $counter++ . ".applicant with <a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>#" . $applicant->getPersistenceId() . "</a> / " . $applicant->getFullName() . "</h2>";
 
-            $mailResult = $this->send($applicant);
-            echo $mailResult;
+                // get a fresh timestamp
+                $this->formHelper = new FormHelper();
 
-            if (boolval($mailResult)) {
-                echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
-            } else {
-                echo "Problem while trying to send mail, will not send out mail. Please try again in 1.5hours time since the overall mail limit of the ISP may have been reached.";
+                $mailResult = $this->send($applicant);
+                echo $mailResult;
+
+                if (boolval($mailResult)) {
+                    echo "Changing state in database to 'BOOKED' resulted in " . boolval($this->stateChanger->changeStateTo($applicant->getPersistenceId(), $bookedDBId));
+                } else {
+                    echo "Problem while trying to send mail, will not send out mail. Please try again in 1.5hours time since the overall mail limit of the ISP may have been reached.";
+                }
+                echo "<hr/>";
             }
-            echo "<hr/>";
         }
+
+        return $counter;
     }
 
     function send($applicant)

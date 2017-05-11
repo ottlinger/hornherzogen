@@ -40,4 +40,10 @@ class ConfirmationMailerTest extends TestCase
         $this->assertInstanceOf('hornherzogen\mail\ConfirmationMailer', $this->mailer);
     }
 
+    public function testConfirmDummyApplicantSending()
+    {
+        $this->mailer = new ConfirmationMailer(NULL);
+        $this->assertEquals(1, $this->mailer->sendAsBatch());
+    }
+
 }
