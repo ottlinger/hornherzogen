@@ -25,8 +25,6 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
-    // TODO i18n for English
-    'CMAIL.INTERNAL' => 'Eine finale Buchungsbestätigung wurde um {0} versendet.',
     'CMAIL.SUBJECT' => 'Zusage für die Teilnahme am 合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' vom {0} - gute Anreise',
     'CMAIL.APPLICANT' => 'Finale Buchungsbestätigungsmail verschickt um {0}.',
     'PMAIL.INTERNAL' => 'Eine interne Zahlungsbestätigungsmail wurde um {0} versendet.',
@@ -130,6 +128,8 @@ $GLOBALS['messages']['de'] = array(
 
 // ENGLISH
 $GLOBALS['messages']['en'] = array(
+    'CMAIL.SUBJECT' => 'Confirmation to attend ' . $h_year . '\'s 合気道-seminar at Herzogenhorn ' . $h_year . ' {0} - godspeed!',
+    'CMAIL.APPLICANT' => 'A final confirmation mail was sent at {0}.',
     'PMAIL.INTERNAL' => 'An internal payment confirmation mail was sent at {0}.',
     'PMAIL.SUBJECT' => '合気道 seminar Herzogenhorn ' . $h_year . ' - in order to fulfil your application payment is requested {0}',
     'PMAIL.APPLICANT' => 'Sent mail with payment information at {0}.',
