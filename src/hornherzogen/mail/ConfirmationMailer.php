@@ -37,8 +37,6 @@ class ConfirmationMailer
 
     function __construct($applicants = NULL)
     {
-        $this->reader = new ApplicantDatabaseReader();
-
         $this->applicants = $applicants;
         if (!isset($applicants) || !empty($applicants)) {
             $this->applicants = self::createTestApplicants();
