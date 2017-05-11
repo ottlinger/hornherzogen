@@ -236,7 +236,7 @@ class SubmitMailer
         }
 
         // case2: there are already more than one entries in the database, persist will correct the current one
-        if (sizeof($existingRows) >= 1) {
+        if (isset($existingRows) && sizeof($existingRows) >= 1) {
             return false; // persist is going to correct the doublette by adding a salt to the fullname
         }
 
