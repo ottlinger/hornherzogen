@@ -200,7 +200,13 @@ class SubmitMailerTest extends TestCase
         $this->assertContains("You've successfully applied for Herzogenhorn week", $mailtext);
     }
 
-    public function testExistsInDatabase() {
+    public function testExistsInDatabase()
+    {
         $this->assertFalse($this->mailer->existsInDatabase());
+    }
+
+    public function testSaveInDatabaseReturnsDummyId()
+    {
+        $this->assertEquals(4711, $this->mailer->saveInDatabase());
     }
 }
