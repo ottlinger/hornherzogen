@@ -25,7 +25,7 @@ $GLOBALS['messages'] = array();
 // GERMAN with constants
 $GLOBALS['messages']['de'] = array(
     'CONST.YEAR' => '' . $h_year,
-    'CMAIL.SUBJECT' => 'Zusage für die Teilnahme am 合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' vom {0} - gute Anreise',
+    'CMAIL.SUBJECT' => 'Zusage für die Teilnahme am 合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' vom {0} - gute Anreise!',
     'CMAIL.APPLICANT' => 'Finale Buchungsbestätigungsmail verschickt um {0}.',
     'PMAIL.INTERNAL' => 'Eine interne Zahlungsbestätigungsmail wurde um {0} versendet.',
     'PMAIL.SUBJECT' => '合気道-Lehrgang auf dem Herzogenhorn ' . $h_year . ' - Bitte um Zahlung des Lehrgangsbeitrags zur Anmeldebestätigung {0}',
