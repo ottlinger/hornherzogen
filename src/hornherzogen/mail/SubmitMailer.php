@@ -231,7 +231,7 @@ class SubmitMailer
         $existingRows = $this->dbWriter->getByNameAndMailadress($this->applicationInput->getFirstname(), $this->applicationInput->getLastname(), $this->applicationInput->getEmail());
 
         // case1: database contains someone with the same name and mail address - treat as resubmit and do not persist
-        if (sizeof($existingRows) == 1 && $existingRows[0]->getFullName() === ($existingRows[0]->getFirstname() . ' ' . $existingRows[0]->getLastname())) {
+        if (isset($existingRows) && sizeof($existingRows) == 1 && $existingRows[0]->getFullName() === ($existingRows[0]->getFirstname() . ' ' . $existingRows[0]->getLastname())) {
             return true;
         }
 
