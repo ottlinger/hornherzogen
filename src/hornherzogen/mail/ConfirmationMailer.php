@@ -184,10 +184,19 @@ class ConfirmationMailer
             <h1>final confirmation for Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - seminar week ' . $applicant->getWeek() . '</h1>
             <h2>
                 Hi ' . $applicant->getFirstname() . ',</h2>
-                <p>TODO add text and room ' . $roombookings . '
+                <p>we\'ve received your payment. Thanks for doing it on time!</p>
+                <p>Thus we confirm your participation in week ' . $applicant->getWeek() . '.</p>
+                <p>Currently your planned accommodation is room ' . $this->getRoomBookingsInMail($applicant) . '</p>
+                <p>
+                In case you are unable to attend the seminar, feel free to contact us, as people from waiting list might be eager to attend. Additionally you may cancel your seat under the following <b>compensation restrictions</b>:
+                <ul>
+                <li>no costs/free - until up to 4 weeks to the beginning of the seminar</li>
+                <li>50% of the seminar costs - until up to 2 weeks to the beginning of the seminar</li>
+                <li>100% of the costs - less than 2 weeks to the beginning of the seminar</li>
+                </ul>
                 </p>
                 <h3>
-                All the best from Berlin<br />
+                All the best from Berlin, have a safe trip to Herzogenhorn :-)<br />
                 Benjamin und Philipp</h3>
             </h2>
         </body>
