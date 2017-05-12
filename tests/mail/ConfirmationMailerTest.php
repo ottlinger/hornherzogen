@@ -58,7 +58,8 @@ class ConfirmationMailerTest extends TestCase
         $this->assertEquals("Nothing to send.", $this->mailer->send(NULL));
     }
 
-    public function testGermanMailtextIsNotEmpty() {
+    public function testGermanMailtextIsNotEmpty()
+    {
         $applicant = new Applicant();
         $applicant->setPersistenceId(4712);
         $applicant->setLanguage('de');
@@ -66,7 +67,8 @@ class ConfirmationMailerTest extends TestCase
         $this->assertNotEmpty($this->mailer->getMailtext($applicant));
     }
 
-    public function testEnglishMailtextIsNotEmpty() {
+    public function testEnglishMailtextIsNotEmpty()
+    {
         $applicant = new Applicant();
         $applicant->setPersistenceId(4712);
         $applicant->setLanguage('notGerman');
@@ -74,10 +76,15 @@ class ConfirmationMailerTest extends TestCase
         $this->assertNotEmpty($this->mailer->getMailtext($applicant));
     }
 
-    public function testMailPrefixSetsColour() {
+    public function testMailPrefixSetsColour()
+    {
         $this->assertContains("green", $this->mailer->getColouredUIPrefix(TRUE));
         $this->assertContains("red", $this->mailer->getColouredUIPrefix(FALSE));
+    }
 
+    public function testRoomBookingsInMailWithoutApplicants()
+    {
+        $this->assertEquals("n/a", $this->mailer->getRoomBookingsInMail(NULL));
     }
 
 }
