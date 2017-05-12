@@ -30,16 +30,16 @@ In order to just play around with it I've integrated a CI run:
 
 # Releases
 
-## Release [v1.0.0](https://github.com/ottlinger/hornherzogen/releases/tag/v1.0.0)
-
-Live as of 2017-03-20:
+## Release [v1.0.0](https://github.com/ottlinger/hornherzogen/releases/tag/v1.0.0) - 2017-03-20
 * Applicant registration works in English and German
+## Release [v1.1.0](https://github.com/ottlinger/hornherzogen/releases/tag/v1.1.0) - 2017-05-12
+* Basic Admin area to manage applications and track payments
 
-## Current version
+## Current version / future
 
 Status: Work in progress since 2017-01-07 :-)
-* Admin interface to manage applications and track payments
-* Admin interface to
+* Improvements within the admin UI - more functions
+* later: database changes to allow new functionality (see Backlog in Waffle)
 
 ## Local installation
 
