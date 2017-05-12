@@ -189,8 +189,8 @@ class ConfirmationMailer
                 <p>
                 In case you are unable to attend the seminar, feel free to contact us, as people from the waiting list might be eager to attend. Additionally you may cancel your seat under the following <b>compensation restrictions</b>:
                 <ul>
-                <li>no costs/free - until up to 4 weeks to the beginning of the seminar</li>
-                <li>50% of the seminar costs - until up to 2 weeks to the beginning of the seminar</li>
+                <li>no costs/free - up to 4 weeks to the beginning of the seminar</li>
+                <li>50% of the seminar costs - up to 2 weeks to the beginning of the seminar</li>
                 <li>100% of the costs - less than 2 weeks to the beginning of the seminar</li>
                 </ul>
                 </p>
