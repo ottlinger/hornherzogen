@@ -11,7 +11,9 @@ class BookingDatabaseReader extends BaseDatabaseWriter
         if ($applicantId === -4711) {
             $a['name'] = "My testroom 4711";
             $a['week'] = 1;
-            return array($a);
+            $b['name'] = "My testroom 4712";
+            $b['week'] = 2;
+            return array($a, $b);
         }
 
         if (!self::isHealthy() || !is_numeric($applicantId)) {

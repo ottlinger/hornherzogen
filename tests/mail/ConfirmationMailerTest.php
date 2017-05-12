@@ -110,6 +110,6 @@ class ConfirmationMailerTest extends TestCase
         $applicant->setPersistenceId(-4711);
         $applicant->setLanguage('de');
 
-        $this->assertEquals("<ul><li>My testroom 4711</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
+        $this->assertEquals("<ul><li>My testroom 4711</li><li>My testroom 4712</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
     }
 }
