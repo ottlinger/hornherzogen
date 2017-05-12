@@ -103,4 +103,13 @@ class ConfirmationMailerTest extends TestCase
 
         $this->assertEquals("'unbekannt'", $this->mailer->getRoomBookingsInMail($applicant));
     }
+
+    public function testRoomBookingsInMailWithAvailableBookings()
+    {
+        $applicant = new Applicant();
+        $applicant->setPersistenceId(-4711);
+        $applicant->setLanguage('de');
+
+        $this->assertEquals("<ul><li>My testroom 4711</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
+    }
 }
