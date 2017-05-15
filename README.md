@@ -7,6 +7,9 @@ Pet project to manage seminar registration for Herzogenhorn 2017, started in Jan
 [![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
 [![Stories in Progress](https://badge.waffle.io/ottlinger/hornherzogen.png?label=in%20progress&title=In%20Progress)](https://waffle.io/ottlinger/hornherzogen)
 
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Percentage of issues still open")
+
 [![GPL v3.0](https://img.shields.io/github/license/ottlinger/hornherzogen.svg)](https://www.gnu.org/licenses/gpl.html)
 
 ## Github integration
