@@ -125,6 +125,14 @@ INSERT INTO rooms (name, capacity) VALUES ('Wohnung1',2);
 INSERT INTO rooms (name, capacity) VALUES ('Wohnung2',2);
 INSERT INTO rooms (name, capacity) VALUES ('Wohnung3',2);
 INSERT INTO rooms (name, capacity) VALUES ('Wohnung4',3);
+-- not really complete rooms, but available as well
+INSERT INTO rooms (name, capacity) VALUES ('Notfallzimmer1',1);
+INSERT INTO rooms (name, capacity) VALUES ('Notfallzimmer2',1);
+INSERT INTO rooms (name, capacity) VALUES ('Spezialzimmer1',1);
+INSERT INTO rooms (name, capacity) VALUES ('Spezialzimmer2',1);
+-- as a workaround for external guests
+INSERT INTO rooms (name, capacity) VALUES ('externe Unterbringung',25);
+INSERT INTO rooms (name, capacity) VALUES ('external arrangement',25);
 
 -- TABLE booking
 -- https://github.com/ottlinger/hornherzogen/issues/1
