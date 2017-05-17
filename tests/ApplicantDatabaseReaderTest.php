@@ -135,7 +135,7 @@ class ApplicantDatabaseReaderTest extends TestCase
     {
         $sql = $this->reader->buildGetAllQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT a.* from `applicants` a ORDER BY a.created", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a ORDER BY a.combinedName", trim($sql));
     }
 
     public function testGetAllQueryWithWeekParameter()
@@ -143,14 +143,14 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildGetAllQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER BY a.created", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.week LIKE '%MyWeek%' ORDER BY a.combinedName", $sql);
     }
 
     public function testPaidButNotConfirmedQueryWithoutWeek()
     {
         $sql = $this->reader->buildPaidButNotConfirmedQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id ORDER BY a.created LIMIT 50", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id ORDER BY a.combinedName LIMIT 50", trim($sql));
 
     }
 
@@ -159,7 +159,7 @@ class ApplicantDatabaseReaderTest extends TestCase
         $week = "MyWeek";
         $sql = $this->reader->buildPaidButNotConfirmedQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id AND a.week LIKE '%MyWeek%' ORDER BY a.created LIMIT 50", $sql);
+        $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id AND a.week LIKE '%MyWeek%' ORDER BY a.combinedName LIMIT 50", $sql);
     }
 
     public function testGetPaidButNotConfirmedApplicants()
