@@ -202,7 +202,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         if (isset($week) && strlen($week)) {
             $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
         }
-        $query .= " ORDER BY a.combinedName";
+        $query .= " ORDER BY a.created";
 
         return $query;
     }
@@ -231,7 +231,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         if (isset($week) && strlen($week)) {
             $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
         }
-        $query .= " ORDER BY a.combinedName";
+        $query .= " ORDER BY a.created";
         // Issue #98: ISP blocks more than 200 mails per hour - grmpf
         $query .= " LIMIT 50";
 
