@@ -276,7 +276,7 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
     // REMOVE BOOKING
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
         $aid = $formHelper->filterUserInput($_POST['aid']);
-        echo $roomWriter->deleteForApplicantId($aid) . " Zeilen für Applicant mit id #" . $id . " gelöscht";
+        echo $roomWriter->deleteForApplicantId($aid) . " Zeilen für Applicant mit id <a href='db_applicant.php?id=" . $id . "' target='_blank'>#" . $id . "</a> gelöscht.";
         $_POST['aid'] = NULL;
     }
 
