@@ -263,11 +263,11 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
             if ($roomWriter->canRoomBeBooked($iid)) {
                 $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
                 if (NULL != $persistId) {
-                    echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id #" . $submittedApplicantId . "</p>";
+                    echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id <a href='db_applicant.php?id=" . $submittedApplicantId . "' target='_blank'>#" . $submittedApplicantId . "</a></p>";
                     $_POST['applicantId'] = NULL;
                 }
             } else {
-                echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person #" . $submittedApplicantId . " nicht buchen, da Raum sonst überbucht würde.";
+                echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person <a href='db_applicant.php?id=" . $submittedApplicantId . "' target='_blank'>#" . $submittedApplicantId . "</a> nicht buchen, da Raum sonst überbucht würde.";
             }
         } // end of for
         $_POST['applicantId'] = NULL;
