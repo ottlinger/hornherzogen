@@ -230,7 +230,7 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="makeItSo">Wirklich abändern?</label>
-                <input class="button" type="radio" name="makeItSo" value="true">
+                <input class="button" type="radio" name="makeItSo" id="makeItSo" value="true">
             </div>
 
             <div class="form-group">
