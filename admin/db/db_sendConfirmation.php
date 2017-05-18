@@ -107,7 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
             <?php
             if ($config->isValidDatabaseConfig()) {
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
-                echo sizeof($applicants) . " Bewerber sind im Status 'PAID' in der Datenbank für die ausgewählte Woche " . ($week == NULL ? " (beide)" : $week) . ".";
+                $applicantNumber = sizeof($applicants);
+                echo $applicantNumber . " Bewerber sind im Status 'PAID' in der Datenbank für die ausgewählte Woche " . ($week == NULL ? " (beide)" : $week) . ".";
 
                 if (isset($makeItSo) && "yesSir" === $makeItSo) {
                     $mailer = new ConfirmationMailer($applicants);
@@ -119,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
                             echo "<br /><span class=\"glyphicon glyphicon-ban-circle\"></span> Es wurden keinerlei Mails ausgesendet.";
                             break;
                         default:
-                            echo "<span class=\"glyphicon glyphicon-envelope\"></span> Resultat: ".$mailResult." Mails wurden insgesamt verschickt.";
+                            echo "<span class=\"glyphicon glyphicon-envelope\"></span> Resultat: ".$mailResult." von insgesamt ".$applicantNumber." Mails wurden im Rahmen der ersten 50 Mails verschickt.";
                     }
                 }
             } else {
