@@ -141,7 +141,7 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
                 if (isset($stateInDB) && sizeof($stateInDB) > 0 && $stateInDB[0]['id'] === $sid) {
                     echo "<h3>Keine Änderung gemacht, da nur Daten angezeigt werden</h3>";
                 } else {
-                    echo "<h3>Statusänderung von <a href='db_applicant.php?id=\" . $aid . \"' target='_blank'>\"#" . $aid . "</a> auf " . $sid . " war ";
+                    echo "<h3>Statusänderung von <a href='db_applicant.php?id=" . $aid . "' target='_blank'>#" . $aid . "</a> auf " . $sid . " war ";
                     echo $stateChanger->changeStateTo($aid, $sid) ? '' : 'nicht ';
                     echo "erfolgreich</h3>";
                 }
