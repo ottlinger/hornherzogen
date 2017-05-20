@@ -76,4 +76,18 @@ class BookingErrorChecker extends BaseDatabaseWriter
         return $results;
     }
 
+    public function listPeopleWithBookingsThatDoNotTakePartInTheSeminar() {
+        $results = array();
+        if (self::isHealthy()) {
+            $query = "select a.* from applicants a where a.statusId IN (select id from status where name in ('CANCELLED','REJECTED','SPAM')) AND a.id in (select applicantId from roombooking r)";
+            $dbResult = $this->database->query($query);
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+        }
+        return $results;
+    }
+
 }
