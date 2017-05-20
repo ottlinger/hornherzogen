@@ -90,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                         <li><a href="db/db_book.php?id=1&amp;week=1">Buchungen der Zimmer vornehmen</a></li>
                         <li><a href="db/db_applicantsStateChange.php">Bewerbungsstatus ändern und Mails automatisch aussenden</a></li>
                         <li><a href="db/db_applicantsConfirmationMail.php">finale Bestätigungsmail aller bezahlten Teilnehmer versenden</a></li>
+                        <li><a href="db/db_applicantsMissingPayment.php">Teilnehmer, die noch nicht gezahlt haben</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Übersichtslisten</li>
                         <li><a href="db/db_applicantsFlexible.php">umbuchbare Anmeldungen zeigen</a></li>
