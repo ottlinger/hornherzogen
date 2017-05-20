@@ -119,7 +119,7 @@ $applicantReader = new ApplicantDatabaseReader();
                     $applicantId = $row['applicantId'];
                     $applicant = $applicantReader->getById($applicantId)[0];
                     echo "<tr>";
-                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">" . $applicantId . "</a></td>";
+                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">#" . $applicantId . "</a></td>";
                     echo "<td>" . $applicant->getFirstname() . "</td>";
                     echo "<td>" . $applicant->getLastname() . "</td>";
                     echo "<td>" . $row['count'] . "</td>";
@@ -157,6 +157,35 @@ $applicantReader = new ApplicantDatabaseReader();
                 }
                 echo "</tbody>";
                 echo "</table></div>";
+
+                echo "<h2>Personen, die storniert haben, abgelehnt wurden oder Spam sind und dennoch eine Zimmerbuchung haben</h2>";
+                $applicants = $errorChecker->listPeopleWithBookingsThatDoNotTakePartInTheSeminar();
+
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>Id</th>";
+                echo "<th>kompletter Name</th>";
+                echo "<th>Woche</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+
+                if(empty($applicants)) {
+                    echo "<tr><td colspan='3'>keine vorhanden</td></tr>";
+                }
+                foreach ($applicants as $row) {
+                    $applicantId = $row->getPersistenceId();
+                    echo "<tr>";
+                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">#" . $applicantId . "</a></td>";
+                    echo "<td>" . $row->getWeek() . "</td>";
+                    echo "<td>" . $row->getFullName() . "</td>";
+                    echo "</tr>";
+                }
+                echo "</tbody>";
+                echo "</table></div>";
+
+                echo "<p>Bitte etwaige Buchungen über den Raum aus der Buchungsliste entfernen!</p>";
 
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
