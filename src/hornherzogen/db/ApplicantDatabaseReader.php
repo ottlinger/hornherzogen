@@ -238,5 +238,34 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         return $query;
     }
 
+    public function getOverduePayments($week = NULL) {
+        $results = array();
+
+        if ($this->isHealthy()) {
+            $dbResult = $this->database->query($this->buildOverduePaymentQuery($week));
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+        }
+
+        return $results;
+    }
+
+    public function buildOverduePaymentQuery($week)
+    {
+        $query = self::SELECT_ALL_APPLICANTS;
+        $query .= " WHERE a.paymentmailed > DATE_ADD(now(),INTERVAL 2 WEEK) ";
+        // if week == null - return all, else for the given week
+        if (isset($week) && strlen($week)) {
+            $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+        }
+        $query .= " AND a.paymentreceived IS NOT NULL";
+        $query .= " AND statusId != (select id from status where name in ('PAID'))";
+
+        return $query;
+    }
+
 }
 
