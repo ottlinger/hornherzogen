@@ -58,4 +58,9 @@ class BookingErrorCheckerTest extends TestCase
         $this->assertEmpty($this->errorChecker->listOverbookedBookings());
     }
 
+    public function testListPeopleWithBookingsThatDoNotTakePartInTheSeminar()
+    {
+        $this->assertEmpty($this->errorChecker->listPeopleWithBookingsThatDoNotTakePartInTheSeminar());
+    }
+
 }
