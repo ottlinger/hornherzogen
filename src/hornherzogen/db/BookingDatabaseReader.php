@@ -9,11 +9,11 @@ class BookingDatabaseReader extends BaseDatabaseWriter
     {
         // special test handling
         if ($applicantId === -4711) {
-            $a['name'] = "My testroom 4711";
-            $a['week'] = 1;
-            $b['name'] = "My testroom 4712";
-            $b['week'] = 2;
-            return array($a, $b);
+            $test4711['name'] = "My testroom 4711";
+            $test4711['week'] = 1;
+            $test4712['name'] = "My testroom 4712";
+            $test4712['week'] = 2;
+            return array($test4711, $test4712);
         }
 
         if (!self::isHealthy() || !is_numeric($applicantId)) {
