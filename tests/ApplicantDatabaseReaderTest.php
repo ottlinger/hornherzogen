@@ -170,4 +170,17 @@ class ApplicantDatabaseReaderTest extends TestCase
         $this->assertEmpty($this->reader->getOverduePayments());
     }
 
+    public function testOverduePaymentQueryWithoutWeek() {
+        $sql = $this->reader->buildOverduePaymentQuery(NULL);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.paymentmailed > DATE_ADD(now(),INTERVAL 2 WEEK) AND a.paymentreceived IS NOT NULL AND statusId != (select id from status where name in ('PAID'))", trim($sql));
+    }
+
+    public function testOverduePaymentQueryWithWeek() {
+        $week = "AWeek";
+        $sql = $this->reader->buildOverduePaymentQuery($week);
+        $this->assertNotEmpty($sql);
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE a.paymentmailed > DATE_ADD(now(),INTERVAL 2 WEEK) AND a.week LIKE '%AWeek%' AND a.paymentreceived IS NOT NULL AND statusId != (select id from status where name in ('PAID'))", trim($sql));
+    }
+
 }
