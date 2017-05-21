@@ -151,7 +151,6 @@ class ApplicantDatabaseReaderTest extends TestCase
         $sql = $this->reader->buildPaidButNotConfirmedQuery(NULL);
         $this->assertNotEmpty($sql);
         $this->assertEquals("SELECT a.* from `applicants` a, status s WHERE s.name='PAID' AND a.statusId = s.id ORDER BY a.created LIMIT 50", trim($sql));
-
     }
 
     public function testPaidButNotConfirmedQueryWithWeek()
