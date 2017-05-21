@@ -164,7 +164,10 @@ class ApplicantDatabaseReaderTest extends TestCase
     public function testGetPaidButNotConfirmedApplicants()
     {
         $this->assertEmpty($this->reader->getPaidButNotConfirmedApplicants());
+    }
 
+    public function testGetOverduePayments() {
+        $this->assertEmpty($this->reader->getOverduePayments());
     }
 
 }
