@@ -136,8 +136,7 @@ $statusReader = new StatusDatabaseReader();
         <p>Es kann auch sein, dass die Leute bereits bezahlt haben, aber der Status noch nicht auf 'PAID' gesetzt wurde!</p>
 
     <?php
-    // select a.* from applicants a where a.paymentmailed > DATE_ADD(now(),INTERVAL 2 WEEK) and a.paymentreceived IS NOT NULL and statusId != (select id from status where name in ('PAID'))
-    $applicants = $applicantReader->listByFlexibilityPerWeek($week);
+    $applicants = $applicantReader->getOverduePayments($week);
 
     echo '<div class="table-responsive"><table class="table table-striped">';
     echo "<thead>";
