@@ -256,13 +256,14 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     public function buildOverduePaymentQuery($week)
     {
         $query = self::SELECT_ALL_APPLICANTS;
-        $query .= " WHERE now() > DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK)";
+        $query .= " WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK)";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
             $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
         }
-        $query .= " AND a.paymentreceived IS NOT NULL";
-        $query .= " AND statusId != (select id from status where name in ('PAID'))";
+        $query .= " AND a.paymentreceived IS NULL";
+        $query .= " AND statusId NOT IN (select id from status where name in ('PAID','BOOKED'))";
+        $query .= " ORDER BY a.paymentmailed ASC";
 
         return $query;
     }

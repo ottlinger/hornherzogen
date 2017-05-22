@@ -133,11 +133,11 @@ $statusReader = new StatusDatabaseReader();
             </noscript>
         </form>
 
-        <p>Es kann auch sein, dass die Leute bereits bezahlt haben, aber der Status noch nicht auf 'PAID' gesetzt wurde!</p>
 
     <?php
     $applicants = $applicantReader->getOverduePayments($week);
 
+    echo '<p>Es kann auch sein, dass die ' . sizeof($applicants) . ' Leute bereits bezahlt haben, aber der Status noch nicht auf \'PAID\' gesetzt wurde!</p>';
     echo '<div class="table-responsive"><table class="table table-striped">';
     echo "<thead>";
     echo "<tr>";
@@ -158,7 +158,7 @@ $statusReader = new StatusDatabaseReader();
     echo "<tbody>";
 
     if (empty($applicants)) {
-        echo "<tr><td colspan='11'>keine</td></tr>";
+        echo "<tr><td colspan='12'>keine</td></tr>";
     }
 
     foreach ($applicants as $applicant) {
