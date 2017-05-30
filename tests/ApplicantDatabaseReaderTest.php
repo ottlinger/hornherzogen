@@ -173,14 +173,14 @@ class ApplicantDatabaseReaderTest extends TestCase
     public function testOverduePaymentQueryWithoutWeek() {
         $sql = $this->reader->buildOverduePaymentQuery(NULL);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT a.* from `applicants` a WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK) AND a.paymentreceived IS NULL AND statusId NOT IN (select id from status where name in ('PAID','BOOKED')) ORDER BY a.paymentmailed ASC", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK) AND a.paymentreceived IS NULL AND statusId NOT IN (select id from status where name in ('PAID','BOOKED','CANCELLED')) ORDER BY a.paymentmailed ASC", trim($sql));
     }
 
     public function testOverduePaymentQueryWithWeek() {
         $week = "AWeek";
         $sql = $this->reader->buildOverduePaymentQuery($week);
         $this->assertNotEmpty($sql);
-        $this->assertEquals("SELECT a.* from `applicants` a WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK) AND a.week LIKE '%AWeek%' AND a.paymentreceived IS NULL AND statusId NOT IN (select id from status where name in ('PAID','BOOKED')) ORDER BY a.paymentmailed ASC", trim($sql));
+        $this->assertEquals("SELECT a.* from `applicants` a WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK) AND a.week LIKE '%AWeek%' AND a.paymentreceived IS NULL AND statusId NOT IN (select id from status where name in ('PAID','BOOKED','CANCELLED')) ORDER BY a.paymentmailed ASC", trim($sql));
     }
 
 }

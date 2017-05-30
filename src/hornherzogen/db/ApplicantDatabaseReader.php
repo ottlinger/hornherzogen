@@ -262,7 +262,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
             $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
         }
         $query .= " AND a.paymentreceived IS NULL";
-        $query .= " AND statusId NOT IN (select id from status where name in ('PAID','BOOKED'))";
+        $query .= " AND statusId NOT IN (select id from status where name in ('PAID','BOOKED','CANCELLED'))";
         $query .= " ORDER BY a.paymentmailed ASC";
 
         return $query;
