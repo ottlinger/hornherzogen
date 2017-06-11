@@ -80,9 +80,9 @@ Local installations work fine with PHP7, while some hosters have trouble because
 
 You need to install php and add some libraries to your local Webserver:
 ```
-$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl 
 or
-$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php7.0-mysql php-xdebug sqlite3 php7.0-sqlite3
+$ sudo apt install phpunit php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php-xdebug sqlite3 php7.0-sqlite3
 $ sudo /etc/init.d/apache2 restart
 ```
 
