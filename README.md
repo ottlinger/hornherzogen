@@ -86,16 +86,7 @@ $ sudo apt install php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php-xdebu
 $ sudo /etc/init.d/apache2 restart
 ```
 
-PHPUnit will be installed via composer and can be referenced with the following alias:
-```
-$ vim .bashrc
-...
-alias phpunit=./vendor/bin/phpunit
-$ source .bashrc
-$ phpunit 
-// should work now
-```
-
+PHPUnit will be installed via composer, see section about development for further details.
 
 #### MacOS
 
