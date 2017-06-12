@@ -10,25 +10,23 @@ Pet project to manage seminar registration for Herzogenhorn 2017, started in Jan
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Percentage of issues still open")
 
+[![Join the chat at https://gitter.im/hornherzogen](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hornherzogen)
+
 [![GPL v3.0](https://img.shields.io/github/license/ottlinger/hornherzogen.svg)](https://www.gnu.org/licenses/gpl.html)
 
-## Github integration
+## Github integrations
+In order to just play around with it I've integrated the project into various freely available services.
+
 ### Travis / CI
-
-In order to just play around with it I've integrated a CI run:
-
 [![Build Status](https://travis-ci.org/ottlinger/hornherzogen.svg?branch=master)](https://travis-ci.org/ottlinger/hornherzogen)
 
 ### Code coverage
-
 [![codecov](https://codecov.io/gh/ottlinger/hornherzogen/branch/master/graph/badge.svg)](https://codecov.io/gh/ottlinger/hornherzogen)
 
 ### Codacy - code quality and static analysis
-
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c8fc0c6ef3d14192a2a8f84a670ccb92)](https://www.codacy.com/app/github_25/hornherzogen)
 
 ### VersionEye - dependency update management
-
 [![Dependency versions](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
 
 # Releases
@@ -80,7 +78,7 @@ Local installations work fine with PHP7, while some hosters have trouble because
 
 You need to install php and add some libraries to your local Webserver:
 ```
-$ sudo apt install php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl 
+$ sudo apt install php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl
 or in case you want to run tests or develop on the project
 $ sudo apt install php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl php-xdebug sqlite3 php7.0-sqlite3
 $ sudo /etc/init.d/apache2 restart
