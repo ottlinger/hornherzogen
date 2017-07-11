@@ -1,5 +1,6 @@
 # Project hornherzogen
-Pet project to manage seminar registration for Herzogenhorn 2017, started in January 2017.
+Pet project to manage seminar registration for Herzogenhorn ...
+started in January 2017.
 
 ## Project Status
 
