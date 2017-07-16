@@ -63,4 +63,9 @@ class BookingErrorCheckerTest extends TestCase
         $this->assertEmpty($this->errorChecker->listPeopleWithBookingsThatDoNotTakePartInTheSeminar());
     }
 
+    public function testListPeopleWithFinalStateButNoRooms()
+    {
+        $this->assertEmpty($this->errorChecker->listPeopleWithFinalStateButNoRooms());
+    }
+
 }
