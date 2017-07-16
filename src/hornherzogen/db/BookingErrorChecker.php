@@ -90,4 +90,18 @@ class BookingErrorChecker extends BaseDatabaseWriter
         return $results;
     }
 
+    public function listPeopleWithFinalStateButNoRooms() {
+        $results = array();
+        if (self::isHealthy()) {
+            $query = "select a.* from applicants a where a.statusId IN (select id from status where name in ('BOOKED', 'PAID')) AND a.id NOT IN (select applicantId from roombooking r)";
+            $dbResult = $this->database->query($query);
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
+            while ($row = $dbResult->fetch()) {
+                $results[] = $this->databaseHelper->fromDatabaseToObject($row);
+            }
+        }
+        return $results;
+    }
+
 }
