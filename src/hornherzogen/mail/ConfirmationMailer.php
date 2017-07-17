@@ -172,6 +172,12 @@ class ConfirmationMailer
 
     public function getEnglishMailtext($applicant)
     {
+
+        $twaReminder = '';
+        if (NULL != $applicant->getTwaNumber() && strlen($applicant->getTwaNumber())) {
+            $twaReminder = '<p>Please do not forget your twa-passport!</p>';
+        }
+
         return
             '
     <html>
@@ -193,7 +199,7 @@ class ConfirmationMailer
                 <li>50% of the seminar costs - up to 2 weeks to the beginning of the seminar</li>
                 <li>100% of the costs - less than 2 weeks to the beginning of the seminar</li>
                 </ul>
-                </p>
+                </p>'.$twaReminder.'
                 <h3>
                 All the best from Berlin, have a safe trip to Herzogenhorn :-)<br />
                 Benjamin und Philipp</h3>
