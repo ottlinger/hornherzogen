@@ -136,6 +136,12 @@ class ConfirmationMailer
             return $this->getEnglishMailtext($applicant);
         }
 
+        $twaReminder = '';
+        if (NULL != $applicant->getTwaNumber() && strlen($applicant->getTwaNumber())) {
+            $twaReminder = '<p>Bitte nicht den twa-Ausweis vergessen!</p>';
+        }
+
+
         $mailtext =
             '
     <html>
@@ -159,7 +165,7 @@ class ConfirmationMailer
                 <li>bis 2 Wochen vor Lehrgangsbeginn 50% der Kosten</li>
                 <li>weniger als 2 Wochen vor Lehrgangsbeginn 100% der Kosten</li>
                 </ul>
-                </p>
+                </p>'.$twaReminder.'
                 <h3>
                 Sonnige Grüße aus Berlin, wir freuen uns auf das gemeinsame Training!<br />
                 von Benjamin und Philipp</h3>
