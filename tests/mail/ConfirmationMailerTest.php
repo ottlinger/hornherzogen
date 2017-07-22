@@ -112,4 +112,12 @@ class ConfirmationMailerTest extends TestCase
 
         $this->assertEquals("<ul><li>My testroom 4711</li><li>My testroom 4712</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
     }
+
+    public function testConfirmationMailContainsDoNotForgetTWAThingsInEnglish() {
+        $applicant = new Applicant();
+        $applicant->setLanguage("en");
+        $applicant->setTwaNumber("UK-0815");
+
+        $this->assertContains("Please do not forget your twa-passport!", $this->mailer->getEnglishMailtext($applicant));
+    }
 }
