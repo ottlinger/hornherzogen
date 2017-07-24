@@ -134,7 +134,7 @@ class ConfirmationMailerTest extends TestCase
         $applicant->setLanguage("de");
         $applicant->setTwaNumber("DE-0815");
 
-        $this->assertContains("Please do not forget your twa-passport!", $this->mailer->getEnglishMailtext($applicant));
+        $this->assertContains("Bitte nicht den twa-Ausweis vergessen!", $this->mailer->getMailtext($applicant));
     }
 
 }
