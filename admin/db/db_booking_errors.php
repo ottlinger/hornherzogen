@@ -184,8 +184,40 @@ $applicantReader = new ApplicantDatabaseReader();
                 }
                 echo "</tbody>";
                 echo "</table></div>";
-
                 echo "<p>Bitte etwaige Buchungen über den Raum aus der Buchungsliste entfernen!</p>";
+
+                echo "<h2>Gebuchte Personen ohne Raumreservierung</h2>";
+                $applicants = $errorChecker->listPeopleWithFinalStateButNoRooms();
+
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>ApplicantId</th>";
+                echo "<th>Vorname</th>";
+                echo "<th>Name</th>";
+                echo "<th>Dojo</th>";
+                echo "<th>Stadt</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+
+                if(empty($applicants)) {
+                    echo "<tr><td colspan='5'>keine vorhanden</td></tr>";
+                }
+
+                foreach ($applicants as $applicant) {
+                    echo "<tr>";
+                    $applicantId = $applicant->getPersistenceId();
+                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">#" . $applicantId . "</a></td>";
+                    echo "<td>" . $applicant->getFirstname() . "</td>";
+                    echo "<td>" . $applicant->getLastname() . "</td>";
+                    echo "<td>" . $applicant->getDojo() . "</td>";
+                    echo "<td>" . $applicant->getCity() . "</td>";
+                    echo "</tr>";
+                }
+                echo "</tbody>";
+                echo "</table></div>";
+                echo "<p>Bitte den Status der Personen umbuchen oder Räume nachbuchen!</p>";
 
             } else {
                 echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
