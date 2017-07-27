@@ -20,7 +20,7 @@ class BookingDatabaseReader extends BaseDatabaseWriter
             return NULL;
         }
 
-        return $this->getResultsFromDatabase('select a.week, r.name from roombooking b, applicants a, rooms r where r.id = b.roomId and a.id = b.applicantId and a.id ="' . $applicantId . '"');
+        return $this->getResultsFromDatabase('select a.week, r.name, r.capacity from roombooking b, applicants a, rooms r where r.id = b.roomId and a.id = b.applicantId and a.id ="' . $applicantId . '"');
     }
 
     private function getResultsFromDatabase($query)
