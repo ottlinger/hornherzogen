@@ -1,6 +1,7 @@
 <?php
-use hornherzogen\mail\ConfirmationMailer;
+
 use hornherzogen\Applicant;
+use hornherzogen\mail\ConfirmationMailer;
 use PHPUnit\Framework\TestCase;
 
 class ConfirmationMailerTest extends TestCase
@@ -110,10 +111,11 @@ class ConfirmationMailerTest extends TestCase
         $applicant->setPersistenceId(-4711);
         $applicant->setLanguage('de');
 
-        $this->assertEquals("<ul><li>My testroom 4711</li><li>My testroom 4712</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
+        $this->assertEquals("<ul><li>My testroom 4711</li><li>47</li><li>My testroom 4712</li><li>3</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
     }
 
-    public function testConfirmationMailContainsDoNotForgetTWAThingsInEnglish() {
+    public function testConfirmationMailContainsDoNotForgetTWAThingsInEnglish()
+    {
         $applicant = new Applicant();
         $applicant->setLanguage("en");
         $applicant->setTwaNumber("UK-0815");
@@ -121,7 +123,8 @@ class ConfirmationMailerTest extends TestCase
         $this->assertContains("Please do not forget your twa-passport!", $this->mailer->getEnglishMailtext($applicant));
     }
 
-    public function testConfirmationMailDoesNotContainDoNotForgetTWAThingsInEnglishIfNoTwaMember() {
+    public function testConfirmationMailDoesNotContainDoNotForgetTWAThingsInEnglishIfNoTwaMember()
+    {
         $applicant = new Applicant();
         $applicant->setLanguage("en");
         $applicant->setTwaNumber("");
@@ -129,7 +132,8 @@ class ConfirmationMailerTest extends TestCase
         $this->assertNotContains("Please do not forget your twa-passport!", $this->mailer->getEnglishMailtext($applicant));
     }
 
-    public function testConfirmationMailContainsDoNotForgetTWAThingsInGerman() {
+    public function testConfirmationMailContainsDoNotForgetTWAThingsInGerman()
+    {
         $applicant = new Applicant();
         $applicant->setLanguage("de");
         $applicant->setTwaNumber("DE-0815");
@@ -137,7 +141,8 @@ class ConfirmationMailerTest extends TestCase
         $this->assertContains("Bitte nicht den twa-Ausweis vergessen!", $this->mailer->getMailtext($applicant));
     }
 
-    public function testConfirmationMailDoesNotContainDoNotForgetTWAThingsInGermanIfNoTwaMember() {
+    public function testConfirmationMailDoesNotContainDoNotForgetTWAThingsInGermanIfNoTwaMember()
+    {
         $applicant = new Applicant();
         $applicant->setLanguage("de");
         $applicant->setTwaNumber("");
