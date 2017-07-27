@@ -11,8 +11,10 @@ class BookingDatabaseReader extends BaseDatabaseWriter
         if ($applicantId === -4711) {
             $test4711['name'] = "My testroom 4711";
             $test4711['week'] = 1;
+            $test4711['capacity'] = 47;
             $test4712['name'] = "My testroom 4712";
             $test4712['week'] = 2;
+            $test4712['capacity'] = 3;
             return array($test4711, $test4712);
         }
 
