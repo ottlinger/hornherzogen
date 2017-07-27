@@ -165,7 +165,7 @@ class ConfirmationMailer
                 <li>bis 2 Wochen vor Lehrgangsbeginn 50% der Kosten</li>
                 <li>weniger als 2 Wochen vor Lehrgangsbeginn 100% der Kosten</li>
                 </ul>
-                </p>'.$twaReminder.'
+                </p>' . $twaReminder . '
                 <h3>
                 Sonnige Grüße aus Berlin, wir freuen uns auf das gemeinsame Training!<br />
                 von Benjamin und Philipp</h3>
@@ -205,7 +205,7 @@ class ConfirmationMailer
                 <li>50% of the seminar costs - up to 2 weeks to the beginning of the seminar</li>
                 <li>100% of the costs - less than 2 weeks to the beginning of the seminar</li>
                 </ul>
-                </p>'.$twaReminder.'
+                </p>' . $twaReminder . '
                 <h3>
                 All the best from Berlin, have a safe trip to Herzogenhorn :-)<br />
                 Benjamin und Philipp</h3>
@@ -235,6 +235,7 @@ class ConfirmationMailer
             $mailtext = '<ul>';
             foreach ($bookings as $b) {
                 $mailtext .= '<li>' . $b['name'] . '</li>';
+                $mailtext .= '<li>' . $b['capacity'] . '</li>';
             }
             $mailtext .= '</ul>';
         }
