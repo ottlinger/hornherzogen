@@ -68,4 +68,9 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         return 0;
     }
 
+    function removeExistingRoomBookings($applicantId) {
+        // TODO issue #101
+        return 0;
+    }
+
 }
