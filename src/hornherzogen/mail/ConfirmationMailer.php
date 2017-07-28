@@ -235,7 +235,7 @@ class ConfirmationMailer
             $mailtext = '<ul>';
             foreach ($bookings as $b) {
                 $mailtext .= '<li>' . $b['name'] . '</li>';
-                $mailtext .= '<li>' . $b['capacity'] . '</li>';
+                $mailtext .= '<li>' . $this->localizer->i18nParams('CMAIL.ROOMCAPACITY', $b['capacity']) . '</li>';
             }
             $mailtext .= '</ul>';
         }
