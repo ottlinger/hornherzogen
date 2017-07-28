@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace hornherzogen\db;
 
 class ApplicantDatabaseWriter extends BaseDatabaseWriter
@@ -65,19 +66,20 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
         if ($this->isHealthy() && isset($applicantId) && strlen($applicantId)) {
             // remove any existing room bookings
             $removedBookings = $this->removeExistingRoomBookings($applicantId);
-            $result= $this->database->exec("DELETE from `applicants` WHERE id = " . $this->databaseHelper->makeSQLCapable($applicantId, $this->database));
+            $result = $this->database->exec("DELETE from `applicants` WHERE id = " . $this->databaseHelper->makeSQLCapable($applicantId, $this->database));
             $this->databaseHelper->logDatabaseErrors($result, $this->database);
 
-            if(isset($removedBookings) && $removedBookings>0) {
-                $result." mit Raumbuchungen";
+            if (isset($removedBookings) && $removedBookings > 0) {
+                $result . " mit Raumbuchungen";
             }
 
             return $result;
         }
-        return 0 + " ohne Raumbuchungen";
+        return 0 . " ohne Raumbuchungen";
     }
 
-    function removeExistingRoomBookings($applicantId) {
+    function removeExistingRoomBookings($applicantId)
+    {
         if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
             $result = $this->database->exec("DELETE FROM `roombooking` WHERE applicantId=" . $this->databaseHelper->makeSQLCapable($applicantId, $this->database));
             $this->databaseHelper->logDatabaseErrors($result, $this->database);
