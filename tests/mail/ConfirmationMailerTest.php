@@ -111,7 +111,7 @@ class ConfirmationMailerTest extends TestCase
         $applicant->setPersistenceId(-4711);
         $applicant->setLanguage('de');
 
-        $this->assertEquals("<ul><li>My testroom 4711</li><li>47</li><li>My testroom 4712</li><li>3</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
+        $this->assertEquals("<ul><li>My testroom 4711</li><li>mit einer Kapazität für 47 Personen</li><li>My testroom 4712</li><li>mit einer Kapazität für 3 Personen</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
     }
 
     public function testConfirmationMailContainsDoNotForgetTWAThingsInEnglish()
