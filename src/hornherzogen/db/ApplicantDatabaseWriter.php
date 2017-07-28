@@ -69,13 +69,13 @@ class ApplicantDatabaseWriter extends BaseDatabaseWriter
             $result = $this->database->exec("DELETE from `applicants` WHERE id = " . $this->databaseHelper->makeSQLCapable($applicantId, $this->database));
             $this->databaseHelper->logDatabaseErrors($result, $this->database);
 
-            if (isset($removedBookings) && $removedBookings > 0) {
-                $result . " mit Raumbuchungen";
+            if (isset($removedBookings) && is_numeric($removedBookings) && $removedBookings > 0) {
+                $result . " mit " . $removedBookings . " Raumbuchungen";
             }
 
             return $result;
         }
-        return 0 . " ohne Raumbuchungen";
+        return (0 . " ohne Raumbuchungen");
     }
 
     function removeExistingRoomBookings($applicantId)
