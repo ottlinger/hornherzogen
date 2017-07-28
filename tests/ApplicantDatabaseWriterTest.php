@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\ApplicantInput;
 use hornherzogen\db\ApplicantDatabaseWriter;
 use PHPUnit\DbUnit\TestCaseTrait;
@@ -91,7 +92,7 @@ class ApplicantDatabaseWriterTest extends TestCase
 
     public function testRemoveByIdWithoutDatabase()
     {
-        $this->assertEquals(0, $this->writer->removeById("wwewewe"));
+        $this->assertEquals("0 ohne Raumbuchungen", $this->writer->removeById("wwewewe"));
     }
 
     public function testPersistWithoutDatabaseYieldsDummyValue()
