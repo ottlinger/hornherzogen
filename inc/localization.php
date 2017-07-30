@@ -5,10 +5,10 @@ use hornherzogen\ConfigurationWrapper;
 $config = new ConfigurationWrapper();
 
 /* Constants */
-$h_year = 2017;
+$h_year = 2018;
 $h_applicationPublishedSince = $h_year . "-03-20"; // since when is the registration online/possible?
-$h_week1_start = $h_year . "-06-18";
-$h_week2_start = $h_year . "-06-25";
+$h_week1_start = $h_year . "-06-17";
+$h_week2_start = $h_year . "-06-24";
 
 // fallback to May 1st if not set
 if (NULL != $config->submissionend()) {
