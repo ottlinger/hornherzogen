@@ -36,6 +36,17 @@ class RoomDatabaseReader extends BaseDatabaseWriter
     }
 
     /**
+     * Returns available rooms with their remaining capacity per week
+     * @param $week if not set available room capacity per room is returned for both weeks.
+     * @return mixed available room capacity per room per week.
+     */
+    public function listAvailableRooms($week)
+    {
+        $results = array();
+        return $results[] = $week;
+    }
+
+    /**
      * Retrieve all rooms with their capacity.
      * @return array a simple list of rooms to show in the UI
      */
