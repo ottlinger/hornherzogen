@@ -93,6 +93,13 @@ class RoomDatabaseReaderTest extends TestCase
 
     public function testListBookingsByRoomNumberAndWeek()
     {
-        $this->assertEmpty($this->reader->listBookingsByRoomNumberAndWeek(1,23));
+        $this->assertEmpty($this->reader->listBookingsByRoomNumberAndWeek(1, 23));
+    }
+
+    public function testlistAvailableRooms()
+    {
+        $this->assertNotEmpty($this->reader->listAvailableRooms("w1"));
+        $this->assertNotEmpty($this->reader->listAvailableRooms("w2"));
+        $this->assertEmpty($this->reader->listAvailableRooms(NULL));
     }
 }
