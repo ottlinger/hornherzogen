@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\mail\MailHeaderGenerator;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +24,7 @@ class MailHeaderGeneratorTest extends TestCase
     }
 
     /**
-     * Test type of instance of $this->headerGenerator
+     * Test type of instance of $this->headerGenerator.
      *
      * @test
      */
@@ -31,5 +32,4 @@ class MailHeaderGeneratorTest extends TestCase
     {
         $this->assertInstanceOf('hornherzogen\mail\MailHeaderGenerator', $this->headerGenerator);
     }
-
 }

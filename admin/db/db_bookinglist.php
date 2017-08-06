@@ -13,7 +13,7 @@ $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $errorChecker = new BookingErrorChecker();
 
-$week = NULL;
+$week = null;
 ?>
 <html lang="en">
 <head>
@@ -99,18 +99,22 @@ $week = NULL;
                     <?php
                     // filter for week?
                     $formHelper = new FormHelper();
-                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
                     }
                     ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche
                         </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche
                         </option>
                     </select>
                 </div>
@@ -130,28 +134,28 @@ $week = NULL;
 
             if ($config->isValidDatabaseConfig()) {
                 // Superadmin remove functionality
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['bid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
                     $id = $formHelper->filterUserInput($_POST['bid']);
-                    echo $errorChecker->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-                    $_POST['bid'] = NULL;
+                    echo $errorChecker->removeById($id).' Zeile mit id #'.$id.' gelöscht';
+                    $_POST['bid'] = null;
                 }
 
                 $applicants = $errorChecker->listRoomBookings($week);
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>DB-Id</th>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>DB-Id</th>';
                 if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                    echo "<th>AKTIONEN</th>";
+                    echo '<th>AKTIONEN</th>';
                 }
-                echo "<th>Woche</th>";
-                echo "<th>Raum</th>";
-                echo "<th>Kapazität</th>";
-                echo "<th>belegt mit</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<th>Woche</th>';
+                echo '<th>Raum</th>';
+                echo '<th>Kapazität</th>';
+                echo '<th>belegt mit</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
                 if (empty($applicants)) {
                     if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
@@ -163,28 +167,27 @@ $week = NULL;
 
                 foreach ($applicants as $applicant) {
                     $bookingId = $applicant['id'];
-                    echo "<tr>";
-                    echo "<td>" . $bookingId . "</td>";
+                    echo '<tr>';
+                    echo '<td>'.$bookingId.'</td>';
                     if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                         echo '<td>
-                                <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
-                                    <input type="hidden" name="bid" value="' . $bookingId . '"/>
-                                    <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $bookingId . '</button>
+                                <form class="form-horizontal" method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF']).'">
+                                    <input type="hidden" name="bid" value="'.$bookingId.'"/>
+                                    <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #'.$bookingId.'</button>
                                 </form>
                             </td>';
                     }
-                    echo "<td>" . $applicant['week'] . "</td>";
-                    echo "<td>" . $applicant['roomname'] . "</td>";
-                    echo "<td>" . $applicant['capacity'] . "</td>";
-                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicant['applicantId'] . "\">" . $applicant['combinedName'] . "</a></td>";
+                    echo '<td>'.$applicant['week'].'</td>';
+                    echo '<td>'.$applicant['roomname'].'</td>';
+                    echo '<td>'.$applicant['capacity'].'</td>';
+                    echo '<td><a target="_blank" href="db_applicant.php?id='.$applicant['applicantId'].'">'.$applicant['combinedName'].'</a></td>';
 
-                    echo "</tr>";
+                    echo '</tr>';
                 }
-                echo "</tbody>";
-                echo "</table></div>";
-
+                echo '</tbody>';
+                echo '</table></div>';
             } else {
-                echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
             }
             ?>
     </div><!-- /.starter-template -->

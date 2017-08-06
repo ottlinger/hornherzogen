@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\admin;
@@ -7,8 +8,6 @@ use hornherzogen\ConfigurationWrapper;
 
 /**
  * Class BankingConfiguration encapsulates banking/bank account information that is needed once an application changes its state to PAYMENT_*.
- *
- * @package hornherzogen\admin
  */
 class BankingConfiguration extends ConfigurationWrapper
 {
@@ -26,11 +25,12 @@ class BankingConfiguration extends ConfigurationWrapper
 
     public function __toString()
     {
-        $status = "<pre>Payment configuration is: " . self::LINEBREAK;
-        $status .= "Account holder: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getAccountHolder()), 10) . self::LINEBREAK;
-        $status .= "IBAN: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getIban()), 5) . self::LINEBREAK;
-        $status .= "BIC: " . self::maskWithAsterisk($this->formHelper->filterUserInput($this->getBic()), 5) . self::LINEBREAK;
-        $status .= "</pre>";
+        $status = '<pre>Payment configuration is: '.self::LINEBREAK;
+        $status .= 'Account holder: '.self::maskWithAsterisk($this->formHelper->filterUserInput($this->getAccountHolder()), 10).self::LINEBREAK;
+        $status .= 'IBAN: '.self::maskWithAsterisk($this->formHelper->filterUserInput($this->getIban()), 5).self::LINEBREAK;
+        $status .= 'BIC: '.self::maskWithAsterisk($this->formHelper->filterUserInput($this->getBic()), 5).self::LINEBREAK;
+        $status .= '</pre>';
+
         return $status;
     }
 
@@ -48,5 +48,4 @@ class BankingConfiguration extends ConfigurationWrapper
     {
         return $this->bicData;
     }
-
 }

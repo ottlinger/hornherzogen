@@ -95,38 +95,34 @@ $roomReader = new RoomDatabaseReader();
         <p>
             <?php
             if ($config->isValidDatabaseConfig()) {
-
-
                 $roomCount = 0;
                 $rooms = $roomReader->listRooms();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>Name</th>";
-                echo "<th>Kapazität</th>";
-                echo "<th>Aktionen</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>Name</th>';
+                echo '<th>Kapazität</th>';
+                echo '<th>Aktionen</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
                 foreach ($rooms as $room) {
-                    echo "<tr>";
-                    echo "<td>" . $room['name'] . "</td>";
+                    echo '<tr>';
+                    echo '<td>'.$room['name'].'</td>';
                     $roomCount += $room['capacity'];
-                    echo "<td>" . $room['capacity'] . "</td>";
-                    echo "<td>Starte <a href='db_book.php?id=" . $room['id'] . "'>Buchen</a> für Raum " . $room['name'] . "</td>";
-                    echo "</tr>";
+                    echo '<td>'.$room['capacity'].'</td>';
+                    echo "<td>Starte <a href='db_book.php?id=".$room['id']."'>Buchen</a> für Raum ".$room['name'].'</td>';
+                    echo '</tr>';
                 }
                 // stats
-                echo "<tr><td><strong>SUMME</strong></td><td><strong>" . $roomCount . "</strong></td><td></td></tr>";
+                echo '<tr><td><strong>SUMME</strong></td><td><strong>'.$roomCount.'</strong></td><td></td></tr>';
 
-
-                echo "</tbody>";
-                echo "</table></div>";
-
+                echo '</tbody>';
+                echo '</table></div>';
             } else {
-                echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
             }
             ?>
     </div><!-- /.starter-template -->

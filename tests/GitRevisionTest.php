@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\GitRevision;
 use PHPUnit\Framework\TestCase;
 
@@ -32,7 +33,6 @@ class GitRevisionTest extends TestCase
         $this->assertInstanceOf('hornherzogen\GitRevision', $this->revision);
     }
 
-
     /**
      * Return gitrevision is not empty, either due to correct revision or dummy string.
      *
@@ -42,5 +42,4 @@ class GitRevisionTest extends TestCase
     {
         $this->assertFalse(empty($this->revision->gitrevision()));
     }
-
 }

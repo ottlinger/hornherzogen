@@ -14,8 +14,8 @@ class ConfirmationMailerTest extends TestCase
     public function setUp()
     {
         // reset language to English
-        $_GET = array();
-        $_GET['lang'] = "de";
+        $_GET = [];
+        $_GET['lang'] = 'de';
 
         // prevent sending mails in tests
         $GLOBALS['horncfg']['sendregistrationmails'] = false;
@@ -33,7 +33,7 @@ class ConfirmationMailerTest extends TestCase
     }
 
     /**
-     * Test type of instance of $this->mailer
+     * Test type of instance of $this->mailer.
      *
      * @test
      */
@@ -44,19 +44,19 @@ class ConfirmationMailerTest extends TestCase
 
     public function testConfirmDummyApplicantSending()
     {
-        $this->mailer = new ConfirmationMailer(NULL);
+        $this->mailer = new ConfirmationMailer(null);
         $this->assertEquals(1, $this->mailer->sendAsBatch());
     }
 
     public function testMailSendingWithoutAnyApplicants()
     {
-        $this->mailer = new ConfirmationMailer(array());
+        $this->mailer = new ConfirmationMailer([]);
         $this->assertEquals(-1, $this->mailer->sendAsBatch());
     }
 
     public function testSendNullArgument()
     {
-        $this->assertEquals("Nothing to send.", $this->mailer->send(NULL));
+        $this->assertEquals('Nothing to send.', $this->mailer->send(null));
     }
 
     public function testGermanMailtextIsNotEmpty()
@@ -79,13 +79,13 @@ class ConfirmationMailerTest extends TestCase
 
     public function testMailPrefixSetsColour()
     {
-        $this->assertContains("green", $this->mailer->getColouredUIPrefix(TRUE));
-        $this->assertContains("red", $this->mailer->getColouredUIPrefix(FALSE));
+        $this->assertContains('green', $this->mailer->getColouredUIPrefix(true));
+        $this->assertContains('red', $this->mailer->getColouredUIPrefix(false));
     }
 
     public function testRoomBookingsInMailWithoutApplicants()
     {
-        $this->assertEquals("n/a", $this->mailer->getRoomBookingsInMail(NULL));
+        $this->assertEquals('n/a', $this->mailer->getRoomBookingsInMail(null));
     }
 
     public function testRoomBookingsInMailWithNonGermanSpeakingApplicant()
@@ -111,42 +111,42 @@ class ConfirmationMailerTest extends TestCase
         $applicant->setPersistenceId(-4711);
         $applicant->setLanguage('de');
 
-        $this->assertEquals("<ul><li>My testroom 4711</li><li>mit einer Kapazität für 47 Personen</li><li>My testroom 4712</li><li>mit einer Kapazität für 3 Personen</li></ul>", $this->mailer->getRoomBookingsInMail($applicant));
+        $this->assertEquals('<ul><li>My testroom 4711</li><li>mit einer Kapazität für 47 Personen</li><li>My testroom 4712</li><li>mit einer Kapazität für 3 Personen</li></ul>', $this->mailer->getRoomBookingsInMail($applicant));
     }
 
     public function testConfirmationMailContainsDoNotForgetTWAThingsInEnglish()
     {
         $applicant = new Applicant();
-        $applicant->setLanguage("en");
-        $applicant->setTwaNumber("UK-0815");
+        $applicant->setLanguage('en');
+        $applicant->setTwaNumber('UK-0815');
 
-        $this->assertContains("Please do not forget your twa-passport!", $this->mailer->getEnglishMailtext($applicant));
+        $this->assertContains('Please do not forget your twa-passport!', $this->mailer->getEnglishMailtext($applicant));
     }
 
     public function testConfirmationMailDoesNotContainDoNotForgetTWAThingsInEnglishIfNoTwaMember()
     {
         $applicant = new Applicant();
-        $applicant->setLanguage("en");
-        $applicant->setTwaNumber("");
+        $applicant->setLanguage('en');
+        $applicant->setTwaNumber('');
 
-        $this->assertNotContains("Please do not forget your twa-passport!", $this->mailer->getEnglishMailtext($applicant));
+        $this->assertNotContains('Please do not forget your twa-passport!', $this->mailer->getEnglishMailtext($applicant));
     }
 
     public function testConfirmationMailContainsDoNotForgetTWAThingsInGerman()
     {
         $applicant = new Applicant();
-        $applicant->setLanguage("de");
-        $applicant->setTwaNumber("DE-0815");
+        $applicant->setLanguage('de');
+        $applicant->setTwaNumber('DE-0815');
 
-        $this->assertContains("Bitte nicht den twa-Ausweis vergessen!", $this->mailer->getMailtext($applicant));
+        $this->assertContains('Bitte nicht den twa-Ausweis vergessen!', $this->mailer->getMailtext($applicant));
     }
 
     public function testConfirmationMailDoesNotContainDoNotForgetTWAThingsInGermanIfNoTwaMember()
     {
         $applicant = new Applicant();
-        $applicant->setLanguage("de");
-        $applicant->setTwaNumber("");
+        $applicant->setLanguage('de');
+        $applicant->setTwaNumber('');
 
-        $this->assertNotContains("Bitte nicht den twa-Ausweis vergessen!", $this->mailer->getMailtext($applicant));
+        $this->assertNotContains('Bitte nicht den twa-Ausweis vergessen!', $this->mailer->getMailtext($applicant));
     }
 }

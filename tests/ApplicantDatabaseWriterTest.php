@@ -26,9 +26,9 @@ class ApplicantDatabaseWriterTest extends TestCase
     }
 
     // without foreign key constraints to ease testing
-    static public function createTable(PDO $pdo)
+    public static function createTable(PDO $pdo)
     {
-        $query = "
+        $query = '
         CREATE TABLE IF NOT EXISTS `applicants` (
           `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
           `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -62,7 +62,7 @@ class ApplicantDatabaseWriterTest extends TestCase
           `statusId` int(10) unsigned NOT NULL,
           PRIMARY KEY (`id`),
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
-        ";
+        ';
         $pdo->query($query);
     }
 
@@ -92,7 +92,7 @@ class ApplicantDatabaseWriterTest extends TestCase
 
     public function testRemoveByIdWithoutDatabase()
     {
-        $this->assertEquals("0 ohne Raumbuchungen", $this->writer->removeById("wwewewe"));
+        $this->assertEquals('0 ohne Raumbuchungen', $this->writer->removeById('wwewewe'));
     }
 
     public function testPersistWithoutDatabaseYieldsDummyValue()
@@ -118,7 +118,6 @@ class ApplicantDatabaseWriterTest extends TestCase
      */
     protected function getDataSet()
     {
-        return $this->createFlatXMLDataSet(dirname(__FILE__) . '/fixtures/applicants.xml');
+        return $this->createFlatXMLDataSet(dirname(__FILE__).'/fixtures/applicants.xml');
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 
-use hornherzogen\db\DatabaseHelper;
 use hornherzogen\db\BookingDatabaseReader;
+use hornherzogen\db\DatabaseHelper;
 use PHPUnit\Framework\TestCase;
 
 class BookingDatabaseReaderTest extends TestCase
@@ -20,7 +20,7 @@ class BookingDatabaseReaderTest extends TestCase
         $this->databaseHelper = new DatabaseHelper();
         self::$pdo = $this->createTables();
         // TODO        $this->reader = new BookingDatabaseReader(self::$pdo);
-        $this->reader = new BookingDatabaseReader(NULL);
+        $this->reader = new BookingDatabaseReader(null);
     }
 
     private function createTables()
@@ -50,8 +50,9 @@ class BookingDatabaseReaderTest extends TestCase
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (8,'REJECTED')");
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
-        $dbResult = $pdo->query("SELECT * FROM status");
+        $dbResult = $pdo->query('SELECT * FROM status');
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
+
         return $pdo;
     }
 
@@ -77,5 +78,4 @@ class BookingDatabaseReaderTest extends TestCase
     {
         $this->assertEmpty($this->reader->getForApplicant(4711));
     }
-
 }

@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
 
 /**
  * Class ApplicantDatabaseParser encapsulates an INSERT INTO-sql String from a given applicant.
- * @package hornherzogen\db
  */
 class ApplicantDatabaseParser
 {
@@ -15,12 +15,12 @@ class ApplicantDatabaseParser
     private $applicant;
     private $databaseHelper;
 
-    function __construct($applicant)
+    public function __construct($applicant)
     {
         $this->databaseHelper = new DatabaseHelper();
         $this->applicant = $applicant;
-        $this->values = array();
-        $this->placeholder = array();
+        $this->values = [];
+        $this->placeholder = [];
 
         $this->prepare();
     }
@@ -32,7 +32,7 @@ class ApplicantDatabaseParser
         $stmt = $dbh->prepare("SELECT * FROM user WHERE name = ?");
         $stmt->bindParam(1, $name);
         */
-        $this->sql = "INSERT INTO applicants (" . implode(",", $this->placeholder) . ") VALUES (" . implode(",", $this->values) . ")";
+        $this->sql = 'INSERT INTO applicants ('.implode(',', $this->placeholder).') VALUES ('.implode(',', $this->values).')';
     }
 
     private function parseValues()
@@ -174,5 +174,4 @@ class ApplicantDatabaseParser
     {
         return $this->values;
     }
-
 }

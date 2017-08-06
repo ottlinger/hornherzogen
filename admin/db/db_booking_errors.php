@@ -93,134 +93,132 @@ $applicantReader = new ApplicantDatabaseReader();
         <p>
             <?php
             $config = new ConfigurationWrapper();
-            $week = NULL;
+            $week = null;
 
             if ($config->isValidDatabaseConfig()) {
-
-                echo "<h2>Doppelte Buchungen pro Person</h2>";
+                echo '<h2>Doppelte Buchungen pro Person</h2>';
                 $applicants = $errorChecker->listDoubleBookings();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>ApplicantId</th>";
-                echo "<th>Vorname</th>";
-                echo "<th>Name</th>";
-                echo "<th>Anzahl Buchungen</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>ApplicantId</th>';
+                echo '<th>Vorname</th>';
+                echo '<th>Name</th>';
+                echo '<th>Anzahl Buchungen</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-                if(empty($applicants)) {
+                if (empty($applicants)) {
                     echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
                 }
 
                 foreach ($applicants as $row) {
                     $applicantId = $row['applicantId'];
                     $applicant = $applicantReader->getById($applicantId)[0];
-                    echo "<tr>";
-                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">#" . $applicantId . "</a></td>";
-                    echo "<td>" . $applicant->getFirstname() . "</td>";
-                    echo "<td>" . $applicant->getLastname() . "</td>";
-                    echo "<td>" . $row['count'] . "</td>";
-                    echo "</tr>";
+                    echo '<tr>';
+                    echo '<td><a target="_blank" href="db_applicant.php?id='.$applicantId.'">#'.$applicantId.'</a></td>';
+                    echo '<td>'.$applicant->getFirstname().'</td>';
+                    echo '<td>'.$applicant->getLastname().'</td>';
+                    echo '<td>'.$row['count'].'</td>';
+                    echo '</tr>';
                 }
-                echo "</tbody>";
-                echo "</table></div>";
+                echo '</tbody>';
+                echo '</table></div>';
 
-                echo "<h2>Buchungen, die überbucht sind</h2>";
+                echo '<h2>Buchungen, die überbucht sind</h2>';
                 $applicants = $errorChecker->listOverbookedBookings();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>RoomId</th>";
-                echo "<th>Zimmer</th>";
-                echo "<th>vorgenommene Buchungen</th>";
-                echo "<th>erlaubte Buchungen/Raumkapazität</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>RoomId</th>';
+                echo '<th>Zimmer</th>';
+                echo '<th>vorgenommene Buchungen</th>';
+                echo '<th>erlaubte Buchungen/Raumkapazität</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-                if(empty($applicants)) {
+                if (empty($applicants)) {
                     echo "<tr><td colspan='4'>keine vorhanden</td></tr>";
                 }
 
                 foreach ($applicants as $row) {
-                    echo "<tr>";
-                    echo "<td>" . $row['roomId'] . "</td>";
-                    echo "<td>" . $row['name'] . "</td>";
-                    echo "<td>" . $row['bookingcount'] . "</td>";
+                    echo '<tr>';
+                    echo '<td>'.$row['roomId'].'</td>';
+                    echo '<td>'.$row['name'].'</td>';
+                    echo '<td>'.$row['bookingcount'].'</td>';
                     // Issue #96: add 2 for both weeks
-                    echo "<td>" . (2 * $row['capacity']) . "</td>";
-                    echo "</tr>";
+                    echo '<td>'.(2 * $row['capacity']).'</td>';
+                    echo '</tr>';
                 }
-                echo "</tbody>";
-                echo "</table></div>";
+                echo '</tbody>';
+                echo '</table></div>';
 
-                echo "<h2>Personen, die storniert haben, abgelehnt wurden oder Spam sind und dennoch eine Zimmerbuchung haben</h2>";
+                echo '<h2>Personen, die storniert haben, abgelehnt wurden oder Spam sind und dennoch eine Zimmerbuchung haben</h2>';
                 $applicants = $errorChecker->listPeopleWithBookingsThatDoNotTakePartInTheSeminar();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>Id</th>";
-                echo "<th>kompletter Name</th>";
-                echo "<th>Woche</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>Id</th>';
+                echo '<th>kompletter Name</th>';
+                echo '<th>Woche</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-                if(empty($applicants)) {
+                if (empty($applicants)) {
                     echo "<tr><td colspan='3'>keine vorhanden</td></tr>";
                 }
                 foreach ($applicants as $row) {
                     $applicantId = $row->getPersistenceId();
-                    echo "<tr>";
-                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">#" . $applicantId . "</a></td>";
-                    echo "<td>" . $row->getWeek() . "</td>";
-                    echo "<td>" . $row->getFullName() . "</td>";
-                    echo "</tr>";
+                    echo '<tr>';
+                    echo '<td><a target="_blank" href="db_applicant.php?id='.$applicantId.'">#'.$applicantId.'</a></td>';
+                    echo '<td>'.$row->getWeek().'</td>';
+                    echo '<td>'.$row->getFullName().'</td>';
+                    echo '</tr>';
                 }
-                echo "</tbody>";
-                echo "</table></div>";
-                echo "<p>Bitte etwaige Buchungen über den Raum aus der Buchungsliste entfernen!</p>";
+                echo '</tbody>';
+                echo '</table></div>';
+                echo '<p>Bitte etwaige Buchungen über den Raum aus der Buchungsliste entfernen!</p>';
 
-                echo "<h2>Gebuchte Personen ohne Raumreservierung</h2>";
+                echo '<h2>Gebuchte Personen ohne Raumreservierung</h2>';
                 $applicants = $errorChecker->listPeopleWithFinalStateButNoRooms();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>ApplicantId</th>";
-                echo "<th>Vorname</th>";
-                echo "<th>Name</th>";
-                echo "<th>Dojo</th>";
-                echo "<th>Stadt</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>ApplicantId</th>';
+                echo '<th>Vorname</th>';
+                echo '<th>Name</th>';
+                echo '<th>Dojo</th>';
+                echo '<th>Stadt</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-                if(empty($applicants)) {
+                if (empty($applicants)) {
                     echo "<tr><td colspan='5'>keine vorhanden</td></tr>";
                 }
 
                 foreach ($applicants as $applicant) {
-                    echo "<tr>";
+                    echo '<tr>';
                     $applicantId = $applicant->getPersistenceId();
-                    echo "<td><a target=\"_blank\" href=\"db_applicant.php?id=" . $applicantId . "\">#" . $applicantId . "</a></td>";
-                    echo "<td>" . $applicant->getFirstname() . "</td>";
-                    echo "<td>" . $applicant->getLastname() . "</td>";
-                    echo "<td>" . $applicant->getDojo() . "</td>";
-                    echo "<td>" . $applicant->getCity() . "</td>";
-                    echo "</tr>";
+                    echo '<td><a target="_blank" href="db_applicant.php?id='.$applicantId.'">#'.$applicantId.'</a></td>';
+                    echo '<td>'.$applicant->getFirstname().'</td>';
+                    echo '<td>'.$applicant->getLastname().'</td>';
+                    echo '<td>'.$applicant->getDojo().'</td>';
+                    echo '<td>'.$applicant->getCity().'</td>';
+                    echo '</tr>';
                 }
-                echo "</tbody>";
-                echo "</table></div>";
-                echo "<p>Bitte den Status der Personen umbuchen oder Räume nachbuchen!</p>";
-
+                echo '</tbody>';
+                echo '</table></div>';
+                echo '<p>Bitte den Status der Personen umbuchen oder Räume nachbuchen!</p>';
             } else {
-                echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
             }
             ?>
     </div><!-- /.starter-template -->

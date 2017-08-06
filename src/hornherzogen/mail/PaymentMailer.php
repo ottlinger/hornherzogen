@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\mail;
@@ -19,7 +20,7 @@ class PaymentMailer
     // internal members
     public $uiPrefix = "<h3 style='color: rebeccapurple; font-weight: bold;'>";
     private $formHelper;
-    private $applicant = NULL;
+    private $applicant = null;
     private $reader;
     private $localizer;
     private $config;
@@ -29,7 +30,7 @@ class PaymentMailer
     // defines how the success messages are being shown in the UI
     private $statusReader;
 
-    function __construct($applicantId)
+    public function __construct($applicantId)
     {
         $this->reader = new ApplicantDatabaseReader();
 
@@ -56,12 +57,13 @@ class PaymentMailer
     public static function createTestApplicant()
     {
         $testApplicant = new Applicant();
-        $testApplicant->setFirstname("Emil");
-        $testApplicant->setLastname("Mustermann");
-        $testApplicant->setTwaNumber("CC-0815");
+        $testApplicant->setFirstname('Emil');
+        $testApplicant->setLastname('Mustermann');
+        $testApplicant->setTwaNumber('CC-0815');
         $testApplicant->setPersistenceId(4711);
         $testApplicant->setWeek(2);
         $testApplicant->setLanguage('de');
+
         return $testApplicant;
     }
 
@@ -74,23 +76,22 @@ class PaymentMailer
         $replyto = $this->config->registrationmail();
         $headers = $this->headerGenerator->getHeaders($replyto);
 
-        $withParam = new MessageFormatter($this->applicant->getLanguage(), $GLOBALS['messages'][$this->applicant->getLanguage()]["PMAIL.SUBJECT"]);
-        $subject = $withParam->format(array($this->formHelper->timestamp()));
+        $withParam = new MessageFormatter($this->applicant->getLanguage(), $GLOBALS['messages'][$this->applicant->getLanguage()]['PMAIL.SUBJECT']);
+        $subject = $withParam->format([$this->formHelper->timestamp()]);
 
         // we need the key directly for the language of the applicant!
-        $encoded_subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+        $encoded_subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
 
         if ($this->config->sendregistrationmails()) {
-            $mailResult = mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $mailResult = mail($this->applicant->getEmail(), $encoded_subject, $this->getMailtext(), implode("\r\n", $headers), '-f '.$replyto);
             $appliedAt = $this->formHelper->timestamp();
             $this->applicant->setPaymentRequestedAt($appliedAt);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt . " returnCode: " . $mailResult) . "</h3>";
+            return $this->uiPrefix.$this->localizer->i18nParams('PMAIL.APPLICANT', $appliedAt.' returnCode: '.$mailResult).'</h3>';
         }
 
         return '';
     }
-
 
     public function hasValidApplicant()
     {
@@ -109,21 +110,21 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Zahlungsaufforderung Herzogenhorn Woche ' . $this->applicant->getWeek() . '</title >
+            <title>Zahlungsaufforderung Herzogenhorn Woche '.$this->applicant->getWeek().'</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsaufforderung für Woche ' . $this->applicant->getWeek() . '</h1>
+            <h1>Herzogenhorn '.$this->localizer->i18n('CONST.YEAR').' - Zahlungsaufforderung für Woche '.$this->applicant->getWeek().'</h1>
             <h2>
-                Hallo ' . $this->applicant->getFirstname() . ',</h2>
-                <p>wir haben die Lehrgangswoche ' . $this->applicant->getWeek() . ' soweit durchgeplant und bitten Dich innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
+                Hallo '.$this->applicant->getFirstname().',</h2>
+                <p>wir haben die Lehrgangswoche '.$this->applicant->getWeek().' soweit durchgeplant und bitten Dich innerhalb der nächsten 2 Wochen das Lehrgangsgeld als verbindliche Bestätigung Deiner Anmeldung zu überweisen.
                 </p>
                 <p>Bitte verwende die folgende Bankverbindung
                 <ul>
-                <li>Kontoinhaber: ' . $this->accountConfiguration->getAccountHolder() . '</li>
-                <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
-                <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Verwendungszweck: Herzogenhornseminar ' . $this->localizer->i18n('CONST.YEAR') . "/Woche " . $this->applicant->getWeek() . "/" . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '/#' . $this->applicant->getPersistenceId() . '</li>
-                <li>Betrag: ' . $this->getSeminarPrice() . '</li>
+                <li>Kontoinhaber: '.$this->accountConfiguration->getAccountHolder().'</li>
+                <li>IBAN: '.$this->accountConfiguration->getIban().'</li>
+                <li>BIC: '.$this->accountConfiguration->getBic().'</li>
+                <li>Verwendungszweck: Herzogenhornseminar '.$this->localizer->i18n('CONST.YEAR').'/Woche '.$this->applicant->getWeek().'/'.$this->applicant->getFirstname().' '.$this->applicant->getLastname().'/#'.$this->applicant->getPersistenceId().'</li>
+                <li>Betrag: '.$this->getSeminarPrice().'</li>
                 </ul>
                 </p>
                 <h3>
@@ -143,21 +144,21 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Request for payment for Herzogenhorn seminar week ' . $this->applicant->getWeek() . '</title >
+            <title>Request for payment for Herzogenhorn seminar week '.$this->applicant->getWeek().'</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - request for payment seminar week ' . $this->applicant->getWeek() . '</h1>
+            <h1>Herzogenhorn '.$this->localizer->i18n('CONST.YEAR').' - request for payment seminar week '.$this->applicant->getWeek().'</h1>
             <h2>
-                Hi ' . $this->applicant->getFirstname() . ',</h2>
-                <p>thanks for your patience. We\'ve finished planning the seminar\'s week ' . $this->applicant->getWeek() . ' 
+                Hi '.$this->applicant->getFirstname().',</h2>
+                <p>thanks for your patience. We\'ve finished planning the seminar\'s week '.$this->applicant->getWeek().' 
                 and would like to request your payment in the next 14 days in order to finally fulfil your seminar application.</p>
                 <p>Please use the following bank account and notes to transfer the money properly:
                 <ul>
-                <li>Account holder: ' . $this->accountConfiguration->getAccountHolder() . '</li>
-                <li>IBAN: ' . $this->accountConfiguration->getIban() . '</li>
-                <li>BIC: ' . $this->accountConfiguration->getBic() . '</li>
-                <li>Reason for payment: Herzogenhorn seminar ' . $this->localizer->i18n('CONST.YEAR') . "/Week " . $this->applicant->getWeek() . "/" . $this->applicant->getFirstname() . ' ' . $this->applicant->getLastname() . '/#' . $this->applicant->getPersistenceId() . '</li>
-                <li>Amount: ' . $this->getSeminarPrice() . '</li>
+                <li>Account holder: '.$this->accountConfiguration->getAccountHolder().'</li>
+                <li>IBAN: '.$this->accountConfiguration->getIban().'</li>
+                <li>BIC: '.$this->accountConfiguration->getBic().'</li>
+                <li>Reason for payment: Herzogenhorn seminar '.$this->localizer->i18n('CONST.YEAR').'/Week '.$this->applicant->getWeek().'/'.$this->applicant->getFirstname().' '.$this->applicant->getLastname().'/#'.$this->applicant->getPersistenceId().'</li>
+                <li>Amount: '.$this->getSeminarPrice().'</li>
                 </ul>
                 </p>
                 <p>
@@ -175,10 +176,11 @@ class PaymentMailer
 
     public function getSeminarPrice()
     {
-        if ($this->hasValidApplicant() && NULL != $this->applicant->getTwaNumber() && strlen($this->applicant->getTwaNumber())) {
-            return "250,00 €";
+        if ($this->hasValidApplicant() && null != $this->applicant->getTwaNumber() && strlen($this->applicant->getTwaNumber())) {
+            return '250,00 €';
         }
-        return "300,00 €";
+
+        return '300,00 €';
     }
 
     /**
@@ -191,16 +193,16 @@ class PaymentMailer
         }
 
         if ($this->config->sendinternalregistrationmails()) {
-
             $replyto = $this->config->registrationmail();
 
-            $encoded_subject = "=?UTF-8?B?" . base64_encode("Bezahlung Herzogenhorn angefordert - Woche " . $this->applicant->getWeek()) . "?=";
+            $encoded_subject = '=?UTF-8?B?'.base64_encode('Bezahlung Herzogenhorn angefordert - Woche '.$this->applicant->getWeek()).'?=';
             $headers = $this->headerGenerator->getHeaders($replyto);
 
-            $mailResult = mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), "-f " . $replyto);
+            $mailResult = mail($replyto, $encoded_subject, $this->getInternalMailtext(), implode("\r\n", $headers), '-f '.$replyto);
 
-            return $this->uiPrefix . $this->localizer->i18nParams('PMAIL.INTERNAL', $this->formHelper->timestamp() . " returnCode: " . $mailResult) . "</h3>";
+            return $this->uiPrefix.$this->localizer->i18nParams('PMAIL.INTERNAL', $this->formHelper->timestamp().' returnCode: '.$mailResult).'</h3>';
         }
+
         return '';
     }
 
@@ -211,22 +213,22 @@ class PaymentMailer
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Zahlungsbestätigung versendet für Woche ' . $this->applicant->getWeek() . '</title >
+            <title>Zahlungsbestätigung versendet für Woche '.$this->applicant->getWeek().'</title >
         </head>
         <body>
-            <h1>Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Zahlungsbestätigung für Woche ' . $this->applicant->getWeek() . ' verschickt</h1>
+            <h1>Herzogenhorn '.$this->localizer->i18n('CONST.YEAR').' - Zahlungsbestätigung für Woche '.$this->applicant->getWeek().' verschickt</h1>
             <h2>Anmeldungsdetails</h2>
-                <p>es ging gegen ' . $this->formHelper->timestamp() . ' die Zahlungsbestätigung per E-Mail raus:</p>
+                <p>es ging gegen '.$this->formHelper->timestamp().' die Zahlungsbestätigung per E-Mail raus:</p>
                 <ul>
-                <li>Woche: ' . $this->applicant->getWeek() . '</li>
-                <li>Anrede: ' . ($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau') . '</li>
-                <li>interner Name: ' . $this->applicant->getFullname() . '</li>
-                <li>Umbuchbar? ' . ($this->applicant->getFlexible() == 1 ? 'ja' : 'nein') . '</li>
-                <li>E-Mail: ' . $this->applicant->getEmail() . '</li>
-                <li>Land: ' . $this->applicant->getCountry() . '</li>
-                <li>Dojo:  ' . $this->applicant->getDojo() . '</li>
-                <li>TWA: ' . $this->applicant->getTwaNumber() . '</li>
-                <li>Betrag: ' . $this->getSeminarPrice() . '</li>
+                <li>Woche: '.$this->applicant->getWeek().'</li>
+                <li>Anrede: '.($this->applicant->getGender() === 'male' ? 'Herr' : 'Frau').'</li>
+                <li>interner Name: '.$this->applicant->getFullname().'</li>
+                <li>Umbuchbar? '.($this->applicant->getFlexible() == 1 ? 'ja' : 'nein').'</li>
+                <li>E-Mail: '.$this->applicant->getEmail().'</li>
+                <li>Land: '.$this->applicant->getCountry().'</li>
+                <li>Dojo:  '.$this->applicant->getDojo().'</li>
+                <li>TWA: '.$this->applicant->getTwaNumber().'</li>
+                <li>Betrag: '.$this->getSeminarPrice().'</li>
                 </ul>
             </h2>
              Zahlungsfrist sind 2 Wochen!
@@ -236,5 +238,4 @@ class PaymentMailer
 
         return $mailtext;
     }
-
 }

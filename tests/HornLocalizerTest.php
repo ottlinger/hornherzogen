@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\HornLocalizer;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +12,7 @@ class HornLocalizerTest extends TestCase
      */
     public function setUp()
     {
-        $_GET['lang'] = "de"; // set to fallback language
+        $_GET['lang'] = 'de'; // set to fallback language
         $this->localizer = new HornLocalizer();
     }
 
@@ -136,7 +137,7 @@ class HornLocalizerTest extends TestCase
         $_SESSION = null;
         self::assertEmpty($this->localizer->getLanguageFromSession());
 
-        $_SESSION = array();
+        $_SESSION = [];
         $_SESSION['language'] = null;
         self::assertEmpty($this->localizer->getLanguageFromSession());
 
@@ -149,7 +150,7 @@ class HornLocalizerTest extends TestCase
         $_GET = null;
         self::assertEmpty($this->localizer->getLanguageFromUrlParameter());
 
-        $_GET = array();
+        $_GET = [];
         $_GET['lang'] = null;
         self::assertEmpty($this->localizer->getLanguageFromUrlParameter());
 
@@ -169,7 +170,7 @@ class HornLocalizerTest extends TestCase
 
     public function testLocalizationKeyRetrievalWithKnownKeyAndNoParams()
     {
-        self::assertEquals('Herzogenhorn ' . $this->localizer->i18n('CONST.YEAR') . ' - Anmeldung', $this->localizer->i18n('FORM.TITLE'));
+        self::assertEquals('Herzogenhorn '.$this->localizer->i18n('CONST.YEAR').' - Anmeldung', $this->localizer->i18n('FORM.TITLE'));
     }
 
     public function testLocalizationKeyRetrievalWithKnownKeyAndParams()
@@ -180,8 +181,8 @@ class HornLocalizerTest extends TestCase
     public function testFallbackToGermanForUnknownRussianKey()
     {
         // WHEN language is set to ru
-        $_GET['lang'] = "ru";
+        $_GET['lang'] = 'ru';
         // German key is returned for unknown Russian one
-        self::assertEquals("Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.", $this->localizer->i18n("FORM.MANDATORYFIELDS"));
+        self::assertEquals('Alle mit Stern (*) markierten Felder sind Pflichtfelder und müssen angegeben werden.', $this->localizer->i18n('FORM.MANDATORYFIELDS'));
     }
 }

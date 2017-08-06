@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
@@ -13,10 +14,10 @@ class BaseDatabaseWriter
     protected $database;
     protected $formHelper;
     protected $databaseHelper;
-    protected $healthy = NULL;
+    protected $healthy = null;
     private $config;
 
-    function __construct($databaseConnection = NULL)
+    public function __construct($databaseConnection = null)
     {
         $this->config = new ConfigurationWrapper();
         $this->formHelper = new FormHelper();
@@ -25,6 +26,7 @@ class BaseDatabaseWriter
         if (isset($databaseConnection)) {
             $this->database = $databaseConnection;
             $this->healthy = true;
+
             return;
         }
         $this->validateDatabaseConnectionFailIfIncorrect();
@@ -33,18 +35,19 @@ class BaseDatabaseWriter
     private function validateDatabaseConnectionFailIfIncorrect()
     {
         if (!$this->config->isValidDatabaseConfig()) {
-            echo "Illegal DB configuration, will fallback to in memory SQLite to ease testing.";
+            echo 'Illegal DB configuration, will fallback to in memory SQLite to ease testing.';
             $this->healthy = false;
+
             return;
         }
 
         try {
-            $this->database = new PDO('mysql:host=' . $this->config->dbhost() . ';dbname=' . $this->config->dbname(), $this->config->dbuser(), $this->config->dbpassword());
+            $this->database = new PDO('mysql:host='.$this->config->dbhost().';dbname='.$this->config->dbname(), $this->config->dbuser(), $this->config->dbpassword());
             $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $this->healthy = true;
         } catch (PDOException $e) {
-            print "Unable to connect to database please check your configuration settings! Message was: " . $e->getMessage();
+            echo 'Unable to connect to database please check your configuration settings! Message was: '.$e->getMessage();
             $this->healthy = false;
         }
     }
@@ -56,5 +59,4 @@ class BaseDatabaseWriter
     {
         return boolval($this->healthy);
     }
-
 }

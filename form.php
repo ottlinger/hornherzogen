@@ -13,10 +13,10 @@ $formHelper = new FormHelper();
 // special handling to allow submission after end of submission
 $isMagic = false;
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['isMagic'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['isMagic'])) {
     $isMagic = boolval($formHelper->filterUserInput($_GET['isMagic']));
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['isMagic'])) {
     $isMagic = boolval($formHelper->filterUserInput($_POST['isMagic']));
 }
 ?>
@@ -106,32 +106,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
         $applicantInput = new ApplicantInput();
 
         if ($formHelper->isSubmissionClosed($config)) {
-            echo "<h1 style=\"color: red; font-weight: bold;\">" . $hornlocalizer->i18n('SUBMISSIONCLOSED') . "</h1>";
+            echo '<h1 style="color: red; font-weight: bold;">'.$hornlocalizer->i18n('SUBMISSIONCLOSED').'</h1>';
         }
 
         if (boolval($isMagic)) {
-            echo "<h1 style=\"color: red; font-weight: bold;\">FORM SUBMISSION WILL WORK AFTER SUBMISSION IS CLOSED</h1>";
+            echo '<h1 style="color: red; font-weight: bold;">FORM SUBMISSION WILL WORK AFTER SUBMISSION IS CLOSED</h1>';
         }
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $applicantInput->parse();
 
             if ($config->debug()) {
-                echo '<h2>Language setting is: ' . $hornlocalizer->getLanguage() . '</h2>';
+                echo '<h2>Language setting is: '.$hornlocalizer->getLanguage().'</h2>';
                 echo '<pre>';
                 echo '<p>RAW data after submit:</p>';
                 var_dump(file_get_contents('php://input'));
                 echo '<p>Converted to POST:</p>';
                 var_dump($_POST);
-                echo '<p>' . $applicantInput->__toString();
-                echo '</p><p>' . var_dump($applicantInput);
+                echo '<p>'.$applicantInput->__toString();
+                echo '</p><p>'.var_dump($applicantInput);
                 echo '</p>';
                 echo '</pre>';
             } // if debug
         } // if POST
         ?>
-        <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) { ?>
+        <?php if ($applicantInput->hasErrors() || $applicantInput->hasParseErrors()) {
+            ?>
         <p class="lead"><?php echo $hornlocalizer->i18n('FORM.INTRO.LINE1'); ?><br/>
             <?php echo $hornlocalizer->i18n('FORM.INTRO.LINE2'); ?>
         </p>
@@ -141,14 +141,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
             <?php
             // in order to survive the post we add it as a hidden value
             if (boolval($isMagic)) {
-                echo "<input type=\"hidden\" name=\"isMagic\" value=\"yesSir\"/>";
+                echo '<input type="hidden" name="isMagic" value="yesSir"/>';
             }
 
             if ($applicantInput->hasParseErrors()) {
-                echo "<p class=\"lead\" style=\"color: red; font-weight: bold;\"><span class=\"glyphicon glyphicon-warning-sign\"></span> " . $hornlocalizer->i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()) . "</p>";
-            } // show error message ?>
+                echo '<p class="lead" style="color: red; font-weight: bold;"><span class="glyphicon glyphicon-warning-sign"></span> '.$hornlocalizer->i18nParams('FORM.ERROR_MESSAGE', $applicantInput->getErrorCount()).'</p>';
+            } // show error message?>
 
-            <?php } else { ?>
+            <?php
+        } else {
+            ?>
                 <p><?php echo $hornlocalizer->i18nParams('TIME', $formHelper->timestamp()); ?></p>
                 <?php
                 // send mail only if there are no error messages and nothing already exists in the database
@@ -157,15 +159,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                 // #103: special case isMagic
                 if ((boolval($isMagic) || !$formHelper->isSubmissionClosed($config)) && !$sender->existsInDatabase()) {
                     echo $sender->send();
-                    echo $sender->sendInternally();
-                    ?>
+                    echo $sender->sendInternally(); ?>
                     <p class="lead" style="color: darkgreen; font-weight: bold;"><span
                                 class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('FORM.SUC.CHECK'); ?>
                     </p>
                     <?php
-                    echo "<h3 style='color: rebeccapurple; font-weight: bold;'>" . $hornlocalizer->i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()) . "</h3>";
+                    echo "<h3 style='color: rebeccapurple; font-weight: bold;'>".$hornlocalizer->i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()).'</h3>';
                 }
-            } // if showButtons
+        } // if showButtons
             ?>
 
 
@@ -175,8 +176,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                        for="week"><?php echo $hornlocalizer->i18n('FORM.WEEK.LABEL'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week">
-                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.WEEK.1'); ?></option>
-                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.WEEK.2'); ?></option>
+                        <option value="week1" <?php if ('1' == $applicantInput->getWeek()) {
+                echo ' selected';
+            } ?>><?php echo $hornlocalizer->i18n('FORM.WEEK.1'); ?></option>
+                        <option value="week2" <?php if ('2' == $applicantInput->getWeek()) {
+                echo ' selected';
+            } ?>><?php echo $hornlocalizer->i18n('FORM.WEEK.2'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('week'); ?>
                 </div>
@@ -188,14 +193,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                     <div class="radio" id="flexible">
                         <label>
                             <input type="radio" name="flexible" id="no"
-                                   value="no" <?php if (!$applicantInput->getFlexible()) echo ' checked'; ?>>
+                                   value="no" <?php if (!$applicantInput->getFlexible()) {
+                echo ' checked';
+            } ?>>
                             <?php echo $hornlocalizer->i18n('FORM.FLEXIBLE.NO'); ?>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="flexible" id="yes"
-                                   value="yes" <?php if ($applicantInput->getFlexible()) echo ' checked'; ?>>
+                                   value="yes" <?php if ($applicantInput->getFlexible()) {
+                echo ' checked';
+            } ?>>
                             <?php echo $hornlocalizer->i18n('FORM.FLEXIBLE.YES'); ?>
                         </label>
                     </div>
@@ -208,10 +217,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                        class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.GENDER'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="gender" name="gender">
-                        <option value="male" <?php if ('male' == $applicantInput->getGender()) echo ' selected'; ?>>
+                        <option value="male" <?php if ('male' == $applicantInput->getGender()) {
+                echo ' selected';
+            } ?>>
                             <?php echo $hornlocalizer->i18n('FORM.GENDER.M'); ?>
                         </option>
-                        <option value="female" <?php if ('female' == $applicantInput->getGender()) echo ' selected'; ?>>
+                        <option value="female" <?php if ('female' == $applicantInput->getGender()) {
+                echo ' selected';
+            } ?>>
                             <?php echo $hornlocalizer->i18n('FORM.GENDER.F'); ?>
                         </option>
                     </select>
@@ -290,7 +303,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
             /**
              * TODO: issue #38
              * http://bootstrapformhelpers.com/country/#jquery-plugins
-             * Available languages
+             * Available languages.
              *
              * English (US)
              * Arabic
@@ -369,16 +382,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                        class="col-sm-2 control-label"><?php echo $hornlocalizer->i18n('FORM.GRADING'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="grad" name="grad">
-                        <option <?php if ('6.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>6.Dan</option>
-                        <option <?php if ('5.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>5.Dan</option>
-                        <option <?php if ('4.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>4.Dan</option>
-                        <option <?php if ('3.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>3.Dan</option>
-                        <option <?php if ('2.Dan' == $applicantInput->getGrading()) echo ' selected'; ?>>2.Dan</option>
-                        <option <?php if ('1.Dan' == $applicantInput->getGrading() || !strlen($applicantInput->getGrading())) echo ' selected'; ?>>
+                        <option <?php if ('6.Dan' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>>6.Dan</option>
+                        <option <?php if ('5.Dan' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>>5.Dan</option>
+                        <option <?php if ('4.Dan' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>>4.Dan</option>
+                        <option <?php if ('3.Dan' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>>3.Dan</option>
+                        <option <?php if ('2.Dan' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>>2.Dan</option>
+                        <option <?php if ('1.Dan' == $applicantInput->getGrading() || !strlen($applicantInput->getGrading())) {
+                echo ' selected';
+            } ?>>
                             1.Dan
                         </option>
-                        <option> <?php if ('1.Kyu' == $applicantInput->getGrading()) echo ' selected'; ?>1.Kyu</option>
-                        <option> <?php if ('2.Kyu' == $applicantInput->getGrading()) echo ' selected'; ?>2.Kyu</option>
+                        <option> <?php if ('1.Kyu' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>1.Kyu</option>
+                        <option> <?php if ('2.Kyu' == $applicantInput->getGrading()) {
+                echo ' selected';
+            } ?>2.Kyu</option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('grad'); ?>
                 </div>
@@ -391,10 +420,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                 <div class="col-sm-10">
                     <div class="bfh-datepicker" data-name="gsince" data-format="y-m-d"
                          data-date="<?php if (empty($applicantInput->getDateOfLastGrading())) {
-                             echo date('Y-m-d');
-                         } else {
-                             echo $applicantInput->getDateOfLastGrading();
-                         } ?>">
+                echo date('Y-m-d');
+            } else {
+                echo $applicantInput->getDateOfLastGrading();
+            } ?>">
                         <div class="input-prepend bfh-datepicker-toggle" data-toggle="bfh-datepicker">
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             <input type="text" class="input-medium" name="gsince" id="gsince" readonly>
@@ -432,9 +461,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                        for="room"><?php echo $hornlocalizer->i18n('FORM.ROOM'); ?></label>
                 <div class="col-sm-10">
                     <select class="form-control" name="room" id="room">
-                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.3'); ?></option>
-                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.2'); ?></option>
-                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) echo ' selected'; ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.1'); ?></option>
+                        <option value="3bed" <?php if ('3bed' == $applicantInput->getRoom()) {
+                echo ' selected';
+            } ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.3'); ?></option>
+                        <option value="2bed" <?php if ('2bed' == $applicantInput->getRoom()) {
+                echo ' selected';
+            } ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.2'); ?></option>
+                        <option value="1bed" <?php if ('1bed' == $applicantInput->getRoom()) {
+                echo ' selected';
+            } ?>><?php echo $hornlocalizer->i18n('FORM.ROOM.1'); ?></option>
                     </select>
                     <?php echo $applicantInput->showSymbolIfFeedback('room'); ?>
                 </div>
@@ -471,12 +506,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                     <div class="radio" id="essen">
                         <label>
                             <input type="radio" name="essen" id="meat"
-                                   value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
+                                   value="meat" <?php if ('meat' == $applicantInput->getFoodCategory()) {
+                echo ' checked';
+            } ?>>
                             <?php echo $hornlocalizer->i18n('FORM.FOOD.MEAT'); ?>
                         </label>
                         <label>
                             <input type="radio" name="essen" id="veg"
-                                   value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) echo ' checked'; ?>>
+                                   value="veg" <?php if ('veg' == $applicantInput->getFoodCategory()) {
+                echo ' checked';
+            } ?>>
                             <?php echo $hornlocalizer->i18n('FORM.FOOD.VEG'); ?>
                         </label>
                     </div>
@@ -494,7 +533,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                 </div>
             </div>
 
-            <?php if ($applicantInput->showFormButtons()) { ?>
+            <?php if ($applicantInput->showFormButtons()) {
+                ?>
             <p class="lead"><?php echo $hornlocalizer->i18n('FORM.MANDATORYFIELDS') ?></p>
             <div class="form-group">
                 <button type="submit" class="btn btn-default btn-primary"
@@ -503,7 +543,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isMagic'])) {
                         title="<?php echo $hornlocalizer->i18n('FORM.RESET'); ?>"><?php echo $hornlocalizer->i18n('FORM.RESET'); ?></button>
             </div>
         </form>
-    <?php } // buttonIf ?>
+    <?php
+            } // buttonIf?>
 
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

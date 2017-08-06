@@ -17,7 +17,7 @@ $formHelper = new FormHelper();
 
 <h1>HTPASSWD entry generator</h1>
 
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
     <label for"pwusr">User:
     <input type="text" name="pwusr"
            value="<?php echo $formHelper->isSetAndNotEmptyInArray($_POST, PW_USER) ? $formHelper->filterUserInput($_POST[PW_USER]) : ''; ?>">
@@ -32,20 +32,19 @@ $formHelper = new FormHelper();
 <hr/>
 <?php
 // safely extract data and generate entry for .htpasswd file
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $clearTextPassword = $formHelper->isSetAndNotEmptyInArray($_POST, PW_PW) ? $formHelper->filterUserInput($_POST[PW_PW]) : DEFAULT_VALUE;
     $user = $formHelper->isSetAndNotEmptyInArray($_POST, PW_USER) ? $formHelper->filterUserInput($_POST[PW_USER]) : DEFAULT_VALUE;
 
     $password = crypt($clearTextPassword, base64_encode($clearTextPassword));
 
-    echo "<h2>You may add this line to your .htpasswd</h2>";
-    echo "<pre>";
-    echo "## User generated with " . htmlspecialchars($_SERVER["PHP_SELF"]) . " at " . $formHelper->timestamp() . "\n";
-    echo $user . ":" . $password . "\n";
-    echo "</pre>";
+    echo '<h2>You may add this line to your .htpasswd</h2>';
+    echo '<pre>';
+    echo '## User generated with '.htmlspecialchars($_SERVER['PHP_SELF']).' at '.$formHelper->timestamp()."\n";
+    echo $user.':'.$password."\n";
+    echo '</pre>';
 } else {
-    echo "Please submit the form to see how new users can be added to your htpasswd installation.";
+    echo 'Please submit the form to see how new users can be added to your htpasswd installation.';
 }
 ?>
 <hr/>

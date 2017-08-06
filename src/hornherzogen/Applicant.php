@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen;
@@ -6,8 +7,6 @@ namespace hornherzogen;
 /**
  * Class Applicant
  * contains information about an applicant that is used to persist a certain state in the database.
- *
- * @package hornherzogen
  */
 class Applicant
 {
@@ -54,7 +53,7 @@ class Applicant
     // TECHNICAL attributes
     private $cancelledAt; // data at which an applicant cancelled his/her booking
 
-    function __construct()
+    public function __construct()
     {
         $this->formHelper = new FormHelper();
     }
@@ -81,11 +80,11 @@ class Applicant
     public function getWeek()
     {
         switch ($this->week) {
-            case "week1":
-            case "1":
+            case 'week1':
+            case '1':
                 return 1;
-            case "week2":
-            case "2":
+            case 'week2':
+            case '2':
                 return 2;
             default:
                 return $this->week;
@@ -94,23 +93,26 @@ class Applicant
 
     /**
      * @param mixed $week
+     *
      * @return Applicant
      */
     public function setWeek($week)
     {
         $this->week = $week;
+
         return $this;
     }
 
     public function getGenderIcon()
     {
         switch ($this->getGender()) {
-            case "male":
-                return "♂";
-            case "female":
-                return "♀";
+            case 'male':
+                return '♂';
+            case 'female':
+                return '♀';
         }
-        return "⚥";
+
+        return '⚥';
     }
 
     /**
@@ -123,11 +125,13 @@ class Applicant
 
     /**
      * @param mixed $gender
+     *
      * @return Applicant
      */
     public function setGender($gender)
     {
         $this->gender = $gender;
+
         return $this;
     }
 
@@ -141,12 +145,14 @@ class Applicant
 
     /**
      * @param mixed $firstname
+     *
      * @return Applicant
      */
     public function setFirstname($firstname)
     {
-        $this->fullName = NULL;
+        $this->fullName = null;
         $this->firstname = $firstname;
+
         return $this;
     }
 
@@ -160,12 +166,14 @@ class Applicant
 
     /**
      * @param mixed $lastname
+     *
      * @return Applicant
      */
     public function setLastname($lastname)
     {
-        $this->fullName = NULL;
+        $this->fullName = null;
         $this->lastname = $lastname;
+
         return $this;
     }
 
@@ -175,20 +183,23 @@ class Applicant
     public function getFullName()
     {
         if (!isset($this->fullName)) {
-            $this->setFullName(NULL);
+            $this->setFullName(null);
         }
 
         return $this->fullName;
     }
 
     /**
-     * Combines the name as firstname lastname salt if not empty
+     * Combines the name as firstname lastname salt if not empty.
+     *
      * @param mixed $salt
+     *
      * @return Applicant
      */
     public function setFullName($salt)
     {
-        $this->fullName = trim('' . $this->getFirstname() . ' ' . $this->getLastname() . ' ' . $salt);
+        $this->fullName = trim(''.$this->getFirstname().' '.$this->getLastname().' '.$salt);
+
         return $this;
     }
 
@@ -202,11 +213,13 @@ class Applicant
 
     /**
      * @param mixed $street
+     *
      * @return Applicant
      */
     public function setStreet($street)
     {
         $this->street = $street;
+
         return $this;
     }
 
@@ -220,11 +233,13 @@ class Applicant
 
     /**
      * @param mixed $houseNumber
+     *
      * @return Applicant
      */
     public function setHouseNumber($houseNumber)
     {
         $this->houseNumber = $houseNumber;
+
         return $this;
     }
 
@@ -238,11 +253,13 @@ class Applicant
 
     /**
      * @param mixed $zipCode
+     *
      * @return Applicant
      */
     public function setZipCode($zipCode)
     {
         $this->zipCode = $zipCode;
+
         return $this;
     }
 
@@ -256,11 +273,13 @@ class Applicant
 
     /**
      * @param mixed $city
+     *
      * @return Applicant
      */
     public function setCity($city)
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -274,11 +293,13 @@ class Applicant
 
     /**
      * @param mixed $country
+     *
      * @return Applicant
      */
     public function setCountry($country)
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -292,11 +313,13 @@ class Applicant
 
     /**
      * @param mixed $email
+     *
      * @return Applicant
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -310,11 +333,13 @@ class Applicant
 
     /**
      * @param mixed $dojo
+     *
      * @return Applicant
      */
     public function setDojo($dojo)
     {
         $this->dojo = $dojo;
+
         return $this;
     }
 
@@ -328,11 +353,13 @@ class Applicant
 
     /**
      * @param mixed $grading
+     *
      * @return Applicant
      */
     public function setGrading($grading)
     {
         $this->grading = $grading;
+
         return $this;
     }
 
@@ -346,11 +373,13 @@ class Applicant
 
     /**
      * @param mixed $dateOfLastGrading
+     *
      * @return Applicant
      */
     public function setDateOfLastGrading($dateOfLastGrading)
     {
         $this->dateOfLastGrading = $dateOfLastGrading;
+
         return $this;
     }
 
@@ -364,11 +393,13 @@ class Applicant
 
     /**
      * @param mixed $twaNumber
+     *
      * @return Applicant
      */
     public function setTwaNumber($twaNumber)
     {
         $this->twaNumber = $twaNumber;
+
         return $this;
     }
 
@@ -382,11 +413,13 @@ class Applicant
 
     /**
      * @param mixed $room
+     *
      * @return Applicant
      */
     public function setRoom($room)
     {
         $this->room = $room;
+
         return $this;
     }
 
@@ -400,11 +433,13 @@ class Applicant
 
     /**
      * @param mixed $partnerOne
+     *
      * @return Applicant
      */
     public function setPartnerOne($partnerOne)
     {
         $this->partnerOne = $partnerOne;
+
         return $this;
     }
 
@@ -418,11 +453,13 @@ class Applicant
 
     /**
      * @param mixed $partnerTwo
+     *
      * @return Applicant
      */
     public function setPartnerTwo($partnerTwo)
     {
         $this->partnerTwo = $partnerTwo;
+
         return $this;
     }
 
@@ -436,11 +473,13 @@ class Applicant
 
     /**
      * @param mixed $foodCategory
+     *
      * @return Applicant
      */
     public function setFoodCategory($foodCategory)
     {
         $this->foodCategory = $foodCategory;
+
         return $this;
     }
 
@@ -450,8 +489,8 @@ class Applicant
     public function getFlexible()
     {
         switch ($this->flexible) {
-            case "yes":
-            case "1":
+            case 'yes':
+            case '1':
                 return true;
             default:
                 return false;
@@ -460,11 +499,13 @@ class Applicant
 
     /**
      * @param mixed $flexible
+     *
      * @return Applicant
      */
     public function setFlexible($flexible)
     {
         $this->flexible = $flexible;
+
         return $this;
     }
 
@@ -480,11 +521,13 @@ class Applicant
      * Sets remark field to the given value at a maximum length of 400.
      *
      * @param mixed $remarks
+     *
      * @return Applicant
      */
     public function setRemarks($remarks)
     {
         $this->remarks = $this->formHelper->trimAndCutAfter($remarks, 400);
+
         return $this;
     }
 
@@ -498,11 +541,13 @@ class Applicant
 
     /**
      * @param mixed $persistenceId
+     *
      * @return Applicant
      */
     public function setPersistenceId($persistenceId)
     {
         $this->persistenceId = $persistenceId;
+
         return $this;
     }
 
@@ -516,11 +561,13 @@ class Applicant
 
     /**
      * @param mixed $createdAt
+     *
      * @return Applicant
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -534,11 +581,13 @@ class Applicant
 
     /**
      * @param mixed $confirmedAt
+     *
      * @return Applicant
      */
     public function setConfirmedAt($confirmedAt)
     {
         $this->confirmedAt = $confirmedAt;
+
         return $this;
     }
 
@@ -552,11 +601,13 @@ class Applicant
 
     /**
      * @param mixed $finalRoom
+     *
      * @return Applicant
      */
     public function setFinalRoom($finalRoom)
     {
         $this->finalRoom = $finalRoom;
+
         return $this;
     }
 
@@ -570,11 +621,13 @@ class Applicant
 
     /**
      * @param mixed $currentStatus
+     *
      * @return Applicant
      */
     public function setCurrentStatus($currentStatus)
     {
         $this->currentStatus = $currentStatus;
+
         return $this;
     }
 
@@ -588,11 +641,13 @@ class Applicant
 
     /**
      * @param mixed $mailedAt
+     *
      * @return Applicant
      */
     public function setMailedAt($mailedAt)
     {
         $this->mailedAt = $mailedAt;
+
         return $this;
     }
 
@@ -606,11 +661,13 @@ class Applicant
 
     /**
      * @param mixed $paymentRequestedAt
+     *
      * @return Applicant
      */
     public function setPaymentRequestedAt($paymentRequestedAt)
     {
         $this->paymentRequestedAt = $paymentRequestedAt;
+
         return $this;
     }
 
@@ -624,11 +681,13 @@ class Applicant
 
     /**
      * @param mixed $paymentReceivedAt
+     *
      * @return Applicant
      */
     public function setPaymentReceivedAt($paymentReceivedAt)
     {
         $this->paymentReceivedAt = $paymentReceivedAt;
+
         return $this;
     }
 
@@ -642,11 +701,13 @@ class Applicant
 
     /**
      * @param mixed $bookedAt
+     *
      * @return Applicant
      */
     public function setBookedAt($bookedAt)
     {
         $this->bookedAt = $bookedAt;
+
         return $this;
     }
 
@@ -660,11 +721,13 @@ class Applicant
 
     /**
      * @param mixed $cancelledAt
+     *
      * @return Applicant
      */
     public function setCancelledAt($cancelledAt)
     {
         $this->cancelledAt = $cancelledAt;
+
         return $this;
     }
 }

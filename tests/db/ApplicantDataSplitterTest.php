@@ -1,8 +1,8 @@
 <?php
 
+use hornherzogen\Applicant;
 use hornherzogen\db\ApplicantDataSplitter;
 use PHPUnit\Framework\TestCase;
-use hornherzogen\Applicant;
 
 class ApplicantDataSplitterTest extends TestCase
 {
@@ -36,13 +36,13 @@ class ApplicantDataSplitterTest extends TestCase
 
     public function testRetrievalWithNoDatabaseResults()
     {
-        $this->assertCount(4, $this->dataSplitter->splitByRoomCategory(NULL));
+        $this->assertCount(4, $this->dataSplitter->splitByRoomCategory(null));
     }
 
     public function testRetrievalWithDatabaseResults3Bed()
     {
         $applicant = new Applicant();
-        $applicant->setRoom("3bed");
+        $applicant->setRoom('3bed');
         $dbResult[0] = $applicant;
 
         $this->assertCount(4, $this->dataSplitter->splitByRoomCategory($dbResult));
@@ -52,7 +52,7 @@ class ApplicantDataSplitterTest extends TestCase
     public function testRetrievalWithDatabaseResults2Bed()
     {
         $applicant = new Applicant();
-        $applicant->setRoom("2bed");
+        $applicant->setRoom('2bed');
         $dbResult[0] = $applicant;
 
         $this->assertCount(4, $this->dataSplitter->splitByRoomCategory($dbResult));
@@ -62,7 +62,7 @@ class ApplicantDataSplitterTest extends TestCase
     public function testRetrievalWithDatabaseResults1Bed()
     {
         $applicant = new Applicant();
-        $applicant->setRoom("1bed");
+        $applicant->setRoom('1bed');
         $dbResult[0] = $applicant;
 
         $this->assertCount(4, $this->dataSplitter->splitByRoomCategory($dbResult));
@@ -72,7 +72,7 @@ class ApplicantDataSplitterTest extends TestCase
     public function testRetrievalWithDatabaseResultsArbitraryCategory()
     {
         $applicant = new Applicant();
-        $applicant->setRoom("anythingGoesHere");
+        $applicant->setRoom('anythingGoesHere');
         $dbResult[0] = $applicant;
 
         $this->assertCount(4, $this->dataSplitter->splitByRoomCategory($dbResult));
@@ -81,10 +81,10 @@ class ApplicantDataSplitterTest extends TestCase
 
     public function testSplitByGenderWithNoInputGiven()
     {
-        $applicants = array();
+        $applicants = [];
         $splitted = $this->dataSplitter->splitByGender($applicants);
         $this->assertNotNull($splitted);
-        $this->assertEquals(3, sizeof($splitted));
+        $this->assertEquals(3, count($splitted));
         $this->assertEmpty($splitted['male']);
         $this->assertEmpty($splitted['female']);
         $this->assertEmpty($splitted['other']);
@@ -98,14 +98,14 @@ class ApplicantDataSplitterTest extends TestCase
         $female->setGender('female');
         $other = new Applicant();
         $other->setGender('other');
-        $applicants = array();
+        $applicants = [];
         $applicants[] = $male;
         $applicants[] = $female;
         $applicants[] = $other;
 
         $splitted = $this->dataSplitter->splitByGender($applicants);
         $this->assertNotNull($splitted);
-        $this->assertEquals(3, sizeof($splitted));
+        $this->assertEquals(3, count($splitted));
         $this->assertContainsOnly($male, $splitted['male']);
         $this->assertContainsOnly($female, $splitted['female']);
         $this->assertContainsOnly($other, $splitted['other']);
@@ -113,7 +113,6 @@ class ApplicantDataSplitterTest extends TestCase
 
     public function testSplitByGenderWithNoInput()
     {
-        $this->assertCount(3, $this->dataSplitter->splitByGender(NULL));
+        $this->assertCount(3, $this->dataSplitter->splitByGender(null));
     }
-
 }

@@ -16,13 +16,13 @@ $formHelper = new FormHelper();
 $applicantReader = new ApplicantDatabaseReader();
 $config = new ConfigurationWrapper();
 
-$week = NULL;
-$makeItSo = NULL;
+$week = null;
+$makeItSo = null;
 // check for special headers
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
     $week = $formHelper->filterUserInput($_POST['week']);
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['makeItSo'])) {
     $makeItSo = $formHelper->filterUserInput($_POST['makeItSo']);
 }
 ?>
@@ -107,24 +107,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['makeItSo'])) {
             <?php
             if ($config->isValidDatabaseConfig()) {
                 $applicants = $applicantReader->getPaidButNotConfirmedApplicants($week);
-                $applicantNumber = sizeof($applicants);
-                echo $applicantNumber . " Bewerber sind im Status 'PAID' in der Datenbank für die ausgewählte Woche " . ($week == NULL ? " (beide)" : $week) . ".";
+                $applicantNumber = count($applicants);
+                echo $applicantNumber." Bewerber sind im Status 'PAID' in der Datenbank für die ausgewählte Woche ".($week == null ? ' (beide)' : $week).'.';
 
-                if (isset($makeItSo) && "yesSir" === $makeItSo) {
+                if (isset($makeItSo) && 'yesSir' === $makeItSo) {
                     $mailer = new ConfirmationMailer($applicants);
                     $mailResult = $mailer->sendAsBatch();
 
                     switch ($mailResult) {
-                        case "-1":
-                        case "0":
-                            echo "<br /><span class=\"glyphicon glyphicon-ban-circle\"></span> Es wurden keinerlei Mails ausgesendet.";
+                        case '-1':
+                        case '0':
+                            echo '<br /><span class="glyphicon glyphicon-ban-circle"></span> Es wurden keinerlei Mails ausgesendet.';
                             break;
                         default:
-                            echo "<span class=\"glyphicon glyphicon-envelope\"></span> Resultat: ".$mailResult." von insgesamt ".$applicantNumber." Mails wurden im Rahmen der ersten 50 Mails verschickt.";
+                            echo '<span class="glyphicon glyphicon-envelope"></span> Resultat: '.$mailResult.' von insgesamt '.$applicantNumber.' Mails wurden im Rahmen der ersten 50 Mails verschickt.';
                     }
                 }
             } else {
-                echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
             }
             ?>
     </div><!-- /.starter-template -->

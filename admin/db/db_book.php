@@ -19,30 +19,30 @@ $roomReader = new RoomDatabaseReader();
 $roomWriter = new RoomDatabaseWriter();
 
 // depending on the way we are called we decide which id to use
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     $id = $formHelper->filterUserInput($_POST['id']);
 }
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $id = $formHelper->filterUserInput($_GET['id']);
 }
 
 // die if we are called with crapy parameters
 if (!isset($id)) {
-    echo "Page called with invalid params - try again from the admin area!";
+    echo 'Page called with invalid params - try again from the admin area!';
     die();
 }
 
-$week = NULL;
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
+$week = null;
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['week'])) {
     $week = $formHelper->filterUserInput($_GET['week']);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
     $week = $formHelper->filterUserInput($_POST['week']);
 }
 
 // prevent double submits
-$makeItSo = NULL;
+$makeItSo = null;
 if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
     $makeItSo = $formHelper->filterUserInput($_POST['makeItSo']);
 }
@@ -125,11 +125,11 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
             <?php
             $roomsRead = $roomReader->getRoomById($id);
 
-            if (isset($roomsRead) && sizeof($roomsRead) > 0) {
+            if (isset($roomsRead) && count($roomsRead) > 0) {
                 $room = $roomsRead[0];
                 echo "Buchungen für $room[capacity]er $room[name] (DB#$room[id])";
             } else {
-                echo "Bitte Auswahlboxen bedienen";
+                echo 'Bitte Auswahlboxen bedienen';
             }
             ?>
         </h1>
@@ -137,7 +137,7 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
         <p>
             <?php
             if ($config->isValidDatabaseConfig()) {
-            ?>
+                ?>
 
         <form class="form-horizontal" method="post"
               action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -149,15 +149,18 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
                     <?php
                     // filter for week?
                     if (strlen($week)) {
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
-                    }
-                    ?>
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
+                    } ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche</option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche</option>
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche</option>
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche</option>
                     </select>
                 </div>
             </div>
@@ -166,8 +169,7 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
             $capacityOfSelectedRoom = 0;
             // we do not take any capacity into account since bookings cannot be persisted if a room is overbooked
             $rooms = $roomReader->listRooms();
-            echo "<h3><span class=\"glyphicon glyphicon-dashboard\"></span> verfügbare Räume in der Woche: " . sizeof($rooms) . "</h3>";
-            ?>
+                echo '<h3><span class="glyphicon glyphicon-dashboard"></span> verfügbare Räume in der Woche: '.count($rooms).'</h3>'; ?>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="id">Welchen Raum bebuchen?</label>
@@ -182,9 +184,8 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
                             if (boolval($selected)) {
                                 $capacityOfSelectedRoom = $oneRoom['capacity'];
                             }
-                            echo '<option value="' . $roomId . '" ' . $selected . '>' . $oneRoom['name'] . ' (' . $oneRoom['capacity'] . 'er)</option>';
-                        }
-                        ?>
+                            echo '<option value="'.$roomId.'" '.$selected.'>'.$oneRoom['name'].' ('.$oneRoom['capacity'].'er)</option>';
+                        } ?>
                     </select>
                 </div>
             </div>
@@ -192,12 +193,12 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
             <hr/>
             <?php
             $applicants = $roomReader->listApplicantsWithoutBookingsInWeek($week);
-            echo "<h3><span class=\"glyphicon glyphicon-briefcase\"></span> Insgesamt noch zu buchende Bewerber für die gewählte Woche: " . sizeof($applicants) . "</h3><hr />";
+                echo '<h3><span class="glyphicon glyphicon-briefcase"></span> Insgesamt noch zu buchende Bewerber für die gewählte Woche: '.count($applicants).'</h3><hr />';
 
-            echo "<h3><span class=\"glyphicon glyphicon-bullhorn\"></span> Für den gewählten Raum sind maximal " . $capacityOfSelectedRoom . " Buchungen zulässig.</h3>";
+                echo '<h3><span class="glyphicon glyphicon-bullhorn"></span> Für den gewählten Raum sind maximal '.$capacityOfSelectedRoom.' Buchungen zulässig.</h3>';
 
-            for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
-                ?>
+                for ($personNumber = 1; $personNumber <= $capacityOfSelectedRoom; $personNumber++) {
+                    ?>
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="applicantId"><?php echo $personNumber; ?>.Person zu Raum
                         hinzufügen</label>
@@ -205,25 +206,24 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
                         <select class="form-control" id="applicantId[<?php echo $personNumber; ?>]"
                                 name="applicantId[<?php echo $personNumber; ?>]">
                             <?php
-                            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'applicantId') && sizeof($_POST['applicantId']) > $personNumber) {
+                            if ($formHelper->isSetAndNotEmptyInArray($_POST, 'applicantId') && count($_POST['applicantId']) > $personNumber) {
                                 $applicantId = $formHelper->filterUserInput($_POST['applicantId'][$personNumber]);
                             } else {
-                                $applicantId = "(none)";
+                                $applicantId = '(none)';
                             }
 
-                            echo "<option value=\"(none)\" " . ("(none)" == $applicantId ? " selected" : "") . ">(bitte auswählen)</option>";
-                            foreach ($applicants as $applicant) {
-                                $appId = $applicant->getPersistenceId();
-                                $selected = ($applicantId == $appId) ? ' selected' : '';
+                    echo '<option value="(none)" '.('(none)' == $applicantId ? ' selected' : '').'>(bitte auswählen)</option>';
+                    foreach ($applicants as $applicant) {
+                        $appId = $applicant->getPersistenceId();
+                        $selected = ($applicantId == $appId) ? ' selected' : '';
 
-                                echo '<option value="' . $appId . '" ' . $selected . '>' . $applicant->getFullName() . ' (#' . $appId . ')</option>';
-                            }
-                            ?>
+                        echo '<option value="'.$appId.'" '.$selected.'>'.$applicant->getFullName().' (#'.$appId.')</option>';
+                    } ?>
                         </select>
                     </div>
                 </div>
                 <?php
-            } // end of personSelectBox for
+                } // end of personSelectBox for
             ?>
 
             <hr/>
@@ -250,87 +250,85 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
 
     <?php
     // PERFORM BOOKING
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId']) && boolval($makeItSo)) {
-
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['week']) && isset($_POST['applicantId']) && boolval($makeItSo)) {
         foreach ($_POST['applicantId'] as $submittedApplicantId) {
             $iid = $formHelper->filterUserInput($_POST['id']);
 
             // skip no selection
-            if ("(none)" == $submittedApplicantId) {
+            if ('(none)' == $submittedApplicantId) {
                 continue;
             }
 
             if ($roomWriter->canRoomBeBooked($iid)) {
                 $persistId = $roomWriter->performBooking($iid, $submittedApplicantId);
-                if (NULL != $persistId) {
-                    echo "<p style=\"color: darkgreen;\"><span class=\"glyphicon glyphicon-send\"></span> Buchung angelegt mit id #" . $persistId . " für Person mit Id <a href='db_applicant.php?id=" . $submittedApplicantId . "' target='_blank'>#" . $submittedApplicantId . "</a></p>";
-                    $_POST['applicantId'] = NULL;
+                if (null != $persistId) {
+                    echo '<p style="color: darkgreen;"><span class="glyphicon glyphicon-send"></span> Buchung angelegt mit id #'.$persistId." für Person mit Id <a href='db_applicant.php?id=".$submittedApplicantId."' target='_blank'>#".$submittedApplicantId.'</a></p>';
+                    $_POST['applicantId'] = null;
                 }
             } else {
-                echo "<p style=\"color: red;\"><span class=\"glyphicon glyphicon-bell\"></span> Kann Raum #" . $iid . " für Person <a href='db_applicant.php?id=" . $submittedApplicantId . "' target='_blank'>#" . $submittedApplicantId . "</a> nicht buchen, da Raum sonst überbucht würde.";
+                echo '<p style="color: red;"><span class="glyphicon glyphicon-bell"></span> Kann Raum #'.$iid." für Person <a href='db_applicant.php?id=".$submittedApplicantId."' target='_blank'>#".$submittedApplicantId.'</a> nicht buchen, da Raum sonst überbucht würde.';
             }
         } // end of for
-        $_POST['applicantId'] = NULL;
+        $_POST['applicantId'] = null;
     }
 
     // REMOVE BOOKING
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
         $aid = $formHelper->filterUserInput($_POST['aid']);
-        echo $roomWriter->deleteForApplicantId($aid) . " Zeilen für Applicant mit id <a href='db_applicant.php?id=" . $id . "' target='_blank'>#" . $id . "</a> gelöscht.";
-        $_POST['aid'] = NULL;
+        echo $roomWriter->deleteForApplicantId($aid)." Zeilen für Applicant mit id <a href='db_applicant.php?id=".$id."' target='_blank'>#".$id.'</a> gelöscht.';
+        $_POST['aid'] = null;
     }
 
-    echo "<hr/><h3><span class=\"glyphicon glyphicon-wrench\"></span> Für den Raum#$id sind bisher gebucht:</h3>";
-    $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
+                echo "<hr/><h3><span class=\"glyphicon glyphicon-wrench\"></span> Für den Raum#$id sind bisher gebucht:</h3>";
+                $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
 
-    echo '<div class="table-responsive"><table class="table table-striped">';
-    echo "<thead>";
-    echo "<tr>";
-    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-        echo "<th>AKTIONEN</th>";
-    }
-    echo "<th>Anrede</th>";
-    echo "<th>Name</th>";
-    echo "<th>Dojo</th>";
-    echo "<th>Zimmerkategorie</th>";
-    echo "<th>Zusammenlegungswunsch</th>";
-    echo "<th>Umbuchbar?</th>";
-    echo "<th>Anmerkungen</th>";
-    echo "<th>Sprache</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo '<thead>';
+                echo '<tr>';
+                if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                    echo '<th>AKTIONEN</th>';
+                }
+                echo '<th>Anrede</th>';
+                echo '<th>Name</th>';
+                echo '<th>Dojo</th>';
+                echo '<th>Zimmerkategorie</th>';
+                echo '<th>Zusammenlegungswunsch</th>';
+                echo '<th>Umbuchbar?</th>';
+                echo '<th>Anmerkungen</th>';
+                echo '<th>Sprache</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-    foreach ($roomBookings as $applicant) {
-        echo "<tr>";
+                foreach ($roomBookings as $applicant) {
+                    echo '<tr>';
 
-        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-            echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?aid=' . $applicant->getPersistenceId() . '&week=' . $week . '&id=' . $id . '">
-                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <input type="hidden" name="week" value="' . $week . '"/>
-                        <input type="hidden" name="id" value="' . $id . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entferne Person #' . $applicant->getPersistenceId() . ' aus Raum</button>
+                    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                        echo '<td>
+                    <form class="form-horizontal" method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF']).'?aid='.$applicant->getPersistenceId().'&week='.$week.'&id='.$id.'">
+                        <input type="hidden" name="aid" value="'.$applicant->getPersistenceId().'"/>
+                        <input type="hidden" name="week" value="'.$week.'"/>
+                        <input type="hidden" name="id" value="'.$id.'"/>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entferne Person #'.$applicant->getPersistenceId().' aus Raum</button>
                     </form>
                 </td>';
-        }
+                    }
 
-        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-        echo "<td>" . $applicant->getFullName() . "</td>";
-        echo "<td>" . $applicant->getDojo() . " in " . $applicant->getCity() . "</td>";
-        echo "<td>" . $applicant->getRoom() . "</td>";
-        echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " / " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-        echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
-        echo "<td>" . $applicant->getLanguage() . "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table></div>";
-
-    } else {
-        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-    }
+                    echo '<td>'.$applicant->getGenderIcon().' '.$applicant->getGender().'</td>';
+                    echo '<td>'.$applicant->getFullName().'</td>';
+                    echo '<td>'.$applicant->getDojo().' in '.$applicant->getCity().'</td>';
+                    echo '<td>'.$applicant->getRoom().'</td>';
+                    echo '<td>'.(strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne().' / '.$applicant->getPartnerTwo() : 'keiner').'</td>';
+                    echo '<td>'.($applicant->getFlexible() ? 'ja' : 'nein').'</td>';
+                    echo '<td>'.nl2br($applicant->getRemarks()).'</td>';
+                    echo '<td>'.$applicant->getLanguage().'</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table></div>';
+            } else {
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
+            }
     ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

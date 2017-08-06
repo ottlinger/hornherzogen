@@ -94,11 +94,10 @@ $roomReader = new RoomDatabaseReader();
 
         <p>
             <?php
-            $week = NULL;
+            $week = null;
 
             if ($config->isValidDatabaseConfig()) {
-
-            ?>
+                ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -106,18 +105,21 @@ $roomReader = new RoomDatabaseReader();
                 <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
                     <?php
                     // filter for week?
-                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
-                    }
-                    ?>
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
+                    } ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche
                         </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche
                         </option>
                     </select>
                 </div>
@@ -134,31 +136,30 @@ $roomReader = new RoomDatabaseReader();
     <?php
     $rooms = $roomReader->listRoomBookings($week);
 
-    echo '<div class="table-responsive"><table class="table table-striped">';
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>Raumname</th>";
-    echo "<th>Kapazität</th>";
-    echo "<th>belegt mit</th>";
-    echo "<th>in Woche</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>Raumname</th>';
+                echo '<th>Kapazität</th>';
+                echo '<th>belegt mit</th>';
+                echo '<th>in Woche</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-    foreach ($rooms as $room) {
-        echo "<tr>";
-        echo "<td>" . $room['roomname'] . "</td>";
-        echo "<td>" . $room['capacity'] . "</td>";
-        echo "<td>" . $room['combinedName'] . "</td>";
-        echo "<td>" . $room['week'] . "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table></div>";
-
-    } else {
-        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-    }
+                foreach ($rooms as $room) {
+                    echo '<tr>';
+                    echo '<td>'.$room['roomname'].'</td>';
+                    echo '<td>'.$room['capacity'].'</td>';
+                    echo '<td>'.$room['combinedName'].'</td>';
+                    echo '<td>'.$room['week'].'</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table></div>';
+            } else {
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
+            }
     ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

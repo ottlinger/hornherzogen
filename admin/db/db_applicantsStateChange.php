@@ -26,11 +26,10 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
 {
     if (isset($applicantId) && strlen($applicantId)) {
         $asApplicant = $appDBReader->getById($applicantId);
-        if (isset($asApplicant) && NULL != $asApplicant) {
+        if (isset($asApplicant) && null != $asApplicant) {
             return $statusDBReader->getById($asApplicant[0]->getCurrentStatus());
         }
     }
-    return NULL;
 }
 
 ?>
@@ -113,13 +112,13 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
 
         <p>
             <?php
-            echo "<h2>Bitte die Woche auswählen und danach den Zielzustand des Bewerbers festlegen</h2>";
+            echo '<h2>Bitte die Woche auswählen und danach den Zielzustand des Bewerbers festlegen</h2>';
 
             // reset any previous calls
-            $week = NULL;
-            $sid = NULL;
-            $aid = NULL;
-            $makeItSo = NULL;
+            $week = null;
+            $sid = null;
+            $aid = null;
+            $makeItSo = null;
 
             // parse parameters
             if ($formHelper->isSetAndNotEmptyInArray($_POST, 'aid')) {
@@ -133,49 +132,50 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
             }
 
             // perform any changes or actions only if checkbox is checked
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($aid) && isset($sid) && isset($makeItSo) && boolval($makeItSo)) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($aid) && isset($sid) && isset($makeItSo) && boolval($makeItSo)) {
                 // do not change to same status if appicant has that status already
                 // in order to prevent double mails upon accidental clicks or "I just want to have a look" auto-submits of fields week or applicant
                 $stateInDB = getCurrentStatusOfApplicant($aid, $reader, $statusReader);
 
-                if (isset($stateInDB) && sizeof($stateInDB) > 0 && $stateInDB[0]['id'] === $sid) {
-                    echo "<h3>Keine Änderung gemacht, da nur Daten angezeigt werden</h3>";
+                if (isset($stateInDB) && count($stateInDB) > 0 && $stateInDB[0]['id'] === $sid) {
+                    echo '<h3>Keine Änderung gemacht, da nur Daten angezeigt werden</h3>';
                 } else {
-                    echo "<h3>Statusänderung von <a href='db_applicant.php?id=" . $aid . "' target='_blank'>#" . $aid . "</a> auf " . $sid . " war ";
+                    echo "<h3>Statusänderung von <a href='db_applicant.php?id=".$aid."' target='_blank'>#".$aid.'</a> auf '.$sid.' war ';
                     echo $stateChanger->changeStateTo($aid, $sid) ? '' : 'nicht ';
-                    echo "erfolgreich</h3>";
+                    echo 'erfolgreich</h3>';
                 }
             }
 
             if ($config->isValidDatabaseConfig()) {
-            ?>
+                ?>
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
                     <?php
                     // filter for week?
-                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
-                    }
-                    ?>
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
+                    } ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche
                         </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche
                         </option>
                     </select>
                 </div>
             </div>
 
             <?php
-            $applicants = $reader->getAllByWeek($week);
-
-            ?>
+            $applicants = $reader->getAllByWeek($week); ?>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="aid">Welcher Bewerber?</label>
                 <div class="col-sm-10">
@@ -185,16 +185,14 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
                         foreach ($applicants as $applicant) {
                             $applicantId = $applicant->getPersistenceId();
                             $selectedStatus = (isset($aid) && $aid === $applicantId ? ' selected' : '');
-                            echo "  <option value=\"" . $applicant->getPersistenceId() . "\" " . $selectedStatus . ">" . $applicant->getFullName() . " aus Land " . $applicant->getCountry() . "</option>";
-                        }
-                        ?>
+                            echo '  <option value="'.$applicant->getPersistenceId().'" '.$selectedStatus.'>'.$applicant->getFullName().' aus Land '.$applicant->getCountry().'</option>';
+                        } ?>
                     </select>
                 </div>
             </div>
 
             <?php
-            $currentStatus = getCurrentStatusOfApplicant($aid, $reader, $statusReader);
-            ?>
+            $currentStatus = getCurrentStatusOfApplicant($aid, $reader, $statusReader); ?>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="sid">Welcher Zielstatus?</label>
@@ -203,13 +201,12 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
                         <?php
                         $allStatus = $statusReader->getAll();
 
-                        foreach ($allStatus as $status) {
-                            $statusId = $status['id'];
-                            $selectedStatus = ((isset($currentStatus) && !empty($currentStatus) && $statusId === $currentStatus[0]['id']) ? ' selected' : '');
-                            $name = $status['name'];
-                            echo "<option value=\"" . $statusId . "\" " . $selectedStatus . ">" . $name . $statusReader->adminAdditionalTextForState($name) . "</option>";
-                        }
-                        ?>
+                foreach ($allStatus as $status) {
+                    $statusId = $status['id'];
+                    $selectedStatus = ((isset($currentStatus) && !empty($currentStatus) && $statusId === $currentStatus[0]['id']) ? ' selected' : '');
+                    $name = $status['name'];
+                    echo '<option value="'.$statusId.'" '.$selectedStatus.'>'.$name.$statusReader->adminAdditionalTextForState($name).'</option>';
+                } ?>
                     </select>
                 </div>
             </div>
@@ -237,9 +234,9 @@ function getCurrentStatusOfApplicant($applicantId, $appDBReader, $statusDBReader
         </form>
 
     <?php
-    } else {
-        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-    }
+            } else {
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
+            }
     ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

@@ -22,9 +22,9 @@ class ApplicantDatabaseReaderWithDatabaseTest extends TestCase
     }
 
     // without foreign key constraints to ease testing
-    static public function createTable(PDO $pdo)
+    public static function createTable(PDO $pdo)
     {
-        $query = "
+        $query = '
         CREATE TABLE IF NOT EXISTS `applicants` (
           `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
           `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -58,7 +58,7 @@ class ApplicantDatabaseReaderWithDatabaseTest extends TestCase
           `statusId` int(10) unsigned NOT NULL,
           PRIMARY KEY (`id`),
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
-        ";
+        ';
         $pdo->query($query);
     }
 
@@ -82,16 +82,17 @@ class ApplicantDatabaseReaderWithDatabaseTest extends TestCase
 
     public function testRoomWishesResultStructure()
     {
-        $this->assertEquals(4, sizeof($this->reader->listByRoomCategoryPerWeek(NULL)));
+        $this->assertEquals(4, count($this->reader->listByRoomCategoryPerWeek(null)));
     }
 
     public function testFoodReservations()
     {
-        $this->assertEmpty($this->reader->listByFoodCategoryPerWeek(NULL));
+        $this->assertEmpty($this->reader->listByFoodCategoryPerWeek(null));
     }
 
-    public function testGetById() {
-        $this->assertEmpty($this->reader->getById(NULL));
+    public function testGetById()
+    {
+        $this->assertEmpty($this->reader->getById(null));
         $this->assertEmpty($this->reader->getById(4711));
     }
 
@@ -112,8 +113,6 @@ class ApplicantDatabaseReaderWithDatabaseTest extends TestCase
      */
     protected function getDataSet()
     {
-        return $this->createFlatXMLDataSet(dirname(__FILE__) . '/fixtures/applicants.xml');
+        return $this->createFlatXMLDataSet(dirname(__FILE__).'/fixtures/applicants.xml');
     }
-
-
 }

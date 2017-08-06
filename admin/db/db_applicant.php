@@ -15,7 +15,7 @@ $adminHelper = new AdminHelper();
 $localizer = new HornLocalizer();
 $reader = new ApplicantDatabaseReader();
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $id = $formHelper->filterUserInput($_GET['id']);
 }
 ?>
@@ -101,103 +101,101 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
             $config = new ConfigurationWrapper();
 
             if ($config->isValidDatabaseConfig()) {
-
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
                     $remover = new ApplicantDatabaseWriter();
                     $id = $formHelper->filterUserInput($_POST['aid']);
-                    echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-                    $_POST['aid'] = NULL;
+                    echo $remover->removeById($id).' Zeile mit id #'.$id.' gelöscht';
+                    $_POST['aid'] = null;
                 }
 
                 $applicants = $reader->getById($id);
                 $statusReader = new StatusDatabaseReader();
 
                 echo '<div class="table-responsive"><table class="table table-striped">';
-                echo "<thead>";
-                echo "<tr>";
-                echo "<th>DB-Id</th>";
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>DB-Id</th>';
                 if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-                    echo "<th>AKTIONEN</th>";
+                    echo '<th>AKTIONEN</th>';
                 }
-                echo "<th>Woche</th>";
-                echo "<th>Sprache</th>";
-                echo "<th>Anrede</th>";
-                echo "<th>Vorname</th>";
-                echo "<th>Nachname</th>";
-                echo "<th>Gesamtname</th>";
-                echo "<th>Adresse</th>";
-                echo "<th>PLZ/Stadt</th>";
-                echo "<th>Land</th>";
-                echo "<th>E-Mail</th>";
-                echo "<th>Dojo</th>";
-                echo "<th>Graduierung</th>";
-                echo "<th>twa?</th>";
-                echo "<th>Zimmer</th>";
-                echo "<th>Zusammenlegungswunsch</th>";
-                echo "<th>Essen</th>";
-                echo "<th>Umbuchbar?</th>";
-                echo "<th>Anmerkungen</th>";
-                echo "<th>aktueller Status</th>";
-                echo "<th>Statusübersicht</th>";
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+                echo '<th>Woche</th>';
+                echo '<th>Sprache</th>';
+                echo '<th>Anrede</th>';
+                echo '<th>Vorname</th>';
+                echo '<th>Nachname</th>';
+                echo '<th>Gesamtname</th>';
+                echo '<th>Adresse</th>';
+                echo '<th>PLZ/Stadt</th>';
+                echo '<th>Land</th>';
+                echo '<th>E-Mail</th>';
+                echo '<th>Dojo</th>';
+                echo '<th>Graduierung</th>';
+                echo '<th>twa?</th>';
+                echo '<th>Zimmer</th>';
+                echo '<th>Zusammenlegungswunsch</th>';
+                echo '<th>Essen</th>';
+                echo '<th>Umbuchbar?</th>';
+                echo '<th>Anmerkungen</th>';
+                echo '<th>aktueller Status</th>';
+                echo '<th>Statusübersicht</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
                 foreach ($applicants as $applicant) {
-                    echo "<tr>";
-                    echo "<td>" . $applicant->getPersistenceId() . "</td>";
+                    echo '<tr>';
+                    echo '<td>'.$applicant->getPersistenceId().'</td>';
 
                     if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
                         echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
-                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
+                    <form class="form-horizontal" method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF']).'">
+                        <input type="hidden" name="aid" value="'.$applicant->getPersistenceId().'"/>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #'.$applicant->getPersistenceId().'</button>
                     </form>
                 </td>';
                     }
 
-                    echo "<td>" . $applicant->getWeek() . "</td>";
-                    echo "<td>" . $applicant->getLanguage() . "</td>";
-                    echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-                    echo "<td>" . $applicant->getFirstname() . "</td>";
-                    echo "<td>" . $applicant->getLastname() . "</td>";
-                    echo "<td>" . $applicant->getFullName() . "</td>";
-                    echo "<td>" . $applicant->getStreet() . " " . $applicant->getHouseNumber() . "</td>";
-                    echo "<td>" . $applicant->getZipCode() . " " . $applicant->getCity() . "</td>";
-                    echo "<td>" . $applicant->getCountry() . "</td>";
-                    echo "<td>" . $applicant->getEmail() . "</td>";
-                    echo "<td>" . $applicant->getDojo() . "</td>";
-                    echo "<td>" . $applicant->getGrading() . " seit " . $applicant->getDateOfLastGrading() . "</td>";
-                    echo "<td>" . (strlen($applicant->getTwaNumber()) ? " ja,  " . $applicant->getTwaNumber() : "nein") . "</td>";
-                    echo "<td>" . $applicant->getRoom() . "</td>";
-                    echo "<td>" . (strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne() . " " . $applicant->getPartnerTwo() : "keiner") . "</td>";
-                    echo "<td>" . $applicant->getFoodCategory() . "</td>";
-                    echo "<td>" . ($applicant->getFlexible() ? "ja" : "nein") . "</td>";
-                    echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+                    echo '<td>'.$applicant->getWeek().'</td>';
+                    echo '<td>'.$applicant->getLanguage().'</td>';
+                    echo '<td>'.$applicant->getGenderIcon().' '.$applicant->getGender().'</td>';
+                    echo '<td>'.$applicant->getFirstname().'</td>';
+                    echo '<td>'.$applicant->getLastname().'</td>';
+                    echo '<td>'.$applicant->getFullName().'</td>';
+                    echo '<td>'.$applicant->getStreet().' '.$applicant->getHouseNumber().'</td>';
+                    echo '<td>'.$applicant->getZipCode().' '.$applicant->getCity().'</td>';
+                    echo '<td>'.$applicant->getCountry().'</td>';
+                    echo '<td>'.$applicant->getEmail().'</td>';
+                    echo '<td>'.$applicant->getDojo().'</td>';
+                    echo '<td>'.$applicant->getGrading().' seit '.$applicant->getDateOfLastGrading().'</td>';
+                    echo '<td>'.(strlen($applicant->getTwaNumber()) ? ' ja,  '.$applicant->getTwaNumber() : 'nein').'</td>';
+                    echo '<td>'.$applicant->getRoom().'</td>';
+                    echo '<td>'.(strlen($applicant->getPartnerOne()) || strlen($applicant->getPartnerTwo()) ? $applicant->getPartnerOne().' '.$applicant->getPartnerTwo() : 'keiner').'</td>';
+                    echo '<td>'.$applicant->getFoodCategory().'</td>';
+                    echo '<td>'.($applicant->getFlexible() ? 'ja' : 'nein').'</td>';
+                    echo '<td>'.nl2br($applicant->getRemarks()).'</td>';
 
                     $statId = $statusReader->getById($applicant->getCurrentStatus());
 
                     if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-                        echo "<td>" . $statId[0]['name'] . "</td>";
+                        echo '<td>'.$statId[0]['name'].'</td>';
                     } else {
-                        echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
+                        echo '<td>'.($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : 'NONE').'</td>';
                     }
 
-                    echo "<td>";
-                    echo "CREATED: " . $applicant->getCreatedAt() . "<br />";
-                    echo "MAILED: " . $applicant->getMailedAt() . "<br />";
-                    echo "VERIFIED: " . $applicant->getConfirmedAt() . "<br />";
-                    echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "<br />";
-                    echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "<br />";
-                    echo "BOOKED: " . $applicant->getBookedAt() . "<br />";
-                    echo "CANCELLED: " . $applicant->getCancelledAt();
-                    echo "</td>";
-                    echo "</tr>";
+                    echo '<td>';
+                    echo 'CREATED: '.$applicant->getCreatedAt().'<br />';
+                    echo 'MAILED: '.$applicant->getMailedAt().'<br />';
+                    echo 'VERIFIED: '.$applicant->getConfirmedAt().'<br />';
+                    echo 'PAYMENTMAILED: '.$applicant->getPaymentRequestedAt().'<br />';
+                    echo 'PAYMENTRECEIVED: '.$applicant->getPaymentReceivedAt().'<br />';
+                    echo 'BOOKED: '.$applicant->getBookedAt().'<br />';
+                    echo 'CANCELLED: '.$applicant->getCancelledAt();
+                    echo '</td>';
+                    echo '</tr>';
                 }
-                echo "</tbody>";
-                echo "</table></div>";
-
+                echo '</tbody>';
+                echo '</table></div>';
             } else {
-                echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
             }
             ?>
     </div><!-- /.starter-template -->

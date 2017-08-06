@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\admin;
@@ -10,7 +11,7 @@ class FlexibilityMailGenerator
     private $applicant;
     private $localizer;
 
-    function __construct($applicant)
+    public function __construct($applicant)
     {
         $this->applicant = $applicant;
         $this->localizer = new HornLocalizer();
@@ -23,7 +24,7 @@ class FlexibilityMailGenerator
 
     public function getBody()
     {
-        return $this->localizer->i18nParams('ADMIN.FLEX.BODY', array($this->applicant->getFirstname(), $this->applicant->getWeek(), $this->getOtherWeek()));
+        return $this->localizer->i18nParams('ADMIN.FLEX.BODY', [$this->applicant->getFirstname(), $this->applicant->getWeek(), $this->getOtherWeek()]);
     }
 
     public function getOtherWeek()
@@ -31,7 +32,7 @@ class FlexibilityMailGenerator
         if ($this->applicant->getWeek() == 1) {
             return 2;
         }
+
         return 1;
     }
-
 }

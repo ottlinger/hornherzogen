@@ -35,19 +35,19 @@ class ApplicantStateChangerTest extends TestCase
 
     public function testWithoutConfigEmptyListIsRetrievedWithWeekParameter()
     {
-        $this->assertFalse($this->stateChanger->changeStateTo("applicantId", "stateId"));
+        $this->assertFalse($this->stateChanger->changeStateTo('applicantId', 'stateId'));
     }
 
     public function testMapToSQLWithoutMappableField()
     {
-        $this->assertEquals("", $this->stateChanger->mapMappingToSQL(NULL));
-        $this->assertEquals("", $this->stateChanger->mapMappingToSQL(array()));
+        $this->assertEquals('', $this->stateChanger->mapMappingToSQL(null));
+        $this->assertEquals('', $this->stateChanger->mapMappingToSQL([]));
     }
 
     public function testMapToSQLWithOneMappableField()
     {
-        $field = "myFieldInTest";
-        $mappingResult = array('field' => $field);
+        $field = 'myFieldInTest';
+        $mappingResult = ['field' => $field];
         $this->assertStringStartsWith(" , myFieldInTest = '", $this->stateChanger->mapMappingToSQL($mappingResult));
         // timestamp is in between
         $this->assertStringEndsWith("'", $this->stateChanger->mapMappingToSQL($mappingResult));
@@ -55,7 +55,7 @@ class ApplicantStateChangerTest extends TestCase
 
     public function testUpdateInDatabaseWithoutDatabaseYieldsNull()
     {
-        $this->assertNull($this->stateChanger->updateInDatabase(4711, 4712, NULL));
+        $this->assertNull($this->stateChanger->updateInDatabase(4711, 4712, null));
     }
 
     public function testMappingOfStateWhenUpdating()
