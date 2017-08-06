@@ -18,7 +18,7 @@ class RoomDatabaseWriterTest extends TestCase
         $this->databaseHelper = new DatabaseHelper();
         self::$pdo = $this->createTables();
         // TODO        $this->writer = new RoomDatabaseWriter(self::$pdo);
-        $this->writer = new RoomDatabaseWriter(NULL);
+        $this->writer = new RoomDatabaseWriter(null);
     }
 
     private function createTables()
@@ -48,8 +48,9 @@ class RoomDatabaseWriterTest extends TestCase
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (8,'REJECTED')");
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
-        $dbResult = $pdo->query("SELECT * FROM status");
+        $dbResult = $pdo->query('SELECT * FROM status');
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
+
         return $pdo;
     }
 

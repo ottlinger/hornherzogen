@@ -25,7 +25,7 @@ class StatusDatabaseReaderTest extends TestCase
         if (isset(self::$pdo)) {
             return self::$pdo;
         }
-        echo "InitDB for statuses.";
+        echo 'InitDB for statuses.';
         $pdo = new PDO('sqlite::memory:');
 
         $query = '
@@ -48,14 +48,14 @@ class StatusDatabaseReaderTest extends TestCase
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (8,'REJECTED')");
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
-        $dbResult = $pdo->query("SELECT * FROM status");
+        $dbResult = $pdo->query('SELECT * FROM status');
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
-        echo ">>>";
+        echo '>>>';
         while ($row = $dbResult->fetch()) {
-            echo $row['id'] . "/" . $row['name'];
+            echo $row['id'].'/'.$row['name'];
         }
-        echo "<<<";
+        echo '<<<';
 
         return $pdo;
     }
@@ -85,39 +85,39 @@ class StatusDatabaseReaderTest extends TestCase
 
     public function testRowConversionWithNullArguments()
     {
-        $this->assertNull($this->reader->fromDatabaseToArray(NULL));
+        $this->assertNull($this->reader->fromDatabaseToArray(null));
     }
 
     public function testRowConversionWithRowGiven()
     {
-        $row = array();
-        $row['id'] = "4711";
-        $row['name'] = "TESTSTATE";
+        $row = [];
+        $row['id'] = '4711';
+        $row['name'] = 'TESTSTATE';
 
-        $this->assertEquals(array('id' => "4711", 'name' => "TESTSTATE"), $this->reader->fromDatabaseToArray($row));
+        $this->assertEquals(['id' => '4711', 'name' => 'TESTSTATE'], $this->reader->fromDatabaseToArray($row));
     }
 
     public function testReadStatusFromDatabaseById()
     {
         $this->assertTrue($this->reader->isHealthy());
-        $this->assertEquals(array(array('id' => "1", 'name' => "APPLIED")), $this->reader->getById(1));
+        $this->assertEquals([['id' => '1', 'name' => 'APPLIED']], $this->reader->getById(1));
     }
 
     public function testReadStatusFromDatabaseByIdWithBogusInput()
     {
         $this->assertTrue($this->reader->isHealthy());
-        $this->assertNull($this->reader->getById("ThisIsNotANumber"));
+        $this->assertNull($this->reader->getById('ThisIsNotANumber'));
     }
 
     public function testReadStatusFromDatabaseByName()
     {
         $this->assertTrue($this->reader->isHealthy());
-        $this->assertEquals(array(array('id' => "1", 'name' => "APPLIED")), $this->reader->getByName("APPLIED"));
+        $this->assertEquals([['id' => '1', 'name' => 'APPLIED']], $this->reader->getByName('APPLIED'));
     }
 
     public function testGetByNameWithNoName()
     {
-        $this->assertNull($this->reader->getByName(NULL));
+        $this->assertNull($this->reader->getByName(null));
     }
 
     public function testGetAllIsNullWithoutDatabase()
@@ -131,29 +131,28 @@ class StatusDatabaseReaderTest extends TestCase
         $allStatuses = $this->reader->getAll();
         $this->assertNotNull($allStatuses);
         $this->assertCount(8, $allStatuses);
-        $this->assertEquals("APPLIED", $allStatuses[0]['name']);
-        $this->assertEquals("WAITING_FOR_PAYMENT", $allStatuses[7]['name']);
+        $this->assertEquals('APPLIED', $allStatuses[0]['name']);
+        $this->assertEquals('WAITING_FOR_PAYMENT', $allStatuses[7]['name']);
     }
 
     public function testAdditionalNotesMappingUnknownName()
     {
-        $this->assertEquals('', $this->reader->adminAdditionalTextForState("LALELOU"));
-        $this->assertEquals(' (Standard nach erfolgter Anmeldung, kein Mailversand)', $this->reader->adminAdditionalTextForState("APPLIED"));
+        $this->assertEquals('', $this->reader->adminAdditionalTextForState('LALELOU'));
+        $this->assertEquals(' (Standard nach erfolgter Anmeldung, kein Mailversand)', $this->reader->adminAdditionalTextForState('APPLIED'));
     }
 
     public function testAdditionalNotesMappingBooked()
     {
-        $this->assertEquals(' (Status wird erzeugt durch Batchaussenden der Bestätigungsmails - nicht einstellen)', $this->reader->adminAdditionalTextForState("BOOKED"));
+        $this->assertEquals(' (Status wird erzeugt durch Batchaussenden der Bestätigungsmails - nicht einstellen)', $this->reader->adminAdditionalTextForState('BOOKED'));
     }
 
     public function testAdditionalNotesMappingPaid()
     {
-        $this->assertEquals(' (sobald Zahlung eingangen)', $this->reader->adminAdditionalTextForState("PAID"));
+        $this->assertEquals(' (sobald Zahlung eingangen)', $this->reader->adminAdditionalTextForState('PAID'));
     }
 
     public function testAdditionalNotesMappingWaitingForPayment()
     {
-        $this->assertEquals(' (sendet Zahlungsaufforderung per Mail raus!)', $this->reader->adminAdditionalTextForState("WAITING_FOR_PAYMENT"));
+        $this->assertEquals(' (sendet Zahlungsaufforderung per Mail raus!)', $this->reader->adminAdditionalTextForState('WAITING_FOR_PAYMENT'));
     }
-
 }

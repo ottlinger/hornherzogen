@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\db\BaseDatabaseWriter;
 use PHPUnit\Framework\TestCase;
 
@@ -43,5 +44,4 @@ class BaseDatabaseWriterTest extends TestCase
         $writer = new BaseDatabaseWriter();
         $this->assertFalse($writer->isHealthy());
     }
-
 }

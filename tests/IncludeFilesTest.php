@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 // Included automatically via phpunit.xml
@@ -22,5 +23,4 @@ class IncludeFilesTest extends TestCase
     {
         $this->assertEquals(PHP_SESSION_ACTIVE, session_status());
     }
-
 }

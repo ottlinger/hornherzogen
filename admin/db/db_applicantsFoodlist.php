@@ -97,11 +97,10 @@ $statusReader = new StatusDatabaseReader();
 
         <p>
             <?php
-            $week = NULL;
+            $week = null;
 
             if ($config->isValidDatabaseConfig()) {
-
-            ?>
+                ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -109,18 +108,21 @@ $statusReader = new StatusDatabaseReader();
                 <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
                     <?php
                     // filter for week?
-                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
-                    }
-                    ?>
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
+                    } ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche
                         </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche
                         </option>
                     </select>
                 </div>
@@ -135,89 +137,88 @@ $statusReader = new StatusDatabaseReader();
         </form>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
         $remover = new ApplicantDatabaseWriter();
         $id = $formHelper->filterUserInput($_POST['aid']);
-        echo $remover->removeById($id) . " Zeile mit id #" . $id . " gelöscht";
-        $_POST['aid'] = NULL;
+        echo $remover->removeById($id).' Zeile mit id #'.$id.' gelöscht';
+        $_POST['aid'] = null;
     }
 
-    $applicants = $applicantReader->listByFoodCategoryPerWeek($week);
+                $applicants = $applicantReader->listByFoodCategoryPerWeek($week);
 
-    echo '<div class="table-responsive"><table class="table table-striped">';
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>DB-Id</th>";
-    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-        echo "<th>AKTIONEN</th>";
-    }
-    echo "<th>Woche</th>";
-    echo "<th>Anrede</th>";
-    echo "<th>Vorname</th>";
-    echo "<th>Nachname</th>";
-    echo "<th>Essen</th>";
-    echo "<th>Anmerkungen</th>";
-    echo "<th>aktueller Status</th>";
-    echo "<th>Statusübersicht</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>DB-Id</th>';
+                if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                    echo '<th>AKTIONEN</th>';
+                }
+                echo '<th>Woche</th>';
+                echo '<th>Anrede</th>';
+                echo '<th>Vorname</th>';
+                echo '<th>Nachname</th>';
+                echo '<th>Essen</th>';
+                echo '<th>Anmerkungen</th>';
+                echo '<th>aktueller Status</th>';
+                echo '<th>Statusübersicht</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-    $veg = 0;
-    $meat = 0;
+                $veg = 0;
+                $meat = 0;
 
-    foreach ($applicants as $applicant) {
-        echo "<tr>";
-        echo "<td><a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>" . $applicant->getPersistenceId() . "</a></td>";
+                foreach ($applicants as $applicant) {
+                    echo '<tr>';
+                    echo "<td><a href='db_applicant.php?id=".$applicant->getPersistenceId()."' target='_blank'>".$applicant->getPersistenceId().'</a></td>';
 
-        if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
-            echo '<td>
-                    <form class="form-horizontal" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">
-                        <input type="hidden" name="aid" value="' . $applicant->getPersistenceId() . '"/>
-                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #' . $applicant->getPersistenceId() . '</button>
+                    if ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost') {
+                        echo '<td>
+                    <form class="form-horizontal" method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF']).'">
+                        <input type="hidden" name="aid" value="'.$applicant->getPersistenceId().'"/>
+                        <button type="submit" class="btn btn-default btn-danger" title="Entfernen">Entfernen von #'.$applicant->getPersistenceId().'</button>
                     </form>
                 </td>';
-        }
+                    }
 
-        echo "<td>" . $applicant->getWeek() . "</td>";
-        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-        echo "<td>" . $applicant->getFirstname() . "</td>";
-        echo "<td>" . $applicant->getLastname() . "</td>";
-        echo "<td>" . $applicant->getFoodCategory() . "</td>";
+                    echo '<td>'.$applicant->getWeek().'</td>';
+                    echo '<td>'.$applicant->getGenderIcon().' '.$applicant->getGender().'</td>';
+                    echo '<td>'.$applicant->getFirstname().'</td>';
+                    echo '<td>'.$applicant->getLastname().'</td>';
+                    echo '<td>'.$applicant->getFoodCategory().'</td>';
         // parse food category and count
         if ('veg' == $applicant->getFoodCategory()) {
             $veg++;
         } else {
             $meat++;
         }
-        echo "<td>" . nl2br($applicant->getRemarks()) . "</td>";
+                    echo '<td>'.nl2br($applicant->getRemarks()).'</td>';
 
-        $statId = $statusReader->getById($applicant->getCurrentStatus());
-        if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-            echo "<td>" . $statId[0]['name'] . "</td>";
-        } else {
-            echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-        }
+                    $statId = $statusReader->getById($applicant->getCurrentStatus());
+                    if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
+                        echo '<td>'.$statId[0]['name'].'</td>';
+                    } else {
+                        echo '<td>'.($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : 'NONE').'</td>';
+                    }
 
-        echo "<td>";
-        echo "CREATED: " . $applicant->getCreatedAt() . "<br />";
-        echo "MAILED: " . $applicant->getMailedAt() . "<br />";
-        echo "VERIFIED: " . $applicant->getConfirmedAt() . "<br />";
-        echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "<br />";
-        echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "<br />";
-        echo "BOOKED: " . $applicant->getBookedAt() . "<br />";
-        echo "CANCELLED: " . $applicant->getCancelledAt();
-        echo "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table></div>";
+                    echo '<td>';
+                    echo 'CREATED: '.$applicant->getCreatedAt().'<br />';
+                    echo 'MAILED: '.$applicant->getMailedAt().'<br />';
+                    echo 'VERIFIED: '.$applicant->getConfirmedAt().'<br />';
+                    echo 'PAYMENTMAILED: '.$applicant->getPaymentRequestedAt().'<br />';
+                    echo 'PAYMENTRECEIVED: '.$applicant->getPaymentReceivedAt().'<br />';
+                    echo 'BOOKED: '.$applicant->getBookedAt().'<br />';
+                    echo 'CANCELLED: '.$applicant->getCancelledAt();
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table></div>';
 
-    echo "<h2>Zusammenfassung</h2><p>vegetarisch: " . $veg . " / nicht explizit vegetarisch: " . $meat . "</p>";
-
-    } else {
-        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-    }
+                echo '<h2>Zusammenfassung</h2><p>vegetarisch: '.$veg.' / nicht explizit vegetarisch: '.$meat.'</p>';
+            } else {
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
+            }
     ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

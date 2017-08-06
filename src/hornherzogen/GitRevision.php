@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen;
@@ -14,13 +15,13 @@ class GitRevision
     {
         if (empty($this->gitRevision) || !isset($this->gitRevision)) {
             // remove any line breaks
-            $this->gitRevision = preg_replace("#\r|\n#", "", trim(''.`git rev-parse --verify HEAD`));
+            $this->gitRevision = preg_replace("#\r|\n#", '', trim(''.`git rev-parse --verify HEAD`));
 
             if (empty($this->gitRevision)) {
                 $this->gitRevision = 'unavailable';
             }
         }
+
         return $this->gitRevision;
     }
-
 }

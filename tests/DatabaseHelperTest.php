@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\db\DatabaseHelper;
 use PHPUnit\Framework\TestCase;
 
@@ -37,79 +38,79 @@ class DatabaseHelperTest extends TestCase
 
     public function testEmptyToNullWithNullArgument()
     {
-        $this->assertNull($this->helper->emptyToNull(NULL));
+        $this->assertNull($this->helper->emptyToNull(null));
     }
 
     public function testEmptyToNullWithNonNullArgument()
     {
-        $this->assertEquals("asd dsa", $this->helper->emptyToNull("  asd dsa "));
+        $this->assertEquals('asd dsa', $this->helper->emptyToNull('  asd dsa '));
     }
 
     public function testTrimAndMaskNull()
     {
-        $this->assertNull($this->helper->trimAndMask(NULL));
+        $this->assertNull($this->helper->trimAndMask(null));
     }
 
     public function testPreventSQLInjectionWithParameterNull()
     {
-        $this->assertNull($this->helper->makeSQLCapable(NULL, NULL));
+        $this->assertNull($this->helper->makeSQLCapable(null, null));
     }
 
     public function testPreventSQLInjectionWithParameterGiven()
     {
-        $this->assertEquals("'no change needed'", $this->helper->makeSQLCapable("no change needed", $this->pdo));
+        $this->assertEquals("'no change needed'", $this->helper->makeSQLCapable('no change needed', $this->pdo));
     }
 
     public function testPreventSQLInjectionWithSqlInParameterGiven()
     {
-        $this->assertEquals("' \%sdasd \_ff\_'", $this->helper->makeSQLCapable(" %sdasd _ff_", $this->pdo));
+        $this->assertEquals("' \%sdasd \_ff\_'", $this->helper->makeSQLCapable(' %sdasd _ff_', $this->pdo));
     }
 
     public function testPreventSQLInjectionWithParameterGivenWithoutDatabaseConnection()
     {
-        $this->assertEquals("'no change needed'", $this->helper->makeSQLCapable("no change needed", NULL));
+        $this->assertEquals("'no change needed'", $this->helper->makeSQLCapable('no change needed', null));
     }
 
     public function testPreventSQLInjectionWithSqlInParameterGivenWithoutDatabaseConnection()
     {
-        $this->assertEquals("' \%sdasd \_ff\_'", $this->helper->makeSQLCapable(" %sdasd _ff_", NULL));
+        $this->assertEquals("' \%sdasd \_ff\_'", $this->helper->makeSQLCapable(' %sdasd _ff_', null));
     }
 
     public function testMappingFromDatabaseToBeanIsComplete()
     {
-        $row = array(
-            'id' => '4711',
-            'week' => 'week1',
-            'gender' => 'male',
-            'email' => 'foo@bar.de',
-            'city' => 'Beijing',
-            'country' => 'Doitsu',
-            'vorname' => 'Hugo',
-            'nachname' => 'Balder',
-            'combinedName' => 'Hugo Balder',
-            'street' => 'Up de straat',
-            'houseno' => '3',
-            'plz' => '12345',
-            'dojo' => 'KaiShinKan',
-            'grad' => '6.Kyu',
-            'gradsince' => '1970-01-01',
-            'twano' => 'UX-1',
-            'room' => '1a',
-            'together1' => 'p1',
-            'together2' => 'p2',
-            'essen' => 'veg',
-            'flexible' => 'no',
-            'additionals' => 'This is possible',
-            'created' => '1970-02-01',
-            'mailed' => '1970-02-02',
-            'verified' => '1970-02-03',
-            'paymentmailed' => '1970-02-04',
+        $row = [
+            'id'              => '4711',
+            'week'            => 'week1',
+            'gender'          => 'male',
+            'email'           => 'foo@bar.de',
+            'city'            => 'Beijing',
+            'country'         => 'Doitsu',
+            'vorname'         => 'Hugo',
+            'nachname'        => 'Balder',
+            'combinedName'    => 'Hugo Balder',
+            'street'          => 'Up de straat',
+            'houseno'         => '3',
+            'plz'             => '12345',
+            'dojo'            => 'KaiShinKan',
+            'grad'            => '6.Kyu',
+            'gradsince'       => '1970-01-01',
+            'twano'           => 'UX-1',
+            'room'            => '1a',
+            'together1'       => 'p1',
+            'together2'       => 'p2',
+            'essen'           => 'veg',
+            'flexible'        => 'no',
+            'additionals'     => 'This is possible',
+            'created'         => '1970-02-01',
+            'mailed'          => '1970-02-02',
+            'verified'        => '1970-02-03',
+            'paymentmailed'   => '1970-02-04',
             'paymentreceived' => '1970-02-05',
-            'booked' => '1970-02-06',
-            'cancelled' => '1970-02-07',
-            'statusId' => '47110815',
-            'language' => 'co.jp',
-        );
+            'booked'          => '1970-02-06',
+            'cancelled'       => '1970-02-07',
+            'statusId'        => '47110815',
+            'language'        => 'co.jp',
+        ];
         $applicant = $this->helper->fromDatabaseToObject($row);
         $this->assertNotNull($applicant);
 
@@ -146,28 +147,29 @@ class DatabaseHelperTest extends TestCase
 
     public function testMappingEmptyRowFromDatabaseToPojo()
     {
-        $applicant = $this->helper->fromDatabaseToObject(NULL);
+        $applicant = $this->helper->fromDatabaseToObject(null);
         $this->assertNotNull($applicant);
 
-        $applicant = $this->helper->fromDatabaseToObject(array());
+        $applicant = $this->helper->fromDatabaseToObject([]);
         $this->assertNotNull($applicant);
     }
 
-    public function testDatabaseLogErrorWithInvalidParameters() {
+    public function testDatabaseLogErrorWithInvalidParameters()
+    {
         // to avoid a warning that no assertions are in the test
         $this->assertNotNull($this->helper);
 
-        $this->helper->logDatabaseErrors(NULL, NULL);
-        $this->helper->logDatabaseErrors(FALSE, NULL);
-        $this->helper->logDatabaseErrors(TRUE, NULL);
+        $this->helper->logDatabaseErrors(null, null);
+        $this->helper->logDatabaseErrors(false, null);
+        $this->helper->logDatabaseErrors(true, null);
     }
 
-    public function testDatabaseLogErrorWithValidParameters() {
+    public function testDatabaseLogErrorWithValidParameters()
+    {
         // to avoid a warning that no assertions are in the test
         $this->assertNotNull($this->helper);
 
-        $this->helper->logDatabaseErrors(TRUE, $this->pdo);
-        $this->helper->logDatabaseErrors(FALSE, $this->pdo);
+        $this->helper->logDatabaseErrors(true, $this->pdo);
+        $this->helper->logDatabaseErrors(false, $this->pdo);
     }
-
 }

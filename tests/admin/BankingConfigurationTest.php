@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 use hornherzogen\admin\BankingConfiguration;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +13,7 @@ class BankingConfigurationTest extends TestCase
      */
     public function setUp()
     {
-        $GLOBALS['horncfg'] = NULL;
+        $GLOBALS['horncfg'] = null;
         $this->bankConfiguration = new BankingConfiguration();
     }
 
@@ -43,9 +44,9 @@ class BankingConfigurationTest extends TestCase
 
     public function testBankingConfigurationValuesAreProperlyExtractedFromTheConfiguration()
     {
-        $iban = "DEWOOO";
-        $accountholder = "C`mor Butts";
-        $bic = "BICTOR";
+        $iban = 'DEWOOO';
+        $accountholder = 'C`mor Butts';
+        $bic = 'BICTOR';
         $reason = "There always is a reason, isn't there?";
 
         $GLOBALS['horncfg']['iban'] = $iban;
@@ -58,7 +59,7 @@ class BankingConfigurationTest extends TestCase
         $this->assertEquals($bic, $generator->getBic());
         $this->assertEquals($accountholder, $generator->getAccountHolder());
 
-        $toString = (String)$generator;
+        $toString = (string) $generator;
         $this->assertNotContains($iban, $toString);
         $this->assertNotContains($bic, $toString);
         $this->assertNotContains($accountholder, $toString);

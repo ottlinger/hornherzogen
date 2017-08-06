@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\ApplicantInput;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +12,7 @@ class ApplicantInputTest extends TestCase
      */
     public function setUp()
     {
-        $this->applicantInput = new ApplicantInput;
+        $this->applicantInput = new ApplicantInput();
     }
 
     /**
@@ -34,7 +35,7 @@ class ApplicantInputTest extends TestCase
 
     public function testGetAndSetFieldEmailcheck()
     {
-        $value = "emailCheck@example.com";
+        $value = 'emailCheck@example.com';
         $this->applicantInput->setEmailcheck($value);
         $this->assertEquals($value, $this->applicantInput->getEmailcheck());
     }
@@ -77,60 +78,60 @@ class ApplicantInputTest extends TestCase
 
     public function testParseFromUserInputWitUserInputGiven()
     {
-        $_POST["vorname"] = "  <b>My firstname</b> ";
+        $_POST['vorname'] = '  <b>My firstname</b> ';
         $this->applicantInput->parse();
-        $this->assertEquals("&lt;b&gt;My firstname&lt;/b&gt;", $this->applicantInput->getFirstName());
+        $this->assertEquals('&lt;b&gt;My firstname&lt;/b&gt;', $this->applicantInput->getFirstName());
     }
 
     public function testNumberOfFieldsRequiredInWebFormDidChange()
     {
-        $this->assertEquals(16, sizeof(ApplicantInput::getRequiredFields()));
+        $this->assertEquals(16, count(ApplicantInput::getRequiredFields()));
     }
 
     public function testNoMailaddressesGivenResultsInError()
     {
-        $_POST = array();
+        $_POST = [];
         $this->assertFalse($this->applicantInput->areEmailAddressesValid());
     }
 
     public function testNoMatchingMailaddressesGivenResultsInError()
     {
-        $_POST = array();
-        $_POST['email'] = "justATypoe@example.com";
-        $_POST['emailcheck'] = "justATypo@example.com";
+        $_POST = [];
+        $_POST['email'] = 'justATypoe@example.com';
+        $_POST['emailcheck'] = 'justATypo@example.com';
         $this->assertFalse($this->applicantInput->areEmailAddressesValid());
     }
 
     public function testMatchingStringsButNoMailaddressesGivenResultsInError()
     {
-        $_POST = array();
-        $_POST['email'] = "example.com";
-        $_POST['emailcheck'] = "example.com";
+        $_POST = [];
+        $_POST['email'] = 'example.com';
+        $_POST['emailcheck'] = 'example.com';
         $this->assertFalse($this->applicantInput->areEmailAddressesValid());
     }
 
     public function testMatchingStringsAndValidMailaddressesGivenWorks()
     {
-        $_POST = array();
-        $_POST['email'] = "foo@example.com";
-        $_POST['emailcheck'] = "foo@example.com";
+        $_POST = [];
+        $_POST['email'] = 'foo@example.com';
+        $_POST['emailcheck'] = 'foo@example.com';
         $this->assertTrue($this->applicantInput->areEmailAddressesValid());
     }
 
     public function testToStringAfterInit()
     {
-        $_POST = array();
+        $_POST = [];
         $this->applicantInput->parse();
         $toString = $this->applicantInput->__toString();
 
-        $this->assertContains("ERROR", $toString);
-        $this->assertContains("SUCCESS", $toString);
-        $this->assertContains("hasParseErrors? 1", $toString);
+        $this->assertContains('ERROR', $toString);
+        $this->assertContains('SUCCESS', $toString);
+        $this->assertContains('hasParseErrors? 1', $toString);
     }
 
     public function testErroneousParsingOfFieldWeek()
     {
-        $field = "week";
+        $field = 'week';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -138,13 +139,13 @@ class ApplicantInputTest extends TestCase
 
     private static function prepareForErrorParsing($field)
     {
-        $_POST = array();
+        $_POST = [];
         $_POST[$field] = [];
     }
 
     public function testSuccessfulParsingOfFieldWeek()
     {
-        $field = "week";
+        $field = 'week';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -153,13 +154,13 @@ class ApplicantInputTest extends TestCase
 
     private static function prepareForSuccessfulParsing($field)
     {
-        $_POST = array();
+        $_POST = [];
         $_POST[$field] = $field;
     }
 
     public function testErroneousParsingOfFieldFlexible()
     {
-        $field = "flexible";
+        $field = 'flexible';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -167,7 +168,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldFlexible()
     {
-        $field = "flexible";
+        $field = 'flexible';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -176,7 +177,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldGender()
     {
-        $field = "gender";
+        $field = 'gender';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -184,7 +185,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldGender()
     {
-        $field = "gender";
+        $field = 'gender';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -193,7 +194,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldLastname()
     {
-        $field = "nachname";
+        $field = 'nachname';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -201,7 +202,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldLastname()
     {
-        $field = "nachname";
+        $field = 'nachname';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -210,7 +211,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldStreet()
     {
-        $field = "street";
+        $field = 'street';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -218,7 +219,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldStreet()
     {
-        $field = "street";
+        $field = 'street';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -227,7 +228,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldHouseNumber()
     {
-        $field = "houseno";
+        $field = 'houseno';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -235,7 +236,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldHouseNumber()
     {
-        $field = "houseno";
+        $field = 'houseno';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -244,7 +245,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldZipCode()
     {
-        $field = "plz";
+        $field = 'plz';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -252,7 +253,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldZipCode()
     {
-        $field = "plz";
+        $field = 'plz';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -261,7 +262,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldCity()
     {
-        $field = "city";
+        $field = 'city';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -269,7 +270,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldCity()
     {
-        $field = "city";
+        $field = 'city';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -278,7 +279,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldCountry()
     {
-        $field = "country";
+        $field = 'country';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -286,7 +287,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldCountry()
     {
-        $field = "country";
+        $field = 'country';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -295,7 +296,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldDojo()
     {
-        $field = "dojo";
+        $field = 'dojo';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -303,7 +304,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldDojo()
     {
-        $field = "dojo";
+        $field = 'dojo';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -312,7 +313,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldTwaNumberNonMandatory()
     {
-        $field = "twano";
+        $field = 'twano';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertEmpty($this->applicantInput->showHasError($field));
@@ -325,7 +326,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldGrading()
     {
-        $field = "grad";
+        $field = 'grad';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -333,7 +334,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldGrading()
     {
-        $field = "grad";
+        $field = 'grad';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -342,7 +343,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldGradingSince()
     {
-        $field = "gsince";
+        $field = 'gsince';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -350,7 +351,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldGradingSince()
     {
-        $field = "gsince";
+        $field = 'gsince';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -359,7 +360,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFieldRoom()
     {
-        $field = "room";
+        $field = 'room';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -367,7 +368,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldRoom()
     {
-        $field = "room";
+        $field = 'room';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -376,7 +377,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousAndSuccessfulParsingOfFieldRoomOneNotMandatory()
     {
-        $field = "together1";
+        $field = 'together1';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertEmpty($this->applicantInput->showHasError($field));
@@ -389,7 +390,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousAndSuccessfulParsingOfFieldRoomTwoNotMandatory()
     {
-        $field = "together2";
+        $field = 'together2';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertEmpty($this->applicantInput->showHasError($field));
@@ -402,7 +403,7 @@ class ApplicantInputTest extends TestCase
 
     public function testErroneousParsingOfFoodCategory()
     {
-        $field = "essen";
+        $field = 'essen';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertNotEmpty($this->applicantInput->showHasError($field));
@@ -411,7 +412,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldFoodCategory()
     {
-        $field = "essen";
+        $field = 'essen';
         self::prepareForSuccessfulParsing($field);
         $this->applicantInput->parse();
         $this->assertEquals('', $this->applicantInput->showHasError($field));
@@ -420,7 +421,7 @@ class ApplicantInputTest extends TestCase
 
     public function testSuccessfulParsingOfFieldAdditionalsNotMandatory()
     {
-        $field = "additionals";
+        $field = 'additionals';
         self::prepareForErrorParsing($field);
         $this->applicantInput->parse();
         $this->assertEmpty($this->applicantInput->showHasError($field));
@@ -431,7 +432,8 @@ class ApplicantInputTest extends TestCase
         $this->assertNotEmpty($this->applicantInput->showIsSuccess($field));
     }
 
-    public function testLanguageIsSetImplicitlyDuringParsingToDefaultLanguage() {
+    public function testLanguageIsSetImplicitlyDuringParsingToDefaultLanguage()
+    {
         $this->applicantInput->parse();
 
         $this->assertEquals('de', $this->applicantInput->getLanguage());
@@ -440,94 +442,96 @@ class ApplicantInputTest extends TestCase
     public function testIfAllMandatoryFieldsAreExistingWithoutParsingFromUserInputObjectHasNoErrors()
     {
         // MANDATORY: set all mandatory fields
-        $this->applicantInput->setFlexible(NULL);
-        $this->applicantInput->setGender("none");
-        $this->applicantInput->setFirstName("First");
-        $this->applicantInput->setLastName("Name");
-        $this->applicantInput->setStreet("Up de Straat");
-        $this->applicantInput->setHouseNumber("17");
-        $this->applicantInput->setZipCode("04600");
-        $this->applicantInput->setCity("Haarlem");
-        $this->applicantInput->setCountry("Netherlands");
-        $this->applicantInput->setEmail("abc@example.com");
-        $this->applicantInput->setDojo("My little big dojo");
-        $this->applicantInput->setGrading("ikkyu");
-        $this->applicantInput->setDateOfLastGrading("2017-02-14");
-        $this->applicantInput->setRoom("single");
-        $this->applicantInput->setFoodCategory("none");
-        $this->applicantInput->setWeek("week2");
+        $this->applicantInput->setFlexible(null);
+        $this->applicantInput->setGender('none');
+        $this->applicantInput->setFirstName('First');
+        $this->applicantInput->setLastName('Name');
+        $this->applicantInput->setStreet('Up de Straat');
+        $this->applicantInput->setHouseNumber('17');
+        $this->applicantInput->setZipCode('04600');
+        $this->applicantInput->setCity('Haarlem');
+        $this->applicantInput->setCountry('Netherlands');
+        $this->applicantInput->setEmail('abc@example.com');
+        $this->applicantInput->setDojo('My little big dojo');
+        $this->applicantInput->setGrading('ikkyu');
+        $this->applicantInput->setDateOfLastGrading('2017-02-14');
+        $this->applicantInput->setRoom('single');
+        $this->applicantInput->setFoodCategory('none');
+        $this->applicantInput->setWeek('week2');
         $this->applicantInput->setMailSent(true);
         // make sure this test fails if any configuration of required fields changes
-        $this->assertEquals(16, sizeof($this->applicantInput->getRequiredFields()));
+        $this->assertEquals(16, count($this->applicantInput->getRequiredFields()));
 
         // since we did not extract the data from $_POST
         $this->assertFalse($this->applicantInput->hasParseErrors());
         $this->assertFalse($this->applicantInput->showFormButtons());
 
         $this->assertFalse($this->applicantInput->hasErrors());
-        $this->assertEmpty($this->applicantInput->showHasError("week"));
+        $this->assertEmpty($this->applicantInput->showHasError('week'));
     }
 
     public function testMandatoryFieldMissingButOptionalExistingResultsInErrors()
     {
         // OPTIONAL
-        $this->applicantInput->setRemarks("This field is optional");
-        $this->applicantInput->setTwaNumber("This field is optional");
+        $this->applicantInput->setRemarks('This field is optional');
+        $this->applicantInput->setTwaNumber('This field is optional');
 
         // MANDATORY: flexible is missing
-        $this->applicantInput->setFirstName("First");
-        $this->applicantInput->setLastName("Name");
-        $this->applicantInput->setStreet("Up de Straat");
-        $this->applicantInput->setHouseNumber("17");
-        $this->applicantInput->setZipCode("04600");
-        $this->applicantInput->setCity("Haarlem");
-        $this->applicantInput->setCountry("Netherlands");
-        $this->applicantInput->setEmail("abc@example.com");
-        $this->applicantInput->setDojo("My little big dojo");
-        $this->applicantInput->setGrading("ikkyu");
-        $this->applicantInput->setGrading("week1");
-        $this->applicantInput->setDateOfLastGrading("2017-02-14");
-        $this->applicantInput->setRoom("single");
-        $this->applicantInput->setFoodCategory("none");
-        $this->applicantInput->setWeek("week2");
+        $this->applicantInput->setFirstName('First');
+        $this->applicantInput->setLastName('Name');
+        $this->applicantInput->setStreet('Up de Straat');
+        $this->applicantInput->setHouseNumber('17');
+        $this->applicantInput->setZipCode('04600');
+        $this->applicantInput->setCity('Haarlem');
+        $this->applicantInput->setCountry('Netherlands');
+        $this->applicantInput->setEmail('abc@example.com');
+        $this->applicantInput->setDojo('My little big dojo');
+        $this->applicantInput->setGrading('ikkyu');
+        $this->applicantInput->setGrading('week1');
+        $this->applicantInput->setDateOfLastGrading('2017-02-14');
+        $this->applicantInput->setRoom('single');
+        $this->applicantInput->setFoodCategory('none');
+        $this->applicantInput->setWeek('week2');
 
         // since we did not extract the data from $_POST
         $this->assertFalse($this->applicantInput->hasParseErrors());
 
-        $this->assertEquals('', $this->applicantInput->showHasError("week"));
+        $this->assertEquals('', $this->applicantInput->showHasError('week'));
         $this->assertTrue($this->applicantInput->hasErrors());
         $this->assertTrue($this->applicantInput->showFormButtons());
     }
 
     public function testFlexibilityParsing()
     {
-        $this->applicantInput->setFlexible("yes");
+        $this->applicantInput->setFlexible('yes');
         $this->assertTrue($this->applicantInput->getFlexible());
 
-        $this->applicantInput->setFlexible("1");
+        $this->applicantInput->setFlexible('1');
         $this->assertTrue($this->applicantInput->getFlexible());
 
-        $this->applicantInput->setFlexible("no");
+        $this->applicantInput->setFlexible('no');
         $this->assertFalse($this->applicantInput->getFlexible());
 
-        $this->applicantInput->setFlexible("anythingElseIsEMappedToNo");
+        $this->applicantInput->setFlexible('anythingElseIsEMappedToNo');
         $this->assertFalse($this->applicantInput->getFlexible());
     }
 
-    public function testFlexibilityParsingFromUserInputWithNotFlexible() {
-        $_POST['flexible'] = "no";
+    public function testFlexibilityParsingFromUserInputWithNotFlexible()
+    {
+        $_POST['flexible'] = 'no';
         $this->applicantInput->parse();
 
         $this->assertFalse($this->applicantInput->getFlexible());
 
-        $_POST['flexible'] = NULL;
+        $_POST['flexible'] = null;
         $this->applicantInput->parse();
 
         $this->assertFalse($this->applicantInput->getFlexible());
     }
 
-    public function testFlexibilityParsingFromUserInputWithBeingFlexible() {
-        $_POST['flexible'] = "yes";
+    public function testFlexibilityParsingFromUserInputWithBeingFlexible()
+    {
+        $_POST['flexible'] = 'yes';
         $this->applicantInput->parse();
 
         $this->assertTrue($this->applicantInput->getFlexible());
@@ -535,57 +539,57 @@ class ApplicantInputTest extends TestCase
 
     public function testFullnameGenerationWithSaltIsTrimmed()
     {
-        $this->applicantInput->setFirstname(" first");
-        $this->applicantInput->setLastname("last ");
-        $this->applicantInput->setFullname("       ");
-        $this->assertEquals("first last", $this->applicantInput->getFullName());
+        $this->applicantInput->setFirstname(' first');
+        $this->applicantInput->setLastname('last ');
+        $this->applicantInput->setFullname('       ');
+        $this->assertEquals('first last', $this->applicantInput->getFullName());
 
-        $this->applicantInput->setFullName("name");
-        $this->assertEquals("first last  name", $this->applicantInput->getFullName());
-        $this->assertEquals("first last  name", $this->applicantInput->getFullName());
-        $this->assertEquals("first last  name", $this->applicantInput->getFullName());
+        $this->applicantInput->setFullName('name');
+        $this->assertEquals('first last  name', $this->applicantInput->getFullName());
+        $this->assertEquals('first last  name', $this->applicantInput->getFullName());
+        $this->assertEquals('first last  name', $this->applicantInput->getFullName());
     }
 
     public function testUIResponseForUnknownField()
     {
-        $this->assertEmpty($this->applicantInput->getUIResponse("unknown"));
+        $this->assertEmpty($this->applicantInput->getUIResponse('unknown'));
     }
 
     public function testUIResponseForFieldInStateOkayAndIsIdempotent()
     {
-        $this->applicantInput->addSuccess("unknown");
-        $this->applicantInput->addSuccess("unknown");
-        $this->applicantInput->addSuccess("unknown");
-        $this->applicantInput->addSuccess("unknown");
-        $this->applicantInput->addSuccess("unknown");
-        $this->assertEquals(" has-success has-feedback", $this->applicantInput->getUIResponse("unknown"));
+        $this->applicantInput->addSuccess('unknown');
+        $this->applicantInput->addSuccess('unknown');
+        $this->applicantInput->addSuccess('unknown');
+        $this->applicantInput->addSuccess('unknown');
+        $this->applicantInput->addSuccess('unknown');
+        $this->assertEquals(' has-success has-feedback', $this->applicantInput->getUIResponse('unknown'));
     }
 
     public function testUIResponseForFieldInStateErrorAndIsIdempotent()
     {
-        $this->applicantInput->addError("unknown");
-        $this->applicantInput->addError("unknown");
-        $this->applicantInput->addError("unknown");
-        $this->applicantInput->addError("unknown");
+        $this->applicantInput->addError('unknown');
+        $this->applicantInput->addError('unknown');
+        $this->applicantInput->addError('unknown');
+        $this->applicantInput->addError('unknown');
         $this->assertEquals(1, $this->applicantInput->getErrorCount());
-        $this->assertEquals(" has-error has-feedback", $this->applicantInput->getUIResponse("unknown"));
+        $this->assertEquals(' has-error has-feedback', $this->applicantInput->getUIResponse('unknown'));
     }
 
     public function testSymbolRetrievalInUIInputTextFieldForUnknownField()
     {
-        $this->assertEmpty($this->applicantInput->showSymbolIfFeedback("unknown"));
+        $this->assertEmpty($this->applicantInput->showSymbolIfFeedback('unknown'));
     }
 
     public function testSymbolRetrievalInUIInputTextFieldForFieldInStateOk()
     {
-        $this->applicantInput->addSuccess("unknown");
-        $this->assertEquals("<span class=\"glyphicon glyphicon-ok form-control-feedback\" aria-hidden=\"true\"></span>", $this->applicantInput->showSymbolIfFeedback("unknown"));
+        $this->applicantInput->addSuccess('unknown');
+        $this->assertEquals('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>', $this->applicantInput->showSymbolIfFeedback('unknown'));
     }
 
     public function testSymbolRetrievalInUIInputTextFieldForFieldInStateError()
     {
-        $this->applicantInput->addError("unknown");
-        $this->assertEquals("<span class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span>", $this->applicantInput->showSymbolIfFeedback("unknown"));
+        $this->applicantInput->addError('unknown');
+        $this->assertEquals('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>', $this->applicantInput->showSymbolIfFeedback('unknown'));
     }
 
     public function testBooleanMarkerInCaseNoParsingTookPlace()
@@ -596,5 +600,4 @@ class ApplicantInputTest extends TestCase
 
         $this->assertTrue($this->applicantInput->hasParsingHappened());
     }
-
 }

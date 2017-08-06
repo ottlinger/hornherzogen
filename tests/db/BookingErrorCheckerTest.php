@@ -40,7 +40,7 @@ class BookingErrorCheckerTest extends TestCase
 
     public function testRemoveByIdWithoutId()
     {
-        $this->assertEmpty($this->errorChecker->removeById(NULL));
+        $this->assertEmpty($this->errorChecker->removeById(null));
     }
 
     public function testRemoveByIdWithId()
@@ -67,5 +67,4 @@ class BookingErrorCheckerTest extends TestCase
     {
         $this->assertEmpty($this->errorChecker->listPeopleWithFinalStateButNoRooms());
     }
-
 }

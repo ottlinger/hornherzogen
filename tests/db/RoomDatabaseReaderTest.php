@@ -18,7 +18,7 @@ class RoomDatabaseReaderTest extends TestCase
         $this->databaseHelper = new DatabaseHelper();
         self::$pdo = $this->createTables();
         // TODO        $this->reader = new RoomDatabaseReader(self::$pdo);
-        $this->reader = new RoomDatabaseReader(NULL);
+        $this->reader = new RoomDatabaseReader(null);
     }
 
     private function createTables()
@@ -48,8 +48,9 @@ class RoomDatabaseReaderTest extends TestCase
         $dbResult = $pdo->query("INSERT INTO status (id,name) VALUES (8,'REJECTED')");
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
 
-        $dbResult = $pdo->query("SELECT * FROM status");
+        $dbResult = $pdo->query('SELECT * FROM status');
         $this->databaseHelper->logDatabaseErrors($dbResult, $pdo);
+
         return $pdo;
     }
 
@@ -98,8 +99,8 @@ class RoomDatabaseReaderTest extends TestCase
 
     public function testlistAvailableRooms()
     {
-        $this->assertNotEmpty($this->reader->listAvailableRooms("w1"));
-        $this->assertNotEmpty($this->reader->listAvailableRooms("w2"));
-        $this->assertEmpty($this->reader->listAvailableRooms(NULL));
+        $this->assertNotEmpty($this->reader->listAvailableRooms('w1'));
+        $this->assertNotEmpty($this->reader->listAvailableRooms('w2'));
+        $this->assertEmpty($this->reader->listAvailableRooms(null));
     }
 }

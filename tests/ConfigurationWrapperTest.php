@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\ConfigurationWrapper;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +12,7 @@ class ConfigurationWrapperTest extends TestCase
      */
     public function setUp()
     {
-        $this->configuration = new ConfigurationWrapper;
+        $this->configuration = new ConfigurationWrapper();
     }
 
     /**
@@ -50,12 +51,12 @@ class ConfigurationWrapperTest extends TestCase
      */
     public function testMailIsReturnedTrimmedFromConfigFile()
     {
-        $GLOBALS['horncfg']['mail'] = "mymail ";
+        $GLOBALS['horncfg']['mail'] = 'mymail ';
         $this->assertEquals('mymail', $this->configuration->mail());
     }
 
     /**
-     * Return empty mail value if configuration is not set
+     * Return empty mail value if configuration is not set.
      *
      * @test
      */
@@ -68,7 +69,6 @@ class ConfigurationWrapperTest extends TestCase
         $this->assertEmpty($this->configuration->mail());
     }
 
-
     /**
      * Return pdf value from config.
      *
@@ -76,12 +76,12 @@ class ConfigurationWrapperTest extends TestCase
      */
     public function testPdfIsReturnedFromConfigFile()
     {
-        $GLOBALS['horncfg']['pdf'] = "my.pdf";
+        $GLOBALS['horncfg']['pdf'] = 'my.pdf';
         $this->assertEquals('my.pdf', $this->configuration->pdf());
     }
 
     /**
-     * Return empty pdf value if configuration is not set
+     * Return empty pdf value if configuration is not set.
      *
      * @test
      */
@@ -93,7 +93,6 @@ class ConfigurationWrapperTest extends TestCase
         $GLOBALS['horncfg'] = [];
         $this->assertEmpty($this->configuration->pdf());
     }
-
 
     public function testDatabaseConfigInvalidIfHostnameIsMissing()
     {
@@ -135,8 +134,8 @@ class ConfigurationWrapperTest extends TestCase
 
     public function testFilterBooleanMethodsTrueCase()
     {
-        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = true;
-        $GLOBALS["horncfg"]["sendregistrationmails"] = true;
+        $GLOBALS['horncfg']['sendinternalregistrationmails'] = true;
+        $GLOBALS['horncfg']['sendregistrationmails'] = true;
 
         $this->assertTrue($this->configuration->sendregistrationmails());
         $this->assertTrue($this->configuration->sendinternalregistrationmails());
@@ -144,8 +143,8 @@ class ConfigurationWrapperTest extends TestCase
 
     public function testFilterBooleanMethodsFalseCase()
     {
-        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = false;
-        $GLOBALS["horncfg"]["sendregistrationmails"] = false;
+        $GLOBALS['horncfg']['sendinternalregistrationmails'] = false;
+        $GLOBALS['horncfg']['sendregistrationmails'] = false;
 
         $this->assertFalse($this->configuration->sendregistrationmails());
         $this->assertFalse($this->configuration->sendinternalregistrationmails());
@@ -153,21 +152,21 @@ class ConfigurationWrapperTest extends TestCase
 
     public function testFilterBooleanMethodsNullCase()
     {
-        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = NULL;
-        $GLOBALS["horncfg"]["sendregistrationmails"] = NULL;
+        $GLOBALS['horncfg']['sendinternalregistrationmails'] = null;
+        $GLOBALS['horncfg']['sendregistrationmails'] = null;
 
         $this->assertFalse($this->configuration->sendregistrationmails());
         $this->assertFalse($this->configuration->sendinternalregistrationmails());
 
-        $GLOBALS["horncfg"] = NULL;
+        $GLOBALS['horncfg'] = null;
         $this->assertFalse($this->configuration->sendregistrationmails());
         $this->assertFalse($this->configuration->sendinternalregistrationmails());
     }
 
     public function testFilterBooleanMethodsRandomStringMapsToTrue()
     {
-        $GLOBALS["horncfg"]["sendinternalregistrationmails"] = 'thisIsNotABoolean';
-        $GLOBALS["horncfg"]["sendregistrationmails"] = 'thisIsNotABoolean';
+        $GLOBALS['horncfg']['sendinternalregistrationmails'] = 'thisIsNotABoolean';
+        $GLOBALS['horncfg']['sendregistrationmails'] = 'thisIsNotABoolean';
 
         $this->assertTrue($this->configuration->sendregistrationmails());
         $this->assertTrue($this->configuration->sendinternalregistrationmails());
@@ -175,41 +174,41 @@ class ConfigurationWrapperTest extends TestCase
 
     public function testConfigurationAttributeSubmissionEndIsSet()
     {
-        $GLOBALS["horncfg"]["submissionend"] = '2017-01-01';
-        $this->assertEquals("2017-01-01", $this->configuration->submissionend());
+        $GLOBALS['horncfg']['submissionend'] = '2017-01-01';
+        $this->assertEquals('2017-01-01', $this->configuration->submissionend());
     }
 
     public function testConfigurationAttributeSuperuserIsSet()
     {
-        $GLOBALS["horncfg"]["superuser"] = "womanchu, chumanwo";
-        $this->assertEquals("womanchu, chumanwo", $this->configuration->superuser());
+        $GLOBALS['horncfg']['superuser'] = 'womanchu, chumanwo';
+        $this->assertEquals('womanchu, chumanwo', $this->configuration->superuser());
     }
 
     public function testMaskWithAsteriskShitInShitOut()
     {
-        $this->assertNull($this->configuration->maskWithAsterisk(NULL));
-        $this->assertNull($this->configuration->maskWithAsterisk(NULL, 47));
+        $this->assertNull($this->configuration->maskWithAsterisk(null));
+        $this->assertNull($this->configuration->maskWithAsterisk(null, 47));
     }
 
     public function testMaskWithAsteriskRegularUsage()
     {
-        $this->assertEquals("***", $this->configuration->maskWithAsterisk("abc"));
-        $this->assertEquals("*", $this->configuration->maskWithAsterisk("a"));
-        $this->assertEquals("*", $this->configuration->maskWithAsterisk(" "));
-        $this->assertEquals("", $this->configuration->maskWithAsterisk(""));
+        $this->assertEquals('***', $this->configuration->maskWithAsterisk('abc'));
+        $this->assertEquals('*', $this->configuration->maskWithAsterisk('a'));
+        $this->assertEquals('*', $this->configuration->maskWithAsterisk(' '));
+        $this->assertEquals('', $this->configuration->maskWithAsterisk(''));
     }
 
     public function testMaskWithAsteriskRegularUsageWithPartialMasking()
     {
-        $this->assertEquals("a**", $this->configuration->maskWithAsterisk("abc", 1));
-        $this->assertEquals("a", $this->configuration->maskWithAsterisk("a", 1));
-        $this->assertEquals("bd**", $this->configuration->maskWithAsterisk("bdef", 2));
+        $this->assertEquals('a**', $this->configuration->maskWithAsterisk('abc', 1));
+        $this->assertEquals('a', $this->configuration->maskWithAsterisk('a', 1));
+        $this->assertEquals('bd**', $this->configuration->maskWithAsterisk('bdef', 2));
     }
 
     public function testToStringWithoutDefaultPasswordsFromConfigurationTemplate()
     {
-        $this->assertStringStartsWith("<pre>Current configuration is: ", $this->configuration->__toString());
-        $this->assertNotContains("pi2ieVid1234567", $this->configuration->__toString());
-        $this->assertNotContains("pi2************", $this->configuration->__toString());
+        $this->assertStringStartsWith('<pre>Current configuration is: ', $this->configuration->__toString());
+        $this->assertNotContains('pi2ieVid1234567', $this->configuration->__toString());
+        $this->assertNotContains('pi2************', $this->configuration->__toString());
     }
 }

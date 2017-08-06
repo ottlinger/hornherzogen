@@ -1,7 +1,8 @@
 <?php
-declare(strict_types = 1);
-use hornherzogen\FormHelper;
+
+declare(strict_types=1);
 use hornherzogen\ConfigurationWrapper;
+use hornherzogen\FormHelper;
 use PHPUnit\Framework\TestCase;
 
 class FormHelperTest extends TestCase
@@ -13,7 +14,7 @@ class FormHelperTest extends TestCase
      */
     public function setUp()
     {
-        $this->formHelper = new FormHelper;
+        $this->formHelper = new FormHelper();
     }
 
     /**
@@ -25,7 +26,7 @@ class FormHelperTest extends TestCase
     }
 
     /**
-     * Test instance of $this->formHelper
+     * Test instance of $this->formHelper.
      *
      * @test
      */
@@ -61,27 +62,27 @@ class FormHelperTest extends TestCase
 
     public function testTrimmingAndCuttingWithNullDataAndLength()
     {
-        $dataIn = NULL;
+        $dataIn = null;
         $this->assertNull($this->formHelper->trimAndCutAfter($dataIn, 4711));
     }
 
     public function testTrimmingAndCuttingWithNullDataAndNullLength()
     {
-        $this->assertNull($this->formHelper->trimAndCutAfter(NULL, NULL));
+        $this->assertNull($this->formHelper->trimAndCutAfter(null, null));
     }
 
     public function testTrimmingAndCuttingWithDataThatNeedsTrimmingButNoCutting()
     {
         $length = 10;
-        $input = str_repeat("b", $length);
-        $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     ' . $input . '        ', $length));
+        $input = str_repeat('b', $length);
+        $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     '.$input.'        ', $length));
     }
 
     public function testTrimmingAndCuttingWithDataThatNeedsTrimmingAndCutting()
     {
         $length = 10;
-        $input = str_repeat("b", $length);
-        $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     ' . $input . 'aaaaa        ', $length));
+        $input = str_repeat('b', $length);
+        $this->assertEquals($input, $this->formHelper->trimAndCutAfter('     '.$input.'aaaaa        ', $length));
     }
 
     public function testTimestampIsAlwaysFilled()
@@ -91,12 +92,12 @@ class FormHelperTest extends TestCase
 
     public function testVerifyingIfKeyIsSetInPostArray()
     {
-        $_POST = NULL;
+        $_POST = null;
         $member = 'bogus';
         $this->assertFalse($this->formHelper->isSetAndNotEmpty($member));
 
-        $_POST = array();
-        $_POST[$member] = NULL;
+        $_POST = [];
+        $_POST[$member] = null;
         $this->assertFalse($this->formHelper->isSetAndNotEmpty($member));
 
         $_POST[$member] = '';
@@ -119,23 +120,23 @@ class FormHelperTest extends TestCase
     public function testWhoSubmittedTheFormOnlyLanguageFound()
     {
         $result = $this->formHelper->extractMetadataForFormSubmission();
-        $this->assertEquals(1, sizeof($result));
+        $this->assertEquals(1, count($result));
     }
 
     public function testWhoSubmittedTheFormWithAllEntries()
     {
-        $browser = "My browser";
-        $host = "http://localhost";
-        $ip = "127.0.0.1";
-        $_SERVER["HTTP_USER_AGENT"] = $browser;
-        $_SERVER["REMOTE_HOST"] = $host;
-        $_SERVER["REMOTE_ADDR"] = $ip;
+        $browser = 'My browser';
+        $host = 'http://localhost';
+        $ip = '127.0.0.1';
+        $_SERVER['HTTP_USER_AGENT'] = $browser;
+        $_SERVER['REMOTE_HOST'] = $host;
+        $_SERVER['REMOTE_ADDR'] = $ip;
 
         $result = $this->formHelper->extractMetadataForFormSubmission();
 
-        $this->assertEquals(4, sizeof($result));
+        $this->assertEquals(4, count($result));
         // should be the fallback language
-        $this->assertEquals("de", $result['LANG']);
+        $this->assertEquals('de', $result['LANG']);
         $this->assertEquals($browser, $result['BROWSER']);
         $this->assertEquals($host, $result['R_HOST']);
         $this->assertEquals($ip, $result['R_ADDR']);
@@ -143,49 +144,45 @@ class FormHelperTest extends TestCase
 
     public function testExtractionFromArray()
     {
-        $arr = array();
+        $arr = [];
         $arr['a'] = 'b';
 
         $this->assertTrue($this->formHelper->isSetAndNotEmptyInArray($arr, 'a'));
         $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, 'A'));
         $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, 'B'));
 
-        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(NULL, NULL));
-        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, NULL));
-        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(NULL, 'a'));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(null, null));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray($arr, null));
+        $this->assertFalse($this->formHelper->isSetAndNotEmptyInArray(null, 'a'));
     }
 
     public function testFilterIsNullsafe()
     {
-        $this->assertNull($this->formHelper->filterUserInput(NULL));
+        $this->assertNull($this->formHelper->filterUserInput(null));
     }
 
     public function testTrimAndCutIsNullsafe()
     {
-        $this->assertNull($this->formHelper->trimAndCutAfter(NULL, NULL));
+        $this->assertNull($this->formHelper->trimAndCutAfter(null, null));
     }
 
-    public function testSubmissionIsClosedWithoutConfigurationYieldsFalse() {
-        $this->assertFalse($this->formHelper->isSubmissionClosed(NULL));
+    public function testSubmissionIsClosedWithoutConfigurationYieldsFalse()
+    {
+        $this->assertFalse($this->formHelper->isSubmissionClosed(null));
     }
 
-    public function testSubmissionIsClosedWithDateInPastYieldsTrue() {
-
+    public function testSubmissionIsClosedWithDateInPastYieldsTrue()
+    {
         $GLOBALS['horncfg']['submissionend'] = '2014-01-01';
 
         $this->assertTrue($this->formHelper->isSubmissionClosed(new ConfigurationWrapper()));
     }
 
-    public function testSubmissionIsClosedWithDateTomorrowYieldsFalse() {
-
+    public function testSubmissionIsClosedWithDateTomorrowYieldsFalse()
+    {
         $datetime = new DateTime('tomorrow');
         $GLOBALS['horncfg']['submissionend'] = $datetime->format('Y-m-d');
 
         $this->assertFalse($this->formHelper->isSubmissionClosed(new ConfigurationWrapper()));
     }
-
-
-
-
-
 }

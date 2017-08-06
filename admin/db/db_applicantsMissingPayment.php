@@ -96,11 +96,10 @@ $statusReader = new StatusDatabaseReader();
 
         <p>
             <?php
-            $week = NULL;
+            $week = null;
 
             if ($config->isValidDatabaseConfig()) {
-
-            ?>
+                ?>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -108,18 +107,21 @@ $statusReader = new StatusDatabaseReader();
                 <label class="col-sm-2 control-label" for="week">Welche Woche zeigen?
                     <?php
                     // filter for week?
-                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
                         $week = $formHelper->filterUserInput($_POST['week']);
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
-                    }
-                    ?>
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
+                    } ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche
                         </option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche
                         </option>
                     </select>
                 </div>
@@ -137,70 +139,69 @@ $statusReader = new StatusDatabaseReader();
     <?php
     $applicants = $applicantReader->getOverduePayments($week);
 
-    echo '<p>Es kann auch sein, dass die ' . sizeof($applicants) . ' Leute bereits bezahlt haben, aber der Status noch nicht auf \'PAID\' gesetzt wurde!</p>';
-    echo '<div class="table-responsive"><table class="table table-striped">';
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>DB-Id</th>";
-    echo "<th>Woche</th>";
-    echo "<th>Anrede</th>";
-    echo "<th>Vorname</th>";
-    echo "<th>Nachname</th>";
-    echo "<th>Essen</th>";
-    echo "<th>Sprache/Land</th>";
-    echo "<th>Dojo/Stadt</th>";
-    echo "<th>E-Mail</th>";
-    echo "<th>Anmerkungen</th>";
-    echo "<th>aktueller Status</th>";
-    echo "<th>Statusübersicht</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
+                echo '<p>Es kann auch sein, dass die '.count($applicants).' Leute bereits bezahlt haben, aber der Status noch nicht auf \'PAID\' gesetzt wurde!</p>';
+                echo '<div class="table-responsive"><table class="table table-striped">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>DB-Id</th>';
+                echo '<th>Woche</th>';
+                echo '<th>Anrede</th>';
+                echo '<th>Vorname</th>';
+                echo '<th>Nachname</th>';
+                echo '<th>Essen</th>';
+                echo '<th>Sprache/Land</th>';
+                echo '<th>Dojo/Stadt</th>';
+                echo '<th>E-Mail</th>';
+                echo '<th>Anmerkungen</th>';
+                echo '<th>aktueller Status</th>';
+                echo '<th>Statusübersicht</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
-    if (empty($applicants)) {
-        echo "<tr><td colspan='12'>keine</td></tr>";
-    }
+                if (empty($applicants)) {
+                    echo "<tr><td colspan='12'>keine</td></tr>";
+                }
 
-    foreach ($applicants as $applicant) {
-        echo "<tr>";
-        echo "<td><a href='db_applicant.php?id=" . $applicant->getPersistenceId() . "' target='_blank'>" . $applicant->getPersistenceId() . "</a></td>";
+                foreach ($applicants as $applicant) {
+                    echo '<tr>';
+                    echo "<td><a href='db_applicant.php?id=".$applicant->getPersistenceId()."' target='_blank'>".$applicant->getPersistenceId().'</a></td>';
 
-        echo "<td>" . $applicant->getWeek() . "</td>";
-        echo "<td>" . $applicant->getGenderIcon() . " " . $applicant->getGender() . "</td>";
-        echo "<td>" . $applicant->getFirstname() . "</td>";
-        echo "<td>" . $applicant->getLastname() . "</td>";
-        echo "<td>" . $applicant->getFoodCategory() . "</td>";
-        echo "<td>" . $applicant->getLanguage() . " aus " . $applicant->getCountry() . "</td>";
-        echo "<td>" . $applicant->getDojo() . " / " . $applicant->getCity() . "</td>";
+                    echo '<td>'.$applicant->getWeek().'</td>';
+                    echo '<td>'.$applicant->getGenderIcon().' '.$applicant->getGender().'</td>';
+                    echo '<td>'.$applicant->getFirstname().'</td>';
+                    echo '<td>'.$applicant->getLastname().'</td>';
+                    echo '<td>'.$applicant->getFoodCategory().'</td>';
+                    echo '<td>'.$applicant->getLanguage().' aus '.$applicant->getCountry().'</td>';
+                    echo '<td>'.$applicant->getDojo().' / '.$applicant->getCity().'</td>';
 
-        $generator = new FlexibilityMailGenerator($applicant);
-        echo "<td><a href=\"" . $formHelper->convertToValidMailto($applicant->getEmail(), $config->registrationmail(), $generator->getSubject(), $generator->getBody()) . "\">" . $applicant->getEmail() . "</a></td>";
+                    $generator = new FlexibilityMailGenerator($applicant);
+                    echo '<td><a href="'.$formHelper->convertToValidMailto($applicant->getEmail(), $config->registrationmail(), $generator->getSubject(), $generator->getBody()).'">'.$applicant->getEmail().'</a></td>';
 
-        echo "<td> " . nl2br($applicant->getRemarks()) . "</td>";
-        $statId = $statusReader->getById($applicant->getCurrentStatus());
-        if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
-            echo "<td>" . $statId[0]['name'] . "</td>";
-        } else {
-            echo "<td>" . ($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : "NONE") . "</td>";
-        }
+                    echo '<td> '.nl2br($applicant->getRemarks()).'</td>';
+                    $statId = $statusReader->getById($applicant->getCurrentStatus());
+                    if (isset($statId) && isset($statId[0]) && isset($statId[0]['name'])) {
+                        echo '<td>'.$statId[0]['name'].'</td>';
+                    } else {
+                        echo '<td>'.($applicant->getCurrentStatus() ? $applicant->getCurrentStatus() : 'NONE').'</td>';
+                    }
 
-        echo "<td>";
-        echo "CREATED: " . $applicant->getCreatedAt() . "<br />";
-        echo "MAILED: " . $applicant->getMailedAt() . "<br />";
-        echo "VERIFIED: " . $applicant->getConfirmedAt() . "<br />";
-        echo "PAYMENTMAILED: " . $applicant->getPaymentRequestedAt() . "<br />";
-        echo "PAYMENTRECEIVED: " . $applicant->getPaymentReceivedAt() . "<br />";
-        echo "BOOKED: " . $applicant->getBookedAt() . "<br />";
-        echo "CANCELLED: " . $applicant->getCancelledAt();
-        echo "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table></div>";
-
-    } else {
-        echo "<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>";
-    }
+                    echo '<td>';
+                    echo 'CREATED: '.$applicant->getCreatedAt().'<br />';
+                    echo 'MAILED: '.$applicant->getMailedAt().'<br />';
+                    echo 'VERIFIED: '.$applicant->getConfirmedAt().'<br />';
+                    echo 'PAYMENTMAILED: '.$applicant->getPaymentRequestedAt().'<br />';
+                    echo 'PAYMENTRECEIVED: '.$applicant->getPaymentReceivedAt().'<br />';
+                    echo 'BOOKED: '.$applicant->getBookedAt().'<br />';
+                    echo 'CANCELLED: '.$applicant->getCancelledAt();
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table></div>';
+            } else {
+                echo '<p>You need to edit your database-related parts of the configuration in order to properly connect to the database.</p>';
+            }
     ?>
     </div><!-- /.starter-template -->
 </div><!-- /.container -->

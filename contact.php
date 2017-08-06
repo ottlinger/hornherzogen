@@ -83,7 +83,7 @@ $hornlocalizer = new HornLocalizer();
         <h1><span class="glyphicon glyphicon-send"></span> <?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION'); ?>
         </h1>
         <p class="lead"><?php echo $hornlocalizer->i18n('CONTACT.H.APPLICATION.LINE1'); ?><br/>
-            <?php echo $hornlocalizer->i18nParams('CONTACT.H.APPLICATION.LINE2', "form.php"); ?>
+            <?php echo $hornlocalizer->i18nParams('CONTACT.H.APPLICATION.LINE2', 'form.php'); ?>
         </p>
     </div>
 

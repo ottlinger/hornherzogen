@@ -1,7 +1,7 @@
 <?php
+
 use hornherzogen\chart\ChartHelper;
 use PHPUnit\Framework\TestCase;
-use hornherzogen\Applicant;
 
 class ChartHelperTest extends TestCase
 {
@@ -35,7 +35,7 @@ class ChartHelperTest extends TestCase
 
     public function testGetDataRetrievalByCountry()
     {
-        $week = "My Week";
+        $week = 'My Week';
         $json = $this->chartHelper->getByCountry($week);
         $this->assertNotNull($json);
         $this->assertContains($week, $json);
@@ -45,13 +45,13 @@ class ChartHelperTest extends TestCase
     {
         $json = $this->chartHelper->getByCountry();
         $this->assertNotNull($json);
-        $this->assertContains("Countries", $json);
-        $this->assertNotContains("in week", $json);
+        $this->assertContains('Countries', $json);
+        $this->assertNotContains('in week', $json);
     }
 
     public function testGetDataRetrievalByGender()
     {
-        $week = "My Week";
+        $week = 'My Week';
         $json = $this->chartHelper->getByGender($week);
         $this->assertNotNull($json);
         $this->assertContains($week, $json);
@@ -61,10 +61,10 @@ class ChartHelperTest extends TestCase
     {
         $json = $this->chartHelper->getByGender();
         $this->assertNotNull($json);
-        $this->assertContains("Frauen", $json);
-        $this->assertContains("Männer", $json);
-        $this->assertContains("Andere", $json);
-        $this->assertNotContains("in Woche", $json);
+        $this->assertContains('Frauen', $json);
+        $this->assertContains('Männer', $json);
+        $this->assertContains('Andere', $json);
+        $this->assertNotContains('in Woche', $json);
     }
 
     public function testGetCountByGender()
@@ -76,23 +76,22 @@ class ChartHelperTest extends TestCase
 
     public function testConversionToJsonFromDatabaseQuery()
     {
-        $countries = array();
-        $countries[] = array('country' => "ANY", 'ccount' => 42);
-        $countries[] = array('country' => "THING", 'ccount' => 87);
+        $countries = [];
+        $countries[] = ['country' => 'ANY', 'ccount' => 42];
+        $countries[] = ['country' => 'THING', 'ccount' => 87];
 
         $json = ChartHelper::toJSON($countries);
         $this->assertNotNull($json);
-        $this->assertContains("\"v\":\"ANY\"", $json);
-        $this->assertContains("\"v\":42", $json);
-        $this->assertContains("\"v\":\"THING\"", $json);
-        $this->assertContains("\"v\":87", $json);
+        $this->assertContains('"v":"ANY"', $json);
+        $this->assertContains('"v":42', $json);
+        $this->assertContains('"v":"THING"', $json);
+        $this->assertContains('"v":87', $json);
     }
 
     public function testConversionToJsonFromDatabaseQueryWithoutEntriesWillReturnDummyResults()
     {
-        $json = ChartHelper::toJSON(NULL);
+        $json = ChartHelper::toJSON(null);
         $this->assertNotNull($json);
-        $this->assertEquals("{\"c\":[{\"v\":\"DE\",\"f\":null},{\"v\":23,\"f\":null}]},{\"c\":[{\"v\":\"JP\",\"f\":null},{\"v\":2,\"f\":null}]},{\"c\":[{\"v\":\"DK\",\"f\":null},{\"v\":5,\"f\":null}]}", $json);
+        $this->assertEquals('{"c":[{"v":"DE","f":null},{"v":23,"f":null}]},{"c":[{"v":"JP","f":null},{"v":2,"f":null}]},{"c":[{"v":"DK","f":null},{"v":5,"f":null}]}', $json);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
@@ -9,20 +10,20 @@ class BookingErrorChecker extends BaseDatabaseWriter
      * Retrieve all rooms with their capacity and booking by week.
      *
      * @param $week week choice, null for both weeks.
+     *
      * @return array a simple list of rooms to show in the UI
      */
-    public function listRoomBookings($week = NULL)
+    public function listRoomBookings($week = null)
     {
-        $results = array();
+        $results = [];
         if (self::isHealthy()) {
-
-            $query = "select b.id, r.name as roomname, r.capacity, a.combinedName, a.week, b.applicantId";
-            $query .= " from roombooking b, applicants a, rooms r where a.id=b.applicantId and r.id=b.roomId";
+            $query = 'select b.id, r.name as roomname, r.capacity, a.combinedName, a.week, b.applicantId';
+            $query .= ' from roombooking b, applicants a, rooms r where a.id=b.applicantId and r.id=b.roomId';
             // if week == null - return all, else for the given week
             if (isset($week) && strlen($week)) {
-                $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+                $query .= " AND a.week LIKE '%".trim(''.$week)."%'";
             }
-            $query .= " order by a.week, r.name";
+            $query .= ' order by a.week, r.name';
 
             // select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1
 
@@ -34,22 +35,24 @@ class BookingErrorChecker extends BaseDatabaseWriter
                 $results[] = $row;
             }
         }
+
         return $results;
     }
 
-    function removeById($bookingId)
+    public function removeById($bookingId)
     {
         if ($this->isHealthy() && isset($bookingId) && strlen($bookingId)) {
-            return $this->database->exec("DELETE from `roombooking` WHERE id = " . $this->databaseHelper->makeSQLCapable($bookingId, $this->database));
+            return $this->database->exec('DELETE from `roombooking` WHERE id = '.$this->databaseHelper->makeSQLCapable($bookingId, $this->database));
         }
+
         return 0;
     }
 
     public function listDoubleBookings()
     {
-        $results = array();
+        $results = [];
         if (self::isHealthy()) {
-            $query = "select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1";
+            $query = 'select r.applicantId, count(*) as count from roombooking r group by r.applicantId having count(*)>1';
             $dbResult = $this->database->query($query);
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
@@ -57,15 +60,16 @@ class BookingErrorChecker extends BaseDatabaseWriter
                 $results[] = $row;
             }
         }
+
         return $results;
     }
 
     public function listOverbookedBookings()
     {
-        $results = array();
+        $results = [];
         if (self::isHealthy()) {
             // Issue #96: multiply by 2 for all weeks
-            $query = "select b.roomId, count(*) as bookingcount, r.capacity, r.name from roombooking b, rooms r where r.id=b.roomId group by b.roomId having bookingcount>(2*r.capacity);";
+            $query = 'select b.roomId, count(*) as bookingcount, r.capacity, r.name from roombooking b, rooms r where r.id=b.roomId group by b.roomId having bookingcount>(2*r.capacity);';
             $dbResult = $this->database->query($query);
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
@@ -73,11 +77,13 @@ class BookingErrorChecker extends BaseDatabaseWriter
                 $results[] = $row;
             }
         }
+
         return $results;
     }
 
-    public function listPeopleWithBookingsThatDoNotTakePartInTheSeminar() {
-        $results = array();
+    public function listPeopleWithBookingsThatDoNotTakePartInTheSeminar()
+    {
+        $results = [];
         if (self::isHealthy()) {
             $query = "select a.* from applicants a where a.statusId IN (select id from status where name in ('CANCELLED','REJECTED','SPAM')) AND a.id in (select applicantId from roombooking r)";
             $dbResult = $this->database->query($query);
@@ -87,11 +93,13 @@ class BookingErrorChecker extends BaseDatabaseWriter
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
+
         return $results;
     }
 
-    public function listPeopleWithFinalStateButNoRooms() {
-        $results = array();
+    public function listPeopleWithFinalStateButNoRooms()
+    {
+        $results = [];
         if (self::isHealthy()) {
             $query = "select a.* from applicants a where a.statusId IN (select id from status where name in ('BOOKED', 'PAID')) AND a.id NOT IN (select applicantId from roombooking r)";
             $dbResult = $this->database->query($query);
@@ -101,7 +109,7 @@ class BookingErrorChecker extends BaseDatabaseWriter
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
+
         return $results;
     }
-
 }

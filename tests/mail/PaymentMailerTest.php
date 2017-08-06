@@ -1,4 +1,5 @@
 <?php
+
 use hornherzogen\mail\PaymentMailer;
 use PHPUnit\Framework\TestCase;
 
@@ -12,8 +13,8 @@ class PaymentMailerTest extends TestCase
     public function setUp()
     {
         // reset language to English
-        $_GET = array();
-        $_GET['lang'] = "de";
+        $_GET = [];
+        $_GET['lang'] = 'de';
 
         // prevent sending mails in tests
         $GLOBALS['horncfg']['sendregistrationmails'] = false;
@@ -31,7 +32,7 @@ class PaymentMailerTest extends TestCase
     }
 
     /**
-     * Test type of instance of $this->mailer
+     * Test type of instance of $this->mailer.
      *
      * @test
      */
@@ -43,75 +44,75 @@ class PaymentMailerTest extends TestCase
     public function testGermanMailTextContainsAllAccountInformation()
     {
         $text = $this->mailer->getMailtext();
-        $this->assertContains("Emil Mustermann", $text);
-        $this->assertContains("C`mor Butts", $text);
-        $this->assertContains("DEWOOO", $text);
-        $this->assertContains("BICTOR", $text);
-        $this->assertContains("250,00 €", $text);
-        $this->assertContains("Woche 2", $text);
+        $this->assertContains('Emil Mustermann', $text);
+        $this->assertContains('C`mor Butts', $text);
+        $this->assertContains('DEWOOO', $text);
+        $this->assertContains('BICTOR', $text);
+        $this->assertContains('250,00 €', $text);
+        $this->assertContains('Woche 2', $text);
     }
 
     public function testEnglishMailTextContainsAllAccountInformation()
     {
         $text = $this->mailer->getEnglishMailtext();
-        $this->assertContains("Emil Mustermann", $text);
-        $this->assertContains("C`mor Butts", $text);
-        $this->assertContains("DEWOOO", $text);
-        $this->assertContains("BICTOR", $text);
-        $this->assertContains("250,00 €", $text);
-        $this->assertContains("week 2", $text);
+        $this->assertContains('Emil Mustermann', $text);
+        $this->assertContains('C`mor Butts', $text);
+        $this->assertContains('DEWOOO', $text);
+        $this->assertContains('BICTOR', $text);
+        $this->assertContains('250,00 €', $text);
+        $this->assertContains('week 2', $text);
     }
 
     public function testPriceCalculationWithTWA()
     {
-        $this->assertEquals("250,00 €", $this->mailer->getSeminarPrice());
+        $this->assertEquals('250,00 €', $this->mailer->getSeminarPrice());
     }
 
     public function testPriceCalculationWithoutTWA()
     {
-        $mailer = new PaymentMailer(NULL);
-        $this->assertEquals("300,00 €", $mailer->getSeminarPrice());
+        $mailer = new PaymentMailer(null);
+        $this->assertEquals('300,00 €', $mailer->getSeminarPrice());
     }
 
     public function testSendWithoutApplicant()
     {
-        $mailer = new PaymentMailer(NULL);
-        $this->assertEquals("Nothing to send.", $mailer->send());
+        $mailer = new PaymentMailer(null);
+        $this->assertEquals('Nothing to send.', $mailer->send());
     }
 
     public function testSendInternallyWithoutApplicant()
     {
-        $mailer = new PaymentMailer(NULL);
-        $this->assertEquals("Nothing to send internally.", $mailer->sendInternally());
+        $mailer = new PaymentMailer(null);
+        $this->assertEquals('Nothing to send internally.', $mailer->sendInternally());
     }
 
     public function testSend()
     {
-        $this->assertEquals("", $this->mailer->send());
+        $this->assertEquals('', $this->mailer->send());
     }
 
     public function testSendInternally()
     {
-        $this->assertEquals("", $this->mailer->sendInternally());
+        $this->assertEquals('', $this->mailer->sendInternally());
     }
 
     public function testGetMailSubjectDirectlyAsItIsInLanguageOfApplicantAndNotCurrentSession()
     {
-        $withParam = new MessageFormatter("de", $GLOBALS['messages']["de"]["PMAIL.SUBJECT"]);
-        $subject = $withParam->format(array("TimeStamp"));
-        $this->assertContains("Anmeldebestätigung", $subject);
-        $this->assertContains("TimeStamp", $subject);
+        $withParam = new MessageFormatter('de', $GLOBALS['messages']['de']['PMAIL.SUBJECT']);
+        $subject = $withParam->format(['TimeStamp']);
+        $this->assertContains('Anmeldebestätigung', $subject);
+        $this->assertContains('TimeStamp', $subject);
     }
 
     public function testGetInternalMailText()
     {
         $mailtext = $this->mailer->getInternalMailtext();
-        $this->assertContains("Emil Musterman", $mailtext);
-        $this->assertContains("Zahlungsbestätigung", $mailtext);
-        $this->assertContains("Woche: 2", $mailtext);
-        $this->assertContains("Umbuchbar? nein", $mailtext);
-        $this->assertContains("Frau", $mailtext);
-        $this->assertContains("250,00 €", $mailtext);
-        $this->assertContains("CC-0815", $mailtext);
+        $this->assertContains('Emil Musterman', $mailtext);
+        $this->assertContains('Zahlungsbestätigung', $mailtext);
+        $this->assertContains('Woche: 2', $mailtext);
+        $this->assertContains('Umbuchbar? nein', $mailtext);
+        $this->assertContains('Frau', $mailtext);
+        $this->assertContains('250,00 €', $mailtext);
+        $this->assertContains('CC-0815', $mailtext);
     }
 }

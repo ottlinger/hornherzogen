@@ -12,12 +12,12 @@ $localizer = new HornLocalizer();
 $formHelper = new FormHelper();
 $chartHelper = new ChartHelper();
 
-$week = NULL;
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['week'])) {
+$week = null;
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['week'])) {
     $week = $formHelper->filterUserInput($_GET['week']);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['week'])) {
     $week = $formHelper->filterUserInput($_POST['week']);
 }
 ?>
@@ -132,15 +132,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
                     <?php
                     // filter for week?
                     if (strlen($week)) {
-                        echo strlen($week) ? "(aktiv Woche " . $week . ")" : "";
+                        echo strlen($week) ? '(aktiv Woche '.$week.')' : '';
                     }
                     ?>
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" id="week" name="week" onchange="this.form.submit()">
                         <option value="">beide</option>
-                        <option value="1" <?php if (isset($week) && 1 == $week) echo ' selected'; ?>>1.Woche</option>
-                        <option value="2" <?php if (isset($week) && 2 == $week) echo ' selected'; ?>>2.Woche</option>
+                        <option value="1" <?php if (isset($week) && 1 == $week) {
+                        echo ' selected';
+                    } ?>>1.Woche</option>
+                        <option value="2" <?php if (isset($week) && 2 == $week) {
+                        echo ' selected';
+                    } ?>>2.Woche</option>
                     </select>
                 </div>
             </div>
@@ -179,19 +183,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['week'])) {
 
     function drawChart() {
         // GAUGE
-        <?php if(strlen($week)) { ?>
+        <?php if (strlen($week)) {
+                        ?>
         var gaugeOptions = {
             min: 0, max: 100,
             yellowFrom: 45, yellowTo: 65,
             redFrom: 65, redTo: 100, minorTicks: 5
         };
-        <?php } else { ?>
+        <?php
+                    } else {
+                        ?>
         var gaugeOptions = {
             min: 0, max: 200,
             yellowFrom: 90, yellowTo: 130,
             redFrom: 130, redTo: 200, minorTicks: 5
         };
-        <?php } // scale of no week is selected ?>
+        <?php
+                    } // scale of no week is selected?>
 
         var gauge;
 

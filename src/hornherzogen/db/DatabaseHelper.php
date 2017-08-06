@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
@@ -10,51 +11,57 @@ class DatabaseHelper
 {
     private $formHelper;
 
-    function __construct()
+    public function __construct()
     {
         $this->formHelper = new FormHelper();
     }
 
     /**
      * Trims given data and surrounds with quotes for SQL insertion after removing any XSS stuff.
+     *
      * @param $input
+     *
      * @return null|string
      */
     public function trimAndMask($input)
     {
         $trimmed = $this->emptyToNull($input);
         if (boolval($trimmed)) {
-            return '\'' . $this->formHelper->filterUserInput($trimmed) . '\'';
+            return '\''.$this->formHelper->filterUserInput($trimmed).'\'';
         }
-        return NULL;
     }
 
     /**
      * A given empty String is converted to a NULL value.
+     *
      * @param $input
+     *
      * @return null|string
      */
     public function emptyToNull($input)
     {
-        if (isset($input) && strlen(trim('' . $input))) {
-            return trim('' . $input);
+        if (isset($input) && strlen(trim(''.$input))) {
+            return trim(''.$input);
         }
-        return NULL;
     }
 
     /**
      * Replaces the given String to make it compliant with a SQL-statement, thus all percentages and underscores are properly escaped and the String is quoted.
+     *
      * @param $input input String to handle
      * @param $database optional given PDO/database connection that can be used to properly quote it, if not provided simple quotes will be added in the beginning and at the end.
+     *
      * @return string
      */
     public function makeSQLCapable($input, $database)
     {
         if (isset($input)) {
-            $mask = isset($database) ? $database->quote($input) : "'" . $input . "'";
-            $mask = strtr($mask, array('_' => '\_', '%' => '\%'));
+            $mask = isset($database) ? $database->quote($input) : "'".$input."'";
+            $mask = strtr($mask, ['_' => '\_', '%' => '\%']);
+
             return $mask;
         }
+
         return $input;
     }
 
@@ -62,7 +69,6 @@ class DatabaseHelper
     {
         $applicant = new Applicant();
         if (isset($row)) {
-
             if ($this->formHelper->isSetAndNotEmptyInArray($row, 'id')) {
                 $applicant->setPersistenceId($row['id']);
             }
@@ -187,7 +193,6 @@ class DatabaseHelper
         return $applicant;
     }
 
-
     /**
      * Logs error information in case of database/SQL errors.
      *
@@ -198,9 +203,7 @@ class DatabaseHelper
     {
         if (isset($result) && isset($database) && false === $result) {
             $error = $database->errorInfo();
-            print "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
+            echo "DB-Error\nSQLError=$error[0]\nDBError=$error[1]\nMessage=$error[2]";
         }
     }
-
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
@@ -7,33 +8,32 @@ class ApplicantDataSplitter
 {
     private $databaseHelper;
 
-    function __construct()
+    public function __construct()
     {
         $this->databaseHelper = new DatabaseHelper();
     }
 
-
     public function splitByRoomCategory($applicantList)
     {
-        $results = array(
-            '1' => array(),
-            '2' => array(),
-            '3' => array(),
-            '4' => array(),
-        );
+        $results = [
+            '1' => [],
+            '2' => [],
+            '3' => [],
+            '4' => [],
+        ];
 
-        if (NULL != $applicantList) {
+        if (null != $applicantList) {
             foreach ($applicantList as $applicant) {
                 switch ($applicant->getRoom()) {
-                    case "1bed":
+                    case '1bed':
                         $results['1'][] = $applicant;
                         break;
 
-                    case "2bed":
+                    case '2bed':
                         $results['2'][] = $applicant;
                         break;
 
-                    case "3bed":
+                    case '3bed':
                         $results['3'][] = $applicant;
                         break;
 
@@ -49,19 +49,19 @@ class ApplicantDataSplitter
 
     public function splitByGender($applicantList)
     {
-        $results = array(
-            'other' => array(),
-            'male' => array(),
-            'female' => array(),
-        );
+        $results = [
+            'other'  => [],
+            'male'   => [],
+            'female' => [],
+        ];
 
-        if (NULL != $applicantList) {
+        if (null != $applicantList) {
             foreach ($applicantList as $applicant) {
                 switch ($applicant->getGender()) {
-                    case "female":
+                    case 'female':
                         $results['female'][] = $applicant;
                         break;
-                    case "male":
+                    case 'male':
                         $results['male'][] = $applicant;
                         break;
 
@@ -74,5 +74,4 @@ class ApplicantDataSplitter
 
         return $results;
     }
-
 }

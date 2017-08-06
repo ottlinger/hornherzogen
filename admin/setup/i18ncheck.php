@@ -82,24 +82,24 @@ $hornlocalizer = new HornLocalizer();
 
         <p>
             <?php
-            echo "<h2>List all languages and their l10n values ....</h2>";
+            echo '<h2>List all languages and their l10n values ....</h2>';
 
             echo '<div class="table-responsive"><table class="table table-striped">';
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th>Sprache</th>";
-            echo "<th>Anzahl der keys</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Sprache</th>';
+            echo '<th>Anzahl der keys</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
             foreach (HornLocalizer::$supportedLanguages as $language) {
-                echo "<tr>";
-                echo "<td>" . $language . "</td>";
-                echo "<td>" . sizeof(array_keys($GLOBALS['messages'][$language])) . "</td>";
-                echo "</tr>";
+                echo '<tr>';
+                echo '<td>'.$language.'</td>';
+                echo '<td>'.count(array_keys($GLOBALS['messages'][$language])).'</td>';
+                echo '</tr>';
             }
-            echo "</tbody>";
-            echo "</table></div>";
+            echo '</tbody>';
+            echo '</table></div>';
 
             ?>
     </div><!-- /.starter-template -->

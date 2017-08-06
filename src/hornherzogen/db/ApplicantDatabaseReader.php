@@ -1,14 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
 
 class ApplicantDatabaseReader extends BaseDatabaseWriter
 {
-    const SELECT_ALL_APPLICANTS = "SELECT a.* from `applicants` a";
+    const SELECT_ALL_APPLICANTS = 'SELECT a.* from `applicants` a';
     private $dataSplitter;
 
-    function __construct($databaseConnection = NULL)
+    public function __construct($databaseConnection = null)
     {
         parent::__construct($databaseConnection);
         $this->dataSplitter = new ApplicantDataSplitter();
@@ -18,14 +19,14 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      * Retrieve all applicants with the given id, should be one.
      *
      * @param $applicantId
+     *
      * @return array a simple list of applicants to show in the UI
      */
     public function getById($applicantId)
     {
-        $results = array();
+        $results = [];
         if ($this->isHealthy() && isset($applicantId) && is_numeric($applicantId)) {
-
-            $query = self::SELECT_ALL_APPLICANTS . " WHERE a.id =" . $this->databaseHelper->trimAndMask($applicantId);
+            $query = self::SELECT_ALL_APPLICANTS.' WHERE a.id ='.$this->databaseHelper->trimAndMask($applicantId);
             $dbResult = $this->database->query($query);
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
 
@@ -33,6 +34,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
+
         return $results;
     }
 
@@ -40,11 +42,12 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      * Retrieve all applicants per week, sort the resulting list by week and food category.
      *
      * @param $week week choice, null for both weeks.
+     *
      * @return array a simple list of applicants to show in the UI
      */
     public function listByFoodCategoryPerWeek($week)
     {
-        $results = array();
+        $results = [];
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildFoodQuery($week));
             $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
@@ -53,6 +56,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
+
         return $results;
     }
 
@@ -61,9 +65,9 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $query = self::SELECT_ALL_APPLICANTS;
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " WHERE a.week LIKE '%".trim(''.$week)."%'";
         }
-        $query .= " ORDER by a.week, a.essen";
+        $query .= ' ORDER by a.week, a.essen';
 
         return $query;
     }
@@ -74,18 +78,20 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      * 1 -> all single rooms
      * 2 -> all double rooms
      * 3 -> all triple rooms
-     * 4 -> all other rooms
+     * 4 -> all other rooms.
+     *
      * @param $week week choice, null for both weeks.
+     *
      * @return array a simple list of applicants to show in the UI
      */
     public function listByRoomCategoryPerWeek($week)
     {
-        $results = array(
-            '1' => array(),
-            '2' => array(),
-            '3' => array(),
-            '4' => array(),
-        );
+        $results = [
+            '1' => [],
+            '2' => [],
+            '3' => [],
+            '4' => [],
+        ];
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildQuery($week));
@@ -106,9 +112,9 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $query = self::SELECT_ALL_APPLICANTS;
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " WHERE a.week LIKE '%".trim(''.$week)."%'";
         }
-        $query .= " ORDER by a.week, a.room";
+        $query .= ' ORDER by a.week, a.room';
 
         return $query;
     }
@@ -117,11 +123,12 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
      * Get a list of applicants per week that are willing to change weeks.
      *
      * @param $week week choice, null for both weeks.
+     *
      * @return array a simple list of applicants to show in the UI
      */
     public function listByFlexibilityPerWeek($week)
     {
-        $results = array();
+        $results = [];
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildFlexibilityQuery($week));
@@ -131,6 +138,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
                 $results[] = $this->databaseHelper->fromDatabaseToObject($row);
             }
         }
+
         return $results;
     }
 
@@ -140,7 +148,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $query .= " WHERE flexible in ('yes', '1') ";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " AND a.week LIKE '%".trim(''.$week)."%'";
         }
 
         return $query;
@@ -148,7 +156,7 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function groupByOriginByWeek($week)
     {
-        $results = array();
+        $results = [];
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildGroupByCountryQuery($week));
@@ -164,24 +172,26 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
 
     public function buildGroupByCountryQuery($week)
     {
-        $query = "SELECT a.country, count(*) as ccount FROM `applicants` a";
+        $query = 'SELECT a.country, count(*) as ccount FROM `applicants` a';
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " WHERE a.week LIKE '%".trim(''.$week)."%'";
         }
-        $query .= " GROUP BY a.country";
+        $query .= ' GROUP BY a.country';
 
         return $query;
     }
 
     /**
      * Return all applicants in the given week or if NULL for all weeks.
+     *
      * @param null $week
+     *
      * @return mixed
      */
-    public function getAllByWeek($week = NULL)
+    public function getAllByWeek($week = null)
     {
-        $results = array();
+        $results = [];
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildGetAllQuery($week));
@@ -200,15 +210,16 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
         $query = self::SELECT_ALL_APPLICANTS;
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " WHERE a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " WHERE a.week LIKE '%".trim(''.$week)."%'";
         }
-        $query .= " ORDER BY a.created";
+        $query .= ' ORDER BY a.created';
 
         return $query;
     }
 
-    public function getPaidButNotConfirmedApplicants($week = NULL) {
-        $results = array();
+    public function getPaidButNotConfirmedApplicants($week = null)
+    {
+        $results = [];
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildPaidButNotConfirmedQuery($week));
@@ -225,21 +236,22 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     public function buildPaidButNotConfirmedQuery($week)
     {
         $query = self::SELECT_ALL_APPLICANTS;
-        $query .= ", status s";
+        $query .= ', status s';
         $query .= " WHERE s.name='PAID' AND a.statusId = s.id";
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " AND a.week LIKE '%".trim(''.$week)."%'";
         }
-        $query .= " ORDER BY a.created";
+        $query .= ' ORDER BY a.created';
         // Issue #98: ISP blocks more than 200 mails per hour - grmpf
-        $query .= " LIMIT 50";
+        $query .= ' LIMIT 50';
 
         return $query;
     }
 
-    public function getOverduePayments($week = NULL) {
-        $results = array();
+    public function getOverduePayments($week = null)
+    {
+        $results = [];
 
         if ($this->isHealthy()) {
             $dbResult = $this->database->query($this->buildOverduePaymentQuery($week));
@@ -256,17 +268,15 @@ class ApplicantDatabaseReader extends BaseDatabaseWriter
     public function buildOverduePaymentQuery($week)
     {
         $query = self::SELECT_ALL_APPLICANTS;
-        $query .= " WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK)";
+        $query .= ' WHERE now() >= DATE_ADD(a.paymentmailed, INTERVAL 2 WEEK)';
         // if week == null - return all, else for the given week
         if (isset($week) && strlen($week)) {
-            $query .= " AND a.week LIKE '%" . trim('' . $week) . "%'";
+            $query .= " AND a.week LIKE '%".trim(''.$week)."%'";
         }
-        $query .= " AND a.paymentreceived IS NULL";
+        $query .= ' AND a.paymentreceived IS NULL';
         $query .= " AND statusId NOT IN (select id from status where name in ('PAID','BOOKED','CANCELLED'))";
-        $query .= " ORDER BY a.paymentmailed ASC";
+        $query .= ' ORDER BY a.paymentmailed ASC';
 
         return $query;
     }
-
 }
-

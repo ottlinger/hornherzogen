@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace hornherzogen\db;
@@ -9,7 +10,7 @@ class ApplicantStateChanger extends BaseDatabaseWriter
 {
     private $statusReader;
 
-    function __construct($databaseConnection = NULL)
+    public function __construct($databaseConnection = null)
     {
         parent::__construct($databaseConnection);
 
@@ -24,10 +25,10 @@ class ApplicantStateChanger extends BaseDatabaseWriter
      */
     public function changeStateTo($applicantId, $stateId)
     {
-        $result = FALSE;
+        $result = false;
 
-        if (!self::isHealthy() || NULL === $applicantId || NULL === $stateId) {
-            return FALSE;
+        if (!self::isHealthy() || null === $applicantId || null === $stateId) {
+            return false;
         }
 
         $mappingResult = $this->mapToDatabaseDateField($stateId);
@@ -47,7 +48,6 @@ class ApplicantStateChanger extends BaseDatabaseWriter
             $result = is_numeric($dbResult);
         }
 
-
         return $result;
     }
 
@@ -55,41 +55,40 @@ class ApplicantStateChanger extends BaseDatabaseWriter
     {
         $state = $this->statusReader->getById($stateId);
 
-        if (empty($state) || NULL == $state || sizeof($state) < 1) {
-            return array();
+        if (empty($state) || null == $state || count($state) < 1) {
+            return [];
         }
 
         switch ($state[0]['name']) {
             case 'WAITING_FOR_PAYMENT':
-                return array('mail' => 'PaymentMailer', 'field' => 'paymentmailed');
+                return ['mail' => 'PaymentMailer', 'field' => 'paymentmailed'];
 
             // Issue #91: ConfirmationMailer sends mail as batch, thus no mail argument here
             case 'BOOKED':
-                return array('field' => 'booked');
+                return ['field' => 'booked'];
 
             case 'PAID':
-                return array('field' => 'paymentreceived');
+                return ['field' => 'paymentreceived'];
 
             case 'APPLIED':
-                return array('field' => 'created');
+                return ['field' => 'created'];
 
             case 'REGISTERED':
             case 'CONFIRMED':
-                return array('field' => 'booked');
+                return ['field' => 'booked'];
 
             case 'SPAM':
             case 'REJECTED':
             case 'CANCELLED':
             default:
-                return array('field' => 'cancelled');
+                return ['field' => 'cancelled'];
         }
     }
 
     public function updateInDatabase($applicantId, $stateId, $mappingResult)
     {
         if ($this->isHealthy() && isset($stateId) && isset($applicantId) && is_numeric($applicantId) && is_numeric($stateId)) {
-
-            $sql = "UPDATE applicants SET statusId=" . $this->databaseHelper->trimAndMask($stateId) . " " . $this->mapMappingToSQL($mappingResult) . " WHERE id=" . $this->databaseHelper->trimAndMask($applicantId);
+            $sql = 'UPDATE applicants SET statusId='.$this->databaseHelper->trimAndMask($stateId).' '.$this->mapMappingToSQL($mappingResult).' WHERE id='.$this->databaseHelper->trimAndMask($applicantId);
             $stmt = $this->database->prepare($sql);
 
             // execute the query
@@ -98,16 +97,14 @@ class ApplicantStateChanger extends BaseDatabaseWriter
 
             return $stmt->rowCount();
         }
-        return NULL;
     }
 
     public function mapMappingToSQL($mappingResult)
     {
         if ($this->formHelper->isSetAndNotEmptyInArray($mappingResult, 'field')) {
-            return " , " . $this->formHelper->filterUserInput($mappingResult['field']) . " = " . $this->databaseHelper->trimAndMask(date('Y-m-d H:i:s'));
+            return ' , '.$this->formHelper->filterUserInput($mappingResult['field']).' = '.$this->databaseHelper->trimAndMask(date('Y-m-d H:i:s'));
         }
 
         return '';
     }
-
 }
