@@ -27,6 +27,10 @@ In order to just play around with it I've integrated the project into various fr
 ### Codacy - code quality and static analysis
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c8fc0c6ef3d14192a2a8f84a670ccb92)](https://www.codacy.com/app/github_25/hornherzogen)
 
+## Style CI - code style
+
+[![StyleCI badge](https://styleci.io/repos/78297821)
+
 ### VersionEye - dependency update management
 [![Dependency versions](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
 
