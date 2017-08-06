@@ -29,7 +29,7 @@ In order to just play around with it I've integrated the project into various fr
 
 ## Style CI - code style
 
-[![StyleCI badge](https://styleci.io/repos/78297821)](https://styleci.io/repos/78297821)
+[![StyleCI badge](https://styleci.io/repos/78297821/shield)](https://styleci.io/repos/78297821)
 
 ### VersionEye - dependency update management
 [![Dependency versions](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36/badge.svg)](https://www.versioneye.com/user/projects/58978d3ea35eb6002e873a36?child=summary)
