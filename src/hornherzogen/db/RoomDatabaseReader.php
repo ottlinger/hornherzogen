@@ -47,6 +47,15 @@ class RoomDatabaseReader extends BaseDatabaseWriter
     public function listAvailableRooms($week)
     {
         $results = [];
+        if (self::isHealthy()) {
+            // TODO fix sql
+            $dbResult = $this->database->query('SELECT r.id, r.name, r.capacity from `rooms` r ORDER BY r.name');
+            $this->databaseHelper->logDatabaseErrors($dbResult, $this->database);
+
+            while ($row = $dbResult->fetch()) {
+                $results[] = $row;
+            }
+        }
 
         return $results[] = $week;
     }
