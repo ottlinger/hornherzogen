@@ -104,8 +104,8 @@ $databaseHelper = new DatabaseHelper();
                     $db = new PDO('mysql:host='.$config->dbhost().';dbname='.$config->dbname(), $config->dbuser(), $config->dbpassword());
                     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                // STATS
-                $q = $db->query('SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week');
+                    // STATS
+                    $q = $db->query('SELECT s.name, a.week, a.statusId, count(*) AS howmany from `status` s, `applicants` a WHERE a.statusId=s.id GROUP BY a.statusId, a.week ORDER BY a.week');
                     $databaseHelper->logDatabaseErrors($q, $db);
 
                     echo '<div class="table-responsive"><table class="table table-striped">';

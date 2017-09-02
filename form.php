@@ -156,16 +156,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['isMagic'])) {
                 // send mail only if there are no error messages and nothing already exists in the database
                 $sender = new SubmitMailer($applicantInput);
 
-                // #103: special case isMagic
-                if ((boolval($isMagic) || !$formHelper->isSubmissionClosed($config)) && !$sender->existsInDatabase()) {
-                    echo $sender->send();
-                    echo $sender->sendInternally(); ?>
+            // #103: special case isMagic
+            if ((boolval($isMagic) || !$formHelper->isSubmissionClosed($config)) && !$sender->existsInDatabase()) {
+                echo $sender->send();
+                echo $sender->sendInternally(); ?>
                     <p class="lead" style="color: darkgreen; font-weight: bold;"><span
                                 class="glyphicon glyphicon-envelope"></span> <?php echo $hornlocalizer->i18n('FORM.SUC.CHECK'); ?>
                     </p>
                     <?php
                     echo "<h3 style='color: rebeccapurple; font-weight: bold;'>".$hornlocalizer->i18nParams('FORM.SAVEDAS', $sender->saveInDatabase()).'</h3>';
-                }
+            }
         } // if showButtons
             ?>
 

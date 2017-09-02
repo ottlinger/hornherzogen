@@ -2,7 +2,7 @@
 
 require '../../vendor/autoload.php';
 
-use \hornherzogen\ConfigurationWrapper;
+use hornherzogen\ConfigurationWrapper;
 
 echo '<h1>Retrieving rows from all tables of the DB ....</h1>';
 
