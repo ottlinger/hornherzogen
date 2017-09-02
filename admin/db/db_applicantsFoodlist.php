@@ -186,12 +186,12 @@ $statusReader = new StatusDatabaseReader();
                     echo '<td>'.$applicant->getFirstname().'</td>';
                     echo '<td>'.$applicant->getLastname().'</td>';
                     echo '<td>'.$applicant->getFoodCategory().'</td>';
-        // parse food category and count
-        if ('veg' == $applicant->getFoodCategory()) {
-            $veg++;
-        } else {
-            $meat++;
-        }
+                    // parse food category and count
+                    if ('veg' == $applicant->getFoodCategory()) {
+                        $veg++;
+                    } else {
+                        $meat++;
+                    }
                     echo '<td>'.nl2br($applicant->getRemarks()).'</td>';
 
                     $statId = $statusReader->getById($applicant->getCurrentStatus());

@@ -167,8 +167,8 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
 
             <?php
             $capacityOfSelectedRoom = 0;
-            // we do not take any capacity into account since bookings cannot be persisted if a room is overbooked
-            $rooms = $roomReader->listRooms();
+                // we do not take any capacity into account since bookings cannot be persisted if a room is overbooked
+                $rooms = $roomReader->listRooms();
                 echo '<h3><span class="glyphicon glyphicon-dashboard"></span> verfügbare Räume in der Woche: '.count($rooms).'</h3>'; ?>
 
             <div class="form-group">
@@ -272,12 +272,12 @@ if ($formHelper->isSetAndNotEmptyInArray($_POST, 'makeItSo')) {
         $_POST['applicantId'] = null;
     }
 
-    // REMOVE BOOKING
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
-        $aid = $formHelper->filterUserInput($_POST['aid']);
-        echo $roomWriter->deleteForApplicantId($aid)." Zeilen für Applicant mit id <a href='db_applicant.php?id=".$id."' target='_blank'>#".$id.'</a> gelöscht.';
-        $_POST['aid'] = null;
-    }
+                // REMOVE BOOKING
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['aid']) && ($adminHelper->isAdmin() || $adminHelper->getHost() == 'localhost')) {
+                    $aid = $formHelper->filterUserInput($_POST['aid']);
+                    echo $roomWriter->deleteForApplicantId($aid)." Zeilen für Applicant mit id <a href='db_applicant.php?id=".$id."' target='_blank'>#".$id.'</a> gelöscht.';
+                    $_POST['aid'] = null;
+                }
 
                 echo "<hr/><h3><span class=\"glyphicon glyphicon-wrench\"></span> Für den Raum#$id sind bisher gebucht:</h3>";
                 $roomBookings = $roomReader->listBookingsByRoomNumberAndWeek($id, $week);
