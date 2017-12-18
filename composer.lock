@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "326ac20e3aba5c0e502edaae84dc7a26",
+    "content-hash": "465a2bb7f93ae6c007a7a129b9ffb24e",
     "packages": [],
     "packages-dev": [
         {
             "name": "codacy/coverage",
-            "version": "1.2.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codacy/php-codacy-coverage.git",
-                "reference": "d46740b6b884bea92157f5434f59c4e751d6db5f"
+                "reference": "83b7905773e703036294d15e40fbc293deddf58d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codacy/php-codacy-coverage/zipball/d46740b6b884bea92157f5434f59c4e751d6db5f",
-                "reference": "d46740b6b884bea92157f5434f59c4e751d6db5f",
+                "url": "https://api.github.com/repos/codacy/php-codacy-coverage/zipball/83b7905773e703036294d15e40fbc293deddf58d",
+                "reference": "83b7905773e703036294d15e40fbc293deddf58d",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
             ],
             "description": "Sends PHP test coverage information to Codacy.",
             "homepage": "https://github.com/codacy/php-codacy-coverage",
-            "time": "2017-08-09T14:23:33+00:00"
+            "time": "2017-09-28T13:10:45+00:00"
         },
         {
             "name": "doctrine/instantiator",
