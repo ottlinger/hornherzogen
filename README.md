@@ -35,6 +35,8 @@ In order to just play around with it I've integrated the project into various fr
 
 [![Known Vulnerabilities](https://snyk.io/test/github/ottlinger/hornherzogen/badge.svg)](https://snyk.io/test/github/ottlinger/hornherzogen)
 
+Snyk only works in CLI mode, see [announcement](https://snyk.io/blog/announcing-net-go-php).
+
 # Releases
 
 An overview of existing releases can be found [here](RELEASES.md).
