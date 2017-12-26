@@ -31,6 +31,10 @@ In order to just play around with it I've integrated the project into various fr
 
 [![StyleCI badge](https://styleci.io/repos/78297821/shield)](https://styleci.io/repos/78297821)
 
+## Snyk - dependency management
+
+[![Known Vulnerabilities](https://snyk.io/test/github/ottlinger/hornherzogen/badge.svg)](https://snyk.io/test/github/ottlinger/hornherzogen)
+
 # Releases
 
 An overview of existing releases can be found [here](RELEASES.md).
