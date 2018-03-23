@@ -11,7 +11,7 @@
     "phpdocumentor/type-resolver": "0.4.*",
     "phpunit/phpunit": "6.*",
     "phpunit/dbunit": "3.*",
-    "codacy/coverage": "1.4.1"
+    "codacy/coverage": "1.4.2"
   },
   "autoload": {
     "psr-0": {
