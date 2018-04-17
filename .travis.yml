@@ -1,6 +1,6 @@
 language: php
 php:
-  - '7.1.7'
+  - '7.1.15'
   - '7.2'
 # https://github.com/sebastianbergmann/phpunit/issues/2581
 #  - hhvm
