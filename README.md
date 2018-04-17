@@ -1,6 +1,7 @@
 # Project hornherzogen
 Pet project to manage seminar registration for Herzogenhorn ...
 started in January 2017. Proved to be useful in 2017 :-)
+Ready to be used for any consecutive year.
 
 ## Project Status
 
@@ -45,7 +46,7 @@ An overview of existing releases can be found [here](RELEASES.md).
 
 ### Prerequisites
 
-* PHP >=7.0
+* PHP >=7.1
   * with XML module installed
   * with MBString extension installed
   * with MySQL extension installed
@@ -75,6 +76,8 @@ Local installations work fine with PHP7, while some hosters have trouble because
 
 #### Ubuntu
 
+TODO: Needs update for PHP7.1
+
 You need to install php and add some libraries to your local Webserver:
 ```
 $ sudo apt install php7.0-xml php7.0-mbstring php7.0-mysql php7.0-intl
@@ -89,7 +92,8 @@ PHPUnit will be installed via composer, see section about development for furthe
 
 The equivalent installation via homebrew is
 ```
-$ brew install php70 php70-intl php70-xdebug sqlite3
+$ brew install php@7.1 sqlite3
+(deprecated: $ brew install php70 php70-intl php70-xdebug sqlite3)
 ```
 to make the tests run locally.
 The PHP extension for sqlite seems to be enabled by default.
