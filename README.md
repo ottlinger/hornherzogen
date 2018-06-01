@@ -5,10 +5,7 @@ Ready to be used for any consecutive year.
 
 ## Project Status
 
-[![Stories in Backlog](https://badge.waffle.io/ottlinger/hornherzogen.png?label=backlog&title=Backlog)](https://waffle.io/ottlinger/hornherzogen)
-[![Stories in Ready](https://badge.waffle.io/ottlinger/hornherzogen.png?label=ready&title=Ready)](https://waffle.io/ottlinger/hornherzogen)
-[![Stories in Progress](https://badge.waffle.io/ottlinger/hornherzogen.png?label=in%20progress&title=In%20Progress)](https://waffle.io/ottlinger/hornherzogen)
-
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/ottlinger/hornherzogen.svg?columns=all)](https://waffle.io/ottlinger/hornherzogen)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Percentage of issues still open")
 
