@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php require 'vendor/autoload.php';
+<?php require_once 'vendor/autoload.php';
 use hornherzogen\ApplicantInput;
 use hornherzogen\ConfigurationWrapper;
 use hornherzogen\FormHelper;
