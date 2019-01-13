@@ -2,6 +2,7 @@
 Pet project to manage seminar registration for Herzogenhorn ...
 started in January 2017. Proved to be useful in 2017 :-)
 Ready to be used for any consecutive year.
+At the moment there seem to be some problem with recent PHP versions.
 
 ## Project Status
 
