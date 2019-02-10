@@ -8,8 +8,8 @@ At the moment there seem to be some problem with recent PHP versions.
 ## Project Status
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/ottlinger/hornherzogen.svg?columns=all)](https://waffle.io/ottlinger/hornherzogen)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/ottlinger/hornherzogen.svg)](http://isitmaintained.com/project/ottlinger/hornherzogen "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/ottlinger/hornherzogen.svg)](https://isitmaintained.com/project/ottlinger/hornherzogen "Average time to resolve an issue")
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/ottlinger/hornherzogen.svg)](https://isitmaintained.com/project/ottlinger/hornherzogen "Percentage of issues still open")
 
 [![Join the chat at https://gitter.im/hornherzogen](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hornherzogen)
 
@@ -143,7 +143,7 @@ If you need to remove all tables, use [herzogenhorn_remove.sql](sql/herzogenhorn
 #### Composer / Dependency Management
 In case you want to develop the dependency manager can be installed
 ```
-$ curl -s http://getcomposer.org/installer | php
+$ curl -s https://getcomposer.org/installer | php
 $ php composer.phar install
 ```
 
@@ -209,16 +209,16 @@ See example configurations in
 This a collection of related links that helped working on and with this application:
 
 * [Markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-* [Bootstrap UI framework](http://getbootstrap.com/getting-started/#download) with Starter Template used here
+* [Bootstrap UI framework](https://getbootstrap.com/getting-started/#download) with Starter Template used here
   * [download v3.3.7](https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip)
   * [download with examples v3.3.7](https://github.com/twbs/bootstrap/archive/v3.3.7.zip)
-  * [additional snippets for Bootstrap projects](http://bootsnipp.com/)
-  * [additional form helpers](http://bootstrapformhelpers.com/) such as language list or datepicker
-  * [icon overview](http://glyphicons.bootstrapcheatsheets.com/)
+  * [additional snippets for Bootstrap projects](https://bootsnipp.com/)
+  * [additional form helpers](https://bootstrapformhelpers.com/) such as language list or datepicker
+  * [icon overview](https://glyphicons.bootstrapcheatsheets.com/)
 * PHP  
   * [PHPUnit](https://phpunit.de/manual/current/en/writing-tests-for-phpunit.html)
   * [PHPUnit - database tests](https://phpunit.de/manual/current/en/database.html)
-  * [PHP manual](http://php.net/manual/en/)
+  * [PHP manual](https://php.net/manual/en/)
   * [Learning PHP-example code](https://github.com/oreillymedia/Learning_PHP)
 * books
   * [Learning PHP: A Gentle Introduction to the Web's Most Popular Language, David Sklar](https://www.amazon.de/Learning-PHP-Introduction-Popular-Language/dp/1491933577?tag=tendoryuberlin)
