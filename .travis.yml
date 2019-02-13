@@ -8,7 +8,7 @@ php:
 #  - hhvm
 # 201902213
 # PHP8.0.0-dev does not work with current dependencies
-#  - nightly
+  - nightly
 
 before_script:
   - travis_retry curl -s http://getcomposer.org/installer | php
