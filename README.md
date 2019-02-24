@@ -77,9 +77,9 @@ Local installations work fine with PHP7, while some hosters have trouble because
 
 You need to install php and add some libraries to your local Webserver:
 ```
-$ sudo apt install php7.1-xml php7.1-mbstring php7.1-mysql php7.1-intl
+$ sudo apt-get install php7.1-xml php7.1-mbstring php7.1-mysql php7.1-intl
 or in case you want to run tests or develop on the project
-$ sudo apt install php7.1-xml php7.1-mbstring php7.1-mysql php7.1-intl php7.1-sqlite3 php-xdebug sqlite3
+$ sudo apt-get install php7.1-xml php7.1-mbstring php7.1-mysql php7.1-intl php7.1-sqlite3 php-xdebug sqlite3
 $ sudo /etc/init.d/apache2 restart
 ```
 
