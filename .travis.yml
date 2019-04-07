@@ -4,7 +4,6 @@ php:
   - '7.1.26'
   - '7.2.16'
   - '7.3.2'
-  - '7.3.4'
 # https://github.com/sebastianbergmann/phpunit/issues/2581
 #  - hhvm
 # 201902213
