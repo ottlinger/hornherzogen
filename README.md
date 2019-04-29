@@ -7,7 +7,8 @@ At the moment there seem to be some problem with recent PHP versions.
 
 ## Project Status
 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/ottlinger/hornherzogen.svg?columns=all)](https://waffle.io/ottlinger/hornherzogen)
+https://github.com/users/ottlinger/projects/5
+
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/ottlinger/hornherzogen.svg)](https://isitmaintained.com/project/ottlinger/hornherzogen "Average time to resolve an issue")
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/ottlinger/hornherzogen.svg)](https://isitmaintained.com/project/ottlinger/hornherzogen "Percentage of issues still open")
 
