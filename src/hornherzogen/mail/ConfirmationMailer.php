@@ -75,9 +75,11 @@ class ConfirmationMailer
         }
 
         $counter = 0;
-        $bookedDBId = $this->statusReader->getByName('BOOKED')[0]['id'];
+        $bookingResult = $this->statusReader->getByName('BOOKED');
 
-        if ($this->applicants != null) {
+        if ($this->applicants != null && $bookingResult != null) {
+            $bookedDBId = $bookingResult[0]['id'];
+
             foreach ($this->applicants as $applicant) {
                 echo '<h2>Sending out to '.++$counter.".applicant with <a href='db_applicant.php?id=".$applicant->getPersistenceId()."' target='_blank'>#".$applicant->getPersistenceId().'</a> / '.$applicant->getFullName().'</h2>';
 

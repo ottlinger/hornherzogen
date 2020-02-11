@@ -45,7 +45,8 @@ class ConfirmationMailerTest extends TestCase
     public function testConfirmDummyApplicantSending()
     {
         $this->mailer = new ConfirmationMailer(null);
-        $this->assertEquals(1, $this->mailer->sendAsBatch());
+        // expect zero results as no mails are actually send out
+        $this->assertEquals(0, $this->mailer->sendAsBatch());
     }
 
     public function testMailSendingWithoutAnyApplicants()
