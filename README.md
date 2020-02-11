@@ -46,7 +46,7 @@ An overview of existing releases can be found [here](RELEASES.md).
 
 ### Prerequisites
 
-* PHP >=7.1
+* PHP >=7.3
   * with XML module installed
   * with MBString extension installed
   * with MySQL extension installed
@@ -78,9 +78,9 @@ Local installations work fine with PHP7, while some hosters have trouble because
 
 You need to install php and add some libraries to your local Webserver:
 ```
-$ sudo apt-get install php7.1-xml php7.1-mbstring php7.1-mysql php7.1-intl
+$ sudo apt-get install php7.4-xml php7.4-mbstring php7.4-mysql php7.4-intl
 or in case you want to run tests or develop on the project
-$ sudo apt-get install php7.1-xml php7.1-mbstring php7.1-mysql php7.1-intl php7.1-sqlite3 php-xdebug sqlite3
+$ sudo apt-get install php7.4-xml php7.4-mbstring php7.4-mysql php7.4-intl php7.4-sqlite3 php-xdebug sqlite3
 $ sudo /etc/init.d/apache2 restart
 ```
 
@@ -90,7 +90,7 @@ PHPUnit will be installed via composer, see section about development for furthe
 
 The equivalent installation via homebrew is
 ```
-$ brew install php@7.1 sqlite3
+$ brew install php@7.4 sqlite3
 (deprecated: $ brew install php70 php70-intl php70-xdebug sqlite3)
 ```
 to make the tests run locally.
@@ -227,4 +227,4 @@ This a collection of related links that helped working on and with this applicat
 
 ## License
 
-* Copyright © 2017-2018 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
+* Copyright © 2017-2020 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
