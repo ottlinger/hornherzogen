@@ -142,7 +142,7 @@ If you need to remove all tables, use [herzogenhorn_remove.sql](sql/herzogenhorn
 
 
 #### Composer / Dependency Management
-In case you want to develop the dependency manager can be installed
+In case you want to develop the dependency manager can be installed via:
 ```
 $ curl -s https://getcomposer.org/installer | php
 $ php composer.phar install
