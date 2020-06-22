@@ -63,6 +63,7 @@ class ConfirmationMailer
         $testApplicant->setBookedAt(null); // to avoid not being caught in SQL - reset in DB: update applicants set booked = null where statusId =6;
         $testApplicant->setCurrentStatus(6); // PAID
         $testApplicant->setEmail('shouldnotwork'); // do not really send an email
+
         return [$testApplicant];
     }
 
