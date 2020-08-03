@@ -30,7 +30,7 @@ In order to just play around with it I've integrated the project into various fr
 
 ## Style CI - code style
 
-[![StyleCI badge](https://styleci.io/repos/78297821/shield)](https://styleci.io/repos/78297821)
+[![StyleCI](https://github.styleci.io/repos/78297821/shield?branch=master)](https://github.styleci.io/repos/78297821?branch=master)
 
 ## Snyk - dependency management
 
