@@ -26,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $id = $formHelper->filterUserInput($_GET['id']);
 }
 
-// die if we are called with crapy parameters
+// exit if we are called with crapy parameters
 if (!isset($id)) {
     echo 'Page called with invalid params - try again from the admin area!';
-    die();
+    exit();
 }
 
 $week = null;
