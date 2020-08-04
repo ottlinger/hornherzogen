@@ -34,9 +34,7 @@ In order to just play around with it I've integrated the project into various fr
 
 ## Snyk - dependency management
 
-[![Known Vulnerabilities](https://snyk.io/test/github/ottlinger/hornherzogen/badge.svg)](https://snyk.io/test/github/ottlinger/hornherzogen)
-
-Snyk only works in CLI mode, see [announcement](https://snyk.io/blog/announcing-net-go-php).
+[![Known Vulnerabilities](https://snyk.io/test/github/ottlinger/hornherzogen/badge.svg?targetFile=composer.lock)](https://snyk.io/test/github/ottlinger/hornherzogen?targetFile=composer.lock)
 
 # Releases
 
