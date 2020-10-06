@@ -4,7 +4,7 @@ php:
 # not working anymore  - '7.0.32'
 # not working anymore  - '7.1.30'
   - '7.2.28'
-  - '7.3.19'
+  - '7.3.22'
   - '7.4.10'
 # https://github.com/sebastianbergmann/phpunit/issues/2581
 #  - hhvm
