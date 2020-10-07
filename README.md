@@ -1,6 +1,6 @@
 # Project hornherzogen
 
-[![Logo](/logo/hornherzogenLogoTransparent.png)]
+![Logo](/logo/hornherzogenLogoTransparent.png)
 
 Pet project to manage seminar registration for Herzogenhorn ...
 started in January 2017. Proved to be useful in 2017 :-)
