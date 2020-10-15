@@ -226,6 +226,11 @@ This a collection of related links that helped working on and with this applicat
   * [Learning PHP: A Gentle Introduction to the Web's Most Popular Language, David Sklar](https://www.amazon.de/Learning-PHP-Introduction-Popular-Language/dp/1491933577?tag=tendoryuberlin)
   * [Git Pocket Guide](https://www.amazon.de/Git-Pocket-Guide-Richard-Silverman/dp/1449325866?tag=tendoryuberlin)
 
+## Docker
+
+* https://aws.amazon.com/getting-started/hands-on/deploy-docker-containers/
+ 
+
 ## License
 
 * Copyright © 2017-2020 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
