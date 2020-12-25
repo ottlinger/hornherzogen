@@ -229,7 +229,22 @@ This a collection of related links that helped working on and with this applicat
 ## Docker
 
 * https://aws.amazon.com/getting-started/hands-on/deploy-docker-containers/
- 
+
+### Docker Build
+
+```
+$ docker build -t hornherzogen .
+.....
+Successfully tagged hornherzogen:latest
+```
+
+### Docker compose
+
+After building the local last version you may run:
+```
+$ docker-compose up
+```
+and the see the app under http://localhost:8080
 
 ## License
 
