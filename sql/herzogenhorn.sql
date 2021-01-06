@@ -13,7 +13,7 @@
 --
 -- Tabellenstruktur für Tabelle `status`
 --
-CREATE TABLE IF NOT EXISTS `status` (
+CREATE TABLE IF NOT EXISTS status (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -41,7 +41,7 @@ INSERT INTO status (name) VALUES ('REJECTED');
 --
 -- Tabellenstruktur für Tabelle `applicants`
 --
-CREATE TABLE IF NOT EXISTS `applicants` (
+CREATE TABLE IF NOT EXISTS applicants (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `week` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `gender` varchar(10) COLLATE utf8_bin DEFAULT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 -- Holds information about the rooms available
 -- Capacity should be 1, 2,3 depending on how many beds there are
 -- e.g. Room 4711, 2 people
-CREATE TABLE IF NOT EXISTS `rooms` (
+CREATE TABLE IF NOT EXISTS rooms (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `capacity` integer COLLATE utf8_bin DEFAULT 3,
@@ -136,7 +136,7 @@ INSERT INTO rooms (name, capacity) VALUES ('external arrangement',25);
 
 -- TABLE booking
 -- https://github.com/ottlinger/hornherzogen/issues/1
-CREATE TABLE IF NOT EXISTS `roombooking` (
+CREATE TABLE IF NOT EXISTS roombooking (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `roomId` int(10) unsigned NOT NULL,
   `applicantId` int(10) unsigned NOT NULL,
