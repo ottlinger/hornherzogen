@@ -248,4 +248,4 @@ and the see the app under http://localhost:8080
 
 ## License
 
-* Copyright © 2017-2020 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
+Copyright © 2017-2021 P. Ottlinger, licensed as [GPLv3](LICENSE) ![GPLv3](https://www.gnu.org/graphics/gplv3-88x31.png)
