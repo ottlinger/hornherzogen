@@ -29,7 +29,7 @@ In order to just play around with it I've integrated the project into various fr
 [![codecov](https://codecov.io/gh/ottlinger/hornherzogen/branch/master/graph/badge.svg)](https://codecov.io/gh/ottlinger/hornherzogen)
 
 ### Codacy - code quality and static analysis
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c8fc0c6ef3d14192a2a8f84a670ccb92)](https://www.codacy.com/app/github_25/hornherzogen)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8cc56faa91ce435d8b6ed0b52bd7b23b)](https://www.codacy.com/gh/ottlinger/hornherzogen/dashboard)
 
 ## Style CI - code style
 
