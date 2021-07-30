@@ -8,6 +8,10 @@ Ready to be used for any consecutive year.
 
 At the moment there seem to be some problem with recent PHP versions.
 
+## Update 2021-07
+
+This project is archived as its PHP nature doesn't help making it runnable in varous cloud environments. If there's time a Java rewrite may happen ;)
+
 ## Project Status
 
 https://github.com/users/ottlinger/projects/5
