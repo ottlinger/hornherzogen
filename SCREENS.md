@@ -14,9 +14,9 @@ The application consists of a user-part (application) and provides an administra
 ## Application form - aikido data
 ![Application - aikido data](./screenshots/Screenshot%20from%202021-08-10%2020-43-46.png "Application flow - aikido data")
 
-## Homepage
-![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
-'Screenshot%20from%202021-08-10%2020-43-50.png'
+## Application form - accomodation data
+![Application - accomodation data](./screenshots/Screenshot%20from%202021-08-10%2020-43-50.png "Application flow - accomodation data")
+
 ## Homepage
 ![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
 'Screenshot%20from%202021-08-10%2020-43-53.png'
