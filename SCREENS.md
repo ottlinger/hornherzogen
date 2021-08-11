@@ -31,6 +31,5 @@ The application consists of a user-part (application) and provides an administra
 ### Admin pages - menu tree
 ![Admin menu](./screenshots/Screenshot%20from%202021-08-10%2020-44-12.png "Main admin menu structure")
 
-## Homepage
-![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
-'Screenshot%20from%202021-08-10%2020-44-15.png'
+### Admin pages - superadmin menu tree
+![Superadmin menu](./screenshots/Screenshot%20from%202021-08-10%2020-44-15.png "Superadmin menu - dangerous ;)")
