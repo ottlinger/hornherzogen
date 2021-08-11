@@ -21,9 +21,9 @@ The application consists of a user-part (application) and provides an administra
 ### Application form - room selection with mates
 ![Application - room data](./screenshots/Screenshot%20from%202021-08-10%2020-43-53.png "Application flow - room data")
 
-## Homepage
-![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
-'Screenshot%20from%202021-08-10%2020-44-02.png'
+### Application form - catering data
+![Application - catering data](./screenshots/Screenshot%20from%202021-08-10%2020-44-02.png "Application flow - catering data")
+
 ## Homepage
 ![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
 'Screenshot%20from%202021-08-10%2020-44-09.png'
