@@ -21,8 +21,8 @@ The application consists of a user-part (application) and provides an administra
 ### Application form - room selection with mates
 ![Application - room data](./screenshots/Screenshot%20from%202021-08-10%2020-43-53.png "Application flow - room data")
 
-### Application form - catering data
-![Application - catering data](./screenshots/Screenshot%20from%202021-08-10%2020-44-02.png "Application flow - catering data")
+## FAQ - area
+![FAQ - explain what's going on](./screenshots/Screenshot%20from%202021-08-10%2020-44-02.png "Explanation for users")
 
 ## Admin area
 ### Admin pages - overview of incoming applications
