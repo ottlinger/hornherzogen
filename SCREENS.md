@@ -15,8 +15,8 @@ The application consists of a user-part (application) and provides an administra
 ### Application form - aikido data
 ![Application - aikido data](./screenshots/Screenshot%20from%202021-08-10%2020-43-46.png "Application flow - aikido data")
 
-### Application form - accomodation data
-![Application - accomodation data](./screenshots/Screenshot%20from%202021-08-10%2020-43-50.png "Application flow - accomodation data")
+### Application form - accommodation data
+![Application - accommodation data](./screenshots/Screenshot%20from%202021-08-10%2020-43-50.png "Application flow - acconmodation data")
 
 ### Application form - room selection with mates
 ![Application - room data](./screenshots/Screenshot%20from%202021-08-10%2020-43-53.png "Application flow - room data")
