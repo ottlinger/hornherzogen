@@ -5,13 +5,14 @@ The application consists of a user-part (application) and provides an administra
 ## Homepage
 ![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
 
-## Application form with 'not this time' hint
+## Application form
+### Application form with 'not this time' hint
 ![Seminar application page](./screenshots/Screenshot%20from%202021-08-10%2020-43-37.png "Application welcome page")
 
-## Application form - personal data
+### Application form - personal data
 ![Application - personal data](./screenshots/Screenshot%20from%202021-08-10%2020-43-41.png "Application flow - personal data")
 
-## Application form - aikido data
+### Application form - aikido data
 ![Application - aikido data](./screenshots/Screenshot%20from%202021-08-10%2020-43-46.png "Application flow - aikido data")
 
 ## Application form - accomodation data
