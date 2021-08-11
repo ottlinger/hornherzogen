@@ -7,9 +7,9 @@
 ## Application form with 'not this time' hint
 ![Seminar application page](./screenshots/Screenshot%20from%202021-08-10%2020-43-37.png "Application welcome page")
 ''
-## Homepage
-![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
-'Screenshot%20from%202021-08-10%2020-43-41.png'
+## Application form - personal data
+![Application - personal data](./screenshots/Screenshot%20from%202021-08-10%2020-43-41.png "Application flow - personal data")
+''
 ## Homepage
 ![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
 'Screenshot%20from%202021-08-10%2020-43-46.png'
