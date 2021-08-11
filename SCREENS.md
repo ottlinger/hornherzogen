@@ -5,7 +5,7 @@
 ![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
 
 ## Application form with 'not this time' hint
-![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-37.png "Application welcome page")
+![Seminar application page](./screenshots/Screenshot%20from%202021-08-10%2020-43-37.png "Application welcome page")
 ''
 ## Homepage
 ![Welcome screen](./screenshots/Screenshot%20from%202021-08-10%2020-43-28.png "Application welcome page")
